@@ -1,0 +1,9 @@
+[core]
+	editor = 'nvim'
+
+[user]
+	name = Bruno Pimentel
+	email = bruno@pimentel.dev
+
+[includeIf "gitdir:~/Projects/Work/"]
+	path = ~/Projects/Work/.gitconfig
