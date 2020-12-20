@@ -12,3 +12,5 @@ alias gst="git status -sb"
 # dotfile git aliases
 alias config='/usr/bin/git --git-dir=$HOME/.config/ --work-tree=$HOME'
 alias cst="config status -sb"
+alias cf="config fetch"
+alias ca="config add"
