@@ -16,3 +16,8 @@ alias cst="config status -sb"
 alias cf="config fetch"
 alias ca="config add"
 alias cc="config commit"
+
+# ssh
+eval `ssh-agent -s`
+ssh-add ~/.ssh/id_rsa_personal
+ssh-add ~/.ssh/id_rsa_work
