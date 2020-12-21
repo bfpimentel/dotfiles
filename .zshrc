@@ -1,4 +1,7 @@
 export ZSH="/home/bruno/.oh-my-zsh"
+export TERM="xterm-256color"
+export EDITOR="nvim"
+export VISUAL=$EDITOR
 
 ZSH_THEME="robbyrussell"
 
@@ -17,7 +20,14 @@ alias cf="config fetch"
 alias ca="config add"
 alias cc="config commit"
 
+# vim
+alias vim="nvim"
+
 # ssh
 eval `ssh-agent -s`
 ssh-add ~/.ssh/id_rsa_personal
 ssh-add ~/.ssh/id_rsa_work
+
+# python
+alias py="python3"
+alias pip="python3 -m pip"
