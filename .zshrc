@@ -23,11 +23,6 @@ alias cc="config commit"
 # vim
 alias vim="nvim"
 
-# ssh
-eval `ssh-agent -s`
-ssh-add ~/.ssh/id_rsa_personal
-ssh-add ~/.ssh/id_rsa_work
-
 # python
 alias py="python3"
 alias pip="python3 -m pip"
