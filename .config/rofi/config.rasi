@@ -1,6 +1,6 @@
 configuration {
 	modi: "window,run,ssh,drun";
 	font: "mono 12";
-	theme: "solarized";
+	theme: "slate";
 	combi-modi: "window,drun,ssh";
 }

@@ -1,0 +1,47 @@
+@import "colors/dracula.rasi"
+
+* {
+  background-color: @dark;
+  border-color: @focus;
+  text-color: @light;
+  spacing: 0;
+  width: 512px;
+}
+
+inputbar {
+  border: 0 0 1px 0;
+  children: [prompt,entry];
+}
+
+prompt {
+  padding: 8px;
+  border: 0 1px 0 0;
+  background-color: @focus;
+  text-color: @light;
+}
+
+textbox {
+  background-color: @dark;
+  border: 0 0 1px 0;
+  border-color: @focus;
+  padding: 8px 8px;
+}
+
+entry {
+  padding: 8px;
+}
+
+listview {
+  cycle: false;
+  margin: 0 0 -1px 0;
+  scrollbar: false;
+}
+
+element {
+  border: 0 0 1px 0;
+  padding: 8px;
+}
+
+element selected {
+  background-color: @grey;
+}
