@@ -6,7 +6,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = "st"
+terminal = "alacritty"
 
 layouts = [
     layout.Tile(ratio=0.5, margin=4, border_width=2),
