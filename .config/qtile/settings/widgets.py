@@ -1,12 +1,11 @@
 from libqtile import widget, bar
 from settings.theme import theme, font
+from widgets.pacman_updates import PacmanUpdates
 
 base = lambda foreground='text', background='dark': {
     'foreground': theme[foreground],
     'background': theme[background],
 }
-
-separator = lambda: widget.Sep(**base(), linewidth=0, padding=5)
 
 icon = lambda text, foreground='text', background='dark', fontsize=16: widget.TextBox(
     **base(foreground=foreground, background=background),
@@ -18,8 +17,7 @@ icon = lambda text, foreground='text', background='dark', fontsize=16: widget.Te
 workspaces = lambda: [
     widget.GroupBox(
         **base(foreground='light'),
-        # font='',
-        # fontsize=14,
+        #font=font['bold'],
         margin_y=3,
         margin_x=0,
         padding_y=8,
@@ -38,17 +36,14 @@ workspaces = lambda: [
         disable_drag=True
     ),
     widget.Spacer(length=bar.STRETCH),
-    #widget.WindowName(**base(foreground='focus'), fontsize=14, padding=5),
-    #separator(),
 ]
 
 primary_widgets = [
     *workspaces(),
-    #widget.Net(**base(), interface="enp6s0"),
     icon(background="color2", text=' '),
     widget.CurrentLayout(**base(background='color2'), padding=8),
     icon(background="color4", text=' '),
-    widget.CheckUpdates(
+    PacmanUpdates(
         background=theme['color4'],
         colour_no_updates=theme['dark'],
         colour_have_updates=theme['dark'],
@@ -67,7 +62,7 @@ secondary_widgets = [
 ]
 
 widget_defaults = {
-    'font': 'Hack Nerd Font Mono',
+    'font': font['regular'],
     'fontsize': 14,
     'padding': 1,
 }
