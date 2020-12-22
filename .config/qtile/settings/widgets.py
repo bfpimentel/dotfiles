@@ -1,6 +1,7 @@
 from libqtile import widget, bar
 from settings.theme import theme, font
 from widgets.pacman_updates import PacmanUpdates
+from widgets.caps_lock_indicator import CapsLockIndicator
 
 base = lambda foreground='text', background='dark': {
     'foreground': theme[foreground],
@@ -36,6 +37,8 @@ workspaces = lambda: [
         disable_drag=True
     ),
     widget.Spacer(length=bar.STRETCH),
+    CapsLockIndicator(),
+    widget.Spacer(length=4),
 ]
 
 primary_widgets = [
