@@ -11,7 +11,7 @@ connected_monitors = subprocess.run(
    "xrandr | grep 'connected' | cut -d ' ' -f 2",
     shell=True,
     stdout=subprocess.PIPE
-).stdout.decode("UTF-8").split("\n")[:1].count("connected")
+).stdout.decode("UTF-8").split("\n")[:-1].count("connected")
 
 if (connected_monitors > 1):
     for index in range(1, connected_monitors):
