@@ -34,6 +34,8 @@ fi
 
 sh .config/screenlayout/dual-monitors.sh
 
+setxkbmap -layout us -variant intl
+
 nitrogen --restore &
 picom &
 exec qtile 

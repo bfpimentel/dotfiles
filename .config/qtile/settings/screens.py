@@ -1,9 +1,10 @@
 from libqtile.config import Screen
 from libqtile import bar
 from settings.widgets import primary_widgets, secondary_widgets
+
 import subprocess
 
-status_bar = lambda widgets: bar.Bar(widgets=widgets, size=24, opacity=1)
+status_bar = lambda widgets: bar.Bar(widgets=widgets, size=24, opacity=1, margin=[8, 8, 0, 8])
 
 screens = [Screen(top=status_bar(primary_widgets))]
 

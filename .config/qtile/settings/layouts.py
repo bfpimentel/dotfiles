@@ -9,9 +9,9 @@ layout_conf = {
 }
 
 layouts = [
-    layout.Tile(**layout_conf, ratio=0.5),
-    layout.VerticalTile(**layout_conf),
-    layout.Max(**layout_conf),
+    layout.Tile(**layout_conf, ratio=0.5, name='tile'),
+    layout.VerticalTile(**layout_conf, name='verticaltile'),
+    #layout.Max(name='max'),
 ]
 
 floating_layout = layout.Floating(

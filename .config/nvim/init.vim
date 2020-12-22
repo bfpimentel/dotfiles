@@ -9,7 +9,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " Code Autocompletion
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " Code Autocompletion
     Plug 'itchyny/lightline.vim'                                    " Lightline statusbar
     Plug 'frazrepo/vim-rainbow'                                     " VimRainbow
     Plug 'vimwiki/vimwiki'                                          " VimWiki 
