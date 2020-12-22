@@ -10,7 +10,3 @@ sh $HOME/.config/screenlayout/dual-monitors.sh
 
 # kb layout setup
 setxkbmap -layout us -variant intl
-
-# wm setup
-nitrogen --restore &
-picom &
