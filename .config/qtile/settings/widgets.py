@@ -1,4 +1,5 @@
 from libqtile import widget, bar
+from libqtile.command import lazy
 from settings.theme import theme, font
 from widgets.pacman_updates import PacmanUpdates
 from widgets.caps_lock_indicator import CapsLockIndicator
@@ -43,6 +44,9 @@ workspaces = lambda: [
     widget.Spacer(length=4),
 ]
 
+def _open_power_menu(qtile):
+    qtile.cmd_spawn("rofi -show power-menu -modi power-menu:.config/rofi/extensions/power-menu")
+
 primary_widgets = [
     *workspaces(),
     widget.Systray(**base(background='dark'), padding=8, icon_size=16),
@@ -57,6 +61,13 @@ primary_widgets = [
     ),
     icon(background="color1", text=' '),
     widget.Clock(**base(background='color1'), format='%d/%m/%Y - %H:%M', padding=8),
+    widget.TextBox(
+        **base(background='light', foreground='dark'),
+        text="",
+        textsize=16,
+        padding=8,
+        mouse_callbacks={"Button1": _open_power_menu},
+    ),
 ]
 
 secondary_widgets = [
