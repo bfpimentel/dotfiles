@@ -1,5 +1,4 @@
 from libqtile import widget, bar
-from libqtile.command import lazy
 from settings.theme import theme, font
 from widgets.pacman_updates import PacmanUpdates
 from widgets.caps_lock_indicator import CapsLockIndicator

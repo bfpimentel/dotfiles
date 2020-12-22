@@ -1,5 +1,4 @@
 from libqtile import layout
-from libqtile.config import Match
 from settings.theme import theme
 
 layout_conf = {

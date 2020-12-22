@@ -1,10 +1,8 @@
 from os import path
-import subprocess
 import json
-from settings.path import qtile_path
+from settings.defaults import qtile_path, theme, font
 
 def get_theme():
-    theme = "dracula"
     theme_file = path.join(qtile_path, "themes", f'{theme}.json')
 
     if not path.isfile(theme_file):
@@ -14,7 +12,6 @@ def get_theme():
         return json.load(file)
 
 def get_font():
-    font = "hack"
     font_file = path.join(qtile_path, "fonts", f'{font}.json')
 
     if not path.isfile(font_file):
