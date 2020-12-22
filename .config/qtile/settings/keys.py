@@ -32,14 +32,16 @@ keys = [Key(tuple[0], tuple[1], *tuple[2:]) for tuple in [
     ([mod, "shift"], "Left", lazy.prev_screen()),
     ([mod, "shift"], "Right", lazy.next_screen()),
 
-    # Qtile
-    ([mod, "control"], "r", lazy.restart()),
-    ([mod, "control"], "q", lazy.shutdown()),
-
-    # Applications
-    ([mod], "space", lazy.spawn("rofi -show drun")),
+    # Alacritty  
     ([mod], "Return", lazy.spawn("alacritty")),
+
+    # Rofi
+    ([mod], "space", lazy.spawn("rofi -show drun")),
     ([mod, "shift"], "space", lazy.spawn("rofi -show")),
+
+    # Flameshot
+    ([mod], "p", lazy.spawn("flameshot gui")),
+    ([mod, "shift"], "p", lazy.spawn("flameshot screen -r -c")),
 ]]
 
 for index, group in enumerate(groups):

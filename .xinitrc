@@ -46,4 +46,5 @@ setxkbmap -layout us -variant intl
 # wm setup
 nitrogen --restore &
 picom &
+flameshot &
 exec qtile 

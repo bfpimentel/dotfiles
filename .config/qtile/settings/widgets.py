@@ -16,6 +16,8 @@ icon = lambda text, foreground='text', background='dark', fontsize=16: widget.Te
 )
 
 workspaces = lambda: [
+    icon(background='light', foreground='dark', text=' '),
+    widget.CurrentLayout(**base(background='light', foreground='dark'), padding=8),
     widget.GroupBox(
         **base(foreground='light'),
         #font=font['bold'],
@@ -43,8 +45,8 @@ workspaces = lambda: [
 
 primary_widgets = [
     *workspaces(),
-    icon(background="color2", text=' '),
-    widget.CurrentLayout(**base(background='color2'), padding=8),
+    widget.Systray(**base(background='dark'), padding=8, icon_size=16),
+    widget.Spacer(**base(background='dark'), length=8),
     icon(background="color4", text=' '),
     PacmanUpdates(
         background=theme['color4'],
@@ -55,13 +57,10 @@ primary_widgets = [
     ),
     icon(background="color1", text=' '),
     widget.Clock(**base(background='color1'), format='%d/%m/%Y - %H:%M', padding=8),
-    widget.Systray(background=theme['dark'], padding=8),
 ]
 
 secondary_widgets = [
     *workspaces(),
-    icon(background="color2", text=' '),
-    widget.CurrentLayout(**base(background='color2'), padding=8),
 ]
 
 widget_defaults = {
