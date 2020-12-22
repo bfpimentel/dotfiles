@@ -32,10 +32,4 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-sh .config/screenlayout/dual-monitors.sh
-
-setxkbmap -layout us -variant intl
-
-nitrogen --restore &
-picom &
 exec qtile 
