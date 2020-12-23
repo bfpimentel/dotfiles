@@ -9,18 +9,20 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+    Plug 'preservim/nerdtree'                                       " NerdTree
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " Code Autocompletion
     Plug 'itchyny/lightline.vim'                                    " Lightline statusbar
-    Plug 'frazrepo/vim-rainbow'                                     " VimRainbow
-    Plug 'vimwiki/vimwiki'                                          " VimWiki 
-    Plug 'jreybert/vimagit'                                         " Magit-like plugin for vim
     Plug 'tpope/vim-surround'                                       " Change surrounding marks
     Plug 'vim-python/python-syntax'                                 " Python highlighting
     Plug 'ap/vim-css-color'                                         " Color previews for CSS
 
 call plug#end()
 
+autocmd VimEnter * NERDTree | wincmd p
+
 filetype plugin indent on
+
+syntax enable
 
 set path+=**					  " Searches current directory recursively.
 set wildmenu					  " Display all matches when tab complete.
@@ -31,19 +33,16 @@ set noswapfile                    " No swap
 set t_Co=256                      " Set if term supports 256 colors.
 set number relativenumber         " Display line numbers
 set clipboard=unnamedplus         " Copy/paste between vim and other programs.
-syntax enable
-let g:rehash256 = 1
-
-let g:lightline = { 'colorscheme': 'darcula' }
-
 set laststatus=2
-
 set noshowmode
-
 set expandtab                   " Use spaces instead of tabs.
 set smarttab                    " Be smart using tabs ;)
 set shiftwidth=4                " One tab == four spaces.
 set tabstop=4                   " One tab == four spaces.
+
+let g:rehash256 = 1
+let g:lightline = { 'colorscheme': 'darcula' }
+let g:python_highlight_all = 1
 
 highlight LineNr           ctermfg=8    ctermbg=none    cterm=none
 highlight CursorLineNr     ctermfg=7    ctermbg=8       cterm=none
@@ -62,8 +61,6 @@ highlight PreProc          ctermfg=5    ctermbg=none    cterm=none
 highlight String           ctermfg=12   ctermbg=none    cterm=none
 highlight Number           ctermfg=1    ctermbg=none    cterm=none
 highlight Function         ctermfg=1    ctermbg=none    cterm=none
-
-let g:python_highlight_all = 1
 
 au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
 au BufEnter *.org            call org#SetOrgFileType()
