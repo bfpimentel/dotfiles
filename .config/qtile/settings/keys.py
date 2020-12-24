@@ -44,10 +44,6 @@ keys = [
     Key([mod, "shift"], "p", lazy.spawn("flameshot screen -r -c")),
 ]
 
-#def _go_to_group(group):
-#    lazy.to_screen(int(group.name[0]))
-#    lazy.group[group.name].toscreen()
-
 for key, group in enumerate(groups, 1):
     keys.append(Key([mod], str(key), lazy.group[group.name].toscreen()))
     #keys.append(Key([mod], str(key), _go_to_group(group)))
