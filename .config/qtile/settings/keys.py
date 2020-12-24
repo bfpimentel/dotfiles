@@ -1,51 +1,55 @@
 from libqtile.config import Key
-from libqtile.command import lazy
+from libqtile.lazy import lazy
 from settings.groups import groups
 
 mod = "mod4"
 
-keys = [Key(tuple[0], tuple[1], *tuple[2:]) for tuple in [
+keys = [
     # Qtile
-    ([mod, "control"], "r", lazy.restart()),
-    ([mod, "control"], "q", lazy.shutdown()),
+    Key([mod, "control"], "r", lazy.restart()),
+    Key([mod, "control"], "q", lazy.shutdown()),
 
     # Switch between windows
-    ([mod], "Down", lazy.layout.down()),
-    ([mod], "Up", lazy.layout.up()),
-    ([mod], "Left", lazy.layout.left()),
-    ([mod], "Right", lazy.layout.right()),
+    Key([mod], "Down", lazy.layout.down()),
+    Key([mod], "Up", lazy.layout.up()),
+    Key([mod], "Left", lazy.layout.left()),
+    Key([mod], "Right", lazy.layout.right()),
 
     # Toggle floating
-    ([mod, "shift"], "f", lazy.window.toggle_floating()),
+    Key([mod, "shift"], "f", lazy.window.toggle_floating()),
 
     # Move windows
-    ([mod, "shift"], "Down", lazy.layout.shuffe_down()),
-    ([mod, "shift"], "Up", lazy.layout.shuffe_up()),
+    Key([mod, "shift"], "Down", lazy.layout.shuffe_down()),
+    Key([mod, "shift"], "Up", lazy.layout.shuffe_up()),
 
     # Toggle layouts
-    ([mod], "Tab", lazy.next_layout()),
+    Key([mod], "Tab", lazy.next_layout()),
 
     # Kill Window
-    ([mod], "w", lazy.window.kill()),
+    Key([mod], "w", lazy.window.kill()),
 
     # Switch Screens
-    ([mod, "shift"], "Left", lazy.prev_screen()),
-    ([mod, "shift"], "Right", lazy.next_screen()),
+    Key([mod, "shift"], "Left", lazy.prev_screen()),
+    Key([mod, "shift"], "Right", lazy.next_screen()),
 
     # Alacritty  
-    ([mod], "Return", lazy.spawn("alacritty")),
+    Key([mod], "Return", lazy.spawn("alacritty")),
 
     # Rofi
-    ([mod], "space", lazy.spawn("rofi -show drun")),
-    ([mod, "shift"], "space", lazy.spawn("rofi -show")),
+    Key([mod], "space", lazy.spawn("rofi -show drun")),
+    Key([mod, "shift"], "space", lazy.spawn("rofi -show")),
 
     # Flameshot
-    ([mod], "p", lazy.spawn("flameshot gui")),
-    ([mod, "shift"], "p", lazy.spawn("flameshot screen -r -c")),
-]]
+    Key([mod], "p", lazy.spawn("flameshot gui")),
+    Key([mod, "shift"], "p", lazy.spawn("flameshot screen -r -c")),
+]
 
-for index, group in enumerate(groups):
-    key = str(index + 1)
-    keys.append(Key([mod], key, lazy.group[group.name].toscreen()))
-    keys.append(Key([mod, "shift"], key, lazy.window.togroup(group.name)))
+#def _go_to_group(group):
+#    lazy.to_screen(int(group.name[0]))
+#    lazy.group[group.name].toscreen()
+
+for key, group in enumerate(groups, 1):
+    keys.append(Key([mod], str(key), lazy.group[group.name].toscreen()))
+    #keys.append(Key([mod], str(key), _go_to_group(group)))
+    keys.append(Key([mod, "shift"], str(key), lazy.window.togroup(group.name)))
 
