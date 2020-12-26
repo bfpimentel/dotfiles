@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+
+	<title type="text">Twitter @jakewharton</title>
+	<id>http://localhost:3000/?action=display&amp;bridge=Twitter&amp;context=By+username&amp;u=jakewharton&amp;format=Atom</id>
+	<icon>https://twitter.com//favicon.ico</icon>
+	<logo>https://twitter.com//favicon.ico</logo>
+	<updated>2020-12-26T03:44:28+00:00</updated>
+	<author>
+		<name>RSS-Bridge</name>
+	</author>
+	<link rel="alternate" type="text/html" href="https://twitter.com/jakewharton" />
+	<link rel="self" type="application/atom+xml" href="http://localhost:3000/?action=display&amp;bridge=Twitter&amp;context=By+username&amp;u=jakewharton&amp;format=Atom" />
+
+	<entry>
+		<title type="html">Trading the traditional "Can we last through the winter?" sweater for an updated one which more accurately reflects the time. pic.twitter.com/jwqG8IkC13</title>
+		<published>2020-12-22T13:47:24+00:00</published>
+		<updated>2020-12-22T13:47:24+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1341379814687711232</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1341379814687711232"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Trading the traditional "Can we last through the winter?" sweater for an updated one which more accurately reflects the time. &lt;a href="https://twitter.com/JakeWharton/status/1341379814687711232/photo/1"&gt;pic.twitter.com/jwqG8IkC13&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;a href="https://pbs.twimg.com/media/Ep2J1QhW4AE7q-D.jpg?name=orig"&gt;
+&lt;img
+	style="align:top; max-width:558px; border:1px solid black;"
+	referrerpolicy="no-referrer"
+	src="https://pbs.twimg.com/media/Ep2J1QhW4AE7q-D.jpg" /&gt;
+&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		<link rel="enclosure" href="https://pbs.twimg.com/media/Ep2J1QhW4AE7q-D.jpg?name=orig" type="image/jpeg" />
+
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Said it in a talk a few years back but wish it was a tweet...
+
+boil·er·plate
+/ˈboilərˌplāt/
+(noun)
+
+Have to write literally *any* code.</title>
+		<published>2020-12-22T03:09:12+00:00</published>
+		<updated>2020-12-22T03:09:12+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1341219206830940160</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1341219206830940160"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Said it in a talk a few years back but wish it was a tweet...
+
+boil·er·plate
+/ˈboilərˌplāt/
+(noun)
+
+Have to write literally *any* code.&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">I love arguing with people on the internet... I mean collaborating on open source</title>
+		<published>2020-12-21T21:06:09+00:00</published>
+		<updated>2020-12-21T21:06:09+00:00</updated>
+		<id>https://twitter.com/MylesBorins/status/1341127843388932098</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/MylesBorins/status/1341127843388932098"/>
+		<author><name>sMyle (@MylesBorins) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/MylesBorins"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="MylesBorins"
+	src="https://pbs.twimg.com/profile_images/1268041259177971712/7O7qzsRm_normal.jpg"
+	title="sMyle" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;I love arguing with people on the internet... I mean collaborating on open source&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Nothing wakes you up like casually rolling up towards a red light, your left foot instinctively moving from the dead pedal to depress the clutch, and lurching to a stop as you catch the brake because you're in an automatic.</title>
+		<published>2020-12-20T13:40:41+00:00</published>
+		<updated>2020-12-20T13:40:41+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1340653350308761607</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1340653350308761607"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Nothing wakes you up like casually rolling up towards a red light, your left foot instinctively moving from the dead pedal to depress the clutch, and lurching to a stop as you catch the brake because you're in an automatic.&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Part 5 is done! Enter the third act of this series and exit with hopefully a deeper understanding of how to transform Kotlin IR! 🚪 blog.bnorm.dev/writing-your-s…</title>
+		<published>2020-12-19T16:44:58+00:00</published>
+		<updated>2020-12-19T16:44:58+00:00</updated>
+		<id>https://twitter.com/bnormcodes/status/1340337338879229952</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/bnormcodes/status/1340337338879229952"/>
+		<author><name>Brian Norman 🐢 (@bnormcodes) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/bnormcodes"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="bnormcodes"
+	src="https://pbs.twimg.com/profile_images/918838857147101184/Vs9Zuv3a_normal.jpg"
+	title="Brian Norman 🐢" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Part 5 is done! Enter the third act of this series and exit with hopefully a deeper understanding of how to transform Kotlin IR! 🚪 &lt;a href="https://blog.bnorm.dev/writing-your-second-compiler-plugin-part-5"&gt;blog.bnorm.dev/writing-your-s…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Part 4 is ready! We're slowly building up to transforming Kotlin IR, but we need a quick detour! 🏗️ blog.bnorm.dev/writing-your-s…</title>
+		<published>2020-12-12T18:20:38+00:00</published>
+		<updated>2020-12-12T18:20:38+00:00</updated>
+		<id>https://twitter.com/bnormcodes/status/1337824700270080008</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/bnormcodes/status/1337824700270080008"/>
+		<author><name>Brian Norman 🐢 (@bnormcodes) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/bnormcodes"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="bnormcodes"
+	src="https://pbs.twimg.com/profile_images/918838857147101184/Vs9Zuv3a_normal.jpg"
+	title="Brian Norman 🐢" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Part 4 is ready! We're slowly building up to transforming Kotlin IR, but we need a quick detour! 🏗️ &lt;a href="https://blog.bnorm.dev/writing-your-second-compiler-plugin-part-4"&gt;blog.bnorm.dev/writing-your-s…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Fuck this guy and this whole company. Spent tens of millions to further their exploitation of their workers and then feign true consideration with shit like this.
+
+Oh, and you too Lyft and DoorDash and Instacart and Postmates. twitter.com/dkhos/status/1…</title>
+		<published>2020-12-10T23:30:53+00:00</published>
+		<updated>2020-12-10T23:30:53+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1337178001201573888</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1337178001201573888"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Fuck this guy and this whole company. Spent tens of millions to further their exploitation of their workers and then feign true consideration with shit like this.
+
+Oh, and you too Lyft and DoorDash and Instacart and Postmates. &lt;a href="https://twitter.com/dkhos/status/1337051142895898626"&gt;twitter.com/dkhos/status/1…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">I’m asking governors in all 50 states + DC to prioritize drivers &amp;amp; delivery people for early vaccine access. 👇 These frontline workers should get the vaccine before people like me. reut.rs/374LWiv</title>
+		<published>2020-12-10T15:06:48+00:00</published>
+		<updated>2020-12-10T15:06:48+00:00</updated>
+		<id>https://twitter.com/dkhos/status/1337051142895898626</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/dkhos/status/1337051142895898626"/>
+		<author><name>dara khosrowshahi (@dkhos) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/dkhos"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="dkhos"
+	src="https://pbs.twimg.com/profile_images/2347314797/k0s1awvu15pqybopl5mq_normal.jpeg"
+	title="dara khosrowshahi" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;I’m asking governors in all 50 states + DC to prioritize drivers &amp; delivery people for early vaccine access. 👇 These frontline workers should get the vaccine before people like me. &lt;a href="https://reut.rs/374LWiv"&gt;reut.rs/374LWiv&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Get em! twitter.com/NewYorkStateAG…</title>
+		<published>2020-12-10T14:24:47+00:00</published>
+		<updated>2020-12-10T14:24:47+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1337040571303522305</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1337040571303522305"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Get em! &lt;a href="https://twitter.com/NewYorkStateAG/status/1336755231946846208"&gt;twitter.com/NewYorkStateAG…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">It's Firefox, of course.
+
+Chrome has lived long enough to see itself become the villain. twitter.com/JakeWharton/st…</title>
+		<published>2020-12-10T05:52:31+00:00</published>
+		<updated>2020-12-10T05:52:31+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1336911654987198464</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1336911654987198464"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;It's Firefox, of course.
+
+Chrome has lived long enough to see itself become the villain. &lt;a href="https://twitter.com/JakeWharton/status/1336810060916338690"&gt;twitter.com/JakeWharton/st…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">ADB 153: Ok, Ok, Ok
+This time, @romainguy, @tornorbye and I talked with @jessewilson from Square about some of the open-source libraries he's worked on, like OkHttp, Okio, [Ok]Moshi. Oh, and other topics, too.
+
+androidbackstage.blogspot.com/2020/12/episod…</title>
+		<published>2020-12-09T23:29:46+00:00</published>
+		<updated>2020-12-09T23:29:46+00:00</updated>
+		<id>https://twitter.com/chethaase/status/1336815330128142337</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/chethaase/status/1336815330128142337"/>
+		<author><name>Chet Haase (@chethaase) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/chethaase"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="chethaase"
+	src="https://pbs.twimg.com/profile_images/1439444409/SelfPortraitSquare_normal.jpeg"
+	title="Chet Haase" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;ADB 153: Ok, Ok, Ok
+This time, @romainguy, @tornorbye and I talked with @jessewilson from Square about some of the open-source libraries he's worked on, like OkHttp, Okio, [Ok]Moshi. Oh, and other topics, too.
+
+&lt;a href="https://androidbackstage.blogspot.com/2020/12/episode-153-ok-ok-ok.html"&gt;androidbackstage.blogspot.com/2020/12/episod…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">@madebygoogle A browser built to dethrone the monopolistic control of the web and to break the tendency for sites to test/support only one! Circular icon...</title>
+		<published>2020-12-09T23:08:49+00:00</published>
+		<updated>2020-12-09T23:08:49+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1336810060916338690</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1336810060916338690"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;@madebygoogle A browser built to dethrone the monopolistic control of the web and to break the tendency for sites to test/support only one! Circular icon...&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">#BREAKING: I'm leading a bipartisan coalition of 48 attorneys general in a lawsuit against @Facebook to end its illegal monopoly.
+
+We are taking action to stand up for the millions of consumers and many small businesses that have been harmed by Facebook’s illegal behavior.</title>
+		<published>2020-12-09T19:30:57+00:00</published>
+		<updated>2020-12-09T19:30:57+00:00</updated>
+		<id>https://twitter.com/NewYorkStateAG/status/1336755231946846208</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/NewYorkStateAG/status/1336755231946846208"/>
+		<author><name>NY AG James (@NewYorkStateAG) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/NewYorkStateAG"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="NewYorkStateAG"
+	src="https://pbs.twimg.com/profile_images/1190033746516480002/R5k2b7qT_normal.jpg"
+	title="NY AG James" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;#BREAKING: I'm leading a bipartisan coalition of 48 attorneys general in a lawsuit against @Facebook to end its illegal monopoly.
+
+We are taking action to stand up for the millions of consumers and many small businesses that have been harmed by Facebook’s illegal behavior.&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">In the non-debate as to whether Die Hard is a Christmas movie (it is), the opening features Argyle playing 'Christmas in Hollis' by Run DMC. McClane asks "Don't you got any Christmas music?" to which Argyle responds "This _is_ Christmas music!". Very meta.
+youtube.com/watch?v=_ejP_v…</title>
+		<published>2020-12-07T05:51:03+00:00</published>
+		<updated>2020-12-07T05:51:03+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1335824120429342725</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1335824120429342725"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;In the non-debate as to whether Die Hard is a Christmas movie (it is), the opening features Argyle playing 'Christmas in Hollis' by Run DMC. McClane asks "Don't you got any Christmas music?" to which Argyle responds "This _is_ Christmas music!". Very meta.
+&lt;a href="https://www.youtube.com/watch?v=_ejP_vYTsrg"&gt;youtube.com/watch?v=_ejP_v…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Part 3 is hot off the press! Why hang with friends when you can visit Kotlin IR instead? 🏡  blog.bnorm.dev/writing-your-s…</title>
+		<published>2020-12-05T16:37:22+00:00</published>
+		<updated>2020-12-05T16:37:22+00:00</updated>
+		<id>https://twitter.com/bnormcodes/status/1335261994769899522</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/bnormcodes/status/1335261994769899522"/>
+		<author><name>Brian Norman 🐢 (@bnormcodes) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/bnormcodes"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="bnormcodes"
+	src="https://pbs.twimg.com/profile_images/918838857147101184/Vs9Zuv3a_normal.jpg"
+	title="Brian Norman 🐢" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Part 3 is hot off the press! Why hang with friends when you can visit Kotlin IR instead? 🏡  &lt;a href="https://blog.bnorm.dev/writing-your-second-compiler-plugin-part-3"&gt;blog.bnorm.dev/writing-your-s…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Regardless of the viability of HTTP/2 server push, one browser removing support for a feature should not effectively kill it across the entire ecosystem.
+
+Try out Firefox today! twitter.com/evertp/status/…</title>
+		<published>2020-12-03T16:58:11+00:00</published>
+		<updated>2020-12-03T16:58:11+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1334542459754475521</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1334542459754475521"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Regardless of the viability of HTTP/2 server push, one browser removing support for a feature should not effectively kill it across the entire ecosystem.
+
+Try out Firefox today! &lt;a href="https://twitter.com/evertp/status/1326990682809118730"&gt;twitter.com/evertp/status/…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">I wrote a small tool called dockerfile-shebang for treating Dockerfiles as executable shell scripts. Check it out!
+
+jakewharton.com/treating-docke…</title>
+		<published>2020-12-03T15:05:16+00:00</published>
+		<updated>2020-12-03T15:05:16+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1334514041323204610</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1334514041323204610"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;I wrote a small tool called dockerfile-shebang for treating Dockerfiles as executable shell scripts. Check it out!
+
+&lt;a href="https://jakewharton.com/treating-dockerfiles-as-shell-scripts/"&gt;jakewharton.com/treating-docke…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">The opposite of "it's like riding a bike" is "it's like programming in bash".
+
+A phrase which means that no matter how many times you do something, you will have to re-learn it every single time.</title>
+		<published>2020-12-02T16:48:37+00:00</published>
+		<updated>2020-12-02T16:48:37+00:00</updated>
+		<id>https://twitter.com/JakeWharton/status/1334177665356587008</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/JakeWharton/status/1334177665356587008"/>
+		<author><name>Jake Wharton (@JakeWharton) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/JakeWharton"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="JakeWharton"
+	src="https://pbs.twimg.com/profile_images/378800000666093975/cbe970ce9a19d2c6bec0d06c6004ccf0_normal.png"
+	title="Jake Wharton" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;The opposite of "it's like riding a bike" is "it's like programming in bash".
+
+A phrase which means that no matter how many times you do something, you will have to re-learn it every single time.&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Today we released OpenZFS 2.0, based on the unified code for Linux and FreeBSD. New features include sequential resilver, persistent L2ARC, zstd compression, and lots of performance improvements! github.com/openzfs/zfs/re…</title>
+		<published>2020-11-30T22:35:14+00:00</published>
+		<updated>2020-11-30T22:35:14+00:00</updated>
+		<id>https://twitter.com/OpenZFS/status/1333540118687215617</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/OpenZFS/status/1333540118687215617"/>
+		<author><name>OpenZFS (@OpenZFS) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/OpenZFS"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="OpenZFS"
+	src="https://pbs.twimg.com/profile_images/378800000444618095/645967cca023fcf00126ddeb7c3d8a22_normal.png"
+	title="OpenZFS" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Today we released OpenZFS 2.0, based on the unified code for Linux and FreeBSD. New features include sequential resilver, persistent L2ARC, zstd compression, and lots of performance improvements! &lt;a href="https://github.com/openzfs/zfs/releases/tag/zfs-2.0.0"&gt;github.com/openzfs/zfs/re…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Part 2! Let's take a look at some Kotlin IR! 🤓 blog.bnorm.dev/writing-your-s…</title>
+		<published>2020-11-28T17:54:18+00:00</published>
+		<updated>2020-11-28T17:54:18+00:00</updated>
+		<id>https://twitter.com/bnormcodes/status/1332744643633623041</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/bnormcodes/status/1332744643633623041"/>
+		<author><name>Brian Norman 🐢 (@bnormcodes) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/bnormcodes"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="bnormcodes"
+	src="https://pbs.twimg.com/profile_images/918838857147101184/Vs9Zuv3a_normal.jpg"
+	title="Brian Norman 🐢" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Part 2! Let's take a look at some Kotlin IR! 🤓 &lt;a href="https://blog.bnorm.dev/writing-your-second-compiler-plugin-part-2"&gt;blog.bnorm.dev/writing-your-s…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Think about data caching in your #KMM project?🤔
+
+Try SQLDelight from @CashApp!
+
+Make typesafe Kotlin APIs from SQL statements. Get schema, statements, and migrations verified at compile-time and enjoy IDE features that help you write and maintain SQL.
+
+➡️ cashapp.github.io/sqldelight/</title>
+		<published>2020-11-26T08:28:11+00:00</published>
+		<updated>2020-11-26T08:28:11+00:00</updated>
+		<id>https://twitter.com/kotlin/status/1331877400288899074</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/kotlin/status/1331877400288899074"/>
+		<author><name>Kotlin (@kotlin) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/kotlin"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="kotlin"
+	src="https://pbs.twimg.com/profile_images/699217734492647428/pCfEzr6L_normal.png"
+	title="Kotlin" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Think about data caching in your #KMM project?🤔
+
+Try SQLDelight from @CashApp!
+
+Make typesafe Kotlin APIs from SQL statements. Get schema, statements, and migrations verified at compile-time and enjoy IDE features that help you write and maintain SQL.
+
+➡️ &lt;a href="https://cashapp.github.io/sqldelight/"&gt;cashapp.github.io/sqldelight/&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">New article: HTTP/2 push = dead! RIP ☠️⚰️🪦⚱️💀
+
+evertpot.com/http-2-push-is…</title>
+		<published>2020-11-12T20:50:07+00:00</published>
+		<updated>2020-11-12T20:50:07+00:00</updated>
+		<id>https://twitter.com/evertp/status/1326990682809118730</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/evertp/status/1326990682809118730"/>
+		<author><name>Evert Pot (@evertp) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/evertp"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="evertp"
+	src="https://pbs.twimg.com/profile_images/1209490017665634304/iq7qV4zS_normal.jpg"
+	title="Evert Pot" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;New article: HTTP/2 push = dead! RIP ☠️⚰️🪦⚱️💀
+
+&lt;a href="https://evertpot.com/http-2-push-is-dead/"&gt;evertpot.com/http-2-push-is…&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		
+		
+		
+	</entry>
+
+	<entry>
+		<title type="html">Computer latency: 1977-2017
+
+danluu.com/input-lag/ pic.twitter.com/r6ba173NNp</title>
+		<published>2017-12-24T21:21:32+00:00</published>
+		<updated>2017-12-24T21:21:32+00:00</updated>
+		<id>https://twitter.com/danluu/status/945041778121629697</id>
+		<link rel="alternate" type="text/html" href="https://twitter.com/danluu/status/945041778121629697"/>
+		<author><name>Dan Luu (@danluu) RT: @jakewharton</name></author>
+		<content type="html">&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;a href="https://twitter.com/danluu"&gt;
+&lt;img
+	style="align:top; width:75px; border:1px solid black;"
+	alt="danluu"
+	src="https://pbs.twimg.com/profile_images/526429203554525185/P5uadNbN_normal.png"
+	title="Dan Luu" /&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div style="display: inline-block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;Computer latency: 1977-2017
+
+&lt;a href="https://danluu.com/input-lag/"&gt;danluu.com/input-lag/&lt;/a&gt; &lt;a href="https://twitter.com/danluu/status/945041778121629697/photo/1"&gt;pic.twitter.com/r6ba173NNp&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div style="display: block; vertical-align: top;"&gt;
+	&lt;blockquote&gt;&lt;a href="https://pbs.twimg.com/media/DR12FcrXcAA0-xq.png?name=orig"&gt;
+&lt;img
+	style="align:top; max-width:558px; border:1px solid black;"
+	referrerpolicy="no-referrer"
+	src="https://pbs.twimg.com/media/DR12FcrXcAA0-xq.png" /&gt;
+&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/div&gt;</content>
+		<link rel="enclosure" href="https://pbs.twimg.com/media/DR12FcrXcAA0-xq.png?name=orig" type="image/png" />
+
+		
+		
+	</entry>
+
+</feed>
