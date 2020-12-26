@@ -1,0 +1,12 @@
+version: '2'
+services:
+    rss-bridge:
+        container_name: rss-bridge
+        restart: unless-stopped
+        volumes:
+            - ./whitelist.txt:/app/whitelist.txt
+        build:
+            context: ./repo
+        image: rssbridge/rss-bridge:latest
+        ports:
+            - 3000:80

@@ -9,7 +9,6 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-    Plug 'preservim/nerdtree'                                       " NerdTree
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " Code Autocompletion
     Plug 'itchyny/lightline.vim'                                    " Lightline statusbar
     Plug 'tpope/vim-surround'                                       " Change surrounding marks
@@ -17,8 +16,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'ap/vim-css-color'                                         " Color previews for CSS
 
 call plug#end()
-
-autocmd VimEnter * NERDTree | wincmd p
 
 filetype plugin indent on
 
