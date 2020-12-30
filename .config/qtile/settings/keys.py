@@ -6,8 +6,8 @@ mod = "mod4"
 
 keys = [
     # Qtile
-    Key([mod, "control"], "r", lazy.restart()),
-    Key([mod, "control"], "q", lazy.shutdown()),
+    Key([mod, "mod1"], "r", lazy.restart()),
+    Key([mod, "mod1"], "q", lazy.shutdown()),
 
     # Switch between windows
     Key([mod], "Down", lazy.layout.down()),
@@ -28,7 +28,7 @@ keys = [
     Key([mod], "Tab", lazy.next_layout()),
 
     # Switch Screens
-    Key([mod, "shift"], "Tab", lazy.next_screen()),
+    Key([mod, "mod1"], "Tab", lazy.next_screen()),
 
     # Kill Window
     Key([mod], "w", lazy.window.kill()),
@@ -43,6 +43,7 @@ keys = [
     # Flameshot
     Key([mod], "p", lazy.spawn("flameshot gui")),
     Key([mod, "shift"], "p", lazy.spawn("flameshot screen -r -c")),
+    Key([mod, "mod1"], "p", lazy.spawn("flameshot screen -r -p ~/Pictures")),
 ]
 
 for key, group in enumerate(groups, 1):

@@ -1,47 +1,47 @@
-@import "colors/dracula.rasi"
+@import "colors/darkange.rasi"
 
 * {
   background-color: @dark;
   border-color: @focus;
   text-color: @light;
   spacing: 0;
-  width: 512px;
+  width: 350px;
 }
 
 inputbar {
-  border: 0 0 1px 0;
+  border: 1px;
   children: [prompt,entry];
 }
 
 prompt {
-  padding: 8px;
+  padding: 4px 8px;
   border: 0 1px 0 0;
   background-color: @focus;
-  text-color: @light;
+  text-color: @dark;
 }
 
 textbox {
   background-color: @dark;
   border: 0 0 1px 0;
   border-color: @focus;
-  padding: 8px 8px;
+  padding: 4px 8px;
 }
 
 entry {
-  padding: 8px;
+  padding: 4px 8px;
 }
 
 listview {
   cycle: false;
-  margin: 0 0 -1px 0;
+  border: 1px;
   scrollbar: false;
 }
 
 element {
-  border: 0 0 1px 0;
-  padding: 8px;
+  padding: 4px 8px;
 }
 
 element selected {
-  background-color: @grey;
+  background-color: @focus;
+  text-color: @dark;
 }

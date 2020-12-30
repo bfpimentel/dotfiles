@@ -16,14 +16,12 @@ class PacmanUpdates(base.ThreadedPollText):
         base.ThreadedPollText.__init__(self, **config)
         self.add_defaults(PacmanUpdates.defaults)
 
-        self.cmd = 'pacman -Qu'.split()
-
         if self.execute:
             self.add_callbacks({'Button1': self.do_execute})
 
     def _check_updates(self):
         try:
-            updates = self.call_process(self.cmd)
+            updates = self.call_process(['pacman', '-Qu'])
         except CalledProcessError:
             updates = ""
 
@@ -33,7 +31,6 @@ class PacmanUpdates(base.ThreadedPollText):
         return self.display_format.format(**{"updates": num_updates})
 
     def _set_colour(self, num_updates):
-        # type: (str) -> None
         if not num_updates.startswith("0"):
             self.layout.colour = self.colour_have_updates
         else:
