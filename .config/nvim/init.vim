@@ -14,12 +14,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'                                       " Change surrounding marks
     Plug 'vim-python/python-syntax'                                 " Python highlighting
     Plug 'ap/vim-css-color'                                         " Color previews for CSS
+    Plug 'joshdick/onedark.vim'                                     " One Dark
 
 call plug#end()
 
 filetype plugin indent on
 
 syntax enable
+
+colorscheme onedark
 
 set path+=**					  " Searches current directory recursively.
 set wildmenu					  " Display all matches when tab complete.
@@ -38,7 +41,7 @@ set shiftwidth=4                " One tab == four spaces.
 set tabstop=4                   " One tab == four spaces.
 
 let g:rehash256 = 1
-let g:lightline = { 'colorscheme': 'darcula' }
+let g:lightline = { 'colorscheme': 'onedark' }
 let g:python_highlight_all = 1
 
 highlight LineNr           ctermfg=8    ctermbg=none    cterm=none
