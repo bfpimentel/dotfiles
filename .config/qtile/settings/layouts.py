@@ -9,7 +9,7 @@ layout_conf = {
 
 layouts = [
     layout.Tile(**layout_conf, ratio=0.5, name='tile'),
-    layout.VerticalTile(**layout_conf, name='vertical tile'),
+    layout.VerticalTile(**layout_conf, name='vtile'),
     #layout.Max(name='max'),
 ]
 
@@ -31,5 +31,5 @@ floating_layout = layout.Floating(
         {'wname': 'pinentry'},
         {'wname': 'Picture-in-Picture'},
     ],
-    border_focus=theme['color4'][0]
+    border_focus=theme['focus'][0]
 )

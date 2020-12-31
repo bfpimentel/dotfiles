@@ -1,6 +1,8 @@
 export ZSH="/home/bruno/.oh-my-zsh"
 export TERM="xterm-256color"
 export EDITOR="nvim"
+export PATH="$HOME/.local/bin:$PATH"
+export QMK_HOME="$HOME/.qmk"
 export VISUAL=$EDITOR
 
 ZSH_THEME="robbyrussell"
