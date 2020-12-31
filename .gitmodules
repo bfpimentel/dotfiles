@@ -1,3 +1,6 @@
 [submodule "rss-bridge"]
 	path = .config/rss-bridge/repo
 	url = git@github.com:RSS-Bridge/rss-bridge.git
+[submodule "qmk"]
+	path = .qmk
+	url = https://github.com/qmk/qmk_firmware
