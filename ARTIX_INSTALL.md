@@ -136,7 +136,7 @@ nvim /etc/hosts
     ``` 
 3. Make grub config:
     ```sh
-    grup-mkconfig -o /boot/grub/grub.cfg
+    grub-mkconfig -o /boot/grub/grub.cfg
     ```
 
 ## Set root password
