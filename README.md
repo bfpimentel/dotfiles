@@ -1,7 +1,7 @@
 # Dotfiles
 dotfiles for my personal configs.
 
-Installation Guide can be found at [INSTALL.md](./.install/INSTALL.md)
+Installation Guide can be found at [.install](./.install)
 
 ![screenshot](.resources/1.png)
 

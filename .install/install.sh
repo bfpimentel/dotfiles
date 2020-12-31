@@ -49,11 +49,11 @@ pacman -S \
     zip \
     zsh
 
-git clone https://aur.archlinux.org/yay.git .yay &&
+git clone https://aur.archlinux.org/yay.git $HOME/.yay &&
     cd yay &&
     makepkg -si
 
-cd ~
+cd $HOME
 
 git clone --bare --recurse-submodules -j8 https://github.com/bfpimentel/dotfiles.git $HOME/.config
 
