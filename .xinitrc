@@ -47,4 +47,10 @@ setxkbmap -layout us -variant intl
 nitrogen --restore &
 picom &
 flameshot &
-exec qtile 
+
+# qtile
+# exec qtile 
+
+# bspwm
+exec bspwm
+
