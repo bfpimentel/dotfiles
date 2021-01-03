@@ -49,8 +49,8 @@ picom &
 flameshot &
 
 # qtile
-# exec qtile 
+exec qtile 
 
 # bspwm
-exec bspwm
+# exec bspwm
 

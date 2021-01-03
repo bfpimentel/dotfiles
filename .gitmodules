@@ -1,11 +1,11 @@
 [submodule "rss-bridge"]
-	path = .config/rss-bridge/repo
-	url = git@github.com:RSS-Bridge/rss-bridge.git
+    path = .config/rss-bridge/repo
+    url = git@github.com:RSS-Bridge/rss-bridge.git
     branch = master
     ignore = dirty
 
 [submodule "qmk"]
-	path = .qmk
-	url = https://github.com/qmk/qmk_firmware
+    path = .qmk
+    url = https://github.com/qmk/qmk_firmware
     branch = master
     ignore = dirty
