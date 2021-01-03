@@ -60,4 +60,3 @@ git clone --bare --recurse-submodules -j8 https://github.com/bfpimentel/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.config/ --work-tree=$HOME'
 
 config checkout 
-
