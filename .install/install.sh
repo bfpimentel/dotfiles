@@ -24,7 +24,6 @@ pacman -S \
     make \
     mesa \
     neofetch \
-    neovim \
     networkmanager \
     nitrogen \
     noto-fonts-emoji \
