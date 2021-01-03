@@ -24,6 +24,7 @@ syntax enable
 
 colorscheme onedark
 
+set termguicolors
 set path+=**					  " Searches current directory recursively.
 set wildmenu					  " Display all matches when tab complete.
 set incsearch                     " Incremental search
