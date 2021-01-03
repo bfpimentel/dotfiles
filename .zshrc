@@ -33,11 +33,12 @@ alias gst="git status -sb"
 alias gc="git commit"
 
 # dotfile git aliases
-alias config='/usr/bin/git --git-dir=$HOME/.config/ --work-tree=$HOME'
+alias config="/usr/bin/git --git-dir=$HOME/.config/ --work-tree=$HOME"
 alias cst="config status -sb"
 alias cf="config fetch"
 alias ca="config add"
 alias cc="config commit"
+alias cpom="config push origin master"
 
 # vim
 alias vim="nvim"
