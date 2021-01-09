@@ -16,7 +16,7 @@ keys = [
     Key([mod], "Right", lazy.layout.right()),
 
     # Toggle floating
-    Key([mod, "shift"], "f", lazy.window.toggle_floating()),
+    Key([mod], "f", lazy.window.toggle_floating()),
 
     # Move windows
     Key([mod, "shift"], "Down", lazy.layout.shuffe_down()),
@@ -34,7 +34,7 @@ keys = [
     Key([mod], "w", lazy.window.kill()),
 
     # Alacritty  
-    Key([mod], "Return", lazy.spawn("alacritty")),
+    Key([mod], "Return", lazy.spawn("kitty")),
 
     # Rofi
     Key([mod], "space", lazy.spawn("rofi -show drun")),

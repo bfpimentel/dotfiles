@@ -21,6 +21,7 @@ pacman -S \
     git \
     grub \
     jdk8-openjdk \
+    kitty \
     make \
     mesa \
     neofetch \

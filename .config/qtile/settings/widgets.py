@@ -3,7 +3,7 @@ from settings.theme import theme, font
 from widgets.pacman_updates import PacmanUpdates
 from widgets.caps_lock_indicator import CapsLockIndicator
 
-trasnparent = '#000000'
+transparent = '#00000000'
 
 base = lambda foreground='text', background='dark': {
     'foreground': theme[foreground],
@@ -18,6 +18,9 @@ icon = lambda text, foreground='text', background='dark', fontsize=16: widget.Te
 )
 
 workspaces = lambda: [
+    icon(background='light', foreground='dark', text=' '),
+    widget.CurrentLayout(**base(background='light', foreground='dark'), padding=8),
+    widget.Spacer(length=bar.STRETCH),
     widget.GroupBox(
         **base(foreground='light', background='dark'),
         fontsize=22,
@@ -39,8 +42,6 @@ workspaces = lambda: [
         active=theme['active'],
         inactive=theme['inactive'],
     ),
-    icon(background='light', foreground='dark', text=' '),
-    widget.CurrentLayout(**base(background='light', foreground='dark'), padding=8),
     widget.Spacer(length=bar.STRETCH),
     CapsLockIndicator(),
     widget.Spacer(length=4),
