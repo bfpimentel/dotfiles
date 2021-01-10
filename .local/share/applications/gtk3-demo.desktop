@@ -1,0 +1,11 @@
+[Desktop Entry]
+NoDisplay=true
+Name=GTK+ Demo
+Comment=GTK+ code examples and demonstrations
+Exec=gtk3-demo
+Icon=gtk3-demo
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Development;GTK;
+NoDisplay=true

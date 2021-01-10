@@ -3,7 +3,6 @@
 pacman -S \
     alacritty \
     arandr \
-    android-studio \
     autoconfg \
     automake \
     avrdude \
@@ -38,8 +37,6 @@ pacman -S \
     qmk \
     qtile \
     rofi \
-    rofi-dmenu \
-    spotify \
     sudo \
     vulkan-radeon \
     unzip \
@@ -54,6 +51,12 @@ git clone https://aur.archlinux.org/yay.git $HOME/.yay &&
     makepkg -si
 
 cd $HOME
+
+yay -S \
+    android-studio \
+    rofi-dmenu \
+    slack-desktop \
+    spotify \
 
 git clone --bare --recurse-submodules -j8 https://github.com/bfpimentel/dotfiles.git $HOME/.config
 

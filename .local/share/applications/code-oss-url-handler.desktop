@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Code - OSS - URL Handler
+NoDisplay=true
+Comment=Code Editing. Redefined.
+GenericName=Text Editor
+Exec=/usr/bin/code-oss --no-sandbox --open-url %U
+Icon=com.visualstudio.code.oss
+Type=Application
+NoDisplay=true
+StartupNotify=true
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=x-scheme-handler/code-oss;
+Keywords=vscode;

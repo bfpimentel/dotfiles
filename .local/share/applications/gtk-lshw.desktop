@@ -1,0 +1,13 @@
+[Desktop Entry]
+NoDisplay=true
+Name=LSHW
+Comment=HardWare LiSter
+Comment[fr]=Listeur de matériel
+Comment[es]=Listar equipamiento
+Categories=Application;System;X-Red-Hat-Base;X-Fedora;
+Icon=/usr/share/lshw/artwork/logo.svg
+Exec=/usr/sbin/gtk-lshw
+Type=Application
+Terminal=false
+Encoding=UTF-8
+X-Desktop-File-Install-Version=0.10
