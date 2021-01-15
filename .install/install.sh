@@ -29,7 +29,6 @@ pacman -S \
     noto-fonts-emoji \
     openssh \
     pavucontrol \
-    pcmanfm \
     picom \
     pulseaudio \
     pulseaudio-alsa \
@@ -38,6 +37,7 @@ pacman -S \
     qtile \
     rofi \
     sudo \
+    thunar \
     vulkan-radeon \
     unzip \
     xf86-video-amdgpu \
