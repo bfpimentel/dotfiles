@@ -18,9 +18,6 @@ icon = lambda text, foreground='text', background='dark', fontsize=16: widget.Te
 )
 
 workspaces = lambda: [
-    icon(background='light', foreground='dark', text=' '),
-    widget.CurrentLayout(**base(background='light', foreground='dark'), padding=8),
-    widget.Spacer(length=bar.STRETCH),
     widget.GroupBox(
         **base(foreground='light', background='dark'),
         fontsize=22,
@@ -43,8 +40,30 @@ workspaces = lambda: [
         inactive=theme['inactive'],
     ),
     widget.Spacer(length=bar.STRETCH),
+    #icon(background='light', foreground='dark', text=' '),
+    #widget.CurrentLayout(**base(background='light', foreground='dark'), padding=8),
+    #widget.Spacer(length=bar.STRETCH),
     CapsLockIndicator(),
     widget.Spacer(length=4),
+    widget.Systray(**base(background='dark'), padding=8, icon_size=16),
+    widget.Spacer(**base(background='dark'), length=8),
+    icon(background="dark", text=' '),
+    PacmanUpdates(
+        background=theme['dark'],
+        colour_no_updates=theme['light'],
+        colour_have_updates=theme['light'],
+        update_interval=60,
+        padding=8,
+        display_format="{updates}",
+    ),
+    widget.Clock(**base(background='dark'), format=' %d/%m/%Y  %H:%M', padding=8),
+    widget.TextBox(
+        **base(background='dark', foreground='light'),
+        text="",
+        fontsize=16,
+        padding=8,
+        mouse_callbacks={"Button1": _open_power_menu},
+    ),
 ]
 
 def _open_power_menu(qtile):
@@ -52,25 +71,6 @@ def _open_power_menu(qtile):
 
 primary_widgets = [
     *workspaces(),
-    widget.Systray(**base(background='dark'), padding=8, icon_size=16),
-    widget.Spacer(**base(background='dark'), length=8),
-    icon(background="color3", text=' '),
-    PacmanUpdates(
-        background=theme['color3'],
-        colour_no_updates=theme['light'],
-        colour_have_updates=theme['light'],
-        update_interval=60,
-        padding=8,
-        display_format="{updates}",
-    ),
-    widget.Clock(**base(background='color1'), format=' %d/%m/%Y  %H:%M', padding=8),
-    widget.TextBox(
-        **base(background='light', foreground='dark'),
-        text="",
-        fontsize=18,
-        padding=8,
-        mouse_callbacks={"Button1": _open_power_menu},
-    ),
 ]
 
 secondary_widgets = [

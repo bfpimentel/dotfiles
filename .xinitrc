@@ -38,7 +38,7 @@ ssh-add ~/.ssh/id_rsa_personal
 ssh-add ~/.ssh/id_rsa_work
 
 # displays setup
-sh $HOME/.config/screenlayout/dual-monitors.sh
+sh $HOME/.config/screenlayout/dual-monitors-horizontal.sh
 
 # kb layout setup
 setxkbmap -layout us -variant intl

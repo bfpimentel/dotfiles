@@ -5,9 +5,10 @@ fi
 export ZSH="/home/bruno/.config/zsh/"
 export TERM="xterm-256color"
 export EDITOR="nvim"
-export PATH="$HOME/.local/bin:$PATH"
 export QMK_HOME="$HOME/.qmk"
 export VISUAL=$EDITOR
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.flutter-sdk/bin:$PATH"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 

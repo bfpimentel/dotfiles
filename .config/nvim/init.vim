@@ -15,6 +15,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-python/python-syntax'                                 " Python highlighting
     Plug 'ap/vim-css-color'                                         " Color previews for CSS
     Plug 'joshdick/onedark.vim'                                     " One Dark
+    Plug 'dart-lang/dart-vim-plugin'
 
 call plug#end()
 

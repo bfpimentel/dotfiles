@@ -1,7 +1,7 @@
 from subprocess import CalledProcessError, Popen
 from libqtile.widget import base
 
-class PacmanUpdates(base.ThreadedPollText):
+class PacmanUpdates(base.ThreadPoolText):
     orientations = base.ORIENTATION_HORIZONTAL
     defaults = [
         ("custom_command", None, "Custom shell command for checking updates (counts the lines of the output)"),
@@ -13,7 +13,7 @@ class PacmanUpdates(base.ThreadedPollText):
     ]
 
     def __init__(self, **config):
-        base.ThreadedPollText.__init__(self, **config)
+        base.ThreadPoolText.__init__(self, "", **config)
         self.add_defaults(PacmanUpdates.defaults)
 
         if self.execute:
