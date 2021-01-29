@@ -10,7 +10,7 @@ layout_conf = {
 
 layouts = [
     layout.Tile(**layout_conf, ratio=0.5, name='tile'),
-    layout.VerticalTile(**layout_conf, name='vtile'),
+    #layout.VerticalTile(**layout_conf, name='vtile'),
     #layout.Max(name='max'),
 ]
 

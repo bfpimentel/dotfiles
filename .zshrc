@@ -29,6 +29,7 @@ antigen apply
 # git aliases
 alias gst="git status -sb"
 alias gc="git commit"
+alias gitwork="git config core.sshCommand 'ssh -i ~/.ssh/id_rsa_work'"
 
 # dotfile git aliases
 alias config="/usr/bin/git --git-dir=$HOME/.config/ --work-tree=$HOME"

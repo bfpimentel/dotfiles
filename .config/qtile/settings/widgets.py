@@ -1,7 +1,10 @@
-from libqtile import widget, bar
+from libqtile import widget, bar, qtile
 from settings.theme import theme, font
 from widgets.pacman_updates import PacmanUpdates
 from widgets.caps_lock_indicator import CapsLockIndicator
+
+def open_power_menu():
+    qtile.cmd_spawn("rofi -show power-menu -modi power-menu:.config/rofi/extensions/power-menu")
 
 transparent = '#00000000'
 
@@ -20,20 +23,18 @@ icon = lambda text, foreground='text', background='dark', fontsize=16: widget.Te
 workspaces = lambda: [
     widget.GroupBox(
         **base(foreground='light', background='dark'),
-        fontsize=22,
-        margin_y=3,
+        fontsize=20,
+        padding=10,
         margin_x=0,
-        padding_y=8,
-        padding_x=5,
-        borderwidth=2,
-        rounded=False,
+        borderwidth=3,
+        rounded=True,
         disable_drag=True,
         use_mouse_wheel=False,
-        highlight_method='line',
-        urgent_alert_method='line',
+        highlight_method='block',
+        urgent_alert_method='block',
         urgent_border=theme['urgent'],
-        this_current_screen_border=theme['focus'],
-        this_screen_border=theme['light'],
+        this_current_screen_border=theme['color3'],
+        this_screen_border=theme['color1'],
         other_current_screen_border=theme['dark'],
         other_screen_border=theme['dark'],
         active=theme['active'],
@@ -62,12 +63,9 @@ workspaces = lambda: [
         text="",
         fontsize=16,
         padding=8,
-        mouse_callbacks={"Button1": _open_power_menu},
+        mouse_callbacks={"Button1": open_power_menu},
     ),
 ]
-
-def _open_power_menu(qtile):
-    qtile.cmd_spawn("rofi -show power-menu -modi power-menu:.config/rofi/extensions/power-menu")
 
 primary_widgets = [
     *workspaces(),
@@ -80,7 +78,7 @@ secondary_widgets = [
 widget_defaults = {
     'font': font['regular'],
     'fontsize': 14,
-    'padding': 1,
+    'padding': 4,
 }
 
 extension_defaults = widget_defaults.copy()

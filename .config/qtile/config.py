@@ -11,9 +11,9 @@ from settings.defaults import qtile_path
 from os import path
 import subprocess
 
-@hook.subscribe.startup_once
-def autostart():
-    subprocess.call([path.join(qtile_path, 'autostart.sh')])
+#@hook.subscribe.startup_once
+#def start_once():
+#    subprocess.call([qtile_path + "/autostart.sh"])
 
 main = None
 dgroups_key_bindger = None
@@ -22,5 +22,5 @@ follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = True
 auto_fullscreen = True
-focus_on_window_activation = 'urgent'
-wmname = 'LG3D'
+focus_on_window_activation = "urgent"
+wmname = "LG3D"
