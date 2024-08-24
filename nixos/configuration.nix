@@ -27,6 +27,13 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    git
+    wget
+    curl
+    plex
+  ];
+
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
@@ -51,6 +58,11 @@
 
   time.timeZone = "America/Sao_Paulo";
 
+  fileSystems."/mnt/share" = {
+    device = "//10.22.4.5/malenia-share/bruno";
+    fsType = "cifs";
+    options = [ "credentials=/etc/nixos/smb-credentials" "uid=1000" "gid=1000" "x-systemd.automount" "noauto" "rw" ];
+  };
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -80,6 +92,10 @@
     };
   };
 
+  users.groups = {
+    media = {};
+  };
+
   services.openssh = {
     enable = true;
     openFirewall = true;
@@ -89,11 +105,14 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    git
-    wget
-    curl
-  ];
+  services.plex = {
+    enable = true;
+    user = "bruno";
+    group = "media";
+    openFirewall = true;
+    dataDir = "/mnt/share/media";
+  };
 
   system.stateVersion = "24.05"; 
 }
+
