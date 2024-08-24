@@ -1,0 +1,3 @@
+# nixOS homelab
+
+WIP
