@@ -1,11 +1,13 @@
-{ inputs, outputs, lib, config, pkgs, ... } : 
+{ lib, config, pkgs, username, email, fullname, ... }:
 
 {
-  imports = [ ];
+  imports = [
+    "/etc/nixos/modules/home-manager/${username}"
+  ];
   
   home = {
-    username = "bruno";
-    homeDirectory = "/home/bruno";
+    inherit username;
+    homeDirectory = "/home/${username}";
     enableNixpkgsReleaseCheck = false;
     stateVersion = "24.05";
   };
@@ -15,17 +17,11 @@
     defaultEditor = true;
   };
 
-  programs.git = {
-    enable = true;
-    userName = "Bruno Pimentel";
-    userEmail = "hello@bruno.so";
-  };
-
   programs.bash = {
     enable = true;
     enableCompletion = true;
     shellAliases = {
-      rnix = "sudo nixos-rebuild switch --flake /home/bruno/.nix";
+      rnix = "sudo nixos-rebuild switch --impure";
 
       vim = "nvim";
       
@@ -38,17 +34,6 @@
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
     '';
-  };
-
-  programs.ssh = { 
-    enable = true;
-    matchBlocks = {
-      "github.com" = {
-        hostname = "github.com";
-        user = "bfpimentel";
-        identityFile = "/home/bruno/.ssh/id_github";
-      };
-    };
   };
 
   programs.home-manager.enable = true;

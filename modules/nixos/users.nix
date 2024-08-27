@@ -1,8 +1,8 @@
-{ config, libs, pkgs, ... }: 
+{ config, libs, pkgs, username, fullname, ... }: 
 
 {
   users.groups = {
-    bruno = {
+    "${username}" = {
       gid = 1000;
     };
     media = {
@@ -14,11 +14,11 @@
   };
 
   users.users = {
-    bruno = {
+    "${username}" = {
       uid = 1000;
-      group = "bruno";
+      group = "${username}";
+      description = "${fullname}";
       isNormalUser = true;
-      description = "Bruno Pimentel";
       extraGroups = [ "docker" "storage" "media" "networkmanager" "wheel" ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEQfvoGzi0djr8CsbGuBR3LwHXQyd4gj5geArDwo1d5 bruno@pimentel.dev"

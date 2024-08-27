@@ -34,7 +34,6 @@
     forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
 
     nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
 
     legacyPackages = forAllSystems (system:
       import inputs.nixpkgs {
@@ -42,43 +41,38 @@
         config.allowUnfree = true;
       }
     );
-  in {
-    inherit legacyPackages nixosModules homeManagerModules;
 
-    formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
-
-    overlays = import ./overlays { inherit inputs; };
-
-    nixosConfigurations = 
-      let 
-        defaultModules = (builtins.attrValues nixosModules) ++ [
+    createNixOS = hostname: username: fullname: email: (
+      let
+        specialArgs = { inherit inputs outputs; } // {
+	  inherit hostname username fullname email;
+	  impurePaths.workingDir = "/etc/nixos";
+	};
+	modules = (builtins.attrValues nixosModules) ++ [
+	  "/etc/nixos/nixos/${hostname}"
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users = {
-              bruno = import ./home-manager/home.nix;
-	    }; 
+            home-manager.extraSpecialArgs = specialArgs;
+            home-manager.users."${username}" = import ./home-manager/home.nix;
           }
         ];
-        specialArgs = { inherit inputs outputs; };
-      in {
-        blackbox = nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          modules = defaultModules ++ [ ./nixos/blackbox ];
-        };
-      };
+      in nixpkgs.lib.nixosSystem {
+        inherit specialArgs modules;    
+      }
+    );
+  in {
+    inherit legacyPackages;
 
-    # homeConfigurations = {
-    #   bruno = home-manager.lib.homeManagerConfiguration {
-    #     pkgs = legacyPackages.x86_64-linux;
-    #     extraSpecialArgs = { inherit inputs outputs; };
-    #     modules = (builtins.attrValues homeManagerModules) ++ [
-    #       ./home-manager/home.nix
-    #     ];
-    #   };
-    # };
+    formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
+
+    overlays = import ./overlays { inherit inputs; };
+
+    nixosConfigurations = {
+      blackbox = createNixOS "blackbox" "bruno" "Bruno Pimentel" "hello@bruno.so";
+    };
   };
 }
 
