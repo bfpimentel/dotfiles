@@ -35,6 +35,8 @@
 
     nixosModules = import ./modules/nixos;
 
+    secretsPath = ./secrets;
+
     legacyPackages = forAllSystems (system:
       import inputs.nixpkgs {
         inherit system;
@@ -44,12 +46,12 @@
 
     createNixOS = hostname: username: fullname: email: (
       let
-        specialArgs = { inherit inputs outputs; } // {
+        specialArgs = { inherit inputs outputs secretsPath; } // {
 	  inherit hostname username fullname email;
-	  impurePaths.workingDir = "/etc/nixos";
+	  # impurePaths.workingDir = "/etc/nixos";
 	};
 	modules = (builtins.attrValues nixosModules) ++ [
-	  "/etc/nixos/nixos/${hostname}"
+	  (./. + "/nixos/${hostname}")
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {

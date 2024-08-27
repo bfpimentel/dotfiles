@@ -2,7 +2,7 @@
 
 {
   imports = [
-    "/etc/nixos/modules/home-manager/users/${username}.nix"
+    (./. + "/users/${username}.nix")
   ];
 
   programs.neovim = {

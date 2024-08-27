@@ -1,7 +1,7 @@
 { lib, config, pkgs, username, ... }:
 
 {
-  imports = [ "/etc/nixos/modules/home-manager" ];
+  imports = [ ../modules/home-manager ];
   
   home = {
     inherit username;
