@@ -12,6 +12,13 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
 
   outputs = { 
@@ -19,31 +26,59 @@
     nixpkgs, 
     nixpkgs-stable, 
     home-manager, 
+    agenix,
     ... 
   }@ inputs: let
     inherit (self) outputs;
-  in {
-    formatter = nixpkgs.legacyPackages."x86_64-linux".alejandra;
+    
+    forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
 
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
 
-    nixosConfigurations = {
-      blackbox = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [ 
-          ./nixos/configuration.nix 
+    legacyPackages = forAllSystems (system:
+      import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      }
+    );
+  in {
+    inherit legacyPackages nixosModules homeManagerModules;
+
+    formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
+
+    overlays = import ./overlays { inherit inputs; };
+
+    nixosConfigurations = 
+      let 
+        defaultModules = (builtins.attrValues nixosModules) ++ [
+          agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
-            # home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs outputs; };
-            home-manager.users.bruno = import ./home-manager/home.nix;
+            home-manager.users = {
+              bruno = import ./home-manager/home.nix;
+	    }; 
           }
         ];
+        specialArgs = { inherit inputs outputs; };
+      in {
+        blackbox = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = defaultModules ++ [ ./nixos/blackbox ];
+        };
       };
-    };
+
+    # homeConfigurations = {
+    #   bruno = home-manager.lib.homeManagerConfiguration {
+    #     pkgs = legacyPackages.x86_64-linux;
+    #     extraSpecialArgs = { inherit inputs outputs; };
+    #     modules = (builtins.attrValues homeManagerModules) ++ [
+    #       ./home-manager/home.nix
+    #     ];
+    #   };
+    # };
   };
 }
 
