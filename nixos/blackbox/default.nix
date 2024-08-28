@@ -3,13 +3,14 @@
   lib,
   pkgs,
   hostname,
+  vars,
   ...
 }:
 
 {
   imports = [
     ./hardware-configuration.nix
-    ./mounts.nix
+    ./filesystems.nix
   ];
 
   boot.loader = {
@@ -22,7 +23,7 @@
     interfaces = {
       enp6s18.ipv4.addresses = [
         {
-          address = "10.22.4.20";
+          address = vars.ip;
           prefixLength = 24;
         }
       ];

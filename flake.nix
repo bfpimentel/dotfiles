@@ -23,6 +23,9 @@
         home-manager.follows = "home-manager";
       };
     };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
   };
 
   outputs =
@@ -33,6 +36,7 @@
       nix-darwin,
       home-manager,
       agenix,
+      impermanence,
       ...
     }@inputs:
     let
@@ -58,21 +62,21 @@
         hostname: username: fullname: email:
         (
           let
-            specialArgs =
-              {
-                inherit inputs outputs;
-              }
-              // {
-                inherit
-                  hostname
-                  username
-                  fullname
-                  email
-                  ;
-              };
+            specialArgs = {
+              inherit
+                inputs
+                outputs
+                hostname
+                username
+                fullname
+                email
+                ;
+              vars = (./. + "/nixos/${hostname}/vars.nix");
+            };
             modules = (builtins.attrValues nixosModules) ++ [
               (./. + "/nixos/${hostname}")
               agenix.nixosModules.default
+              impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
@@ -89,21 +93,19 @@
         hostname: username: fullname: email:
         (
           let
-            specialArgs =
-              {
-                inherit inputs outputs;
-              }
-              // {
-                inherit
-                  hostname
-                  username
-                  fullname
-                  email
-                  ;
-              };
+            specialArgs = {
+              inherit
+                inputs
+                outputs
+                hostname
+                username
+                fullname
+                email
+                ;
+            };
             modules = (builtins.attrValues darwinModules) ++ [
               (./. + "/darwin/${hostname}")
-              # agenix.nixosModules.default
+              agenix.nixosModules.default
             ];
           in
           nix-darwin.lib.darwinSystem { inherit specialArgs modules; }
@@ -123,7 +125,5 @@
       darwinConfigurations = {
         solaire = createDarwin "solaire" "bruno" "Bruno Pimentel" "hello@bruno.so";
       };
-
-      darwinPackages = self.darwinConfigurations."brunoMBP14-M2".pkgs;
     };
 }

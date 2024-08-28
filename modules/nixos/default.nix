@@ -9,5 +9,5 @@
 
   ssh = import ./services/ssh.nix;
   plex = import ./services/plex.nix;
-  docker = import ./services/docker.nix;
+  podman = import ./services/podman.nix;
 }
