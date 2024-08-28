@@ -3,16 +3,15 @@
 {
   imports = [ ];
 
+  nixpkgs.hostPlatform = "aarch64-darwin";
+
   services.nix-daemon.enable = true;
 
   programs.zsh.enable = true;
 
-  system.configurationRevision = self.rev or self.dirtyRev or null;
   system.stateVersion = 4;
 
   security.pam.enableSudoTouchIdAuth = true;
-
-  # nixpkgs.hostPlatform = "aarch64-darwin";
 
   system.defaults = {
     dock = {
