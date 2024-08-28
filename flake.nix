@@ -71,7 +71,7 @@
                 fullname
                 email
                 ;
-              vars = (./. + "/nixos/${hostname}/vars.nix");
+              vars = import (./. + "/nixos/${hostname}/vars.nix");
             };
             modules = (builtins.attrValues nixosModules) ++ [
               (./. + "/nixos/${hostname}")

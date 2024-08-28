@@ -7,7 +7,10 @@
   locale = import ./locale.nix;
   pkgs = import ./pkgs.nix;
 
+  # services
   ssh = import ./services/ssh.nix;
   plex = import ./services/plex.nix;
-  podman = import ./services/podman.nix;
+
+  # containers
+  podman = import ./containers/podman.nix;
 }

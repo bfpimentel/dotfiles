@@ -4,13 +4,14 @@
   ...
 }:
 let
-  directories = [ "${vars.serviceConfigRoot}/traefik" ];
-  files = [ "${vars.serviceConfigRoot}/traefik/acme.json" ];
+  directories = [ "${vars.containersConfigRoot}/traefik" ];
+  files = [ "${vars.containersConfigRoot}/traefik/acme.json" ];
 in
 {
   systemd.tmpfiles.rules =
     map (x: "d ${x} 0775 share share - -") directories
     ++ map (x: "f ${x} 0600 share share - -") files;
+
   virtualisation.oci-containers = {
     containers = {
       traefik = {
@@ -56,8 +57,8 @@ in
         ];
         environmentFiles = [ config.age.secrets.cloudflare.path ];
         volumes = [
-          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-          "${vars.serviceConfigRoot}/traefik/acme.json:/acme.json"
+          "/var/run/docker/docker.sock:/var/run/docker.sock:ro"
+          "${vars.containersConfigRoot}/traefik/acme.json:/acme.json"
         ];
       };
     };

@@ -14,6 +14,7 @@
     ];
     secrets = {
       share.file = ../../secrets/share.age;
+      cloudflare.file = ../../secrets/cloudflare.age;
     };
   };
 }

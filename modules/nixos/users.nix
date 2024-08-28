@@ -28,7 +28,7 @@
       isNormalUser = true;
       shell = pkgs.zsh;
       extraGroups = [
-        "docker"
+        "podman"
         "storage"
         "media"
         "networkmanager"

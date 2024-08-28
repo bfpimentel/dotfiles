@@ -13,6 +13,8 @@
     git
     wget
     curl
+    podman-tui      
+    podman-compose 
     inputs.agenix.packages."${system}".default
     inputs.home-manager.packages."${system}".default
   ];
