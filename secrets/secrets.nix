@@ -9,4 +9,5 @@ let
 in
 {
   "share.age".publicKeys = allKeys;
+  "cloudflare.age".publicKeys = allKeys;
 }
