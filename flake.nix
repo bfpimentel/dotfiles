@@ -101,7 +101,7 @@
     };
 
     darwinConfigurations = {
-      "brunoMBP14-M2" = createDarwin "brunoMBP14-M2" "bruno" "Bruno Pimentel" "hello@bruno.so";
+      solaire = createDarwin "solaire" "bruno" "Bruno Pimentel" "hello@bruno.so";
     };
 
     darwinPackages = self.darwinConfigurations."brunoMBP14-M2".pkgs;
