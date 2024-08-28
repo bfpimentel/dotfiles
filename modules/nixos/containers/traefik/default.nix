@@ -1,8 +1,4 @@
-{
-  config,
-  vars,
-  ...
-}:
+{ config, vars, ... }:
 let
   directories = [ "${vars.containersConfigRoot}/traefik" ];
   files = [ "${vars.containersConfigRoot}/traefik/acme.json" ];

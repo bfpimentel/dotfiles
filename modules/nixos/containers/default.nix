@@ -7,8 +7,8 @@
 
 {
   imports = [
-    ./traefik.nix
-    ./homepage.nix
+    ./traefik
+    ./homepage
   ];
 
   virtualisation = {

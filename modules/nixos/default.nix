@@ -12,5 +12,5 @@
   plex = import ./services/plex.nix;
 
   # containers
-  podman = import ./containers/podman.nix;
+  podman = [ ./containers ];
 }
