@@ -3,6 +3,7 @@
 {
   imports = [ 
     ./hardware-configuration.nix
+    ./mounts.nix
   ];
 
   boot.loader = {

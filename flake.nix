@@ -35,8 +35,6 @@
 
     nixosModules = import ./modules/nixos;
 
-    secretsPath = ./secrets;
-
     legacyPackages = forAllSystems (system:
       import inputs.nixpkgs {
         inherit system;
@@ -46,9 +44,8 @@
 
     createNixOS = hostname: username: fullname: email: (
       let
-        specialArgs = { inherit inputs outputs secretsPath; } // {
+        specialArgs = { inherit inputs outputs; } // {
 	  inherit hostname username fullname email;
-	  # impurePaths.workingDir = "/etc/nixos";
 	};
 	modules = (builtins.attrValues nixosModules) ++ [
 	  (./. + "/nixos/${hostname}")

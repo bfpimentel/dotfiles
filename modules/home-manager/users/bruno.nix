@@ -13,8 +13,11 @@
       "github.com" = {
         hostname = "github.com";
         user = "bfpimentel";
-        identityFile = "/home/bruno/.ssh/id_github";
+        identityFile = "/home/bruno/.ssh/id_personal";
       };
     };
+    extraConfig = ''
+      AddKeysToAgent yes
+    '';
   };
 }

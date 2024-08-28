@@ -3,9 +3,13 @@
 {
   services.plex = {
     enable = true;
-    user = "bruno";
+    user = "media";
     group = "media";
     openFirewall = true;
-    dataDir = "/mnt/share/media";
+    dataDir = "/opt/media/plex";
+  };
+
+  systemd.services.plex = {
+    after = [ "mnt-share.mount" ];
   };
 }
