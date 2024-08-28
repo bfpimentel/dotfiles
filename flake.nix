@@ -25,86 +25,105 @@
     };
   };
 
-  outputs = { 
-    self, 
-    nixpkgs, 
-    nixpkgs-stable, 
-    nix-darwin,
-    home-manager, 
-    agenix,
-    ... 
-  }@ inputs: let
-    inherit (self) outputs;
-    
-    forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-stable,
+      nix-darwin,
+      home-manager,
+      agenix,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
 
-    nixosModules = import ./modules/nixos;
-    darwinModules = import ./modules/darwin;
+      forAllSystems = nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
 
-    legacyPackages = forAllSystems (system:
-      import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      }
-    );
+      nixosModules = import ./modules/nixos;
+      darwinModules = import ./modules/darwin;
 
-    createNixOS = hostname: username: fullname: email: (
-      let
-        specialArgs = { inherit inputs outputs; } // {
-	  inherit hostname username fullname email;
-	};
-	modules = (builtins.attrValues nixosModules) ++ [
-	  (./. + "/nixos/${hostname}")
-          agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = specialArgs;
-            home-manager.users."${username}" = import ./home-manager/home.nix;
-          }
-        ];
-      in nixpkgs.lib.nixosSystem {
-        inherit specialArgs modules;    
-      }
-    );
+      legacyPackages = forAllSystems (
+        system:
+        import inputs.nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
+      );
 
-    createDarwin = hostname: username: fullname: email: (
-      let
-        specialArgs = { inherit inputs outputs; } // {
-	  inherit hostname username fullname email;
-	};
-	modules = (builtins.attrValues darwinModules) ++ [
-	  (./. + "/darwin/${hostname}")
-          # agenix.nixosModules.default
-          # home-manager.nixosModules.home-manager
-          # {
-          #   home-manager.useGlobalPkgs = true;
-          #   home-manager.useUserPackages = true;
-          #   home-manager.extraSpecialArgs = specialArgs;
-          #   home-manager.users."${username}" = import ./home-manager/home.nix;
-          # }
-        ];
-      in nix-darwin.lib.darwinSystem {
-        inherit specialArgs modules;
-      }
-    );
-  in {
-    inherit legacyPackages;
+      createNixOS =
+        hostname: username: fullname: email:
+        (
+          let
+            specialArgs =
+              {
+                inherit inputs outputs;
+              }
+              // {
+                inherit
+                  hostname
+                  username
+                  fullname
+                  email
+                  ;
+              };
+            modules = (builtins.attrValues nixosModules) ++ [
+              (./. + "/nixos/${hostname}")
+              agenix.nixosModules.default
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = specialArgs;
+                home-manager.users."${username}" = import ./home-manager/home.nix;
+              }
+            ];
+          in
+          nixpkgs.lib.nixosSystem { inherit specialArgs modules; }
+        );
 
-    formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
+      createDarwin =
+        hostname: username: fullname: email:
+        (
+          let
+            specialArgs =
+              {
+                inherit inputs outputs;
+              }
+              // {
+                inherit
+                  hostname
+                  username
+                  fullname
+                  email
+                  ;
+              };
+            modules = (builtins.attrValues darwinModules) ++ [
+              (./. + "/darwin/${hostname}")
+              # agenix.nixosModules.default
+            ];
+          in
+          nix-darwin.lib.darwinSystem { inherit specialArgs modules; }
+        );
+    in
+    {
+      inherit legacyPackages;
 
-    overlays = import ./overlays { inherit inputs; };
+      formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
 
-    nixosConfigurations = {
-      blackbox = createNixOS "blackbox" "bruno" "Bruno Pimentel" "hello@bruno.so";
+      overlays = import ./overlays { inherit inputs; };
+
+      nixosConfigurations = {
+        blackbox = createNixOS "blackbox" "bruno" "Bruno Pimentel" "hello@bruno.so";
+      };
+
+      darwinConfigurations = {
+        solaire = createDarwin "solaire" "bruno" "Bruno Pimentel" "hello@bruno.so";
+      };
+
+      darwinPackages = self.darwinConfigurations."brunoMBP14-M2".pkgs;
     };
-
-    darwinConfigurations = {
-      solaire = createDarwin "solaire" "bruno" "Bruno Pimentel" "hello@bruno.so";
-    };
-
-    darwinPackages = self.darwinConfigurations."brunoMBP14-M2".pkgs;
-  };
 }
-

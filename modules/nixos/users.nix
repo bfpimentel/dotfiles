@@ -1,4 +1,11 @@
-{ config, libs, pkgs, username, fullname, ... }: 
+{
+  config,
+  libs,
+  pkgs,
+  username,
+  fullname,
+  ...
+}:
 
 {
   users.groups = {
@@ -20,7 +27,13 @@
       description = "${fullname}";
       isNormalUser = true;
       shell = pkgs.zsh;
-      extraGroups = [ "docker" "storage" "media" "networkmanager" "wheel" ];
+      extraGroups = [
+        "docker"
+        "storage"
+        "media"
+        "networkmanager"
+        "wheel"
+      ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEQfvoGzi0djr8CsbGuBR3LwHXQyd4gj5geArDwo1d5 bruno@pimentel.dev"
       ];

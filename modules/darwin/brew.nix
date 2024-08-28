@@ -1,9 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   homebrew = {
     enable = true;
-    
+
     global = {
       autoUpdate = true;
     };
@@ -26,10 +31,10 @@
       "felixkratz/formulae"
     ];
 
-    casks = [ 
-      "xcodes" 
-      "floorp" 
-      "balenaetcher"  
+    casks = [
+      "xcodes"
+      "floorp"
+      "balenaetcher"
       "vial"
       "thunderbird"
       "raspberry-pi-imager"

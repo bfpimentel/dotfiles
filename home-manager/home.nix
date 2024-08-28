@@ -1,8 +1,14 @@
-{ lib, config, pkgs, username, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  username,
+  ...
+}:
 
 {
   imports = [ ../modules/home-manager ];
-  
+
   home = {
     inherit username;
     homeDirectory = "/home/${username}";

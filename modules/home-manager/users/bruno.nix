@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.git = {
@@ -7,7 +12,7 @@
     userEmail = "hello@bruno.so";
   };
 
-  programs.ssh = { 
+  programs.ssh = {
     enable = true;
     matchBlocks = {
       "github.com" = {

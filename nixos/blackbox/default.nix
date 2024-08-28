@@ -1,7 +1,13 @@
-{ config, lib, pkgs, hostname, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  hostname,
+  ...
+}:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ./mounts.nix
   ];
@@ -14,14 +20,15 @@
   networking = {
     hostName = "${hostname}";
     interfaces = {
-      enp6s18.ipv4.addresses = [{
-	address = "10.22.4.20";
-	prefixLength = 24;
-      }];
+      enp6s18.ipv4.addresses = [
+        {
+          address = "10.22.4.20";
+          prefixLength = 24;
+        }
+      ];
     };
     defaultGateway = "10.22.4.1";
   };
 
-  system.stateVersion = "24.05"; 
+  system.stateVersion = "24.05";
 }
-

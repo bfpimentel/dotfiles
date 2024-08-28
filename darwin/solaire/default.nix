@@ -1,4 +1,10 @@
-{ config, lib, pkgs, hostname, ... }: 
+{
+  config,
+  lib,
+  pkgs,
+  hostname,
+  ...
+}:
 
 {
   imports = [ ];
@@ -12,4 +18,3 @@
   networking.hostName = "solaire";
   networking.localHostName = "solaire";
 }
-

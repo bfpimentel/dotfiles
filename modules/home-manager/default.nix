@@ -1,9 +1,13 @@
-{ config, lib, pkgs, username, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}:
 
 {
-  imports = [
-    (./. + "/users/${username}.nix")
-  ];
+  imports = [ (./. + "/users/${username}.nix") ];
 
   programs.neovim = {
     enable = true;

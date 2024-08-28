@@ -1,10 +1,16 @@
-{ config, lib, pkgs, username, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}:
 
 {
   age = {
-    identityPaths = [ 
+    identityPaths = [
       "/root/.ssh/id_system"
-      "/home/${username}/.ssh/id_personal" 
+      "/home/${username}/.ssh/id_personal"
     ];
     secrets = {
       share.file = ../../secrets/share.age;

@@ -1,9 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.zsh.enable = true;
 
-  environment.systemPackages = with pkgs; [ 
+  environment.systemPackages = with pkgs; [
     kitty
     eza
     bat
@@ -14,7 +19,8 @@
     gnupg
     neovim
     tmux
-    nixd
+    nil
+    nixfmt-rfc-style
     cargo
     localsend
     fastfetch
