@@ -1,7 +1,18 @@
-{ config, vars, ... }:
+{
+  config,
+  vars,
+  pkgs,
+  ...
+}:
 let
   directories = [ "${vars.containersConfigRoot}/traefik" ];
   files = [ "${vars.containersConfigRoot}/traefik/acme.json" ];
+
+  settingsFormat = pkgs.formats.yaml { };
+  traefikConfig = {
+    config = settingsFormat.generate "config.yaml" (import ./config/config.nix {} );
+    dynamic = settingsFormat.generate "dynamic.yaml" (import ./config/dynamic.nix);
+  };
 in
 {
   systemd.tmpfiles.rules =
@@ -13,52 +24,31 @@ in
       traefik = {
         image = "traefik:latest";
         autoStart = true;
-        cmd = [
-          "--api.insecure=true"
-          "--providers.docker=true"
-          # "--providers.docker.exposedbydefault=false"
-          "--entrypoints.web.address=:80"
-          "--certificatesresolvers.cloudflare.acme.email=hello@bruno.so"
-          "--certificatesresolvers.cloudflare.acme.storage=acme.json"
-          "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
-          "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
-          "--certificatesresolvers.cloudflare.acme.dnschallenge.disablepropagationcheck=false"
-          "--certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1:53,1.0.0.1:53"
-          # HTTP
-          "--entrypoints.web.address=:80"
-          "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-          "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-          "--entrypoints.websecure.address=:443"
-          # HTTPS
-          "--entrypoints.websecure.http.tls=true"
-          "--entrypoints.websecure.http.tls.certResolver=cloudflare"
-          "--entrypoints.websecure.http.tls.domains[0].main=${vars.domain}"
-          "--entrypoints.websecure.http.tls.domains[0].sans=*.${vars.domain}"
-
-        ];
-        extraOptions = [
-          "--pull=newer"
-          # Proxying Traefik itself
-          "-l=traefik.enable=true"
-          "-l=traefik.http.routers.traefik.rule=Host(`traefik.${vars.domain}`)"
-          "-l=traefik.http.services.traefik.loadbalancer.server.port=8080"
-          "-l=homepage.group=Services"
-          "-l=homepage.name=Traefik"
-          "-l=homepage.icon=traefik.svg"
-          "-l=homepage.href=https://traefik.${vars.domain}"
-          "-l=homepage.description=Reverse proxy"
-          "-l=homepage.widget.type=traefik"
-          "-l=homepage.widget.url=http://traefik:8080"
+        volumes = [
+          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
+          "${vars.containersConfigRoot}/traefik/acme.json:/acme.json"
+          "${traefikConfig.config}:/traefik.yml:ro"
+          "${traefikConfig.dynamic}:/dynamic.yml:ro"
         ];
         ports = [
           "443:443"
           "80:80"
         ];
         environmentFiles = [ config.age.secrets.cloudflare.path ];
-        volumes = [
-          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-          "${vars.containersConfigRoot}/traefik/acme.json:/acme.json"
-        ];
+        labels = {
+          "traefik.enable" = "true";
+          "traefik.http.routers.traefik.rule" = "Host(`traefik.${vars.domain}`)";
+          "traefik.http.services.traefik.loadbalancer.server.port" = "8080";
+          "traefik.http.routers.api.entryPoints" = "https";
+          "homepage.group" = "Services";
+          "homepage.name" = "Traefik";
+          "homepage.icon" = "traefik.svg";
+          "homepage.href" = "https://traefik.${vars.domain}";
+          "homepage.description" = "Reverse proxy";
+          "homepage.widget.type" = "traefik";
+          "homepage.widget.url" = "http://traefik:8080";
+        };
+        extraOptions = [ "--pull=newer" ];
       };
     };
   };
