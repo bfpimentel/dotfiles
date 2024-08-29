@@ -114,7 +114,7 @@
     {
       inherit legacyPackages;
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-fmt);
+      formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-rfc-style);
 
       overlays = import ./overlays { inherit inputs; };
 

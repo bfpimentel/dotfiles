@@ -10,7 +10,7 @@ let
 
   settingsFormat = pkgs.formats.yaml { };
   traefikConfig = {
-    config = settingsFormat.generate "config.yaml" (import ./config/config.nix {} );
+    config = settingsFormat.generate "config.yaml" (import ./config/config.nix);
     dynamic = settingsFormat.generate "dynamic.yaml" (import ./config/dynamic.nix);
   };
 in
@@ -24,22 +24,24 @@ in
       traefik = {
         image = "traefik:latest";
         autoStart = true;
+        extraOptions = [ "--pull=newer" ];
+        ports = [
+          "443:443"
+          "80:80"
+        ];
         volumes = [
           "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
           "${vars.containersConfigRoot}/traefik/acme.json:/acme.json"
           "${traefikConfig.config}:/traefik.yml:ro"
           "${traefikConfig.dynamic}:/dynamic.yml:ro"
         ];
-        ports = [
-          "443:443"
-          "80:80"
-        ];
         environmentFiles = [ config.age.secrets.cloudflare.path ];
         labels = {
           "traefik.enable" = "true";
           "traefik.http.routers.traefik.rule" = "Host(`traefik.${vars.domain}`)";
+          "traefik.http.routers.traefik.entryPoints" = "https";
+          "traefik.http.routers.traefik.service" = "api@internal";
           "traefik.http.services.traefik.loadbalancer.server.port" = "8080";
-          "traefik.http.routers.api.entryPoints" = "https";
           "homepage.group" = "Services";
           "homepage.name" = "Traefik";
           "homepage.icon" = "traefik.svg";
@@ -48,7 +50,6 @@ in
           "homepage.widget.type" = "traefik";
           "homepage.widget.url" = "http://traefik:8080";
         };
-        extraOptions = [ "--pull=newer" ];
       };
     };
   };

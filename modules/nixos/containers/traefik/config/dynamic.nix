@@ -1,5 +1,3 @@
-{ vars, ... }:
-
 {
   http = {
     routers = {
@@ -8,7 +6,7 @@
           "https"
           "http"
         ];
-        rule = "Host(`glances.${vars.domain}`)";
+        rule = "Host(`glances.local.luana.casa`)";
         middlewares = [ "https-redirect" ];
         tls = {
           certResolver = "cloudflare";
@@ -19,7 +17,7 @@
     services = {
       glances = {
         loadBalancer = {
-          servers = [ { url = "https://10.22.4.20:8006"; } ];
+          servers = [ { url = "https://10.22.4.20:61208"; } ];
           passHostHeader = true;
         };
       };
@@ -55,7 +53,7 @@
       };
       auth = {
         forwardauth = {
-          address = "https://auth.bfmp.lol/outpost.goauthentik.io/auth/traefik";
+          address = "http://authentik-server:9000/outpost.goauthentik.io/auth/traefik";
           trustForwardHeader = true;
           authResponseHeaders = [
             "X-authentik-username"

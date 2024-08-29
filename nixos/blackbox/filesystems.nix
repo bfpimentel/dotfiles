@@ -16,12 +16,11 @@ in
       "/var/log"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
-
       {
         directory = "/opt/containers";
         user = username;
         group = "podman";
-        mode = "u=rwx,g=rw,o=";
+        mode = "u=rwx,g=rwx,o=";
       }
       {
         directory = "/opt/services";

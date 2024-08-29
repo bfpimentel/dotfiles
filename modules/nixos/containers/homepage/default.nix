@@ -30,12 +30,7 @@ in
       homepage = {
         image = "ghcr.io/gethomepage/homepage:latest";
         autoStart = true;
-        extraOptions = [
-          "--pull=newer"
-          "-l=traefik.enable=true"
-          "-l=traefik.http.routers.home.rule=Host(`home.${vars.domain}`)"
-          "-l=traefik.http.services.home.loadbalancer.server.port=3000"
-        ];
+        extraOptions = [ "--pull=newer" ];
         volumes = [
           "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
           "${vars.containersConfigRoot}/homepage/config:/app/config"
@@ -49,13 +44,20 @@ in
           # "${config.age.secrets.radarrApiKey.path}:/app/config/radarr.key"
           # "${config.age.secrets.jellyfinApiKey.path}:/app/config/jellyfin.key"
         ];
+        # environmentFiles = [ config.age.secrets.paperless.path ];
         environment = {
           TZ = vars.timeZone;
           # HOMEPAGE_FILE_SONARR_KEY = "/app/config/sonarr.key";
           # HOMEPAGE_FILE_RADARR_KEY = "/app/config/radarr.key";
           # HOMEPAGE_FILE_JELLYFIN_KEY = "/app/config/jellyfin.key";
         };
-        # environmentFiles = [ config.age.secrets.paperless.path ];
+        labels = {
+          "traefik.enable" = "true";
+          "traefik.http.routers.homepage.entrypoints" = "https";
+          "traefik.http.routers.homepage.rule" = "Host(`home.${vars.domain}`)";
+          "traefik.http.services.homepage.loadbalancer.server.port" = "3000";
+          # "traefik.http.routers.homepage.middlewares" = "auth@file";
+        };
       };
     };
   };
