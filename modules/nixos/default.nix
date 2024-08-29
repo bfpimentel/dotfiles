@@ -10,7 +10,10 @@
   # services
   ssh = import ./services/ssh.nix;
   plex = import ./services/plex.nix;
+  glances = import ./services/glances.nix;
 
   # containers
-  podman = [ ./containers ];
+  podman = import ./podman.nix;
+  traefik = import ./containers/traefik;
+  homepage = import ./containers/homepage;
 }

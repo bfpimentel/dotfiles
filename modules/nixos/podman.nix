@@ -6,11 +6,6 @@
 }:
 
 {
-  imports = [
-    ./traefik.nix
-    ./homepage.nix
-  ];
-
   virtualisation = {
     podman = {
       enable = true;

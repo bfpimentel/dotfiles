@@ -13,8 +13,9 @@
     git
     wget
     curl
-    podman-tui      
-    podman-compose 
+    podman-tui
+    podman-compose
+    nixfmt-rfc-style
     inputs.agenix.packages."${system}".default
     inputs.home-manager.packages."${system}".default
   ];

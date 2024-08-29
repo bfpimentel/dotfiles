@@ -16,6 +16,7 @@ let
     services = settingsFormat.generate "services.yaml" (import ./config/services.nix);
     bookmarks = settingsFormat.generate "bookmarks.yaml" (import ./config/bookmarks.nix);
     widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
+    settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
     css = pkgs.writeTextFile {
       name = "custom.css";
       text = builtins.readFile ./config/custom.css;
@@ -23,19 +24,6 @@ let
   };
 in
 {
-  environment.systemPackages = with pkgs; [ glances ];
-
-  networking.firewall.allowedTCPPorts = [ 61208 ];
-
-  systemd.services.glances = {
-    description = "Glances";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.glances}/bin/glances -w";
-      Type = "simple";
-    };
-  };
-
   systemd.tmpfiles.rules = map (x: "d ${x} 0775 share share - -") directories;
   virtualisation.oci-containers = {
     containers = {
@@ -45,12 +33,12 @@ in
         extraOptions = [
           "--pull=newer"
           "-l=traefik.enable=true"
-          "-l=traefik.http.routers.home.rule=Host(`home.${vars.domainName}`)"
+          "-l=traefik.http.routers.home.rule=Host(`home.${vars.domain}`)"
           "-l=traefik.http.services.home.loadbalancer.server.port=3000"
         ];
         volumes = [
           "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-          "${vars.serviceConfigRoot}/homepage:/app/config"
+          "${vars.containersConfigRoot}/homepage/config:/app/config"
           "${homepageSettings.docker}:/app/config/docker.yaml"
           "${homepageSettings.bookmarks}:/app/config/bookmarks.yaml"
           "${homepageSettings.services}:/app/config/services.yaml"

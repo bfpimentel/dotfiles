@@ -12,13 +12,23 @@ in
   environment.persistence."/persistent" = {
     enable = true;
     hideMounts = true;
-    directories = [ 
+    directories = [
       "/var/log"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
 
-      { directory = "/opt/containers"; user = username; group = "podman"; mode = "u=rwx,g=rw,o="; }
-      { directory = "/opt/services"; user = username; group = username; mode = "u=rwx,g=rw,o="; }
+      {
+        directory = "/opt/containers";
+        user = username;
+        group = "podman";
+        mode = "u=rwx,g=rw,o=";
+      }
+      {
+        directory = "/opt/services";
+        user = username;
+        group = username;
+        mode = "u=rwx,g=rw,o=";
+      }
     ];
   };
 

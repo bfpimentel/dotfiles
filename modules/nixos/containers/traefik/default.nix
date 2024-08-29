@@ -16,11 +16,14 @@ in
         cmd = [
           "--api.insecure=true"
           "--providers.docker=true"
-          "--providers.docker.exposedbydefault=false"
+          # "--providers.docker.exposedbydefault=false"
           "--entrypoints.web.address=:80"
-          "--certificatesresolvers.letsencrypt.acme.dnschallenge=true"
-          "--certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare"
-          "--certificatesresolvers.letsencrypt.acme.email=hello@bruno.so"
+          "--certificatesresolvers.cloudflare.acme.email=hello@bruno.so"
+          "--certificatesresolvers.cloudflare.acme.storage=acme.json"
+          "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
+          "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+          "--certificatesresolvers.cloudflare.acme.dnschallenge.disablepropagationcheck=false"
+          "--certificatesresolvers.cloudflare.acme.dnschallenge.resolvers=1.1.1.1:53,1.0.0.1:53"
           # HTTP
           "--entrypoints.web.address=:80"
           "--entrypoints.web.http.redirections.entrypoint.to=websecure"
@@ -28,7 +31,7 @@ in
           "--entrypoints.websecure.address=:443"
           # HTTPS
           "--entrypoints.websecure.http.tls=true"
-          "--entrypoints.websecure.http.tls.certResolver=letsencrypt"
+          "--entrypoints.websecure.http.tls.certResolver=cloudflare"
           "--entrypoints.websecure.http.tls.domains[0].main=${vars.domain}"
           "--entrypoints.websecure.http.tls.domains[0].sans=*.${vars.domain}"
 
@@ -53,7 +56,7 @@ in
         ];
         environmentFiles = [ config.age.secrets.cloudflare.path ];
         volumes = [
-          "/var/run/docker/docker.sock:/var/run/docker.sock:ro"
+          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
           "${vars.containersConfigRoot}/traefik/acme.json:/acme.json"
         ];
       };
