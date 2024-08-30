@@ -1,14 +1,14 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
 end
 
 vim.opt.rtp:prepend(lazypath)
@@ -26,43 +26,42 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 
-if (os.getenv('SSH_TTY') == nil)
-then
-  vim.opt.clipboard = "unnamedplus"
+if os.getenv("SSH_TTY") == nil then
+	vim.opt.clipboard = "unnamedplus"
 else
-  vim.opt.clipboard:append("unnamedplus")
+	vim.opt.clipboard:append("unnamedplus")
 
-  local osc52 = require("vim.ui.clipboard.osc52")
-  vim.g.clipboard = {
-    name = "OSC 52",
-    copy = {
-      ["+"] = osc52.copy("+"),
-      ["*"] = osc52.copy("*"),
-    },
-    paste = {
-      ["+"] = osc52.paste("+"),
-      ["*"] = osc52.paste("*"),
-    },
-  }
+	local osc52 = require("vim.ui.clipboard.osc52")
+	vim.g.clipboard = {
+		name = "OSC 52",
+		copy = {
+			["+"] = osc52.copy("+"),
+			["*"] = osc52.copy("*"),
+		},
+		paste = {
+			["+"] = osc52.paste("+"),
+			["*"] = osc52.paste("*"),
+		},
+	}
 end
 
-vim.cmd [[
+vim.cmd([[
   augroup highlight_yank
   autocmd!
   au TextYankPost * silent! lua vim.highlight.on_yank({ higroup="Visual", timeout=200 })
   augroup END
-]]
+]])
 
 require("lazy").setup({
-  spec = {
-    { "LazyVim/LazyVim" },
-    { import = "bfpimentel/plugins" },
-  },
-  defaults = {
-    lazy = false,
-    version = false,
-  },
-  checker = { enabled = true, notify = false },
+	spec = {
+		{ "LazyVim/LazyVim" },
+		{ import = "bfpimentel/plugins" },
+	},
+	defaults = {
+		lazy = false,
+		version = false,
+	},
+	checker = { enabled = true, notify = false },
 })
 
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd([[colorscheme tokyonight]])

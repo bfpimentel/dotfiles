@@ -5,5 +5,9 @@
     ./tmux
     ./zsh
     ./ssh
+    ./kitty
+    ./aerospace
+    ./sketchybar
+    ./bat
   ];
 }

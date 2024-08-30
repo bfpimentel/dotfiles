@@ -1,0 +1,132 @@
+start-at-login = true
+after-login-command = []
+after-startup-command = [ 
+  'exec-and-forget sketchybar',
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=4.0'
+]
+
+key-mapping.preset = 'qwerty'
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 24
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+exec-on-workspace-change = [
+  '/bin/bash', 
+  '-c',
+  'sketchybar --trigger aerospace_workspace_changed FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+on-focus-changed = [
+  'exec-and-forget sketchybar --trigger front_app_switched'
+]
+
+[gaps]
+outer.top =        [{ monitor."built-in.*" = 12 }, 48]
+outer.left =       12
+outer.bottom =     12
+outer.right =      12
+inner.horizontal = 12
+inner.vertical =   12
+
+[mode.main.binding]
+cmd-h = [] # Disable "hide application"
+cmd-alt-h = [] # Disable "hide others"
+
+alt-semicolon = [
+  'mode service',
+  'exec-and-forget sketchybar --trigger send_message MESSAGE="Aerospace in Service Mode" HOLD="true"',
+]
+
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+
+alt-b = 'workspace B'
+alt-c = 'workspace C'
+alt-e = 'workspace E'
+alt-f = 'workspace F'
+alt-t = 'workspace T'
+alt-x = 'workspace X'
+
+alt-shift-b = 'move-node-to-workspace B'
+alt-shift-c = 'move-node-to-workspace C'
+alt-shift-e = 'move-node-to-workspace E'
+alt-shift-f = 'move-node-to-workspace F'
+alt-shift-t = 'move-node-to-workspace T'
+alt-shift-x = 'move-node-to-workspace X'
+
+alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
+
+alt-enter = 'exec-and-forget open -a "/Applications/Nix Apps/kitty.app"' 
+
+[mode.service.binding]
+esc = [
+  'reload-config', 
+  'mode main', 
+  'exec-and-forget sketchybar --reload',
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=4.0',
+  'exec-and-forget sleep 0.5 && sketchybar --trigger send_message MESSAGE="Aerospace Reloaded"',
+]
+r = [
+  'flatten-workspace-tree', 
+  'mode main',
+  'exec-and-forget sleep 0.5 && sketchybar --trigger hide_message',
+] 
+f = [
+  'layout floating tiling', 
+  'mode main',
+  'exec-and-forget sleep 0.5 && sketchybar --trigger hide_message',
+] 
+# backspace = ['close-all-windows-but-current', 'mode main']
+
+minus = 'resize smart -50'
+equal = 'resize smart +50'
+
+alt-h = ['join-with left', 'mode main']
+alt-j = ['join-with down', 'mode main']
+alt-k = ['join-with up', 'mode main']
+alt-l = ['join-with right', 'mode main']
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = ['layout tiling', 'move-node-to-workspace T']
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+check-further-callbacks = true
+run = ['layout tiling', 'move-node-to-workspace B']
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+if.window-title-regex-substring = '^$'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.google.android.studio'
+run = ['layout tiling', 'move-node-to-workspace C'] 
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout tiling', 'move-node-to-workspace F']
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.thunderbird'
+run = ['layout tiling', 'move-node-to-workspace E']
+
+[[on-window-detected]]
+if.app-id = 'com.jpochyla.psst'
+run = ['layout tiling', 'move-node-to-workspace E']
+
