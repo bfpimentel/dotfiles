@@ -12,17 +12,22 @@
     wget
     curl
     unzip
-    gcc
     fzf
     fd
+
+    gcc
     cargo
     nodejs_22
+
     nil
+    stylua
     bash-language-server
     yaml-language-server
+    nixfmt-rfc-style
+
     podman-tui
     podman-compose
-    nixfmt-rfc-style
+
     inputs.agenix.packages."${system}".default
     inputs.home-manager.packages."${system}".default
   ];
