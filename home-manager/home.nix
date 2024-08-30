@@ -1,14 +1,18 @@
-{ username, ... }:
+{ hostname, username, ... }:
 
 {
-  imports = [ ../modules/home-manager ];
+
+  imports = [
+    (./. + "/hosts/${hostname}")
+    (./. + "/users/${username}.nix")
+    ../modules/home-manager
+  ];
+
+  programs.home-manager.enable = true;
 
   home = {
-    inherit username;
-    homeDirectory = "/home/${username}";
+    username = username;
     enableNixpkgsReleaseCheck = false;
     stateVersion = "24.05";
   };
-
-  programs.home-manager.enable = true;
 }

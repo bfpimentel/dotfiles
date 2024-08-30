@@ -1,0 +1,3 @@
+{
+  tmux = import ./tmux;
+}

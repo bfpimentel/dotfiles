@@ -1,10 +1,5 @@
-{
-  config,
-  lib,
-  pkgs,
-  username,
-  ...
-}:
+{ config, username, ... }:
+
 let
   shareCredentialsPath = config.age.secrets.share.path;
 in

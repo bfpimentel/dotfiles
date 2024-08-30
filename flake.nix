@@ -52,7 +52,7 @@
 
       legacyPackages = forAllSystems (
         system:
-        import inputs.nixpkgs {
+        import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         }
@@ -73,18 +73,20 @@
                 ;
               vars = import (./. + "/nixos/${hostname}/vars.nix");
             };
-            modules = (builtins.attrValues nixosModules) ++ [
-              (./. + "/nixos/${hostname}")
-              agenix.nixosModules.default
-              impermanence.nixosModules.impermanence
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = specialArgs;
-                home-manager.users."${username}" = import ./home-manager/home.nix;
-              }
-            ];
+            modules =
+              (builtins.attrValues nixosModules)
+              ++ [
+                (./. + "/nixos/${hostname}")
+                agenix.nixosModules.default
+                impermanence.nixosModules.impermanence
+                home-manager.nixosModules.home-manager
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.extraSpecialArgs = specialArgs;
+                  home-manager.users."${username}" = import ./home-manager/home.nix;
+                }
+              ];
           in
           nixpkgs.lib.nixosSystem { inherit specialArgs modules; }
         );
@@ -103,10 +105,20 @@
                 email
                 ;
             };
-            modules = (builtins.attrValues darwinModules) ++ [
-              (./. + "/darwin/${hostname}")
-              agenix.nixosModules.default
-            ];
+            modules =
+              (builtins.attrValues darwinModules)
+              # ++ (builtins.attrValues (homeManagerModules username specialArgs))
+              ++ [
+                (./. + "/darwin/${hostname}")
+                agenix.nixosModules.default
+                home-manager.darwinModules.home-manager
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.extraSpecialArgs = specialArgs;
+                  home-manager.users."${username}" = import ./home-manager/home.nix;
+                }
+              ];
           in
           nix-darwin.lib.darwinSystem { inherit specialArgs modules; }
         );
