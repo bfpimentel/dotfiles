@@ -1,3 +1,9 @@
+{ ... }:
+
 {
-  tmux = import ./tmux;
+  imports = [
+    ./tmux
+    ./zsh
+    ./ssh
+  ];
 }

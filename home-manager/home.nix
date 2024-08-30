@@ -1,7 +1,6 @@
 { hostname, username, ... }:
 
 {
-
   imports = [
     (./. + "/hosts/${hostname}")
     (./. + "/users/${username}.nix")

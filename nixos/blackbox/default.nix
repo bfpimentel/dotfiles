@@ -1,4 +1,4 @@
-{ hostname, vars, ... }:
+{ hostname, username, vars, ... }:
 
 {
   imports = [
@@ -23,6 +23,8 @@
     };
     defaultGateway = "10.22.4.1";
   };
+
+  users.users.${username}.home = "/home/${username}";
 
   system.stateVersion = "24.05";
 }

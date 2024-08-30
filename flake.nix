@@ -18,10 +18,8 @@
     };
     agenix = {
       url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
     impermanence = {
       url = "github:nix-community/impermanence";
@@ -73,20 +71,18 @@
                 ;
               vars = import (./. + "/nixos/${hostname}/vars.nix");
             };
-            modules =
-              (builtins.attrValues nixosModules)
-              ++ [
-                (./. + "/nixos/${hostname}")
-                agenix.nixosModules.default
-                impermanence.nixosModules.impermanence
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.extraSpecialArgs = specialArgs;
-                  home-manager.users."${username}" = import ./home-manager/home.nix;
-                }
-              ];
+            modules = (builtins.attrValues nixosModules) ++ [
+              (./. + "/nixos/${hostname}")
+              agenix.nixosModules.default
+              impermanence.nixosModules.impermanence
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = specialArgs;
+                home-manager.users."${username}" = import ./home-manager/home.nix;
+              }
+            ];
           in
           nixpkgs.lib.nixosSystem { inherit specialArgs modules; }
         );
@@ -110,7 +106,7 @@
               # ++ (builtins.attrValues (homeManagerModules username specialArgs))
               ++ [
                 (./. + "/darwin/${hostname}")
-                agenix.nixosModules.default
+                # agenix.darwinModules.default
                 home-manager.darwinModules.home-manager
                 {
                   home-manager.useGlobalPkgs = true;

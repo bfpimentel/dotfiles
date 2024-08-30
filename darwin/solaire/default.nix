@@ -1,4 +1,4 @@
-{ ... }:
+{ username, ... }:
 
 {
   imports = [ ];
@@ -11,4 +11,6 @@
 
   networking.hostName = "solaire";
   networking.localHostName = "solaire";
+
+  users.users.${username}.home = "/Users/${username}";
 }
