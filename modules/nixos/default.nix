@@ -16,4 +16,5 @@
   podman = import ./podman.nix;
   traefik = import ./containers/traefik;
   homepage = import ./containers/homepage;
+  dozzle = import ./containers/dozzle;
 }

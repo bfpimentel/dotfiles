@@ -1,9 +1,4 @@
-{
-  config,
-  libs,
-  pkgs,
-  ...
-}:
+{ ... }:
 
 {
   virtualisation = {
