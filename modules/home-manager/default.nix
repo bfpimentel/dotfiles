@@ -1,18 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  username,
-  ...
-}:
+{ username, ... }:
 
 {
   imports = [ (./. + "/users/${username}.nix") ];
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
 
   programs.zsh = {
     enable = true;
