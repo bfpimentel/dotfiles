@@ -3,7 +3,6 @@
 {
   programs.zsh = {
     enable = true;
-    # dotDir = ".config/zsh";
     envExtra = ''
     ZDOTDIR=".config/zsh"
     '';

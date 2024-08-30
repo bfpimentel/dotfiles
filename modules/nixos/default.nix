@@ -1,7 +1,6 @@
 {
   nix = import ./nix.nix;
 
-  zsh = import ./zsh.nix;
   age = import ./age.nix;
   users = import ./users.nix;
   networking = import ./networking.nix;
