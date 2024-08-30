@@ -1,7 +1,10 @@
 { username, ... }:
 
 {
-  imports = [ (./. + "/users/${username}.nix") ];
+  imports = [ 
+    (./. + "/users/${username}.nix") 
+    ./neovim
+  ];
 
   programs.zsh = {
     enable = true;

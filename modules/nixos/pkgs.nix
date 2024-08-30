@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   pkgs,
   inputs,
   ...
@@ -13,6 +11,15 @@
     git
     wget
     curl
+    unzip
+    gcc
+    fzf
+    fd
+    cargo
+    nodejs_22
+    nil
+    bash-language-server
+    yaml-language-server
     podman-tui
     podman-compose
     nixfmt-rfc-style
