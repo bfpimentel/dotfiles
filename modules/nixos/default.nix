@@ -13,8 +13,5 @@
   glances = import ./services/glances.nix;
 
   # containers
-  podman = import ./podman.nix;
-  traefik = import ./containers/traefik;
-  homepage = import ./containers/homepage;
-  dozzle = import ./containers/dozzle;
+  containers = import ./containers;
 }

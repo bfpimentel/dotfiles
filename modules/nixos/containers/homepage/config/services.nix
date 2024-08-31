@@ -42,7 +42,7 @@
   # }
   # { "Media" = [ ]; }
   # { "Download Managers" = [ ]; }
-  # { "Documents" = [ ]; }
+  { "Documents" = [ ]; }
   # { "Misc" = [ ]; }
   { "Monitoring" = [ ]; }
   # { "Auth" = [ ]; }

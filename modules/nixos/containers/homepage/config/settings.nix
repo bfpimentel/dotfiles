@@ -14,7 +14,10 @@
       #   columns = 4;
       # };
       # "Download Managers" = { };
-      # "Documents" = { };
+      "Documents" = {
+        style = "row";
+        columns = 4;
+      };
       # "Misc" = { };
       "Monitoring" = {
         style = "row";

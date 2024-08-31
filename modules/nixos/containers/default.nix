@@ -1,6 +1,13 @@
 { ... }:
 
 {
+  imports = [
+    ./traefik
+    ./dozzle
+    ./homepage
+    ./baikal
+  ];
+
   virtualisation = {
     containers.enable = true;
     podman = {

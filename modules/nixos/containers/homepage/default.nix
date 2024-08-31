@@ -1,4 +1,4 @@
-{ vars, pkgs, ... }:
+{ vars, username, pkgs, ... }:
 
 let
   homepagePath = "${vars.containersConfigRoot}/homepage";
@@ -22,7 +22,8 @@ let
   };
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 share share - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} podman - -") directories;
+
   virtualisation.oci-containers = {
     containers = {
       homepage = {

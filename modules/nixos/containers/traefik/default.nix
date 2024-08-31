@@ -2,6 +2,7 @@
   config,
   vars,
   pkgs,
+  username,
   ...
 }:
 let
@@ -21,8 +22,8 @@ in
   ];
 
   systemd.tmpfiles.rules =
-    map (x: "d ${x} 0775 share share - -") directories
-    ++ map (x: "f ${x} 0600 share share - -") files;
+    map (x: "d ${x} 0775 ${username} podman - -") directories
+    ++ map (x: "f ${x} 0600 ${username} podman - -") files;
 
   virtualisation.oci-containers = {
     containers = {
