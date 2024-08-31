@@ -14,6 +14,7 @@
           "traefik.http.routers.dozzle.entryPoints" = "https";
           "traefik.http.routers.dozzle.service" = "dozzle";
           "traefik.http.services.dozzle.loadbalancer.server.port" = "8080";
+          # Homepage
           "homepage.group" = "Monitoring";
           "homepage.name" = "Dozzle";
           "homepage.icon" = "dozzle.svg";

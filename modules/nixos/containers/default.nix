@@ -6,6 +6,7 @@
     ./dozzle
     ./homepage
     ./baikal
+    # ./arr
   ];
 
   virtualisation = {

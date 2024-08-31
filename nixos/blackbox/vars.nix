@@ -5,4 +5,5 @@
   networkInterface = "enp6s18";
   servicesConfigRoot = "/persistent/opt/services";
   containersConfigRoot = "/persistent/opt/containers";
+  storageMountLocation = "/mnt/storage";
 }

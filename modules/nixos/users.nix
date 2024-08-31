@@ -18,6 +18,9 @@
     storage = {
       gid = 2000;
     };
+    podman = {
+      gid = 994;
+    };
   };
 
   users.users = {

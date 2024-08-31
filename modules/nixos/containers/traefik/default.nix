@@ -6,8 +6,10 @@
   ...
 }:
 let
-  directories = [ "${vars.containersConfigRoot}/traefik" ];
-  files = [ "${vars.containersConfigRoot}/traefik/acme.json" ];
+  traefikPath = "${vars.containersConfigRoot}/traefik";
+
+  directories = [ traefikPath ];
+  files = [ "${traefikPath}/acme.json" ];
 
   settingsFormat = pkgs.formats.yaml { };
   traefikConfig = {
@@ -37,7 +39,7 @@ in
         ];
         volumes = [
           "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-          "${vars.containersConfigRoot}/traefik/acme.json:/acme.json"
+          "${traefikPath}/acme.json:/acme.json"
           "${traefikConfig.config}:/traefik.yml:ro"
           "${traefikConfig.dynamic}:/dynamic.yml:ro"
         ];
