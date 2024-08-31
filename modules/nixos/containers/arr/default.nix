@@ -39,10 +39,10 @@ in
           "-l=homepage.widget.url=http://sonarr:8989"
         ];
         volumes = [
+          "${sonarrPath}:/config"
           "${vars.storageMountLocation}/downloads:/downloads"
           "${vars.storageMountLocation}/media/animes:/anime"
           "${vars.storageMountLocation}/media/shows:/shows"
-          "${sonarrPath}:/config"
         ];
         environment = {
           TZ = vars.timeZone;
@@ -69,9 +69,9 @@ in
           "-l=homepage.widget.url=http://radarr:7878"
         ];
         volumes = [
+          "${radarrPath}:/config"
           "${vars.storageMountLocation}/downloads:/downloads"
           "${vars.storageMountLocation}/media/movies:/movies"
-          "${radarrPath}:/config"
         ];
         environment = {
           TZ = vars.timeZone;
@@ -103,7 +103,7 @@ in
         };
       };
       bazarr = {
-        image = "lscr.io/linuxserver/bazarr:development";
+        image = "lscr.io/linuxserver/bazarr:latest";
         autoStart = true;
         extraOptions = [
           "--pull=newer"
@@ -121,9 +121,9 @@ in
         ];
         volumes = [ 
           "${bazarrPath}:/config" 
-          "${vars.storageMountLocation}/media/shows:/downloads"
           "${vars.storageMountLocation}/media/movies:/movies"
-          "${vars.storageMountLocation}/media/animes:/downloads"
+          "${vars.storageMountLocation}/media/animes:/anime"
+          "${vars.storageMountLocation}/media/shows:/shows"
         ];
         environment = {
           TZ = vars.timeZone;
