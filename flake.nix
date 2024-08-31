@@ -84,7 +84,7 @@
               }
             ];
           in
-          nixpkgs.lib.nixosSystem { inherit specialArgs modules; }
+          nixpkgs.lib.nixosSystem { inherit modules specialArgs; }
         );
 
       createDarwin =
@@ -101,19 +101,17 @@
                 email
                 ;
             };
-            modules =
-              (builtins.attrValues darwinModules)
-              ++ [
-                (./. + "/darwin/${hostname}")
-                agenix.nixosModules.default
-                home-manager.darwinModules.home-manager
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.extraSpecialArgs = specialArgs;
-                  home-manager.users."${username}" = import ./home-manager/home.nix;
-                }
-              ];
+            modules = (builtins.attrValues darwinModules) ++ [
+              (./. + "/darwin/${hostname}")
+              agenix.nixosModules.default
+              home-manager.darwinModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = specialArgs;
+                home-manager.users."${username}" = import ./home-manager/home.nix;
+              }
+            ];
           in
           nix-darwin.lib.darwinSystem { inherit specialArgs modules; }
         );

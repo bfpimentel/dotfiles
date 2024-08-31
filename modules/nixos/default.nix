@@ -8,9 +8,7 @@
   pkgs = import ./pkgs.nix;
 
   # services
-  ssh = import ./services/ssh.nix;
-  plex = import ./services/plex.nix;
-  glances = import ./services/glances.nix;
+  services = import ./services;
 
   # containers
   containers = import ./containers;

@@ -1,9 +1,8 @@
 {
-  config,
-  libs,
   pkgs,
   username,
   fullname,
+  vars,
   ...
 }:
 
@@ -19,13 +18,13 @@
       gid = 2000;
     };
     podman = {
-      gid = 994;
+      gid = vars.defaultPodmanGID;
     };
   };
 
   users.users = {
     "${username}" = {
-      uid = 1000;
+      uid = vars.defaultUserUID;
       group = "${username}";
       description = "${fullname}";
       isNormalUser = true;

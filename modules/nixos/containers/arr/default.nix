@@ -13,8 +13,8 @@ let
     bazarrPath
   ];
 
-  puid = "1000"; # default user UID
-  guid = "994"; # podman GID
+  puid = toString vars.defaultUserUID;
+  guid = toString vars.defaultPodmanGID;
 in
 {
   systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} podman - -") directories;
@@ -119,8 +119,8 @@ in
           "-l=homepage.widget.key={{HOMEPAGE_FILE_BAZARR_KEY}}"
           "-l=homepage.widget.url=http://bazarr:6767"
         ];
-        volumes = [ 
-          "${bazarrPath}:/config" 
+        volumes = [
+          "${bazarrPath}:/config"
           "${vars.storageMountLocation}/media/movies:/movies"
           "${vars.storageMountLocation}/media/animes:/anime"
           "${vars.storageMountLocation}/media/shows:/shows"

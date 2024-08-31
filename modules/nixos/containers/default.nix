@@ -7,6 +7,7 @@
     ./homepage
     ./baikal
     ./arr
+    ./qbittorrent
   ];
 
   virtualisation = {

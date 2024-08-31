@@ -16,6 +16,7 @@ in
     containers = {
       baikal = {
         image = "ckulka/baikal:latest";
+        autoStart = true;
         volumes = [
           "${baikalPath}/data:/var/www/baikal/Specific"
           "${baikalPath}/config:/var/www/baikal/config"
@@ -29,7 +30,7 @@ in
           # Homepage
           "homepage.group" = "Documents";
           "homepage.name" = "Baikal";
-          "homepage.icon" = "baikal.svg";
+          "homepage.icon" = "baikal.png";
           "homepage.href" = "https://baikal.${vars.domain}";
         };
       };

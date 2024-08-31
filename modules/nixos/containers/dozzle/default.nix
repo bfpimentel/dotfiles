@@ -5,6 +5,7 @@
     containers = {
       dozzle = {
         image = "amir20/dozzle:latest";
+        autoStart = true;
         volumes = [
           "/var/run/podman/podman.sock:/var/run/docker.sock"
         ];

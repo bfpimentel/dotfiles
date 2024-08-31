@@ -9,11 +9,11 @@
       #   style = "row";
       #   columns = 4;
       # };
-      # "Media" = { 
-      #   style = "row";
-      #   columns = 4;
-      # };
-      # "Download Managers" = { };
+      "Media" = { 
+        style = "row";
+        columns = 4;
+      };
+      "Download Managers" = { };
       "Documents" = {
         style = "row";
         columns = 4;
