@@ -1,4 +1,4 @@
-{ config, username, ... }:
+{ config, username, vars, ... }:
 
 let
   shareCredentialsPath = config.age.secrets.share.path;
@@ -26,7 +26,7 @@ in
     ];
   };
 
-  fileSystems."/mnt/share" = {
+  fileSystems."${vars.storageMountLocation}" = {
     device = "//10.22.4.5/malenia-share/bruno";
     fsType = "cifs";
     options = [
