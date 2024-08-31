@@ -2,6 +2,7 @@
 
 {
   virtualisation = {
+    containers.enable = true;
     podman = {
       enable = true;
       dockerCompat = true;
@@ -12,5 +13,8 @@
     };
   };
 
-  networking.firewall.interfaces.podman0.allowedUDPPorts = [ 53 ];
+  networking.firewall.interfaces."podman+".allowedUDPPorts = [
+    53
+    5353
+  ];
 }

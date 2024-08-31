@@ -14,6 +14,7 @@
     unzip
     fzf
     fd
+    ripgrep
 
     gcc
     cargo

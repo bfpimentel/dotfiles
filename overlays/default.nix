@@ -3,8 +3,8 @@
 {
   additions = final: _prev: import ../pkgs final.pkgs;
   modifications = final: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
+    slirp4netns = prev.slirp4netns.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or [ ]) ++ [ ./slirp4netns.patch ];
+    });
   };
 }

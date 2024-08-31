@@ -103,10 +103,9 @@
             };
             modules =
               (builtins.attrValues darwinModules)
-              # ++ (builtins.attrValues (homeManagerModules username specialArgs))
               ++ [
                 (./. + "/darwin/${hostname}")
-                # agenix.darwinModules.default
+                agenix.nixosModules.default
                 home-manager.darwinModules.home-manager
                 {
                   home-manager.useGlobalPkgs = true;

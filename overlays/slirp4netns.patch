@@ -1,0 +1,162 @@
+diff --git a/sandbox.c b/sandbox.c
+index f0ab48e..4251b5a 100644
+--- a/sandbox.c
++++ b/sandbox.c
+@@ -15,37 +15,73 @@
+ 
+ #include <glib.h>
+ 
++static int close_fd_safe(int *fd)
++{
++    int ret = 0;
++
++    if (*fd > -1) {
++        ret = close(*fd);
++        if (ret < 0) {
++            fprintf(stderr, "cannot close fd %d\n", *fd);
++            *fd = -1;
++        }
++    }
++
++    return ret;
++}
++
+ static int add_mount(const char *from, const char *to)
+ {
+-    int ret;
++    int fd = -1, ret = -1, fd_ret = -1;
+ 
+-    ret = mount("", from, "", MS_SLAVE | MS_REC, NULL);
++    fd = open_tree(AT_FDCWD, from, AT_NO_AUTOMOUNT | AT_SYMLINK_NOFOLLOW);
++    if (fd == -1) {
++        fprintf(stderr, "cannot open tree %s\n", from);
++        goto exit;
++    }
++
++    struct mount_attr attr = { .propagation = MS_SLAVE };
++
++    ret = mount_setattr(fd, "",
++                        AT_EMPTY_PATH | AT_SYMLINK_NOFOLLOW | AT_NO_AUTOMOUNT,
++                        &attr, sizeof(attr));
+     if (ret < 0 && errno != EINVAL) {
+         fprintf(stderr, "cannot make mount propagation slave %s\n", from);
+-        return ret;
++        goto exit;
+     }
+-    ret = mount(from, to, "",
+-                MS_BIND | MS_REC | MS_SLAVE | MS_NOSUID | MS_NODEV | MS_NOEXEC,
+-                NULL);
++
++    ret = close_fd_safe(&fd);
+     if (ret < 0) {
+-        fprintf(stderr, "cannot bind mount %s to %s (errno: %d)\n", from, to,
+-                errno);
+-        return ret;
++        goto exit;
++    }
++
++    fd = open_tree(AT_FDCWD, from,
++                   OPEN_TREE_CLONE | AT_RECURSIVE | AT_NO_AUTOMOUNT |
++                       AT_SYMLINK_NOFOLLOW);
++    if (fd == -1) {
++        fprintf(stderr, "cannot open tree %s\n", from);
++        goto exit;
+     }
+-    ret = mount("", to, "", MS_SLAVE | MS_REC, NULL);
++
++    ret = mount_setattr(fd, "",
++                        AT_EMPTY_PATH | AT_SYMLINK_NOFOLLOW | AT_NO_AUTOMOUNT,
++                        &attr, sizeof(attr));
+     if (ret < 0) {
+-        fprintf(stderr, "cannot make mount propagation slave %s\n", to);
+-        return ret;
++        fprintf(stderr, "cannot make mount propagation slave %s\n", from);
++        goto exit;
+     }
+-    ret = mount(from, to, "",
+-                MS_REMOUNT | MS_BIND | MS_RDONLY | MS_NOSUID | MS_NODEV |
+-                    MS_NOEXEC,
+-                NULL);
++
++    ret = move_mount(fd, "", AT_FDCWD, to, MOVE_MOUNT_F_EMPTY_PATH);
+     if (ret < 0) {
+-        fprintf(stderr, "cannot remount ro %s\n", to);
+-        return ret;
++        fprintf(stderr, "cannot move mount %s to %s (errno: %d)\n", from, to,
++                errno);
++        goto exit;
+     }
+-    return 0;
++
++exit:
++    close_fd_safe(&fd);
++    printf("add_mount: %s -> %s = %d\n", from, to, ret);
++    return ret;
+ }
+ 
+ /* Bind /etc/resolv.conf if it is a symlink to a file outside /etc or
+@@ -54,22 +90,16 @@ static int bind_escaped_resolv_conf(const char *root)
+ {
+     char *real_resolv = realpath("/etc/resolv.conf", NULL);
+ 
+-    /* Doesn't exist or is not an escaping symlink */
+-    if (real_resolv == NULL || g_str_has_prefix(real_resolv, "/etc") ||
+-        g_str_has_prefix(real_resolv, "/run")) {
++    /* Doesn't exist */
++    if (real_resolv == NULL) {
+         free(real_resolv);
+         return 0;
+     }
+ 
+-    char *resolv_dest = g_strconcat(root, real_resolv, NULL);
++    char *resolv_dest = g_strconcat(root, "/etc/resolv.conf", NULL);
+     char *resolv_dest_dir = g_path_get_dirname(resolv_dest);
+     int ret = 0;
+ 
+-    fprintf(stderr,
+-            "sandbox: /etc/resolv.conf (-> %s) seems a symlink to a file "
+-            "outside {/etc, /run}, attempting to bind it as well.\n",
+-            real_resolv);
+-
+     ret = g_mkdir_with_parents(resolv_dest_dir, 0755);
+     if (ret < 0) {
+         fprintf(stderr, "cannot create resolve dest dir path: %s\n",
+@@ -77,14 +107,6 @@ static int bind_escaped_resolv_conf(const char *root)
+         goto finish;
+     }
+ 
+-    ret = creat(resolv_dest, 0644);
+-    if (ret < 0) {
+-        fprintf(stderr, "cannot create empty resolv.conf dest file %s\n",
+-                resolv_dest);
+-        goto finish;
+-    }
+-    close(ret);
+-
+     ret = add_mount(real_resolv, resolv_dest);
+     if (ret < 0) {
+         fprintf(stderr, "cannot bind mount resolv.conf\n");
+@@ -98,6 +120,15 @@ finish:
+     return ret;
+ }
+ 
++/* check /etc/resolv.conf existance */
++static void check_resolv_conf()
++{
++    if (access("/etc/resolv.conf", F_OK) != 0) {
++        fprintf(stderr, "cannot read /etc/resolv.conf, this may indicate a "
++                        "bind failure.\n");
++    }
++}
++
+ /* lock down the process doing the following:
+  - create a new mount namespace
+  - bind mount /etc and /run from the host
+@@ -230,5 +261,7 @@ int create_sandbox()
+         return ret;
+     }
+ 
++    check_resolv_conf();
++
+     return 0;
+ }

@@ -1,23 +1,22 @@
-{
-  vars,
-  pkgs,
-  ...
-}:
+{ vars, pkgs, ... }:
+
 let
+  homepagePath = "${vars.containersConfigRoot}/homepage";
+
   directories = [
-    "${vars.containersConfigRoot}/homepage"
-    "${vars.containersConfigRoot}/homepage/config"
+    "${homepagePath}"
+    "${homepagePath}/config"
   ];
 
   settingsFormat = pkgs.formats.yaml { };
   homepageSettings = {
-    docker = settingsFormat.generate "docker.yaml" (import ./config/docker.nix);
-    services = settingsFormat.generate "services.yaml" (import ./config/services.nix);
-    bookmarks = settingsFormat.generate "bookmarks.yaml" (import ./config/bookmarks.nix);
-    widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
-    settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
+    docker = settingsFormat.generate "${homepagePath}/docker.yaml" (import ./config/docker.nix);
+    services = settingsFormat.generate "${homepagePath}/services.yaml" (import ./config/services.nix);
+    bookmarks = settingsFormat.generate "${homepagePath}/bookmarks.yaml" (import ./config/bookmarks.nix);
+    widgets = settingsFormat.generate "${homepagePath}/widgets.yaml" (import ./config/widgets.nix);
+    settings = settingsFormat.generate "${homepagePath}/settings.yaml" (import ./config/settings.nix);
     css = pkgs.writeTextFile {
-      name = "custom.css";
+      name = "${homepagePath}/custom.css";
       text = builtins.readFile ./config/custom.css;
     };
   };
@@ -32,7 +31,7 @@ in
         extraOptions = [ "--pull=newer" ];
         volumes = [
           "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-          "${vars.containersConfigRoot}/homepage/config:/app/config"
+          "${homepagePath}:/app/config"
           "${homepageSettings.docker}:/app/config/docker.yaml"
           "${homepageSettings.bookmarks}:/app/config/bookmarks.yaml"
           "${homepageSettings.services}:/app/config/services.yaml"

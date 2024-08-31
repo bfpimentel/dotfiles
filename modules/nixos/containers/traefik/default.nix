@@ -15,6 +15,11 @@ let
   };
 in
 {
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
+
   systemd.tmpfiles.rules =
     map (x: "d ${x} 0775 share share - -") directories
     ++ map (x: "f ${x} 0600 share share - -") files;
@@ -42,11 +47,11 @@ in
           "traefik.http.routers.traefik.entryPoints" = "https";
           "traefik.http.routers.traefik.service" = "api@internal";
           "traefik.http.services.traefik.loadbalancer.server.port" = "8080";
-          "homepage.group" = "Services";
+          # Homepage
+          "homepage.group" = "Networking";
           "homepage.name" = "Traefik";
           "homepage.icon" = "traefik.svg";
           "homepage.href" = "https://traefik.${vars.domain}";
-          "homepage.description" = "Reverse proxy";
           "homepage.widget.type" = "traefik";
           "homepage.widget.url" = "http://traefik:8080";
         };

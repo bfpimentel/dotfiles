@@ -1,9 +1,4 @@
-{
-  config,
-  libs,
-  pkgs,
-  ...
-}:
+{ ... }:
 
 {
   networking = {
@@ -15,9 +10,4 @@
       "8.8.8.8"
     ];
   };
-
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
 }
