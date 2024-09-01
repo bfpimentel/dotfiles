@@ -15,6 +15,7 @@
     fzf
     fd
     ripgrep
+    pciutils
 
     gcc
     cargo
