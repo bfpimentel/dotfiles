@@ -137,6 +137,16 @@ in
           "homepage.href" = "https://prowlarr.${vars.domain}";
         };
       };
+      flaresolverr = {
+        image = "ghcr.io/flaresolverr/flaresolverr:latest";
+        autoStart = true;
+        extraOptions = [ "--pull=newer" ];
+        environment = {
+          TZ = vars.timeZone;
+          LOG_LEVEL = "info";
+          LOG_HTML = "false";
+        };
+      };
     };
   };
 }
