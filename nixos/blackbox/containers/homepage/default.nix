@@ -32,6 +32,8 @@ in
           config.age.secrets.radarr.path
           config.age.secrets.sonarr.path
           config.age.secrets.bazarr.path
+          config.age.secrets.plex.path
+          config.age.secrets.immich.path
         ];
         environment = {
           TZ = vars.timeZone;
