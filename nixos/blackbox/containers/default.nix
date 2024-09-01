@@ -11,6 +11,7 @@
     ./vaultwarden
     ./speedtest
     ./immich
+    ./plex
   ];
 
   virtualisation = {

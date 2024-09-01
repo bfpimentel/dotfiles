@@ -15,5 +15,6 @@ in
   "bazarr.age".publicKeys = allKeys;
   "vaultwarden.age".publicKeys = allKeys;
   "immich.age".publicKeys = allKeys;
+  "plex.age".publicKeys = allKeys;
   "tailscale-blackbox.age".publicKeys = allKeys;
 }
