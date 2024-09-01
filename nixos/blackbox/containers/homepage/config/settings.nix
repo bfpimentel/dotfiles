@@ -1,35 +1,35 @@
 {
+  title = "bruno's lab";
   headerStyle = "clean";
   statusStyle = "dot";
+  theme = "dark";
+  useEqualHeights = true;
   hideVersion = true;
   layout = [
+    # {
+    #   "Glances" = {
+    #     header = false;
+    #     style = "row";
+    #     columns = 4;
+    #   };
+    # }
     {
-      # "Glances" = {
-      #   header = false;
-      #   style = "row";
-      #   columns = 4;
-      # };
-      "Media" = { 
+      "Media" = {
         style = "row";
         columns = 4;
       };
-      "Download Managers" = {
-        style = "row";
-        columns = 4;
-      };
-      "Documents" = {
-        style = "row";
-        columns = 4;
-      };
-      # "Misc" = { };
-      "Monitoring" = {
-        style = "row";
-        columns = 4;
-      };
+    }
+    { "Download Managers" = { }; }
+    { "Documents" = { }; }
+    { "Misc" = { }; }
+    { "Monitoring" = { }; }
+    {
       "Auth" = {
         style = "row";
         columns = 4;
       };
+    }
+    {
       "Networking" = {
         style = "row";
         columns = 4;

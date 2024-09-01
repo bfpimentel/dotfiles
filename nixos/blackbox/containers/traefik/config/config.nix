@@ -1,4 +1,4 @@
-{
+domain: {
   api = {
     dashboard = true;
     debug = true;
@@ -74,8 +74,8 @@
           certResolver = "cloudflare";
           domains = [
             {
-              main = "local.luana.casa";
-              sans = [ "*.local.luana.casa" ];
+              main = domain;
+              sans = [ "*.${domain}" ];
             }
           ];
         };
