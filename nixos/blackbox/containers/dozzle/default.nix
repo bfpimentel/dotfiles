@@ -19,7 +19,7 @@
           "homepage.group" = "Monitoring";
           "homepage.name" = "Dozzle";
           "homepage.icon" = "dozzle.svg";
-          "homepage.href" = "https://dozzle.${vars.domain}";
+          "homepage.href" = "https://logs.${vars.domain}";
         };
       };
     };
