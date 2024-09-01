@@ -16,6 +16,7 @@
       radarr.file = ../../secrets/radarr.age;
       bazarr.file = ../../secrets/bazarr.age;
       vaultwarden.file = ../../secrets/vaultwarden.age;
+      immich.file = ../../secrets/immich.age;
     };
   };
 }

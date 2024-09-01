@@ -14,4 +14,5 @@ in
   "radarr.age".publicKeys = allKeys;
   "bazarr.age".publicKeys = allKeys;
   "vaultwarden.age".publicKeys = allKeys;
+  "immich.age".publicKeys = allKeys;
 }

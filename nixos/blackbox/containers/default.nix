@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -10,6 +10,7 @@
     ./qbittorrent
     ./vaultwarden
     ./speedtest
+    ./immich
   ];
 
   virtualisation = {
