@@ -13,7 +13,10 @@
         style = "row";
         columns = 4;
       };
-      "Download Managers" = { };
+      "Download Managers" = {
+        style = "row";
+        columns = 4;
+      };
       "Documents" = {
         style = "row";
         columns = 4;
@@ -23,10 +26,10 @@
         style = "row";
         columns = 4;
       };
-      # "Auth" = {
-      #   style = "row";
-      #   columns = 4;
-      # };
+      "Auth" = {
+        style = "row";
+        columns = 4;
+      };
       "Networking" = {
         style = "row";
         columns = 4;

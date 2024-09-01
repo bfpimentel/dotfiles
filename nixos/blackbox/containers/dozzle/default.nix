@@ -13,7 +13,6 @@
           "traefik.enable" = "true";
           "traefik.http.routers.dozzle.rule" = "Host(`logs.${vars.domain}`)";
           "traefik.http.routers.dozzle.entryPoints" = "https";
-          "traefik.http.routers.dozzle.service" = "dozzle";
           "traefik.http.services.dozzle.loadbalancer.server.port" = "8080";
           # Homepage
           "homepage.group" = "Monitoring";

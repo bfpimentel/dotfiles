@@ -45,6 +45,6 @@
   { "Documents" = [ ]; }
   # { "Misc" = [ ]; }
   { "Monitoring" = [ ]; }
-  # { "Auth" = [ ]; }
+  { "Auth" = [ ]; }
   { "Networking" = [ ]; }
 ]

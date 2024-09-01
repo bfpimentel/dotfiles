@@ -9,6 +9,7 @@
     ./arr
     ./qbittorrent
     ./vaultwarden
+    ./speedtest
   ];
 
   virtualisation = {
