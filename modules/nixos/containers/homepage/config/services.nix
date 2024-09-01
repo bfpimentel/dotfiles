@@ -40,8 +40,8 @@
   #     }
   #   ];
   # }
-  # { "Media" = [ ]; }
-  # { "Download Managers" = [ ]; }
+  { "Media" = [ ]; }
+  { "Download Managers" = [ ]; }
   { "Documents" = [ ]; }
   # { "Misc" = [ ]; }
   { "Monitoring" = [ ]; }

@@ -31,7 +31,7 @@ in
     fsType = "cifs";
     options = [
       "credentials=${shareCredentialsPath}"
-      "uid=2000"
+      "uid=${toString vars.defaultUserUID}"
       "gid=2000"
       "x-systemd.automount"
       "noauto"

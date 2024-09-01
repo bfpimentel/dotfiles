@@ -10,7 +10,7 @@ let
   ];
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} podman - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
 
   virtualisation.oci-containers = {
     containers = {

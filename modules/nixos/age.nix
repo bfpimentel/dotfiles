@@ -12,6 +12,9 @@
     secrets = {
       share.file = ../../secrets/share.age;
       cloudflare.file = ../../secrets/cloudflare.age;
+      sonarr.file = ../../secrets/sonarr.age;
+      radarr.file = ../../secrets/radarr.age;
+      bazarr.file = ../../secrets/bazarr.age;
     };
   };
 }

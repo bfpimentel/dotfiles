@@ -10,4 +10,7 @@ in
 {
   "share.age".publicKeys = allKeys;
   "cloudflare.age".publicKeys = allKeys;
+  "sonarr.age".publicKeys = allKeys;
+  "radarr.age".publicKeys = allKeys;
+  "bazarr.age".publicKeys = allKeys;
 }

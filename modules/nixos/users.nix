@@ -9,7 +9,7 @@
 {
   users.groups = {
     "${username}" = {
-      gid = 1000;
+      gid = vars.defaultUserGID;
     };
     media = {
       gid = 1001;
@@ -18,7 +18,7 @@
       gid = 2000;
     };
     podman = {
-      gid = vars.defaultPodmanGID;
+      gid = 994;
     };
   };
 

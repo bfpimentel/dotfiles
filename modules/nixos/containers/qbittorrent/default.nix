@@ -6,10 +6,10 @@ let
   directories = [ qbtPath ];
 
   puid = toString vars.defaultUserUID;
-  guid = toString vars.defaultPodmanGID;
+  pgid = toString vars.defaultUserGID;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} podman - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
 
   networking.firewall.allowedTCPPorts = [ 6881 ];
   networking.firewall.allowedUDPPorts = [ 6881 ];
@@ -27,7 +27,7 @@ in
         environment = {
           TZ = vars.timeZone;
           PUID = puid;
-          GUID = guid;
+          PGID = pgid;
           UMASK = "002";
           TORRENTING_PORT = "6881";
           WEBUI_PORT = "8080";

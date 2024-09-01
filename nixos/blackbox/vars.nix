@@ -7,5 +7,5 @@
   containersConfigRoot = "/persistent/opt/containers";
   storageMountLocation = "/mnt/share";
   defaultUserUID = 1000;
-  defaultPodmanGID = 994;
+  defaultUserGID = 1000;
 }

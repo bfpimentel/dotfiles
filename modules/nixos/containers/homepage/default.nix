@@ -1,4 +1,4 @@
-{ vars, username, pkgs, ... }:
+{ vars, username, pkgs, config, ... }:
 
 let
   homepagePath = "${vars.containersConfigRoot}/homepage";
@@ -22,7 +22,7 @@ let
   };
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} podman - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
 
   virtualisation.oci-containers = {
     containers = {
@@ -39,16 +39,14 @@ in
           "${homepageSettings.settings}:/app/config/settings.yaml"
           "${homepageSettings.widgets}:/app/config/widgets.yaml"
           "${homepageSettings.css}:/app/config/custom.css"
-          # "${config.age.secrets.sonarrApiKey.path}:/app/config/sonarr.key"
-          # "${config.age.secrets.radarrApiKey.path}:/app/config/radarr.key"
-          # "${config.age.secrets.jellyfinApiKey.path}:/app/config/jellyfin.key"
         ];
-        # environmentFiles = [ config.age.secrets.paperless.path ];
+        environmentFiles = [ 
+          config.age.secrets.radarr.path 
+          config.age.secrets.sonarr.path 
+          config.age.secrets.bazarr.path 
+        ];
         environment = {
           TZ = vars.timeZone;
-          # HOMEPAGE_FILE_SONARR_KEY = "/app/config/sonarr.key";
-          # HOMEPAGE_FILE_RADARR_KEY = "/app/config/radarr.key";
-          # HOMEPAGE_FILE_JELLYFIN_KEY = "/app/config/jellyfin.key";
         };
         labels = {
           "traefik.enable" = "true";
