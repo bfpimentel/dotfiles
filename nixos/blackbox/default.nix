@@ -11,6 +11,7 @@
     ./networking.nix
     ./filesystems.nix
     ./containers
+    ./services
   ];
 
   boot.loader = {
@@ -19,22 +20,6 @@
   };
 
   services.xserver.videoDrivers = ["nvidia"];
-
-  # boot = {
-  #   initrd.kernelModules = [
-  #     "vfio_pci"
-  #     "vfio"
-  #     "vfio_iommu_type1"
-  #     "vfio_virqfd"
-
-  #     "nvidia"
-  #     "nvidia_modeset"
-  #     "nvidia_uvm"
-  #     "nvidia_drm"
-  #   ];
-
-  #   kernelParams = [ "vfio-pci.ids=10de:1b80,10de:10f0" ];
-  # };
 
   hardware = {
     enableRedistributableFirmware = lib.mkDefault true;

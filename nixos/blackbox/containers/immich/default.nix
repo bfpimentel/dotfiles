@@ -24,10 +24,6 @@ in
 
   systemd.services = {
     podman-immich = {
-      # serviceConfig = {
-      #   User = username;
-      #   Group = username;
-      # };
       requires = [
         "podman-immich-redis.service"
         "podman-immich-postgres.service"
@@ -38,18 +34,8 @@ in
       ];
     };
     podman-immich-postgres = {
-      # serviceConfig = {
-      #   User = "postgres";
-      #   Group = "postgres";
-      # };
       requires = [ "podman-immich-redis.service" ];
       after = [ "podman-immich-redis.service" ];
-    };
-    podman-immich-machine-learning = {
-      # serviceConfig = {
-      #   User = username;
-      #   Group = username;
-      # };
     };
   };
 
@@ -76,6 +62,11 @@ in
         "traefik.http.routers.immich.entrypoints" = "https";
         "traefik.http.routers.immich.rule" = "Host(`photos.${vars.domain}`)";
         "traefik.http.services.immich.loadbalancer.server.port" = "3001";
+        # Homepage
+        "homepage.group" = "Media";
+        "homepage.name" = "Immich";
+        "homepage.icon" = "immich.svg";
+        "homepage.href" = "https://photos.${vars.domain}";
       };
     };
 
@@ -98,25 +89,22 @@ in
       };
     };
 
+    immich-redis = {
+      image = "redis";
+      autoStart = true;
+      extraOptions = [ "--pull=newer" ];
+    };
+
     immich-postgres = {
       image = "tensorchord/pgvecto-rs:pg14-v0.2.1";
       autoStart = true;
       extraOptions = [ "--user=100001:100001" ];
-      # cmd = [
-      #   "postgres -c shared_preload_libraries=vectors.so -c 'search_path=\"$$user\", public, vectors' -c logging_collector=on -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on"
-      # ];
       volumes = [ "${immichPostgresPath}:/var/lib/postgresql/data" ];
       environmentFiles = [ config.age.secrets.immich.path ];
       environment = {
         POSTGRES_DB = "immich";
         POSTGRES_USER = "postgres";
       };
-    };
-
-    immich-redis = {
-      image = "redis";
-      autoStart = true;
-      extraOptions = [ "--pull=newer" ];
     };
   };
 }

@@ -1,7 +1,4 @@
-{
-  username,
-  ...
-}:
+{ username, ... }:
 
 {
   age = {
@@ -17,6 +14,7 @@
       bazarr.file = ../../secrets/bazarr.age;
       vaultwarden.file = ../../secrets/vaultwarden.age;
       immich.file = ../../secrets/immich.age;
+      tailscale-blackbox.file = ../../secrets/tailscale-blackbox.age;
     };
   };
 }
