@@ -9,7 +9,4 @@
 
   # services
   services = import ./services;
-
-  # containers
-  containers = import ./containers;
 }

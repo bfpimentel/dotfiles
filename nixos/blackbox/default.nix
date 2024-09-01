@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./filesystems.nix
+    ./containers
   ];
 
   boot.loader = {
