@@ -12,6 +12,10 @@ let
     services = settingsFormat.generate "services.yaml" ((import ./config/services.nix) vars.domain);
     widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
     settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
+    bookmarks = pkgs.writeTextFile {
+      name = "bookmarks.yaml";
+      text = "---";
+    };
   };
 in
 {
@@ -27,6 +31,7 @@ in
           "${homepageSettings.services}:/app/config/services.yaml"
           "${homepageSettings.settings}:/app/config/settings.yaml"
           "${homepageSettings.widgets}:/app/config/widgets.yaml"
+          "${homepageSettings.bookmarks}:/app/config/bookmarks.yaml"
         ];
         environmentFiles = [
           config.age.secrets.radarr.path

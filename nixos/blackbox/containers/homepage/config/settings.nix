@@ -6,13 +6,13 @@
   useEqualHeights = true;
   hideVersion = true;
   layout = [
-    # {
-    #   "Glances" = {
-    #     header = false;
-    #     style = "row";
-    #     columns = 4;
-    #   };
-    # }
+    {
+      "Glances" = {
+        header = false;
+        style = "row";
+        columns = 4;
+      };
+    }
     {
       "Media" = {
         style = "row";

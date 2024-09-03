@@ -1,7 +1,7 @@
 { vars, username, ... }:
 
 let
-  overseerrPath = "${vars.containersConfigRoot}/overseerr/";
+  overseerrPath = "${vars.containersConfigRoot}/overseerr";
 
   directories = [ overseerrPath ];
 in

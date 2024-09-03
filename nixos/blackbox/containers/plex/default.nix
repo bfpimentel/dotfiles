@@ -49,9 +49,10 @@ in
           "homepage.name" = "Plex";
           "homepage.icon" = "plex.svg";
           "homepage.href" = "https://plex.${vars.domain}";
-          "homepage.widget.type" = "plex";
+          "homepage.widget.type" = "tautulli";
           "homepage.widget.key" = "{{HOMEPAGE_VAR_PLEX_KEY}}";
-          "homepage.widget.url" = "http://plex:32400";
+          "homepage.widget.url" = "http://tautulli:8181";
+          "homepage.widget.enableUser" = "true";
         };
       };
     };

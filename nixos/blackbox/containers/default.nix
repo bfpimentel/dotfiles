@@ -13,6 +13,7 @@
     ./immich
     ./plex
     ./overseerr
+    ./tautulli
   ];
 
   virtualisation = {
