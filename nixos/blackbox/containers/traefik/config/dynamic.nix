@@ -71,7 +71,7 @@ domain: {
       };
       truenas = {
         loadBalancer = {
-          servers = [ { url = "http://10.22.4.4"; } ];
+          servers = [ { url = "http://10.22.4.5"; } ];
           passHostHeader = true;
         };
       };

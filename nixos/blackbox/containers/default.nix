@@ -12,6 +12,7 @@
     ./speedtest
     ./immich
     ./plex
+    ./overseerr
   ];
 
   virtualisation = {
