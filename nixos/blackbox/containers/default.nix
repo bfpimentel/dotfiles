@@ -9,22 +9,22 @@ in
     ./dozzle
     ./homepage
     ./baikal
-    ./arr
-    ./qbittorrent
+    #./arr
+    #./qbittorrent
     ./vaultwarden
     ./speedtest
-    ./immich
-    ./plex
-    ./overseerr
-    ./tautulli
+    #./immich
+    #./plex
+    #./overseerr
+    #./tautulli
   ];
 
-  systemd.services."podman-network-public" = {
-    serviceConfig.Type = "oneshot";
-    script = ''
-      ${podmanBin} network inspect public > /dev/null 2>&1 || ${podmanBin} network create public --interface-name=${vars.networkInterface}
-    '';
-  };
+  # systemd.services."podman-network-public" = {
+  #   serviceConfig.Type = "oneshot";
+  #   script = ''
+  #     ${podmanBin} network inspect public > /dev/null 2>&1 || ${podmanBin} network create public --interface-name=${vars.networkInterface}
+  #   '';
+  # };
 
   virtualisation = {
     containers.enable = true;

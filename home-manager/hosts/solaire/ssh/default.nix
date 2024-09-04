@@ -14,18 +14,13 @@
         user = "bfpimentel-owlet";
         identityFile = "/Users/${username}/.ssh/id_owlet";
       };
-      "malenia" = {
-        hostname = "10.22.4.4";
+      "blackbox" = {
+        hostname = "10.22.4.2";
         user = "bruno";
         identityFile = "/Users/${username}/.ssh/id_personal";
       };
       "godwyn" = {
         hostname = "10.22.4.10";
-        user = "bruno";
-        identityFile = "/Users/${username}/.ssh/id_personal";
-      };
-      "blackbox" = {
-        hostname = "10.22.4.20";
         user = "bruno";
         identityFile = "/Users/${username}/.ssh/id_personal";
       };
