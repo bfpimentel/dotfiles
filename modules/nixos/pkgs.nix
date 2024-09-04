@@ -16,6 +16,7 @@
     fd
     ripgrep
     pciutils
+    tcpdump
 
     gcc
     cargo
