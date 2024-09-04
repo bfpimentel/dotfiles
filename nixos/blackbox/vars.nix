@@ -1,7 +1,7 @@
 {
   domain = "local.luana.casa";
-  ip = "10.22.4.20";
-  networkInterface = "enp6s18";
+  ip = "10.22.4.2";
+  networkInterface = "enp5s0";
   timeZone = "America/Sao_Paulo";
   servicesConfigRoot = "/persistent/opt/services";
   containersConfigRoot = "/persistent/opt/containers";

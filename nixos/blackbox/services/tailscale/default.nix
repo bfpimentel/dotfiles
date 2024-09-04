@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  vars,
+  ...
+}:
 
 {
   environment.systemPackages = [ pkgs.tailscale ];
@@ -49,7 +54,7 @@
       fi
 
       # authenticate
-      ${tailscale}/bin/tailscale up --authkey file:${config.age.secrets.tailscale-blackbox.path} --login-server=https://headscale.bfmp.lol --advertise-routes=10.22.4.20/32 --accept-dns=true
+      ${tailscale}/bin/tailscale up --authkey file:${config.age.secrets.tailscale-blackbox.path} --login-server=https://headscale.bfmp.lol --advertise-routes=${vars.ip}/32 --accept-dns=true
     '';
   };
 }

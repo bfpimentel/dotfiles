@@ -26,16 +26,16 @@ in
     ];
   };
 
-  fileSystems."${vars.storageMountLocation}" = {
-    device = "//10.22.4.5/malenia-share/bruno";
-    fsType = "cifs";
-    options = [
-      "credentials=${shareCredentialsPath}"
-      "uid=${toString vars.defaultUserUID}"
-      "gid=2000"
-      "x-systemd.automount"
-      "noauto"
-      "rw"
-    ];
-  };
+#  fileSystems."${vars.storageMountLocation}" = {
+#    device = "//10.22.4.5/malenia-share/bruno";
+#    fsType = "cifs";
+#    options = [
+#      "credentials=${shareCredentialsPath}"
+#      "uid=${toString vars.defaultUserUID}"
+#      "gid=${toString vars.defaultUserGID}"
+#      "x-systemd.automount"
+#      "noauto"
+#      "rw"
+#    ];
+#  };
 }
