@@ -1,4 +1,4 @@
-{ ... }:
+{ username, ... }:
 
 {
   security.pam.enableSudoTouchIdAuth = true;
@@ -24,7 +24,7 @@
         "/Applications/Thunderbird.app"
         "/Applications/Arc.app"
         "/Applications/Nix Apps/kitty.app"
-        "$HOME/Applications/Android Studio.app"
+        "/Users/${username}/Applications/Android Studio.app"
       ];
       # Mission Control
       expose-animation-duration = 0.2;

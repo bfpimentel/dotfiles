@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ ... }:
 
 {
   homebrew = {
@@ -52,7 +47,6 @@
       "pearcleaner"
       "kap"
       "aerospace"
-      "brave-browser@beta"
       "firefox@nightly"
       "font-space-mono-nerd-font"
     ];

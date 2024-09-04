@@ -70,7 +70,7 @@ alt-shift-x = 'move-node-to-workspace X'
 
 alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
 
-alt-enter = 'exec-and-forget open -a "/Applications/Nix Apps/kitty.app"' 
+# alt-enter = 'exec-and-forget open -a "/Applications/Nix Apps/kitty.app"' 
 
 [mode.service.binding]
 esc = [
