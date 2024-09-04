@@ -31,6 +31,7 @@
     };
     initExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
+      export NIX_PATH="/etc/nixos"
     '';
     oh-my-zsh = {
       enable = true;

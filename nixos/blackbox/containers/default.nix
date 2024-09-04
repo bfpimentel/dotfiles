@@ -1,5 +1,8 @@
-{ ... }:
+{ pkgs, vars, ... }:
 
+let
+  podmanBin = "${pkgs.podman}/bin/podman";
+in
 {
   imports = [
     ./traefik
@@ -15,6 +18,13 @@
     ./overseerr
     ./tautulli
   ];
+
+  systemd.services."podman-network-public" = {
+    serviceConfig.Type = "oneshot";
+    script = ''
+      ${podmanBin} network inspect public > /dev/null 2>&1 || ${podmanBin} network create public --interface-name=${vars.networkInterface}
+    '';
+  };
 
   virtualisation = {
     containers.enable = true;

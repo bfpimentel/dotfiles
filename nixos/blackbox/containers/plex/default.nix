@@ -19,16 +19,35 @@ in
 {
   systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
 
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
+    9029
+    32400
+  ];
+  networking.firewall.interfaces."tailscale0".allowedUDPPorts = [
+    9029
+    32400
+  ];
+
+  systemd.services."podman-plex" = {
+    wants = [ "podman-tailscale.service" ];
+    after = [ "podman-tailscale.service" ];
+  };
+
   virtualisation.oci-containers = {
     containers = {
       plex = {
         image = "lscr.io/linuxserver/plex:latest";
         autoStart = true;
-        extraOptions = [ "--device=/dev/dri:/dev/dri" ];
+        extraOptions = [
+          "--device=/dev/dri:/dev/dri"
+          "--network=podman"
+          # "--network=public"
+        ];
         volumes = [
           "${plexPath}:/config"
           "${vars.storageMountLocation}/media:/media"
         ];
+        ports = [ "127.0.0.1:9029:32400" ];
         environmentFiles = [ config.age.secrets.plex.path ];
         environment = {
           "PLEX_UID" = puid;
