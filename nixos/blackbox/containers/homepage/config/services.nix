@@ -1,11 +1,11 @@
-domain: [
+domain: networkInterface: [
   {
     "Glances" = [
       {
         "Info" = {
           widget = {
             type = "glances";
-            url = "http://host.containers.internal:61208";
+            url = "https://glances.${domain}";
             metric = "info";
             version = 4;
           };
@@ -26,7 +26,7 @@ domain: [
           widget = {
             type = "glances";
             url = "https://glances.${domain}";
-            metric = "network:enp6s18";
+            metric = "network:${networkInterface}";
             chart = true;
             version = 4;
           };

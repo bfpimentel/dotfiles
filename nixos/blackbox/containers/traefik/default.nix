@@ -5,6 +5,7 @@
   username,
   ...
 }:
+
 let
   traefikPath = "${vars.containersConfigRoot}/traefik";
 
@@ -14,7 +15,9 @@ let
   settingsFormat = pkgs.formats.yaml { };
   traefikConfig = {
     config = settingsFormat.generate "config.yaml" ((import ./config/config.nix) vars.domain);
-    dynamic = settingsFormat.generate "dynamic.yaml" ((import ./config/dynamic.nix) vars.domain);
+    dynamic = settingsFormat.generate "dynamic.yaml" (
+      (import ./config/dynamic.nix) vars.ip vars.domain
+    );
   };
 in
 {

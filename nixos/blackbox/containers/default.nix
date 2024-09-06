@@ -9,10 +9,10 @@ in
     ./dozzle
     ./homepage
     ./baikal
-    #./arr
-    #./qbittorrent
     ./vaultwarden
     ./speedtest
+    #./arr
+    #./qbittorrent
     #./immich
     #./plex
     #./overseerr
