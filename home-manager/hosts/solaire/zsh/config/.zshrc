@@ -10,7 +10,6 @@ export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export BUN_INSTALL="$HOME/.bun"
 export SDKMAN_DIR="$HOME/.sdkman"
 export NVM_DIR="$HOME/.nvm"
-export NIX_PATH="$HOME/.nixos"
 
 export AE_DEPLOYMENT_ENV="debug"
 
@@ -121,7 +120,7 @@ alias cdn="vim ~/.nixos"
 alias cn="vim ~/.config/nvim"
 alias cz="vim ~/.config/zsh"
 
-alias rnix="darwin-rebuild switch --flake /Users/bruno/.nixos"
+alias rnix="darwin-rebuild switch --flake $HOME/.nixos"
 
 alias visudo="sudo -E visudo"
 

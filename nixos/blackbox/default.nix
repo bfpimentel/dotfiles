@@ -10,7 +10,7 @@
     ./hardware-configuration.nix
     ./networking.nix
     ./filesystems.nix
-    # ./containers
+    ./containers
     ./services
   ];
 
