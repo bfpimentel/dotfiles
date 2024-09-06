@@ -9,5 +9,6 @@
     ./aerospace
     ./sketchybar
     ./bat
+    ./helix
   ];
 }

@@ -31,7 +31,6 @@
       "floorp"
       "balenaetcher"
       "vial"
-      "thunderbird"
       "raspberry-pi-imager"
       "vlc"
       "linearmouse"
@@ -47,6 +46,7 @@
       "pearcleaner"
       "kap"
       "aerospace"
+      "thunderbird@beta"
       "firefox@nightly"
       "font-space-mono-nerd-font"
     ];
