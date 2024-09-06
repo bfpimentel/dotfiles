@@ -8,14 +8,38 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/b6406ec2-c73b-4a41-8dcf-3858fac7f266";
       fsType = "ext4";
+    };
+
+  fileSystems."/var/lib/nixos" =
+    { device = "/persistent/var/lib/nixos";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  fileSystems."/var/log" =
+    { device = "/persistent/var/log";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  fileSystems."/opt/containers" =
+    { device = "/persistent/opt/containers";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  fileSystems."/var/lib/systemd/coredump" =
+    { device = "/persistent/var/lib/systemd/coredump";
+      fsType = "none";
+      options = [ "bind" ];
     };
 
   fileSystems."/boot" =
@@ -32,6 +56,14 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.podman0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.tailscale0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.veth0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.veth1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.veth2.useDHCP = lib.mkDefault true;
+  # networking.interfaces.veth3.useDHCP = lib.mkDefault true;
+  # networking.interfaces.veth4.useDHCP = lib.mkDefault true;
+  # networking.interfaces.veth5.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

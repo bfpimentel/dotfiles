@@ -14,8 +14,8 @@ let
 
   settingsFormat = pkgs.formats.yaml { };
   traefikConfig = {
-    config = settingsFormat.generate "config.yaml" ((import ./config/config.nix) vars.domain);
-    dynamic = settingsFormat.generate "dynamic.yaml" (
+    config = settingsFormat.generate "config.yml" ((import ./config/config.nix) vars.domain);
+    dynamic = settingsFormat.generate "dynamic.yml" (
       (import ./config/dynamic.nix) vars.ip vars.domain
     );
   };

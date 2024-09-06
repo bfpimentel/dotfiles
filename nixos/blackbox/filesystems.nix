@@ -14,14 +14,8 @@ in
       {
         directory = "/opt/containers";
         user = username;
-        group = "podman";
-        mode = "u=rwx,g=rwx,o=";
-      }
-      {
-        directory = "/opt/services";
-        user = username;
         group = username;
-        mode = "u=rwx,g=rw,o=";
+        mode = "u=rwx,g=rwx,o=";
       }
     ];
   };
