@@ -12,6 +12,16 @@ domain: networkInterface: [
         };
       }
       {
+        "Temp" = {
+          widget = {
+            type = "glances";
+            url = "https://glances.${domain}";
+            metric = "sensor:Tctl";
+            version = 4;
+          };
+        };
+      }
+      {
         "Storage" = {
           widget = {
             type = "glances";
