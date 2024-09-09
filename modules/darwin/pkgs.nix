@@ -4,6 +4,8 @@
   programs.zsh.enable = true;
 
   environment.systemPackages = with pkgs; [
+    python3
+    wget
     helix
     kitty
     eza

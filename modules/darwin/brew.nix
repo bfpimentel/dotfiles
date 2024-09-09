@@ -19,6 +19,10 @@
       "ripgrep"
       "sketchybar"
       "borders"
+      "libpcap" 
+      "hcxtools"
+      "xz"
+      "ykman"
     ];
 
     taps = [
@@ -28,7 +32,6 @@
 
     casks = [
       "xcodes"
-      "floorp"
       "balenaetcher"
       "vial"
       "raspberry-pi-imager"
@@ -48,7 +51,7 @@
       "aerospace"
       "thunderbird@beta"
       "firefox@nightly"
-      "font-space-mono-nerd-font"
+      "font-space-mono-nerd-font" 
     ];
   };
 }
