@@ -8,9 +8,9 @@ in
     ./traefik
     ./dozzle
     ./homepage
+    ./speedtest
     ./baikal
     ./vaultwarden
-    ./speedtest
     #./arr
     #./qbittorrent
     #./immich
