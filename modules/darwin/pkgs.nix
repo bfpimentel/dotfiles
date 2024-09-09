@@ -4,6 +4,7 @@
   programs.zsh.enable = true;
 
   environment.systemPackages = with pkgs; [
+    neovim
     python3
     wget
     helix
@@ -15,7 +16,6 @@
     fzf
     fd
     gnupg
-    neovim
     tmux
     nil
     nixfmt-rfc-style

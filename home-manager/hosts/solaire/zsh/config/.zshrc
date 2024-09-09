@@ -116,11 +116,12 @@ alias gst="git status -sb"
 
 alias ls="eza --icons=always"
 
-alias cdn="vim ~/.nixos"
+alias cnix="nvim /etc/nixos"
+alias cdnix="cd /etc/nixos"
 alias cn="vim ~/.config/nvim"
 alias cz="vim ~/.config/zsh"
 
-alias rnix="darwin-rebuild switch --flake $HOME/.nixos"
+alias rnix="darwin-rebuild switch --flake /etc/nixos"
 
 alias visudo="sudo -E visudo"
 
