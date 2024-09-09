@@ -9,7 +9,9 @@ let
   settingsFormat = pkgs.formats.yaml { };
   homepageSettings = {
     docker = settingsFormat.generate "docker.yaml" (import ./config/docker.nix);
-    services = settingsFormat.generate "services.yaml" ((import ./config/services.nix) vars.domain);
+    services = settingsFormat.generate "services.yaml" (
+      (import ./config/services.nix) vars.domain vars.networkInterface
+    );
     widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
     settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
     bookmarks = pkgs.writeTextFile {

@@ -8,11 +8,11 @@ in
     ./traefik
     ./dozzle
     ./homepage
+    ./speedtest
     ./baikal
+    ./vaultwarden
     #./arr
     #./qbittorrent
-    ./vaultwarden
-    ./speedtest
     #./immich
     #./plex
     #./overseerr

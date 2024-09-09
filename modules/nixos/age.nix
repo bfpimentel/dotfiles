@@ -13,6 +13,7 @@
       immich.file = ../../secrets/immich.age;
       plex.file = ../../secrets/plex.age;
       tailscale-blackbox.file = ../../secrets/tailscale-blackbox.age;
+      speedtest-tracker.file = ../../secrets/speedtest-tracker.age;
     };
   };
 }

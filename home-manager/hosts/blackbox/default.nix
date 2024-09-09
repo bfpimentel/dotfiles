@@ -20,7 +20,8 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     shellAliases = {
-      cdn = "cd /etc/nixos";
+      cdnix = "cd /etc/nixos";
+      cnix = "nvim /etc/nixos";
       rnix = "sudo nixos-rebuild switch --impure";
       vim = "nvim";
       gst = "git status -sb";

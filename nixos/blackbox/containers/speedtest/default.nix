@@ -1,9 +1,17 @@
-{ vars, username, ... }:
+{
+  vars,
+  username,
+  config,
+  ...
+}:
 
 let
   speedtestPath = "${vars.containersConfigRoot}/speedtest-tracker";
 
   directories = [ speedtestPath ];
+
+  puid = toString vars.defaultUserUID;
+  guid = toString vars.defaultUserGID;
 in
 {
   systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
@@ -11,14 +19,15 @@ in
   virtualisation.oci-containers = {
     containers = {
       speedtest-tracker = {
-        image = "henrywhitaker3/speedtest-tracker:latest";
+        image = "lscr.io/linuxserver/speedtest-tracker:latest";
         autoStart = true;
         volumes = [ "${speedtestPath}:/config" ];
+        environmentFiles = [ config.age.secrets.speedtest-tracker.path ];
         environment = {
-          TZ = vars.timeZone;
-          PGID = "1000";
-          PUID = "1000";
-          OOKLA_EULA_GDPR = "true";
+          APP_TIMEZONE = vars.timeZone;
+          PUID = puid;
+          PGID = guid;
+          DB_CONNECTION = "sqlite";
         };
         labels = {
           "traefik.enable" = "true";

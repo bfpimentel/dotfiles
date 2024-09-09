@@ -17,4 +17,5 @@ in
   "immich.age".publicKeys = allKeys;
   "plex.age".publicKeys = allKeys;
   "tailscale-blackbox.age".publicKeys = allKeys;
+  "speedtest-tracker.age".publicKeys = allKeys;
 }
