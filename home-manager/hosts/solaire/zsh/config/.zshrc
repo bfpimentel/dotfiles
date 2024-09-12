@@ -118,10 +118,10 @@ alias ls="eza --icons=always"
 
 alias cnix="nvim /etc/nixos"
 alias cdnix="cd /etc/nixos"
+alias rnix="darwin-rebuild switch --flake /etc/nixos"
+
 alias cn="vim ~/.config/nvim"
 alias cz="vim ~/.config/zsh"
-
-alias rnix="darwin-rebuild switch --flake /etc/nixos"
 
 alias visudo="sudo -E visudo"
 

@@ -49,6 +49,7 @@
       "pearcleaner"
       "kap"
       "aerospace"
+      "zen-browser"
       "thunderbird@beta"
       "firefox@nightly"
       "font-space-mono-nerd-font" 
