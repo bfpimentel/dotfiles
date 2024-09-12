@@ -49,6 +49,15 @@ domain: networkInterface: [
   { "Documents" = [ ]; }
   { "Misc" = [ ]; }
   { "Monitoring" = [ ]; }
-  { "Auth" = [ ]; }
+  {
+    "Management" = [
+      {
+        "Unraid" = {
+          icon = "unraid";
+          href = "https://unraid.${domain}";
+        };
+      }
+    ];
+  }
   { "Networking" = [ ]; }
 ]
