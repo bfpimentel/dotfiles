@@ -36,7 +36,7 @@ in
           "traefik.http.routers.vaultwarden.service" = "vaultwarden";
           "traefik.http.services.vaultwarden.loadbalancer.server.port" = "80";
           # Homepage
-          "homepage.group" = "Auth";
+          "homepage.group" = "Management";
           "homepage.name" = "Vaultwarden";
           "homepage.icon" = "vaultwarden.svg";
           "homepage.href" = "https://vault.${vars.domain}";

@@ -17,6 +17,13 @@ in
         group = username;
         mode = "u=rwx,g=rwx,o=";
       }
+      # temporary solution while nas isn't ready
+      {
+        directory = "/mnt/share";
+        user = username;
+        group = username;
+        mode = "u=rwx,g=rwx,o=";
+      }
     ];
   };
 

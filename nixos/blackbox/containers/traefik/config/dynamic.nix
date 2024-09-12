@@ -13,11 +13,29 @@ ip: domain: {
         };
         service = "glances";
       };
+      unraid = {
+        entryPoints = [
+          "https"
+          "http"
+        ];
+        rule = "Host(`storage.${domain}`)";
+        middlewares = [ "https-redirect" ];
+        tls = {
+          certResolver = "cloudflare";
+        };
+        service = "unraid";
+      };
     };
     services = {
       glances = {
         loadBalancer = {
           servers = [ { url = "http://${ip}:61208"; } ];
+          passHostHeader = true;
+        };
+      };
+      unraid = {
+        loadBalancer = {
+          servers = [ { url = "http://10.22.4.4"; } ];
           passHostHeader = true;
         };
       };
