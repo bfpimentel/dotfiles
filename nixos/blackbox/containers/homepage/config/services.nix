@@ -54,7 +54,7 @@ domain: networkInterface: [
       {
         "Unraid" = {
           icon = "unraid";
-          href = "https://unraid.${domain}";
+          href = "https://storage.${domain}";
         };
       }
     ];
