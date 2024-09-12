@@ -22,7 +22,7 @@
       persistent-apps = [
         "/Applications/Psst.app"
         "/Applications/Thunderbird Beta.app"
-        "/Applications/Firefox Nightly.app"
+        "/Applications/Zen Browser.app"
         "/Applications/Nix Apps/kitty.app"
         "/Users/${username}/Applications/Android Studio.app"
       ];

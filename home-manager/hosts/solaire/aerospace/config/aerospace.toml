@@ -105,13 +105,13 @@ if.app-id = 'net.kovidgoyal.kitty'
 run = ['layout tiling', 'move-node-to-workspace T']
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.nightly'
+if.app-id = 'org.mozilla.com.zen.browser'
 check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace B']
 
 [[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
-if.window-title-regex-substring = '^Picture-in-Picture'
+if.app-id = 'org.mozilla.com.zen.browser'
+if.window-title-regex-substring = 'picture-in-picture'
 run = ['layout floating']
 
 [[on-window-detected]]
