@@ -8,10 +8,7 @@
 let
   plexPath = "${vars.containersConfigRoot}/plex";
 
-  directories = [
-    "${plexPath}"
-    "${plexPath}/config"
-  ];
+  directories = [ "${plexPath}" ];
 
   puid = toString vars.defaultUserUID;
   guid = toString vars.defaultUserGID;

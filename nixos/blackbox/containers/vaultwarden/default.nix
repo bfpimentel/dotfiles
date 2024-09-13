@@ -5,7 +5,7 @@
   ...
 }:
 let
-  vaultwardenPath = "${vars.containersConfigRoot}/vaultwarden/";
+  vaultwardenPath = "${vars.containersConfigRoot}/vaultwarden";
 
   directories = [ vaultwardenPath ];
 in

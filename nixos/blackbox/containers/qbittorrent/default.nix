@@ -3,7 +3,11 @@
 let
   qbtPath = "${vars.containersConfigRoot}/qbittorrent/";
 
-  directories = [ qbtPath ];
+  directories = [ 
+    qbtPath 
+    "${qbtPath}/config"
+    "${qbtPath}/themes"
+  ];
 
   puid = toString vars.defaultUserUID;
   pgid = toString vars.defaultUserGID;
@@ -23,7 +27,11 @@ in
           "127.0.0.1:6881:6881"
           "127.0.0.1:6881:6881/udp"
         ];
-        volumes = [ "${vars.mediaMountLocation}/downloads:/downloads" ];
+        volumes = [ 
+          "${vars.mediaMountLocation}/downloads:/downloads" 
+          "${qbtPath}/config:/config" 
+          "${qbtPath}/themes:/themes" 
+        ];
         environment = {
           TZ = vars.timeZone;
           PUID = puid;
