@@ -39,19 +39,22 @@ in
         image = "lscr.io/linuxserver/plex:latest";
         autoStart = true;
         extraOptions = [
-          "--device=/dev/dri:/dev/dri"
+          "--device=nvidia.com/gpu=all"
+          "--security-opt=label=disable"
           "--network=podman"
           # "--network=public"
         ];
         volumes = [
           "${plexPath}:/config"
-          "${vars.storageMountLocation}/media:/media"
+          "${vars.mediaMountLocation}/movies:/media/movies"
+          "${vars.mediaMountLocation}/shows:/media/shows"
+          "${vars.mediaMountLocation}/anime:/media/anime"
         ];
-        ports = [ "127.0.0.1:9029:32400" ];
+        ports = [ "9029:32400" ];
         environmentFiles = [ config.age.secrets.plex.path ];
         environment = {
-          "PLEX_UID" = puid;
-          "PLEX_GID" = guid;
+          "PUID" = puid;
+          "PGID" = guid;
           "TZ" = vars.timeZone;
           "ADVERTISE_IP" = "https://plex.${vars.domain}";
           "NVIDIA_VISIBLE_DEVICES" = "all";
@@ -68,6 +71,7 @@ in
           "homepage.name" = "Plex";
           "homepage.icon" = "plex.svg";
           "homepage.href" = "https://plex.${vars.domain}";
+          "homepage.weight" = "5";
           "homepage.widget.type" = "tautulli";
           "homepage.widget.key" = "{{HOMEPAGE_VAR_PLEX_KEY}}";
           "homepage.widget.url" = "http://tautulli:8181";

@@ -1,4 +1,9 @@
-{ config, username, vars, ... }:
+{
+  config,
+  username,
+  vars,
+  ...
+}:
 
 let
   shareCredentialsPath = config.age.secrets.share.path;
@@ -17,26 +22,48 @@ in
         group = username;
         mode = "u=rwx,g=rwx,o=";
       }
-      # temporary solution while nas isn't ready
-      {
-        directory = "/mnt/share";
-        user = username;
-        group = username;
-        mode = "u=rwx,g=rwx,o=";
-      }
     ];
   };
 
-#  fileSystems."${vars.storageMountLocation}" = {
-#    device = "//10.22.4.5/malenia-share/bruno";
-#    fsType = "cifs";
-#    options = [
-#      "credentials=${shareCredentialsPath}"
-#      "uid=${toString vars.defaultUserUID}"
-#      "gid=${toString vars.defaultUserGID}"
-#      "x-systemd.automount"
-#      "noauto"
-#      "rw"
-#    ];
-#  };
+  fileSystems."${vars.mediaMountLocation}" = {
+    device = "//${vars.unraidIp}/media";
+    fsType = "cifs";
+    options = [
+      "credentials=${shareCredentialsPath}"
+      "uid=${toString vars.defaultUserUID}"
+      "gid=${toString vars.defaultUserGID}"
+      "rw"
+      "noserverino"
+      "x-systemd.automount"
+      "noauto"
+    ];
+  };
+
+  fileSystems."${vars.photosMountLocation}" = {
+    device = "//${vars.unraidIp}/photos";
+    fsType = "cifs";
+    options = [
+      "credentials=${shareCredentialsPath}"
+      "uid=${toString vars.defaultUserUID}"
+      "gid=${toString vars.defaultUserGID}"
+      "rw"
+      "noserverino"
+      "x-systemd.automount"
+      "noauto"
+    ];
+  };
+
+  fileSystems."${vars.containersMountLocation}" = {
+    device = "//${vars.unraidIp}/containers";
+    fsType = "cifs";
+    options = [
+      "credentials=${shareCredentialsPath}"
+      "uid=${toString vars.defaultUserUID}"
+      "gid=${toString vars.defaultUserGID}"
+      "rw"
+      "noserverino"
+      "x-systemd.automount"
+      "noauto"
+    ];
+  };
 }

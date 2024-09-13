@@ -2,6 +2,7 @@
   username,
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -19,7 +20,9 @@
     efi.canTouchEfiVariables = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  boot.kernelModules = [ "nvidia-uvm" ];
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {
     enableRedistributableFirmware = lib.mkDefault true;
@@ -32,7 +35,7 @@
         finegrained = false;
         enable = false;
       };
-      package = config.boot.kernelPackages.nvidiaPackages.production;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
     nvidia-container-toolkit.enable = true;
   };

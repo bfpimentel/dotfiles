@@ -11,12 +11,12 @@ in
     ./speedtest
     ./baikal
     ./vaultwarden
-    #./arr
-    #./qbittorrent
-    #./immich
-    #./plex
-    #./overseerr
-    #./tautulli
+    ./arr
+    ./qbittorrent
+    ./immich
+    ./plex
+    ./overseerr
+    ./tautulli
   ];
 
   # systemd.services."podman-network-public" = {
@@ -24,6 +24,19 @@ in
   #   script = ''
   #     ${podmanBin} network inspect public > /dev/null 2>&1 || ${podmanBin} network create public --interface-name=${vars.networkInterface}
   #   '';
+  # };
+
+  # systemd.services.podman = {
+  #   requires = [
+  #     "mnt-photos.mount"
+  #     "mnt-containers.mount"
+  #     "mnt-media.mount"
+  #   ];
+  #   after = [
+  #     "mnt-photos.mount"
+  #     "mnt-containers.mount"
+  #     "mnt-media.mount"
+  #   ];
   # };
 
   virtualisation = {

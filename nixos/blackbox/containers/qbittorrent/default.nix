@@ -23,7 +23,7 @@ in
           "127.0.0.1:6881:6881"
           "127.0.0.1:6881:6881/udp"
         ];
-        volumes = [ "${vars.storageMountLocation}/downloads:/downloads" ];
+        volumes = [ "${vars.mediaMountLocation}/downloads:/downloads" ];
         environment = {
           TZ = vars.timeZone;
           PUID = puid;

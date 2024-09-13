@@ -1,9 +1,4 @@
-{
-  vars,
-  username,
-  config,
-  ...
-}:
+{ vars, username, ... }:
 
 let
   sonarrPath = "${vars.containersConfigRoot}/sonarr";
@@ -31,9 +26,9 @@ in
         autoStart = true;
         volumes = [
           "${sonarrPath}:/config"
-          "${vars.storageMountLocation}/downloads:/downloads"
-          "${vars.storageMountLocation}/media/animes:/anime"
-          "${vars.storageMountLocation}/media/shows:/shows"
+          "${vars.mediaMountLocation}/downloads:/downloads"
+          "${vars.mediaMountLocation}/anime:/anime"
+          "${vars.mediaMountLocation}/shows:/shows"
         ];
         extraOptions = [ "--pull=newer" ];
         environment = {
@@ -51,6 +46,7 @@ in
           "homepage.name" = "Sonarr";
           "homepage.icon" = "sonarr.svg";
           "homepage.href" = "https://sonarr.${vars.domain}";
+          "homepage.weight" = "10";
           "homepage.widget.type" = "sonarr";
           "homepage.widget.key" = "{{HOMEPAGE_VAR_SONARR_KEY}}";
           "homepage.widget.url" = "http://sonarr:8989";
@@ -61,8 +57,8 @@ in
         autoStart = true;
         volumes = [
           "${radarrPath}:/config"
-          "${vars.storageMountLocation}/downloads:/downloads"
-          "${vars.storageMountLocation}/media/movies:/movies"
+          "${vars.mediaMountLocation}/downloads:/downloads"
+          "${vars.mediaMountLocation}/movies:/movies"
         ];
         extraOptions = [ "--pull=newer" ];
         environment = {
@@ -80,6 +76,7 @@ in
           "homepage.name" = "Radarr";
           "homepage.icon" = "radarr.svg";
           "homepage.href" = "https://radarr.${vars.domain}";
+          "homepage.weight" = "20";
           "homepage.widget.type" = "radarr";
           "homepage.widget.key" = "{{HOMEPAGE_VAR_RADARR_KEY}}";
           "homepage.widget.url" = "http://radarr:7878";
@@ -91,9 +88,9 @@ in
         extraOptions = [ "--pull=newer" ];
         volumes = [
           "${bazarrPath}:/config"
-          "${vars.storageMountLocation}/media/movies:/movies"
-          "${vars.storageMountLocation}/media/animes:/anime"
-          "${vars.storageMountLocation}/media/shows:/shows"
+          "${vars.mediaMountLocation}/movies:/movies"
+          "${vars.mediaMountLocation}/anime:/anime"
+          "${vars.mediaMountLocation}/shows:/shows"
         ];
         environment = {
           TZ = vars.timeZone;
@@ -110,6 +107,7 @@ in
           "homepage.name" = "Bazarr";
           "homepage.icon" = "bazarr.svg";
           "homepage.href" = "https://bazarr.${vars.domain}";
+          "homepage.weight" = "30";
           "homepage.widget.type" = "bazarr";
           "homepage.widget.key" = "{{HOMEPAGE_VAR_BAZARR_KEY}}";
           "homepage.widget.url" = "http://bazarr:6767";

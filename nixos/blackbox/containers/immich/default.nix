@@ -5,14 +5,12 @@
   ...
 }:
 let
+  immichVersion = "v1.115.0";
+
   immichPath = "${vars.containersConfigRoot}/immich";
   immichPostgresPath = "${immichPath}/postgres";
-  immichVersion = "v1.113.0";
 
-  directories = [
-    "${immichPath}"
-    "${immichPath}/machine-learning"
-  ];
+  directories = [ "${immichPath}" ];
 
   puid = toString vars.defaultUserUID;
   pgid = toString vars.defaultUserGID;
@@ -21,16 +19,19 @@ in
   systemd.tmpfiles.rules =
     map (x: "d ${x} 0775 ${username} ${username} - -") directories
     ++ map (x: "d ${x} 0775 postgres ${username} - -") [ immichPostgresPath ];
+  # ++ map (x: "d ${x} 0775 root root - -") [ "${immichPath}/machine-learning" ];
 
   systemd.services = {
     podman-immich = {
       requires = [
         "podman-immich-redis.service"
         "podman-immich-postgres.service"
+        "podman-immich-machine-learning.service"
       ];
       after = [
         "podman-immich-redis.service"
         "podman-immich-postgres.service"
+        "podman-immich-machine-learning.service"
       ];
     };
     podman-immich-postgres = {
@@ -43,15 +44,16 @@ in
     immich = {
       image = "ghcr.io/immich-app/immich-server:${immichVersion}";
       autoStart = true;
-      extraOptions = [ "--device=/dev/dri:/dev/dri" ];
-      volumes = [ "${vars.storageMountLocation}/photos:/usr/src/app/upload" ];
+      extraOptions = [
+        "--device=nvidia.com/gpu=all"
+        "--security-opt=label=disable"
+      ];
+      volumes = [ "${vars.photosMountLocation}:/usr/src/app/upload" ];
       environmentFiles = [ config.age.secrets.immich.path ];
       environment = {
         PUID = puid;
         PGID = pgid;
         TZ = vars.timeZone;
-        IMMICH_PORT = "3001";
-        IMMICH_HOST = "0.0.0.0";
         DB_HOSTNAME = "immich-postgres";
         DB_USERNAME = "postgres";
         DB_DATABASE_NAME = "immich";
@@ -67,6 +69,7 @@ in
         "homepage.name" = "Immich";
         "homepage.icon" = "immich.svg";
         "homepage.href" = "https://photos.${vars.domain}";
+        "homepage.weight" = "0";
         "homepage.widget.type" = "immich";
         "homepage.widget.key" = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
         "homepage.widget.url" = "http://immich:3001";
@@ -78,14 +81,13 @@ in
       image = "ghcr.io/immich-app/immich-machine-learning:${immichVersion}-cuda";
       autoStart = true;
       extraOptions = [
-        "--device=/dev/dri:/dev/dri"
-        # "--user=${puid}:${pgid}"
+        "--device=nvidia.com/gpu=all"
+        "--security-opt=label=disable"
+        "--user=${puid}:${pgid}"
       ];
-      volumes = [ "${immichPath}/machine-learning:/config/machine-learning" ];
+      volumes = [ "${immichPath}/machine-learning:/cache" ];
       environmentFiles = [ config.age.secrets.immich.path ];
       environment = {
-        IMMICH_PORT = "3001";
-        IMMICH_HOST = "0.0.0.0";
         DB_HOSTNAME = "immich-postgres";
         DB_DATABASE_NAME = "immich";
         DB_USERNAME = "postgres";
