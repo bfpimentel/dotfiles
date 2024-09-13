@@ -16,6 +16,6 @@ in
   "vaultwarden.age".publicKeys = allKeys;
   "immich.age".publicKeys = allKeys;
   "plex.age".publicKeys = allKeys;
-  "tailscale-blackbox.age".publicKeys = allKeys;
+  "tailscale-malenia.age".publicKeys = allKeys;
   "speedtest-tracker.age".publicKeys = allKeys;
 }

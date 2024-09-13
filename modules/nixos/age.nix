@@ -12,7 +12,7 @@
       vaultwarden.file = ../../secrets/vaultwarden.age;
       immich.file = ../../secrets/immich.age;
       plex.file = ../../secrets/plex.age;
-      tailscale-blackbox.file = ../../secrets/tailscale-blackbox.age;
+      tailscale-malenia.file = ../../secrets/tailscale-malenia.age;
       speedtest-tracker.file = ../../secrets/speedtest-tracker.age;
     };
   };

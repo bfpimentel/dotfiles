@@ -124,7 +124,7 @@
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations = {
-        blackbox = createNixOS "blackbox" "bruno" "Bruno Pimentel" "hello@bruno.so";
+        malenia = createNixOS "malenia" "bruno" "Bruno Pimentel" "hello@bruno.so";
       };
 
       darwinConfigurations = {

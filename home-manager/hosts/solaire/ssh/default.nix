@@ -14,7 +14,7 @@
         user = "bfpimentel-owlet";
         identityFile = "/Users/${username}/.ssh/id_owlet";
       };
-      "blackbox" = {
+      "malenia" = {
         hostname = "10.22.4.2";
         user = "bruno";
         identityFile = "/Users/${username}/.ssh/id_personal";

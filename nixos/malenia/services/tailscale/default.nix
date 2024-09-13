@@ -54,7 +54,7 @@
       fi
 
       # authenticate
-      ${tailscale}/bin/tailscale up --authkey file:${config.age.secrets.tailscale-blackbox.path} --login-server=https://headscale.bfmp.lol --advertise-routes=${vars.ip}/32 --accept-dns=true
+      ${tailscale}/bin/tailscale up --authkey file:${config.age.secrets.tailscale-malenia.path} --login-server=https://headscale.bfmp.lol --advertise-routes=${vars.ip}/32 --accept-dns=true
     '';
   };
 }
