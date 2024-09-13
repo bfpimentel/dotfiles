@@ -24,10 +24,16 @@ in
         volumes = [ "${speedtestPath}:/config" ];
         environmentFiles = [ config.age.secrets.speedtest-tracker.path ];
         environment = {
-          APP_TIMEZONE = vars.timeZone;
+          TZ = vars.timeZone;
+          DISPLAY_TIMEZONE = vars.timeZone;
           PUID = puid;
           PGID = guid;
           DB_CONNECTION = "sqlite";
+          SPEEDTEST_SERVERS = "57971";
+          SPEEDTEST_SCHEDULE = "0 * * * *";
+          APP_URL = "https://speedtest.${vars.domain}";
+          APP_DEBUG = "false";
+          PRUNE_RESULTS_OLDER_THAN = "30";
         };
         labels = {
           "traefik.enable" = "true";
@@ -39,6 +45,8 @@ in
           "homepage.name" = "Speedtest Tracker";
           "homepage.icon" = "speedtest-tracker.png";
           "homepage.href" = "https://speedtest.${vars.domain}";
+          "homepage.widget.type" = "speedtest";
+          "homepage.widget.url" = "http://speedtest-tracker:80";
         };
       };
     };
