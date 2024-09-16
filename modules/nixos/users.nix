@@ -3,6 +3,7 @@
   username,
   fullname,
   vars,
+  lib,
   ...
 }:
 
@@ -10,12 +11,6 @@
   users.groups = {
     "${username}" = {
       gid = vars.defaultUserGID;
-    };
-    media = {
-      gid = 1001;
-    };
-    storage = {
-      gid = 2000;
     };
     podman = {
       gid = 994;
@@ -36,6 +31,7 @@
         "networkmanager"
         "wheel"
         "postgres"
+        "grafana"
       ];
       subUidRanges = [
         {
@@ -53,20 +49,12 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEQfvoGzi0djr8CsbGuBR3LwHXQyd4gj5geArDwo1d5 bruno@pimentel.dev"
       ];
     };
-    media = {
-      uid = 1001;
-      group = "media";
-      isNormalUser = true;
-      extraGroups = [ "storage" ];
-    };
-    storage = {
-      uid = 2000;
-      group = "storage";
-      isNormalUser = true;
-    };
     postgres = {
-      uid = 100001;
+      uid = lib.mkDefault 100001;
       isNormalUser = true;
+    };
+    grafana = {
+      uid = lib.mkDefault 100002;
     };
   };
 }

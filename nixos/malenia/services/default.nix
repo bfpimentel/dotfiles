@@ -1,5 +1,8 @@
 { ... }:
 
 {
-  imports = [ ./tailscale ];
+  imports = [ 
+    ./tailscale 
+    ./grafana
+  ];
 }

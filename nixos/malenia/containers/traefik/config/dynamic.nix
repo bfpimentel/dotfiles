@@ -1,4 +1,4 @@
-ip: domain: {
+ip: domain: unraidIp: {
   http = {
     routers = {
       glances = {
@@ -25,6 +25,18 @@ ip: domain: {
         };
         service = "unraid";
       };
+      grafana = {
+        entryPoints = [
+          "https"
+          "http"
+        ];
+        rule = "Host(`grafana.${domain}`)";
+        middlewares = [ "https-redirect" ];
+        tls = {
+          certResolver = "cloudflare";
+        };
+        service = "grafana";
+      };
     };
     services = {
       glances = {
@@ -35,7 +47,13 @@ ip: domain: {
       };
       unraid = {
         loadBalancer = {
-          servers = [ { url = "http://10.22.4.4"; } ];
+          servers = [ { url = "http://${unraidIp}"; } ];
+          passHostHeader = true;
+        };
+      };
+      grafana = {
+        loadBalancer = {
+          servers = [ { url = "http://${ip}:2342"; } ];
           passHostHeader = true;
         };
       };

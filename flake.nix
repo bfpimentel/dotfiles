@@ -42,6 +42,7 @@
 
       forAllSystems = nixpkgs.lib.genAttrs [
         "x86_64-linux"
+        "aarch64-linux"
         "aarch64-darwin"
       ];
 
@@ -57,7 +58,7 @@
       );
 
       createNixOS =
-        hostname: username: fullname: email:
+        system: hostname: username: fullname: email:
         (
           let
             specialArgs = {
@@ -84,7 +85,7 @@
               }
             ];
           in
-          nixpkgs.lib.nixosSystem { inherit modules specialArgs; }
+          nixpkgs.lib.nixosSystem { inherit system modules specialArgs; }
         );
 
       createDarwin =
@@ -124,7 +125,8 @@
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations = {
-        malenia = createNixOS "malenia" "bruno" "Bruno Pimentel" "hello@bruno.so";
+        malenia = createNixOS "x86_64-linux" "malenia" "bruno" "Bruno Pimentel" "hello@bruno.so";
+        # miquella = createNixOS "aarch64-linux" "miquella" "bruno" "Bruno Pimentel" "hello@bruno.so";
       };
 
       darwinConfigurations = {
