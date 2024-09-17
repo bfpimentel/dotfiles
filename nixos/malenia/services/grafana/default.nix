@@ -1,6 +1,5 @@
 {
   vars,
-  hostname,
   username,
   lib,
   ...
@@ -32,6 +31,7 @@ in
   services.prometheus = {
     enable = true;
     port = 9001;
+    extraFlags = [ "--web.enable-admin-api" ];
     exporters = {
       node = {
         enable = true;
@@ -41,12 +41,15 @@ in
     };
     scrapeConfigs = [
       {
-        job_name = hostname;
-        static_configs = [ { targets = [ "${vars.ip}:9002" ]; } ];
-      }
-      {
-        job_name = "godwyn";
-        static_configs = [ { targets = [ "${vars.unraidIp}:9100" ]; } ];
+        job_name = "node-exporter";
+        static_configs = [
+          {
+            targets = [
+              "${vars.ip}:9002"
+              "${vars.unraidIp}:9100"
+            ];
+          }
+        ];
       }
     ];
   };

@@ -17,6 +17,7 @@
     ripgrep
     pciutils
     tcpdump
+    lm_sensors
 
     gcc
     cargo

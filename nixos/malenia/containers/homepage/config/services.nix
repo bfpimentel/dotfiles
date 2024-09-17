@@ -48,7 +48,17 @@ domain: networkInterface: [
   { "Download Managers" = [ ]; }
   { "Documents" = [ ]; }
   { "Misc" = [ ]; }
-  { "Monitoring" = [ ]; }
+  {
+    "Monitoring" = [
+      {
+        "Grafana" = {
+          icon = "grafana";
+          href = "https://grafana.${domain}";
+          weight = 50;
+        };
+      }
+    ];
+  }
   {
     "Management" = [
       {

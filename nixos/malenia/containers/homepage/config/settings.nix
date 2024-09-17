@@ -35,5 +35,11 @@
         columns = 4;
       };
     }
+    {
+      "Management" = {
+        style = "row";
+        columns = 4;
+      };
+    }
   ];
 }
