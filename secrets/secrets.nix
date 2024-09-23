@@ -18,4 +18,5 @@ in
   "plex.age".publicKeys = allKeys;
   "tailscale-malenia.age".publicKeys = allKeys;
   "speedtest-tracker.age".publicKeys = allKeys;
+  "authentik.age".publicKeys = allKeys;
 }

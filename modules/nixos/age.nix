@@ -14,6 +14,7 @@
       plex.file = ../../secrets/plex.age;
       tailscale-malenia.file = ../../secrets/tailscale-malenia.age;
       speedtest-tracker.file = ../../secrets/speedtest-tracker.age;
+      authentik.file = ../../secrets/authentik.age;
     };
   };
 }

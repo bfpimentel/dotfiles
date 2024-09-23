@@ -1,8 +1,5 @@
-{ pkgs, vars, ... }:
+{ ... }:
 
-let
-  podmanBin = "${pkgs.podman}/bin/podman";
-in
 {
   imports = [
     ./traefik
@@ -17,27 +14,8 @@ in
     ./plex
     ./overseerr
     ./tautulli
+    ./authentik
   ];
-
-  # systemd.services."podman-network-public" = {
-  #   serviceConfig.Type = "oneshot";
-  #   script = ''
-  #     ${podmanBin} network inspect public > /dev/null 2>&1 || ${podmanBin} network create public --interface-name=${vars.networkInterface}
-  #   '';
-  # };
-
-  # systemd.services.podman = {
-  #   requires = [
-  #     "mnt-photos.mount"
-  #     "mnt-containers.mount"
-  #     "mnt-media.mount"
-  #   ];
-  #   after = [
-  #     "mnt-photos.mount"
-  #     "mnt-containers.mount"
-  #     "mnt-media.mount"
-  #   ];
-  # };
 
   virtualisation = {
     containers.enable = true;
