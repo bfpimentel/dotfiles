@@ -51,6 +51,7 @@ in
         image = "ghcr.io/goauthentik/server:latest";
         autoStart = true;
         cmd = [ "server" ];
+        ports = [ "9000:9000" ];
         volumes = [
           "${authentikPath}/media:/media"
           "${authentikPath}/templates:/templates"
@@ -63,15 +64,11 @@ in
           AUTHENTIK_POSTGRESQL__NAME = "authentik";
         };
         labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.authentik.rule" = "Host(`auth.${vars.domain}`)";
-          "traefik.http.routers.authentik.entryPoints" = "https";
-          "traefik.http.services.authentik.loadbalancer.server.port" = "9000";
           # Homepage
           "homepage.group" = "Auth";
           "homepage.name" = "Authentik";
           "homepage.icon" = "authentik.png";
-          "homepage.href" = "https://auth.${vars.domain}";
+          "homepage.href" = "https://auth.${vars.externalDomain}";
         };
       };
       authentik-worker = {
@@ -106,13 +103,7 @@ in
       authentik-redis = {
         image = "docker.io/library/redis:alpine";
         autoStart = true;
-        # extraOptions = [
-        #   "--save 60 1"
-        #   "--loglevel warning"
-        # ];
-        volumes = [
-          "${authentikPath}/redis:/data"
-        ];
+        volumes = [ "${authentikPath}/redis:/data" ];
       };
     };
   };

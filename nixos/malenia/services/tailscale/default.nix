@@ -16,21 +16,6 @@
     allowedTCPPorts = [ 22 ];
   };
 
-  networking.firewall.interfaces."tailscale0" = {
-    allowedTCPPortRanges = [
-      {
-        from = 9000;
-        to = 9100;
-      }
-    ];
-    allowedUDPPortRanges = [
-      {
-        from = 9000;
-        to = 9100;
-      }
-    ];
-  };
-
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
     after = [
