@@ -4,5 +4,6 @@
   imports = [ 
     ./tailscale 
     ./grafana
+    ./restic
   ];
 }

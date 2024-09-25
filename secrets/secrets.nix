@@ -18,6 +18,13 @@ in
   "plex.age".publicKeys = allKeys;
   "speedtest-tracker.age".publicKeys = allKeys;
   "authentik.age".publicKeys = allKeys;
-  "tailscale-malenia.age".publicKeys = allKeys;
-  "tailscale-containers.age".publicKeys = allKeys;
+
+  "tailscale/malenia.age".publicKeys = allKeys;
+  "tailscale/containers.age".publicKeys = allKeys;
+
+  "restic/env.age".publicKeys = allKeys;
+  "restic/repo-photos.age".publicKeys = allKeys;
+  "restic/password-photos.age".publicKeys = allKeys;
+  "restic/repo-containers.age".publicKeys = allKeys;
+  "restic/password-containers.age".publicKeys = allKeys;
 }
