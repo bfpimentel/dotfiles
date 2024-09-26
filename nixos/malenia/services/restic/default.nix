@@ -16,6 +16,69 @@ let
   };
 in
 {
+  systemd.services =
+    {
+      restic-backups-podman-stop = {
+        enable = true;
+        serviceConfig = {
+          Type = "oneshot";
+        };
+        script = ''${pkgs.systemd}/bin/systemctl stop podman-*'';
+      };
+
+      restic-backups-podman-start = {
+        enable = true;
+        serviceConfig = {
+          Type = "oneshot";
+        };
+        script = ''${pkgs.systemd}/bin/systemctl start --no-block --all "podman-*"'';
+      };
+
+      restic-backups-photos = {
+        requires = [ "restic-backups-podman-stop.service" ];
+        after = [ "restic-backups-podman-stop.service" ];
+        onFailure = [
+          "restic-backups-podman-start.service"
+          "restic-backups-photos-failure.service"
+        ];
+        onSuccess = [
+          "restic-backups-podman-start.service"
+          "restic-backups-photos-success.service"
+        ];
+      };
+
+      restic-backups-containers = {
+        requires = [ "restic-backups-podman-stop.service" ];
+        after = [ "restic-backups-podman-stop.service" ];
+        onFailure = [
+          "restic-backups-podman-start.service"
+          "restic-backups-containers-failure.service"
+        ];
+        onSuccess = [
+          "restic-backups-podman-start.service"
+          "restic-backups-containers-success.service"
+        ];
+      };
+    }
+    // lib.mapAttrs' (
+      name: message:
+      lib.attrsets.nameValuePair name {
+        enable = true;
+        serviceConfig = {
+          Type = "oneshot";
+          User = username;
+        };
+        script = ''
+          sleep 60
+          source ${config.age.secrets.ntfy.path}
+          ${pkgs.curl}/bin/curl \
+            -u $NTFY_TOKEN \
+            -d '${message}' \
+            "https://notify.${vars.externalDomain}/homelab"
+        '';
+      }
+    ) backupNotifications;
+
   services.restic.backups = {
     photos = {
       initialize = true;
@@ -25,6 +88,10 @@ in
       passwordFile = config.age.secrets.restic-password-photos.path;
 
       paths = [ vars.photosMountLocation ];
+
+      timerConfig = {
+        OnCalendar = "04:00";
+      };
 
       pruneOpts = [
         "--keep-daily 7"
@@ -43,39 +110,14 @@ in
         vars.servicesConfigRoot
       ];
 
+      timerConfig = {
+        OnCalendar = "04:00";
+      };
+
       pruneOpts = [
         "--keep-daily 7"
         "--keep-weekly 2"
       ];
     };
   };
-
-  systemd.services =
-    {
-      restic-backups-photos.unitConfig = {
-        OnFailure = "restic-backups-photos-failure.service";
-        OnSuccess = "restic-backups-photos-success.service";
-      };
-      restic-backups-containers.unitConfig = {
-        OnFailure = "restic-backups-containers-failure.service";
-        OnSuccess = "restic-backups-containers-success.service";
-      };
-    }
-    // lib.mapAttrs' (
-      name: message:
-      lib.attrsets.nameValuePair name {
-        enable = true;
-        serviceConfig = {
-          Type = "oneshot";
-          User = username;
-        };
-        script = ''
-          source ${config.age.secrets.ntfy.path} && \
-          ${pkgs.curl}/bin/curl \
-            -u $NTFY_TOKEN \
-            -d '${message}' \
-            "https://notify.luana.casa/homelab"
-        '';
-      }
-    ) backupNotifications;
 }

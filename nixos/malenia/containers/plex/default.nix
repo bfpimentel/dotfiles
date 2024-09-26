@@ -16,20 +16,6 @@ in
 {
   systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
 
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
-    9029
-    32400
-  ];
-  networking.firewall.interfaces."tailscale0".allowedUDPPorts = [
-    9029
-    32400
-  ];
-
-  systemd.services."podman-plex" = {
-    wants = [ "podman-tailscale.service" ];
-    after = [ "podman-tailscale.service" ];
-  };
-
   virtualisation.oci-containers = {
     containers = {
       plex = {
