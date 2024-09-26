@@ -2,7 +2,6 @@
   username,
   config,
   lib,
-  pkgs,
   ...
 }:
 

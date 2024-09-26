@@ -15,6 +15,7 @@
     ./overseerr
     ./tautulli
     ./authentik
+    ./ntfy
   ];
 
   virtualisation = {

@@ -21,7 +21,7 @@ in
         ports = [ "9010:80" ];
         environmentFiles = [ config.age.secrets.vaultwarden.path ];
         environment = {
-          DOMAIN = "https://vault.${vars.domain}";
+          DOMAIN = "https://vault.${vars.externalDomain}";
           LOGIN_RATELIMIT_MAX_BURST = "10";
           LOGIN_RATELIMIT_SECONDS = "60";
           ADMIN_RATELIMIT_MAX_BURST = "10";

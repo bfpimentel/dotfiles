@@ -16,6 +16,12 @@
       plex.file = ../../secrets/plex.age;
       speedtest-tracker.file = ../../secrets/speedtest-tracker.age;
       authentik.file = ../../secrets/authentik.age;
+      ntfy = {
+        file = ../../secrets/ntfy.age;
+        mode = "600";
+        owner = username;
+        group = username;
+      };
 
       tailscale-malenia.file = ../../secrets/tailscale/malenia.age;
       tailscale-containers.file = ../../secrets/tailscale/containers.age;

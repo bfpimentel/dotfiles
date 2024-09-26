@@ -10,6 +10,7 @@ in
 {
   "share.age".publicKeys = allKeys;
   "cloudflare.age".publicKeys = allKeys;
+
   "sonarr.age".publicKeys = allKeys;
   "radarr.age".publicKeys = allKeys;
   "bazarr.age".publicKeys = allKeys;
@@ -18,6 +19,7 @@ in
   "plex.age".publicKeys = allKeys;
   "speedtest-tracker.age".publicKeys = allKeys;
   "authentik.age".publicKeys = allKeys;
+  "ntfy.age".publicKeys = allKeys;
 
   "tailscale/malenia.age".publicKeys = allKeys;
   "tailscale/containers.age".publicKeys = allKeys;
