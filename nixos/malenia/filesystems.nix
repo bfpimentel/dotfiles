@@ -52,18 +52,4 @@ in
       "noauto"
     ];
   };
-
-  fileSystems."${vars.containersMountLocation}" = {
-    device = "//${vars.unraidIp}/containers";
-    fsType = "cifs";
-    options = [
-      "credentials=${shareCredentialsPath}"
-      "uid=${toString vars.defaultUserUID}"
-      "gid=${toString vars.defaultUserGID}"
-      "rw"
-      "noserverino"
-      "x-systemd.automount"
-      "noauto"
-    ];
-  };
 }

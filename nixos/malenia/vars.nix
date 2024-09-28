@@ -16,7 +16,6 @@
   unraidIp = "10.22.4.4";
   mediaMountLocation = "/mnt/media";
   photosMountLocation = "/mnt/photos";
-  containersMountLocation = "/mnt/containers";
 
   # user
   defaultUserUID = 1000;
