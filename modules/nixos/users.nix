@@ -49,12 +49,5 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKEQfvoGzi0djr8CsbGuBR3LwHXQyd4gj5geArDwo1d5 bruno@pimentel.dev"
       ];
     };
-    postgres = {
-      uid = lib.mkDefault 100001;
-      isNormalUser = true;
-    };
-    grafana = {
-      uid = lib.mkDefault 100002;
-    };
   };
 }

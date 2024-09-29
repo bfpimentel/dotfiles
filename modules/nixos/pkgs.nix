@@ -33,10 +33,6 @@
     podman-tui
     podman-compose
 
-    immich-cli
-
-    cudatoolkit
-
     inputs.agenix.packages."${system}".default
     inputs.home-manager.packages."${system}".default
   ];
