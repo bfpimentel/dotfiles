@@ -46,6 +46,19 @@ return {
 		},
 	},
 
+	-- Toggle Term Config
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = true,
+		opts = {
+			direction = "float",
+		},
+		keys = {
+			{ "<c-t>", '<cmd>exe v:count1 . "ToggleTerm"<cr>' },
+		},
+	},
+
 	-- File Tree Config
 	{
 		"nvim-neo-tree/neo-tree.nvim",
