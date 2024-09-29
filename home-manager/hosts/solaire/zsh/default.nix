@@ -1,10 +1,10 @@
-{ config, ... }:
+{ config, username, ... }:
 
 {
   programs.zsh = {
     enable = true;
     envExtra = ''
-    ZDOTDIR=".config/zsh"
+    ZDOTDIR="/Users/${username}/.config/zsh"
     '';
   };
 
