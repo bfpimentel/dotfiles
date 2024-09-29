@@ -40,6 +40,7 @@ in
         labels = {
           "traefik.enable" = "true";
           "traefik.http.routers.sonarr.rule" = "Host(`sonarr.${vars.domain}`)";
+          "traefik.http.routers.sonarr.middlewares" = "auth@file";
           "traefik.http.services.sonarr.loadbalancer.server.port" = "8989";
           # Homepage
           "homepage.group" = "Media";
@@ -70,6 +71,7 @@ in
         labels = {
           "traefik.enable" = "true";
           "traefik.http.routers.radarr.rule" = "Host(`radarr.${vars.domain}`)";
+          "traefik.http.routers.radarr.middlewares" = "auth@file";
           "traefik.http.services.radarr.loadbalancer.server.port" = "7878";
           # Homepage
           "homepage.group" = "Media";
@@ -101,6 +103,7 @@ in
         labels = {
           "traefik.enable" = "true";
           "traefik.http.routers.bazarr.rule" = "Host(`bazarr.${vars.domain}`)";
+          "traefik.http.routers.bazarr.middlewares" = "auth@file";
           "traefik.http.services.bazarr.loadbalancer.server.port" = "6767";
           # Homepage
           "homepage.group" = "Media";
@@ -127,6 +130,7 @@ in
         labels = {
           "traefik.enable" = "true";
           "traefik.http.routers.prowlarr.rule" = "Host(`prowlarr.${vars.domain}`)";
+          "traefik.http.routers.prowlarr.middlewares" = "auth@file";
           "traefik.http.services.prowlarr.loadbalancer.server.port" = "9696";
           # Homepage
           "homepage.group" = "Download Managers";

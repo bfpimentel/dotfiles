@@ -103,6 +103,7 @@ ip: domain: unraidIp: {
             "X-authentik-meta-provider"
             "X-authentik-meta-app"
             "X-authentik-meta-version"
+            "authorization"
           ];
         };
       };

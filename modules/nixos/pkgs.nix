@@ -18,6 +18,7 @@
     pciutils
     tcpdump
     lm_sensors
+    lazygit
 
     gcc
     cargo

@@ -64,6 +64,10 @@ in
           AUTHENTIK_POSTGRESQL__NAME = "authentik";
         };
         labels = {
+          "traefik.enable" = "true";
+          "traefik.http.routers.authentik.entrypoints" = "https";
+          "traefik.http.routers.authentik.rule" = "Host(`auth.${vars.domain}`)";
+          "traefik.http.services.authentik.loadbalancer.server.port" = "9000";
           # Homepage
           "homepage.group" = "Auth";
           "homepage.name" = "Authentik";
