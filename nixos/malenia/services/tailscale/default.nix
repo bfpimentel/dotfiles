@@ -20,11 +20,11 @@
     description = "Automatic connection to Tailscale";
     after = [
       "network-pre.target"
-      "tailscale.service"
+      "tailscaled.service"
     ];
     wants = [
       "network-pre.target"
-      "tailscale.service"
+      "tailscaled.service"
     ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig.Type = "oneshot";
@@ -39,7 +39,10 @@
       fi
 
       # authenticate
-      ${tailscale}/bin/tailscale up --authkey file:${config.age.secrets.tailscale-malenia.path} --login-server=https://headscale.bfmp.lol --advertise-routes=${vars.ip}/32 --accept-dns=true
+      ${tailscale}/bin/tailscale up --authkey file:${config.age.secrets.tailscale-malenia.path} --advertise-routes=${vars.ip}/32 --accept-dns=true --accept-routes
+
+      # with headscale
+      # ${tailscale}/bin/tailscale up --authkey file:${config.age.secrets.tailscale-malenia.path} --login-server=https://headscale.bfmp.lol --advertise-routes=${vars.ip}/32 --accept-dns=true
     '';
   };
 }
