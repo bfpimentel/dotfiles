@@ -26,7 +26,7 @@
       };
       "miquella" = {
         hostname = "159.112.184.83";
-        user = "ubuntu";
+        user = "bruno";
         identityFile = "/Users/${username}/.ssh/id_personal";
       };
       "spark-suited" = {
