@@ -16,6 +16,7 @@
       plex.file = ../../secrets/plex.age;
       speedtest-tracker.file = ../../secrets/speedtest-tracker.age;
       authentik.file = ../../secrets/authentik.age;
+      wordpress.file = ../../secrets/wordpress.age;
       ntfy = {
         file = ../../secrets/ntfy.age;
         mode = "600";

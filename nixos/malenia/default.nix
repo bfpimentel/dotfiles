@@ -2,6 +2,7 @@
   username,
   config,
   lib,
+  vars,
   ...
 }:
 
@@ -11,6 +12,7 @@
     ./networking.nix
     ./filesystems.nix
     ./users.nix
+    ./pkgs.nix
     ./containers
     ./services
   ];
@@ -21,6 +23,10 @@
   };
 
   boot.kernelModules = [ "nvidia-uvm" ];
+
+  time.timeZone = vars.timeZone;
+
+  users.users.${username}.home = "/home/${username}";
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -39,8 +45,6 @@
     };
     nvidia-container-toolkit.enable = true;
   };
-
-  users.users.${username}.home = "/home/${username}";
 
   system.stateVersion = "24.05";
 }

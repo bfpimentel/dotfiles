@@ -5,7 +5,7 @@
   timeZone = "America/Sao_Paulo";
 
   # domains
-  domain = "luana.casa";
+  domain = "external.luana.casa";
 
   # configs
   servicesConfigRoot = "/persistent/opt/services";

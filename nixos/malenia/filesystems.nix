@@ -22,6 +22,12 @@ in
         group = username;
         mode = "u=rwx,g=rwx,o=";
       }
+      {
+        directory = "/opt/services";
+        user = username;
+        group = username;
+        mode = "u=rwx,g=rwx,o=";
+      }
     ];
   };
 

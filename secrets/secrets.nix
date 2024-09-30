@@ -20,6 +20,7 @@ in
   "speedtest-tracker.age".publicKeys = allKeys;
   "authentik.age".publicKeys = allKeys;
   "ntfy.age".publicKeys = allKeys;
+  "wordpress.age".publicKeys = allKeys;
 
   "tailscale/malenia.age".publicKeys = allKeys;
   "tailscale/containers.age".publicKeys = allKeys;
