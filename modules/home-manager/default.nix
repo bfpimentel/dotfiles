@@ -1,5 +1,8 @@
 { ... }:
 
 {
-  imports = [ ./neovim ];
+  imports = [ 
+    ./neovim 
+    ./lazygit
+  ];
 }
