@@ -4,7 +4,7 @@
   programs.zsh = {
     enable = true;
     envExtra = ''
-    ZDOTDIR="/Users/${username}/.config/zsh"
+      ZDOTDIR="/Users/${username}/.config/zsh"
     '';
   };
 

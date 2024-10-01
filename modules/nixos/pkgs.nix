@@ -12,6 +12,7 @@
     wget
     curl
     unzip
+    eza
     fzf
     fd
     ripgrep
@@ -19,6 +20,7 @@
     tcpdump
     lm_sensors
     lazygit
+    oh-my-posh
 
     gcc
     cargo

@@ -11,6 +11,7 @@
     kitty
     eza
     bat
+    oh-my-posh
     rbenv
     kdoctor
     fzf

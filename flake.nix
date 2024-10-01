@@ -63,6 +63,7 @@
           let
             specialArgs = {
               inherit
+                system
                 inputs
                 outputs
                 hostname
@@ -101,6 +102,7 @@
                 fullname
                 email
                 ;
+              system = "aarch64-darwin";
             };
             modules = (builtins.attrValues darwinModules) ++ [
               (./. + "/darwin/${hostname}")

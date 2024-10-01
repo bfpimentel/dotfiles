@@ -13,7 +13,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export AE_DEPLOYMENT_ENV="debug"
 
-export PATH="$PATH:$ZSH/plugins/oh-my-posh/bin"
 export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 export PATH="$PATH:$HOME/.flutter/bin"
