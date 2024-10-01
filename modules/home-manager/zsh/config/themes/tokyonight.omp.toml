@@ -21,6 +21,16 @@ terminal_background = 'transparent'
     NameLength = 0
 
   [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = '{{ .UserName }}@{{.HostName }} '
+    background = 'transparent'
+    foreground = 'p:terminal-yellow'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+  [[blocks.segments]]
     type = 'path'
     style = 'plain'
     template = '<b>{{ .Path }}</b> <p:light-sky-blue>⚡</>'
