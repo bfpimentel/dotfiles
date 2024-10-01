@@ -27,7 +27,6 @@ antigen bundle git
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle jeffreytse/zsh-vi-mode
 
 antigen apply
 
@@ -123,9 +122,6 @@ alias cn="vim ~/.config/nvim"
 alias cz="vim ~/.config/zsh"
 
 alias visudo="sudo -E visudo"
-
-# iTerm Integration
-source "$ZSH/plugins/iterm2_shell_integration.zsh"
 
 # NVM
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
