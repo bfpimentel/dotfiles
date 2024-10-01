@@ -19,7 +19,6 @@ in
   systemd.tmpfiles.rules =
     map (x: "d ${x} 0775 ${username} ${username} - -") directories
     ++ map (x: "d ${x} 0775 postgres ${username} - -") [ immichPostgresPath ];
-  # ++ map (x: "d ${x} 0775 root root - -") [ "${immichPath}/machine-learning" ];
 
   systemd.services = {
     podman-immich = {

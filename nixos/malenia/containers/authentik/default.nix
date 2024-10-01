@@ -45,70 +45,72 @@ in
     };
   };
 
-  virtualisation.oci-containers = {
-    containers = {
-      authentik-server = {
-        image = "ghcr.io/goauthentik/server:latest";
-        autoStart = true;
-        cmd = [ "server" ];
-        ports = [ "9000:9000" ];
-        volumes = [
-          "${authentikPath}/media:/media"
-          "${authentikPath}/templates:/templates"
-        ];
-        environmentFiles = [ config.age.secrets.authentik.path ];
-        environment = {
-          AUTHENTIK_REDIS__HOST = "authentik-redis";
-          AUTHENTIK_POSTGRESQL__HOST = "authentik-db";
-          AUTHENTIK_POSTGRESQL__USER = "authentik";
-          AUTHENTIK_POSTGRESQL__NAME = "authentik";
-        };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.authentik.entrypoints" = "https";
-          "traefik.http.routers.authentik.rule" = "Host(`auth.${vars.domain}`)";
-          "traefik.http.services.authentik.loadbalancer.server.port" = "9000";
-          # Homepage
-          "homepage.group" = "Auth";
-          "homepage.name" = "Authentik";
-          "homepage.icon" = "authentik.png";
-          "homepage.href" = "https://auth.${vars.externalDomain}";
-        };
+  virtualisation.oci-containers.containers = {
+    authentik-server = {
+      image = "ghcr.io/goauthentik/server:latest";
+      autoStart = true;
+      extraOptions = [ "--pull=newer" ];
+      cmd = [ "server" ];
+      ports = [ "9000:9000" ];
+      volumes = [
+        "${authentikPath}/media:/media"
+        "${authentikPath}/templates:/templates"
+      ];
+      environmentFiles = [ config.age.secrets.authentik.path ];
+      environment = {
+        AUTHENTIK_REDIS__HOST = "authentik-redis";
+        AUTHENTIK_POSTGRESQL__HOST = "authentik-db";
+        AUTHENTIK_POSTGRESQL__USER = "authentik";
+        AUTHENTIK_POSTGRESQL__NAME = "authentik";
       };
-      authentik-worker = {
-        image = "ghcr.io/goauthentik/server:latest";
-        autoStart = true;
-        cmd = [ "worker" ];
-        volumes = [
-          "${authentikPath}/media:/media"
-          "${authentikPath}/templates:/templates"
-          "${authentikPath}/certs:/certs"
-        ];
-        environmentFiles = [ config.age.secrets.authentik.path ];
-        environment = {
-          AUTHENTIK_REDIS__HOST = "authentik-redis";
-          AUTHENTIK_POSTGRESQL__HOST = "authentik-db";
-          AUTHENTIK_POSTGRESQL__USER = "authentik";
-          AUTHENTIK_POSTGRESQL__NAME = "authentik";
-        };
+      labels = {
+        "traefik.enable" = "true";
+        "traefik.http.routers.authentik.entrypoints" = "https";
+        "traefik.http.routers.authentik.rule" = "Host(`auth.${vars.domain}`)";
+        "traefik.http.services.authentik.loadbalancer.server.port" = "9000";
+        # Homepage
+        "homepage.group" = "Auth";
+        "homepage.name" = "Authentik";
+        "homepage.icon" = "authentik.png";
+        "homepage.href" = "https://auth.${vars.externalDomain}";
       };
-      authentik-db = {
-        image = "docker.io/library/postgres:12-alpine";
-        autoStart = true;
-        volumes = [
-          "${authentikPostgresPath}:/var/lib/postgresql/data"
-        ];
-        environmentFiles = [ config.age.secrets.authentik.path ];
-        environment = {
-          POSTGRES_USER = "authentik";
-          POSTGRES_DB = "authentik";
-        };
+    };
+    authentik-worker = {
+      image = "ghcr.io/goauthentik/server:latest";
+      autoStart = true;
+      extraOptions = [ "--pull=newer" ];
+      cmd = [ "worker" ];
+      volumes = [
+        "${authentikPath}/media:/media"
+        "${authentikPath}/templates:/templates"
+        "${authentikPath}/certs:/certs"
+      ];
+      environmentFiles = [ config.age.secrets.authentik.path ];
+      environment = {
+        AUTHENTIK_REDIS__HOST = "authentik-redis";
+        AUTHENTIK_POSTGRESQL__HOST = "authentik-db";
+        AUTHENTIK_POSTGRESQL__USER = "authentik";
+        AUTHENTIK_POSTGRESQL__NAME = "authentik";
       };
-      authentik-redis = {
-        image = "docker.io/library/redis:alpine";
-        autoStart = true;
-        volumes = [ "${authentikPath}/redis:/data" ];
+    };
+    authentik-db = {
+      image = "docker.io/library/postgres:12-alpine";
+      autoStart = true;
+      extraOptions = [ "--pull=newer" ];
+      volumes = [
+        "${authentikPostgresPath}:/var/lib/postgresql/data"
+      ];
+      environmentFiles = [ config.age.secrets.authentik.path ];
+      environment = {
+        POSTGRES_USER = "authentik";
+        POSTGRES_DB = "authentik";
       };
+    };
+    authentik-redis = {
+      image = "docker.io/library/redis:alpine";
+      autoStart = true;
+      extraOptions = [ "--pull=newer" ];
+      volumes = [ "${authentikPath}/redis:/data" ];
     };
   };
 }
