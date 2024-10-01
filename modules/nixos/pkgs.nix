@@ -22,6 +22,7 @@
     lazygit
     oh-my-posh
 
+    clang-tools
     gcc
     cargo
     nodejs_22

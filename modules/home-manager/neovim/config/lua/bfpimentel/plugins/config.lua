@@ -105,9 +105,7 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = { "bashls", "yamlls", "nil_ls", "clangd" },
-			})
+			require("mason-lspconfig").setup()
 		end,
 	},
 	{
