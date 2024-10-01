@@ -51,13 +51,6 @@ in
           "traefik.http.routers.traefik.entryPoints" = "https";
           "traefik.http.routers.traefik.service" = "api@internal";
           "traefik.http.services.traefik.loadbalancer.server.port" = "8080";
-          # Homepage
-          "homepage.group" = "Networking";
-          "homepage.name" = "Traefik";
-          "homepage.icon" = "traefik.svg";
-          "homepage.href" = "https://traefik.${vars.domain}";
-          "homepage.widget.type" = "traefik";
-          "homepage.widget.url" = "http://traefik:8080";
         };
       };
     };

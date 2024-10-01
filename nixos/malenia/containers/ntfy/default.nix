@@ -28,6 +28,7 @@ in
     ntfy = {
       image = "binwiederhier/ntfy:latest";
       autoStart = true;
+      extraOptions = [ "--pull=newer" ];
       cmd = [ "serve" ];
       ports = [ "9012:80" ];
       environment = {
