@@ -11,8 +11,8 @@
     ./arr
     ./qbittorrent
     ./immich
-    ./plex
-    ./overseerr
+    # ./plex
+    ./jellyseerr
     ./tautulli
     ./authentik
     ./ntfy

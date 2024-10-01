@@ -40,6 +40,7 @@ in
         config.age.secrets.bazarr.path
         config.age.secrets.plex.path
         config.age.secrets.immich.path
+        config.age.secrets.jellyfin.path
       ];
       environment = {
         TZ = vars.timeZone;

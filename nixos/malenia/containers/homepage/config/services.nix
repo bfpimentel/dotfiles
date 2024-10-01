@@ -44,7 +44,22 @@ domain: networkInterface: [
       }
     ];
   }
-  { "Media" = [ ]; }
+  {
+    "Media" = [
+      {
+        "Jellyfin" = {
+          icon = "jellyfin";
+          href = "https://media.${domain}";
+          weight = 5;
+          widget = {
+            type = "jellyfin";
+            url = "https://media.${domain}";
+            key = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
+          };
+        };
+      }
+    ];
+  }
   { "Download Managers" = [ ]; }
   { "Documents" = [ ]; }
   { "Misc" = [ ]; }

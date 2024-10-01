@@ -1,6 +1,18 @@
 ip: domain: unraidIp: {
   http = {
     routers = {
+      jellyfin = {
+        entryPoints = [
+          "https"
+          "http"
+        ];
+        rule = "Host(`media.${domain}`)";
+        middlewares = [ "https-redirect" ];
+        tls = {
+          certResolver = "cloudflare";
+        };
+        service = "jellyfin";
+      };
       glances = {
         entryPoints = [
           "https"
@@ -39,6 +51,12 @@ ip: domain: unraidIp: {
       };
     };
     services = {
+      jellyfin = {
+        loadBalancer = {
+          servers = [ { url = "http://${ip}:8096"; } ];
+          passHostHeader = true;
+        };
+      };
       glances = {
         loadBalancer = {
           servers = [ { url = "http://${ip}:61208"; } ];

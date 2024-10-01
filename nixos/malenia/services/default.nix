@@ -5,5 +5,6 @@
     ./tailscale 
     ./grafana
     ./restic
+    ./jellyfin
   ];
 }

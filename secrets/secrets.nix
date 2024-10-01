@@ -21,6 +21,7 @@ in
   "authentik.age".publicKeys = allKeys;
   "ntfy.age".publicKeys = allKeys;
   "wordpress.age".publicKeys = allKeys;
+  "jellyfin.age".publicKeys = allKeys;
 
   "tailscale/malenia.age".publicKeys = allKeys;
   "tailscale/containers.age".publicKeys = allKeys;
