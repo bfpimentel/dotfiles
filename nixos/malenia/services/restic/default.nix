@@ -74,7 +74,7 @@ in
           ${pkgs.curl}/bin/curl \
             -u $NTFY_TOKEN \
             -d '${message}' \
-            "https://notify.${vars.externalDomain}/homelab"
+            "https://notify.${vars.domain}/homelab"
         '';
       }
     ) backupNotifications;
