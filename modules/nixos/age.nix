@@ -25,8 +25,7 @@
         group = username;
       };
 
-      tailscale-malenia.file = ../../secrets/tailscale/malenia.age;
-      tailscale-containers.file = ../../secrets/tailscale/containers.age;
+      tailscale-servers.file = ../../secrets/tailscale/servers.age;
 
       restic-env.file = ../../secrets/restic/env.age;
       restic-repo-containers.file = ../../secrets/restic/repo-containers.age;

@@ -2,8 +2,9 @@
 
 {
   imports = [
-    ./traefik
-    ./wordpress
+    ./nginx
+    # ./traefik
+    # ./wordpress
   ];
 
   virtualisation = {

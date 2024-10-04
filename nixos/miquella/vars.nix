@@ -7,6 +7,9 @@
   # domains
   domain = "external.luana.casa";
 
+  # hosts
+  maleniaIp = "10.22.4.2";
+
   # configs
   servicesConfigRoot = "/persistent/opt/services";
   containersConfigRoot = "/persistent/opt/containers";

@@ -23,8 +23,7 @@ in
   "wordpress.age".publicKeys = allKeys;
   "jellyfin.age".publicKeys = allKeys;
 
-  "tailscale/malenia.age".publicKeys = allKeys;
-  "tailscale/containers.age".publicKeys = allKeys;
+  "tailscale/servers.age".publicKeys = allKeys;
 
   "restic/env.age".publicKeys = allKeys;
   "restic/repo-photos.age".publicKeys = allKeys;

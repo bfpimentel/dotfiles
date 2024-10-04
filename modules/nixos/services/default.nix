@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./glances.nix
-    ./ssh.nix
+    ./tailscale
+    ./glances
+    ./ssh
   ];
 }
