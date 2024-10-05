@@ -1,6 +1,18 @@
 ip: domain: unraidIp: {
   http = {
     routers = {
+      ollama = {
+        entryPoints = [
+          "https"
+          "http"
+        ];
+        rule = "Host(`ollama.${domain}`)";
+        middlewares = [ "https-redirect" ];
+        tls = {
+          certResolver = "cloudflare";
+        };
+        service = "ollama";
+      };
       jellyfin = {
         entryPoints = [
           "https"
@@ -51,6 +63,12 @@ ip: domain: unraidIp: {
       };
     };
     services = {
+      ollama = {
+        loadBalancer = {
+          servers = [ { url = "http://${ip}:11434"; } ];
+          passHostHeader = true;
+        };
+      };
       jellyfin = {
         loadBalancer = {
           servers = [ { url = "http://${ip}:8096"; } ];

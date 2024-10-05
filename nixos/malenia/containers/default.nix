@@ -16,6 +16,7 @@
     ./tautulli
     ./authentik
     ./ntfy
+    ./ollama-webui
   ];
 
   virtualisation = {

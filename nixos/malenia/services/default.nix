@@ -5,5 +5,6 @@
     ./grafana
     ./restic
     ./jellyfin
+    ./ollama
   ];
 }

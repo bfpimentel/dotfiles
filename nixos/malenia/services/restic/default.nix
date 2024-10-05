@@ -110,6 +110,10 @@ in
         vars.servicesConfigRoot
       ];
 
+      exclude = [
+        "${vars.servicesConfigRoot}/ollama/models"
+      ];
+
       timerConfig = {
         OnCalendar = "04:00";
       };

@@ -26,12 +26,12 @@
       shell = pkgs.zsh;
       extraGroups = [
         "podman"
-        "storage"
-        "media"
         "networkmanager"
         "wheel"
         "postgres"
         "grafana"
+        "render"
+        "video"
       ];
       subUidRanges = [
         {
