@@ -1,4 +1,9 @@
-{ vars, username, ... }:
+{
+  vars,
+  username,
+  config,
+  ...
+}:
 
 let
   ollamaWebUiPath = "${vars.containersConfigRoot}/ollama-webui";
@@ -16,8 +21,12 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [ "${ollamaWebUiPath}:/app/backend/data" ];
+      environmentFiles = [ config.age.secrets.ollama-webui.path ];
       environment = {
         OLLAMA_BASE_URL = "https://ollama.${vars.domain}";
+        ENABLE_OAUTH_SIGNUP = "false";
+        OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
+        OAUTH_PROVIDER_NAME = "Authentik";
       };
       labels = {
         "traefik.enable" = "true";

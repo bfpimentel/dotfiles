@@ -44,8 +44,7 @@ in
       image = "ghcr.io/immich-app/immich-server:${immichVersion}";
       autoStart = true;
       extraOptions = [
-        "--device=nvidia.com/gpu=all"
-        "--security-opt=label=disable"
+        "--gpus=all"
       ];
       volumes = [ "${vars.photosMountLocation}:/usr/src/app/upload" ];
       environmentFiles = [ config.age.secrets.immich.path ];
@@ -80,8 +79,7 @@ in
       image = "ghcr.io/immich-app/immich-machine-learning:${immichVersion}-cuda";
       autoStart = true;
       extraOptions = [
-        "--device=nvidia.com/gpu=all"
-        "--security-opt=label=disable"
+        "--gpus=all"
         "--user=${puid}:${pgid}"
       ];
       volumes = [ "${immichPath}/machine-learning:/cache" ];

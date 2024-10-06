@@ -11,12 +11,13 @@
     ./arr
     ./qbittorrent
     ./immich
-    # ./plex
+    ./plex
     ./jellyseerr
     ./tautulli
     ./authentik
     ./ntfy
     ./ollama-webui
+    ./whisper
   ];
 
   virtualisation = {

@@ -22,6 +22,7 @@ in
   "ntfy.age".publicKeys = allKeys;
   "wordpress.age".publicKeys = allKeys;
   "jellyfin.age".publicKeys = allKeys;
+  "ollama-webui.age".publicKeys = allKeys;
 
   "tailscale/servers.age".publicKeys = allKeys;
 

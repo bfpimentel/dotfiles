@@ -22,8 +22,7 @@ in
       autoStart = true;
       extraOptions = [
         "--pull=newer"
-        "--device=nvidia.com/gpu=all"
-        "--security-opt=label=disable"
+        "--gpus=all"
       ];
       volumes = [
         "${plexPath}:/config"

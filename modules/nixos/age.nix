@@ -18,6 +18,7 @@
       authentik.file = ../../secrets/authentik.age;
       wordpress.file = ../../secrets/wordpress.age;
       jellyfin.file = ../../secrets/jellyfin.age;
+      ollama-webui.file = ../../secrets/ollama-webui.age;
       ntfy = {
         file = ../../secrets/ntfy.age;
         mode = "600";

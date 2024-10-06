@@ -89,6 +89,10 @@ in
 
       paths = [ vars.photosMountLocation ];
 
+      exclude = [
+        "${vars.containersConfigRoot}/whisper"
+      ];
+
       timerConfig = {
         OnCalendar = "04:00";
       };
