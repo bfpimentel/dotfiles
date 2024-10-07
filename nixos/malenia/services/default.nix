@@ -4,7 +4,8 @@
   imports = [ 
     ./grafana
     ./restic
-    ./jellyfin
+    # ./jellyfin
     ./ollama
+    ./plex
   ];
 }

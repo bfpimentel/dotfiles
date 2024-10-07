@@ -58,6 +58,19 @@ domain: networkInterface: [
           };
         };
       }
+      {
+        "Plex" = {
+          icon = "plex";
+          href = "https://media.${domain}";
+          weight = 6;
+          widget = {
+            type = "jellyfin";
+            url = "https://media.${domain}";
+            key = "{{HOMEPAGE_VAR_PLEX_KEY}}";
+            enableUser = true;
+          };
+        };
+      }
     ];
   }
   { "Download Managers" = [ ]; }

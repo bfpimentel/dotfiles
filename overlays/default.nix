@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   additions = final: _prev: import ../pkgs final.pkgs;

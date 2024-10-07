@@ -11,7 +11,6 @@
     ./arr
     ./qbittorrent
     ./immich
-    ./plex
     ./jellyseerr
     ./tautulli
     ./authentik

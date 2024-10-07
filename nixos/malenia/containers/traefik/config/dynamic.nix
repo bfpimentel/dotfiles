@@ -13,7 +13,7 @@ ip: domain: unraidIp: {
         };
         service = "ollama";
       };
-      jellyfin = {
+      media = {
         entryPoints = [
           "https"
           "http"
@@ -23,7 +23,7 @@ ip: domain: unraidIp: {
         tls = {
           certResolver = "cloudflare";
         };
-        service = "jellyfin";
+        service = "media";
       };
       glances = {
         entryPoints = [
@@ -69,9 +69,9 @@ ip: domain: unraidIp: {
           passHostHeader = true;
         };
       };
-      jellyfin = {
+      media = {
         loadBalancer = {
-          servers = [ { url = "http://${ip}:8096"; } ];
+          servers = [ { url = "http://${ip}:32400"; } ];
           passHostHeader = true;
         };
       };
