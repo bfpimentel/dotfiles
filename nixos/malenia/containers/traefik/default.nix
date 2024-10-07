@@ -16,7 +16,7 @@ let
   traefikConfig = {
     config = settingsFormat.generate "config.yml" ((import ./config/config.nix) vars.domain);
     dynamic = settingsFormat.generate "dynamic.yml" (
-      (import ./config/dynamic.nix) vars.ip vars.domain vars.unraidIp
+      (import ./config/dynamic.nix) vars.ip vars.domain vars.godwynIp
     );
   };
 in

@@ -12,8 +12,11 @@
   servicesConfigRoot = "/persistent/opt/services";
   containersConfigRoot = "/persistent/opt/containers";
 
+  # hosts
+  godwynIp = "10.22.4.4";
+  miquellaIp = "159.112.184.83";
+
   # mounts
-  unraidIp = "10.22.4.4";
   mediaMountLocation = "/mnt/media";
   photosMountLocation = "/mnt/photos";
 

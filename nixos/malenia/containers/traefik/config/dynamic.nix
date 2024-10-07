@@ -1,4 +1,4 @@
-ip: domain: unraidIp: {
+ip: domain: godwynIp: {
   http = {
     routers = {
       ollama = {
@@ -83,7 +83,7 @@ ip: domain: unraidIp: {
       };
       unraid = {
         loadBalancer = {
-          servers = [ { url = "http://${unraidIp}"; } ];
+          servers = [ { url = "http://${godwynIp}"; } ];
           passHostHeader = true;
         };
       };

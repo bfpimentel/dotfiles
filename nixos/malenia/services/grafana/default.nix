@@ -28,31 +28,20 @@ in
     };
   };
 
-  services.prometheus = {
-    enable = true;
-    port = 9001;
-    extraFlags = [ "--web.enable-admin-api" ];
-    exporters = {
-      node = {
-        enable = true;
-        enabledCollectors = [ "systemd" ];
-        port = 9002;
-      };
-    };
-    scrapeConfigs = [
-      {
-        job_name = "node-exporter";
-        static_configs = [
-          {
-            targets = [
-              "${vars.ip}:9002"
-              "${vars.unraidIp}:9100"
-            ];
-          }
-        ];
-      }
-    ];
-  };
+  services.prometheus.scrapeConfigs = [
+    {
+      job_name = "node-exporter";
+      static_configs = [
+        {
+          targets = [
+            "${vars.ip}:9002"
+            "${vars.miquellaIp}:9002"
+            "${vars.godwynIp}:9100"
+          ];
+        }
+      ];
+    }
+  ];
 
   networking.firewall = {
     allowedUDPPorts = [

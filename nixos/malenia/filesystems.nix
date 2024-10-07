@@ -32,7 +32,7 @@ in
   };
 
   fileSystems."${vars.mediaMountLocation}" = {
-    device = "//${vars.unraidIp}/media";
+    device = "//${vars.godwynIp}/media";
     fsType = "cifs";
     options = [
       "credentials=${shareCredentialsPath}"
@@ -46,7 +46,7 @@ in
   };
 
   fileSystems."${vars.photosMountLocation}" = {
-    device = "//${vars.unraidIp}/photos";
+    device = "//${vars.godwynIp}/photos";
     fsType = "cifs";
     options = [
       "credentials=${shareCredentialsPath}"
