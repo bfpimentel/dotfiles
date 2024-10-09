@@ -48,6 +48,7 @@
 
       nixosModules = import ./modules/nixos;
       darwinModules = import ./modules/darwin;
+      homeManagerModules = import ./modules/home-manager;
 
       legacyPackages = forAllSystems (
         system:
@@ -82,7 +83,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = specialArgs;
-                home-manager.users."${username}" = import ./home-manager/home.nix;
+                home-manager.users."${username}" = homeManagerModules;
               }
             ];
           in
@@ -112,7 +113,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = specialArgs;
-                home-manager.users."${username}" = import ./home-manager/home.nix;
+                home-manager.users."${username}" = homeManagerModules;
               }
             ];
           in

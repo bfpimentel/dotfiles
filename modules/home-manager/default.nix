@@ -1,14 +1,21 @@
-{ system, ... }:
+{
+  hostname,
+  username,
+  ...
+}:
 
-let
-  systemSpecificImports = if system == "aarch64-darwin" then [ ] else [ ];
-in
 {
   imports = [
-    ./neovim
-    ./lazygit
-    ./zsh
-    ./bat
-    ./ssh
-  ] ++ systemSpecificImports;
+    (./. + "/hosts/${hostname}")
+    (./. + "/users/${username}.nix")
+    ./shared
+  ];
+
+  programs.home-manager.enable = true;
+
+  home = {
+    username = username;
+    enableNixpkgsReleaseCheck = false;
+    stateVersion = "24.05";
+  };
 }
