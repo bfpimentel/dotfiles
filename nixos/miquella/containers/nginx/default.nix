@@ -1,4 +1,4 @@
-{ vars, ... }:
+{ ... }:
 
 {
   services.nginx.enable = true;
@@ -13,11 +13,21 @@
     443
   ];
 
-  services.nginx.virtualHosts."vault.${vars.domain}" = {
-    forceSSL = true;
-    enableACME = true;
-    locations."/" = {
-      proxyPass = "http://${vars.maleniaIp}:9010";
+  services.nginx.virtualHosts = {
+    "jalotopimentel.com" = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/referencia-madrinhas" = {
+        proxyPass = "https://photos.app.goo.gl/8Byq8eUVuNXivPZAA";
+      };
+      locations."/referencia-padrinhos" = {
+        proxyPass = "https://photos.app.goo.gl/UJejtmYJHG9tjvYs7";
+      };
+      locations."/" = {
+        extraConfig = ''
+          return 301 $scheme://loja.jalotopimentel.com$request_uri;
+        '';
+      };
     };
   };
 }
