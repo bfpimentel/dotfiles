@@ -5,6 +5,19 @@ export ZSH="$HOME/.config/zsh"
 export LANG=en_US.UTF-8
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
+export BUN_INSTALL="$HOME/.bun"
+export SDKMAN_DIR="$HOME/.sdkman"
+export NVM_DIR="$HOME/.nvm"
+export AE_DEPLOYMENT_ENV="debug"
+
+export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$HOME/.flutter/bin"
+export PATH="$PATH:$BUN_INSTALL/bin"
+export PATH="$PATH:$HOME/neovim/bin"
+export PATH="$PATH:/opt/homebrew/opt/ruby/bin"
 
 # Antigen
 source "$ZSH/plugins/antigen.zsh"
@@ -102,9 +115,21 @@ alias ls="eza --icons=always"
 
 alias cnix="nvim /etc/nixos"
 alias cdnix="cd /etc/nixos"
-alias rnix="sudo nixos-rebuild switch --flake /etc/nixos --impure"
 
 alias cn="vim ~/.config/nvim"
 alias cz="vim ~/.config/zsh"
 
 alias visudo="sudo -E visudo"
+
+# NVM
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# RBENV
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# SDKMan
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

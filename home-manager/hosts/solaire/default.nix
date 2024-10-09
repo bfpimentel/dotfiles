@@ -3,7 +3,6 @@
 {
   imports = [
     ./tmux
-    ./zsh
     ./ssh
     ./kitty
     ./aerospace
