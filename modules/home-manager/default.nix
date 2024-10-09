@@ -1,13 +1,7 @@
 { system, ... }:
 
 let
-  systemSpecificImports =
-    if system != "aarch64-darwin" then
-      [
-        ./ssh
-      ]
-    else
-      [ ];
+  systemSpecificImports = if system == "aarch64-darwin" then [ ] else [ ];
 in
 {
   imports = [
@@ -15,5 +9,6 @@ in
     ./lazygit
     ./zsh
     ./bat
+    ./ssh
   ] ++ systemSpecificImports;
 }
