@@ -8,6 +8,6 @@
   };
 
   home.file.".config/nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./config;
+    source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home-manager/neovim/config";
   };
 }

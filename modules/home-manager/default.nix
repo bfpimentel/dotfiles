@@ -1,7 +1,7 @@
 { system, ... }:
 
 let
-  linuxOnlyImports =
+  systemSpecificImports =
     if system != "aarch64-darwin" then
       [
         ./ssh
@@ -14,5 +14,5 @@ in
   imports = [
     ./neovim
     ./lazygit
-  ] ++ linuxOnlyImports;
+  ] ++ systemSpecificImports;
 }

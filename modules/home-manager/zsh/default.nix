@@ -9,6 +9,6 @@
   };
 
   home.file.".config/zsh" = {
-    source = config.lib.file.mkOutOfStoreSymlink ./config;
+    source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home-manager/zsh/config";
   };
 }
