@@ -14,5 +14,6 @@ in
     ./neovim
     ./lazygit
     ./zsh
+    ./bat
   ] ++ systemSpecificImports;
 }

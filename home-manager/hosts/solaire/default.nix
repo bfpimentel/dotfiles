@@ -7,7 +7,6 @@
     ./kitty
     ./aerospace
     ./sketchybar
-    ./bat
     ./helix
   ];
 }
