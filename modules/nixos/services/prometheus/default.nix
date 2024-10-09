@@ -1,4 +1,4 @@
-{ vars }:
+{ ... }:
 
 {
   services.prometheus = {
@@ -12,20 +12,6 @@
         port = 9002;
       };
     };
-    scrapeConfigs = [
-      {
-        job_name = "node-exporter";
-        static_configs = [
-          {
-            targets = [
-              "${vars.ip}:9002"
-              "${vars.godwynIp}:9100"
-              "${vars.miquellaIp}:9100"
-            ];
-          }
-        ];
-      }
-    ];
   };
 
   networking.firewall = {

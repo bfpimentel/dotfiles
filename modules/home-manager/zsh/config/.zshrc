@@ -102,7 +102,7 @@ alias ls="eza --icons=always"
 
 alias cnix="nvim /etc/nixos"
 alias cdnix="cd /etc/nixos"
-alias rnix="sudo nixos-rebuild switch --flake /etc/nixos"
+alias rnix="sudo nixos-rebuild switch --flake /etc/nixos --impure"
 
 alias cn="vim ~/.config/nvim"
 alias cz="vim ~/.config/zsh"
