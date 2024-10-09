@@ -6,7 +6,7 @@
 
 let
   systemSpecificRebuildCmd =
-    if (system == "aarch64-darwin") then "darwin-rebuild" else "nixos-rebuild";
+    if (system == "aarch64-darwin") then "darwin-rebuild" else "sudo nixos-rebuild";
 in
 {
   programs.zsh = {
@@ -17,5 +17,5 @@ in
     '';
   };
 
-  home.file.".config/zsh".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/modules/home-manager/zsh/config";
+  home.file.".config/zsh".source = config.lib.file.mkOutOfStoreSymlink (./. + "/config");
 }
