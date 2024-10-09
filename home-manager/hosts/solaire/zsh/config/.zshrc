@@ -10,7 +10,6 @@ export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export BUN_INSTALL="$HOME/.bun"
 export SDKMAN_DIR="$HOME/.sdkman"
 export NVM_DIR="$HOME/.nvm"
-
 export AE_DEPLOYMENT_ENV="debug"
 
 export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
@@ -135,10 +134,3 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # SDKMan
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# TMUX
-if [ -z "$TMUX" ]
-then
-  tmux attach -t TMUX || tmux new -s TMUX
-fi
-
