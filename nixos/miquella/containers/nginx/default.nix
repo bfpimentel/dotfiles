@@ -29,5 +29,14 @@
         '';
       };
     };
+    "www.jalotopimentel.com" = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/" = {
+        extraConfig = ''
+          return 301 $scheme://loja.jalotopimentel.com$request_uri;
+        '';
+      };
+    };
   };
 }
