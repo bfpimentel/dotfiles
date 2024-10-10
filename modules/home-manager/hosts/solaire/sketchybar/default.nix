@@ -1,7 +1,5 @@
-{ config, ... }:
+{ homeManagerConfig, config, ... }:
 
 {
-  home.file.".config/sketchybar" = {
-    source = config.lib.file.mkOutOfStoreSymlink (./. + "/config");
-  };
+  home.file.".config/sketchybar".source = homeManagerConfig.linkHostApp config "sketchybar";
 }

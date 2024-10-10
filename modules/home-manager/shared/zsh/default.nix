@@ -1,6 +1,7 @@
 {
   system,
   config,
+  homeManagerConfig,
   ...
 }:
 
@@ -13,9 +14,9 @@ in
     enable = true;
     envExtra = ''
       ZDOTDIR="${config.home.homeDirectory}/.config/zsh"
-      alias rnix="sudo ${systemSpecificRebuildCmd} switch --flake /etc/nixos --impure"
+      alias rnix="${systemSpecificRebuildCmd} switch --flake /etc/nixos --impure"
     '';
   };
 
-  home.file.".config/zsh".source = config.lib.file.mkOutOfStoreSymlink (./. + "/config");
+  home.file.".config/zsh".source = homeManagerConfig.linkSharedApp config "zsh";
 }

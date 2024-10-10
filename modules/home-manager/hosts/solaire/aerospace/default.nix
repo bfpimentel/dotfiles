@@ -1,7 +1,5 @@
-{ config, ... }:
+{ homeManagerConfig, config, ... }:
 
 {
-  home.file.".config/aerospace" = {
-    source = config.lib.file.mkOutOfStoreSymlink (./. + "/config");
-  };
+  home.file.".config/aerospace".source = homeManagerConfig.linkHostApp config "aerospace";
 }

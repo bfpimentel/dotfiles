@@ -58,6 +58,18 @@
         }
       );
 
+      buildHomeManagerConfig =
+        hostname:
+        let
+          rootPath = "/etc/nixos/modules/home-manager";
+          hostPath = "${rootPath}/hosts/${hostname}";
+          sharedPath = "${rootPath}/shared";
+        in
+        {
+          linkHostApp = config: app: config.lib.file.mkOutOfStoreSymlink "${hostPath}/${app}/config";
+          linkSharedApp = config: app: config.lib.file.mkOutOfStoreSymlink "${sharedPath}/${app}/config";
+        };
+
       createNixOS =
         system: hostname: username: fullname: email:
         (
@@ -82,8 +94,10 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = specialArgs;
                 home-manager.users."${username}" = homeManagerModules;
+                home-manager.extraSpecialArgs = specialArgs // {
+                  homeManagerConfig = buildHomeManagerConfig hostname;
+                };
               }
             ];
           in
@@ -112,8 +126,10 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = specialArgs;
                 home-manager.users."${username}" = homeManagerModules;
+                home-manager.extraSpecialArgs = specialArgs // {
+                  homeManagerConfig = buildHomeManagerConfig hostname;
+                };
               }
             ];
           in

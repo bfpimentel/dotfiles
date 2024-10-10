@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  homeManagerConfig,
+  config,
+  ...
+}:
 
 {
   programs.neovim = {
@@ -7,5 +12,5 @@
     plugins = with pkgs.vimPlugins; [ lazy-nvim ];
   };
 
-  home.file.".config/nvim".source = config.lib.file.mkOutOfStoreSymlink (./. + "/config");
+  home.file.".config/nvim".source = homeManagerConfig.linkSharedApp config "neovim";
 }

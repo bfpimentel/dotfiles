@@ -1,5 +1,5 @@
-{ config, ... }:
+{ homeManagerConfig, config, ... }:
 
 {
-  home.file.".config/bat".source = config.lib.file.mkOutOfStoreSymlink (./. + "/config");
+  home.file.".config/bat".source = homeManagerConfig.linkSharedApp config "bat";
 }

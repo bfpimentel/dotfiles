@@ -1,7 +1,5 @@
-{ config, ... }:
+{ homeManagerConfig, config, ... }:
 
 {
-  home.file.".config/helix" = {
-    source = config.lib.file.mkOutOfStoreSymlink (./. + "/config");
-  };
+  home.file.".config/helix".source = homeManagerConfig.linkHostApp config "helyx";
 }

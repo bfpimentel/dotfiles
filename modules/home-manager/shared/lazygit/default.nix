@@ -1,5 +1,5 @@
-{ config, ... }:
+{ homeManagerConfig, config, ... }:
 
 {
-  home.file.".config/lazygit".source = config.lib.file.mkOutOfStoreSymlink (./. + "/config");
+  home.file.".config/lazygit".source = homeManagerConfig.linkSharedApp config "lazygit";
 }
