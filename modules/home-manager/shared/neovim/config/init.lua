@@ -13,6 +13,15 @@ vim.opt.softtabstop = 2
 
 vim.opt.clipboard = "unnamedplus"
 
+-- Keybindings
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+map("n", "<C-h>", "<CMD>wincmd h<CR>", opts)
+map("n", "<C-k>", "<CMD>wincmd k<CR>", opts)
+map("n", "<C-l>", "<CMD>wincmd l<CR>", opts)
+map("n", "<C-j>", "<CMD>wincmd j<CR>", opts)
+
 local osc52 = require("vim.ui.clipboard.osc52")
 vim.g.clipboard = {
 	name = "OSC 52",

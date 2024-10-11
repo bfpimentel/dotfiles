@@ -27,23 +27,93 @@ return {
 		opts = {},
 	},
 
-	-- Tmux Navigator
+	-- Mini Deps
 	{
-		"christoomey/vim-tmux-navigator",
-		cmd = {
-			"TmuxNavigateLeft",
-			"TmuxNavigateDown",
-			"TmuxNavigateUp",
-			"TmuxNavigateRight",
-			"TmuxNavigatePrevious",
+		"echasnovski/mini.surround",
+		lazy = false,
+		version = false,
+		opts = {},
+	},
+	{
+		"echasnovski/mini.indentscope",
+		lazy = false,
+		version = false,
+		opts = {},
+	},
+	{
+		"echasnovski/mini.pairs",
+		lazy = false,
+		version = false,
+		opts = {},
+	},
+  {
+		"echasnovski/mini-git",
+		main = "mini.git",
+		lazy = false,
+		version = false,
+		opts = {},
+	},
+	{
+		"echasnovski/mini.diff",
+		lazy = false,
+		version = false,
+		opts = {},
+	},
+	{
+		"echasnovski/mini.bracketed",
+		lazy = false,
+		version = false,
+		opts = {},
+	},
+	{
+		"echasnovski/mini.move",
+		lazy = false,
+		version = false,
+		opts = {
+			options = { reindent_linewise = true },
+			mappings = {
+				-- Visual mode
+				left = "",
+				right = "",
+				down = "<C-S-j>",
+        up = "<C-S-k>",
+
+				-- Normal mode
+				line_left = "",
+				line_right = "",
+				line_down = "<C-S-j>",
+				line_up = "<C-S-k>",
+			},
 		},
-		keys = {
-			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-		},
+	},
+	{
+		"echasnovski/mini.icons",
+		lazy = false,
+		version = false,
+		specs = { { "nvim-tree/nvim-web-devicons", enabled = false, optional = true } },
+		opts = {},
+		init = function()
+			package.preload["nvim-web-devicons"] = function()
+				require("mini.icons").mock_nvim_web_devicons()
+				return package.loaded["nvim-web-devicons"]
+			end
+		end,
+	},
+
+	-- Statusline Config
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		lazy = false,
+		config = function()
+			require("lualine").setup({
+				options = {
+					theme = "tokyonight",
+					component_separators = { left = "|", right = "|" },
+					section_separators = { left = "", right = "" },
+				},
+			})
+		end,
 	},
 
 	-- Toggle Term Config
@@ -230,15 +300,6 @@ return {
 		},
 	},
 
-	-- Icons Config
-	{
-		"nvim-tree/nvim-web-devicons",
-		lazy = false,
-		config = function()
-			require("nvim-web-devicons").setup()
-		end,
-	},
-
 	-- Code Highlighting Config
 	{
 		"jinh0/eyeliner.nvim",
@@ -257,7 +318,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"ahmedkhalf/project.nvim",
 		},
-		lazy = false,
+		lazy = true,
 		keys = {
 			{ "<leader>fp", "<cmd>Telescope find_files<cr>", mode = "n", desc = "[F]ind [P]roject files" },
 			{ "<leader>fg", "<cmd>Telescope git_files<cr>", mode = "n", desc = "[F]ind [G]it files" },
@@ -269,9 +330,12 @@ return {
 				detection_methods = { "pattern" },
 				patterns = { ".git" },
 			})
+
 			local telescope = require("telescope")
-			telescope.setup()
 			telescope.load_extension("projects")
+			telescope.setup({
+				path_display = { "shorten" },
+			})
 		end,
 	},
 
@@ -286,6 +350,7 @@ return {
 					"typescript",
 					"c",
 					"lua",
+					"nix",
 					"vim",
 					"vimdoc",
 					"query",
@@ -298,22 +363,6 @@ return {
 				auto_install = true,
 				highlight = { enable = true, additional_vim_regex_highlighting = false },
 				indent = { enable = true },
-			})
-		end,
-	},
-
-	-- Statusline Config
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		lazy = false,
-		config = function()
-			require("lualine").setup({
-				options = {
-					theme = "tokyonight",
-					component_separators = { left = "|", right = "|" },
-					section_separators = { left = "", right = "" },
-				},
 			})
 		end,
 	},
