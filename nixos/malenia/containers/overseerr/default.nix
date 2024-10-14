@@ -16,7 +16,7 @@ in
       image = "lscr.io/linuxserver/overseerr:latest";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${overseerrPath}:/app/config" ];
+      volumes = [ "${overseerrPath}:/config" ];
       environment = {
         TZ = vars.timeZone;
         PORT = "5055";
