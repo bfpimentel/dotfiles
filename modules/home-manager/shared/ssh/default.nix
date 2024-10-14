@@ -12,6 +12,7 @@ in
     enable = true;
     extraConfig = ''
       AddKeysToAgent yes
+      ServerAliveInterval 60
     '';
     matchBlocks =
       if (system != "aarch64-darwin") then

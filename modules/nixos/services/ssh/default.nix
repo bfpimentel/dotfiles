@@ -6,7 +6,10 @@
     openFirewall = true;
     settings = {
       PermitRootLogin = "no";
-      PasswordAuthentication = false;
+      PasswordAuthentication = "no";
+      ClientAliveInterval = 300;
+      ClientAliveCountMax = 3;
+      TCPKeepAlive = "yes";
     };
   };
 }

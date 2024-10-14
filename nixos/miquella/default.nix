@@ -17,8 +17,6 @@
 
   users.users.${username}.home = "/home/${username}";
 
-  services.openssh.enable = true;
-
   system.stateVersion = "24.11";
 }
 
