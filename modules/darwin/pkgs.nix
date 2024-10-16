@@ -5,10 +5,22 @@
 
   environment.systemPackages = with pkgs; [
     neovim
+    localsend
+    kitty
+
     python3
     wget
     helix
-    kitty
+    nodejs_22
+
+    nil
+    stylua
+    bash-language-server
+    yaml-language-server
+    typescript-language-server
+    nixfmt-rfc-style
+    prettierd
+
     eza
     bat
     oh-my-posh
@@ -18,10 +30,7 @@
     fd
     gnupg
     tmux
-    nil
-    nixfmt-rfc-style
     cargo
-    localsend
     fastfetch
     lazygit
   ];

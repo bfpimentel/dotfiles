@@ -46,7 +46,7 @@ return {
 		version = false,
 		opts = {},
 	},
-  {
+	{
 		"echasnovski/mini-git",
 		main = "mini.git",
 		lazy = false,
@@ -76,7 +76,7 @@ return {
 				left = "",
 				right = "",
 				down = "<C-S-j>",
-        up = "<C-S-k>",
+				up = "<C-S-k>",
 
 				-- Normal mode
 				line_left = "",
@@ -167,18 +167,6 @@ return {
 
 	-- LSP Config
 	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup()
-		end,
-	},
-	{
 		"neovim/nvim-lspconfig",
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -197,6 +185,10 @@ return {
 			})
 
 			lspconfig.clangd.setup({
+				capabilities = capabilities,
+			})
+
+			lspconfig.ts_ls.setup({
 				capabilities = capabilities,
 			})
 
@@ -235,6 +227,10 @@ return {
 				sh = { "bashls" },
 				yaml = { "yamlls" },
 				nix = { "nixfmt" },
+				typescript = { "prettierd" },
+				typescriptreact = { "prettierd" },
+				javascript = { "prettierd" },
+				javascriptreact = { "prettierd" },
 			},
 		},
 	},

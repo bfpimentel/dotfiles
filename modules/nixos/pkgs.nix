@@ -31,7 +31,9 @@
     stylua
     bash-language-server
     yaml-language-server
+    typescript-language-server
     nixfmt-rfc-style
+    prettierd
 
     podman-tui
     podman-compose
