@@ -5,7 +5,7 @@
   ...
 }:
 let
-  immichVersion = "v1.117.0";
+  immichVersion = "v1.118.1";
 
   immichPath = "${vars.containersConfigRoot}/immich";
   immichPostgresPath = "${immichPath}/postgres";
@@ -61,7 +61,7 @@ in
         "traefik.enable" = "true";
         "traefik.http.routers.immich.entrypoints" = "https";
         "traefik.http.routers.immich.rule" = "Host(`photos.${vars.domain}`)";
-        "traefik.http.services.immich.loadbalancer.server.port" = "3001";
+        "traefik.http.services.immich.loadbalancer.server.port" = "2283";
         # Homepage
         "homepage.group" = "Media";
         "homepage.name" = "Immich";
@@ -70,7 +70,7 @@ in
         "homepage.weight" = "0";
         "homepage.widget.type" = "immich";
         "homepage.widget.key" = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
-        "homepage.widget.url" = "http://immich:3001";
+        "homepage.widget.url" = "http://immich:2283";
         "homepage.widget.fields" = ''["photos", "videos", "storage"]'';
       };
     };

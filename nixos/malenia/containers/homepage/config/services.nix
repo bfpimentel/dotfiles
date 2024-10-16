@@ -64,8 +64,8 @@ domain: networkInterface: [
           href = "https://media.${domain}";
           weight = 6;
           widget = {
-            type = "jellyfin";
-            url = "https://media.${domain}";
+            type = "tautulli";
+            url = "http://tautulli:8181";
             key = "{{HOMEPAGE_VAR_PLEX_KEY}}";
             enableUser = true;
           };
