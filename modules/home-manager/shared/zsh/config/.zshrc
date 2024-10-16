@@ -109,7 +109,7 @@ alias ls="eza --icons=always"
 
 alias vim="nvim"
 
-alias gst="git status -sb"
+alias gst="lazygit"
 
 alias ls="eza --icons=always"
 

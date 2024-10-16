@@ -48,7 +48,7 @@ require("lazy").setup({
 		{ import = "bfpimentel/plugins" },
 	},
 	defaults = {
-		lazy = false,
+		lazy = true,
 		version = false,
 	},
 	checker = { enabled = true, notify = false },
