@@ -4,10 +4,6 @@
   homebrew = {
     enable = true;
 
-    global = {
-      autoUpdate = true;
-    };
-
     onActivation = {
       autoUpdate = true;
       upgrade = true;
@@ -19,7 +15,7 @@
       "ripgrep"
       "sketchybar"
       "borders"
-      "libpcap" 
+      "libpcap"
       "hcxtools"
       "xz"
       "ykman"
@@ -34,25 +30,19 @@
       "xcodes"
       "balenaetcher"
       "vial"
-      "raspberry-pi-imager"
-      "vlc"
       "linearmouse"
       "shottr"
       "hiddenbar"
       "notchnook"
       "raycast"
       "psst"
-      "obsidian"
-      "obs"
-      "zoom"
       "altserver"
       "pearcleaner"
       "kap"
       "aerospace"
-      "zen-browser"
       "thunderbird@beta"
-      "firefox@nightly"
-      "font-space-mono-nerd-font" 
+      "font-space-mono-nerd-font"
+      # "zen-browser"
     ];
   };
 }

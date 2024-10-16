@@ -1,44 +1,44 @@
 return {
 	{
 		"echasnovski/mini.surround",
-		lazy = true,
+		lazy = false,
 		version = false,
 		opts = {},
 	},
 	{
 		"echasnovski/mini.indentscope",
-		lazy = true,
+		lazy = false,
 		version = false,
 		opts = {},
 	},
 	{
 		"echasnovski/mini.pairs",
-		lazy = true,
+		lazy = false,
 		version = false,
 		opts = {},
 	},
 	{
 		"echasnovski/mini-git",
 		main = "mini.git",
-		lazy = true,
+		lazy = false,
 		version = false,
 		opts = {},
 	},
 	{
 		"echasnovski/mini.diff",
-		lazy = true,
+		lazy = false,
 		version = false,
 		opts = {},
 	},
 	{
 		"echasnovski/mini.bracketed",
-		lazy = true,
+		lazy = false,
 		version = false,
 		opts = {},
 	},
 	{
 		"echasnovski/mini.move",
-		lazy = true,
+		lazy = false,
 		version = false,
 		opts = {
 			options = { reindent_linewise = true },
@@ -59,7 +59,7 @@ return {
 	},
 	{
 		"echasnovski/mini.icons",
-		lazy = true,
+		lazy = false,
 		version = false,
 		specs = { { "nvim-tree/nvim-web-devicons", enabled = false, optional = true } },
 		opts = {},
