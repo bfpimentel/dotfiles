@@ -40,9 +40,9 @@
       "pearcleaner"
       "kap"
       "aerospace"
+      "zen-browser"
       "thunderbird@beta"
       "font-space-mono-nerd-font"
-      # "zen-browser"
     ];
   };
 }

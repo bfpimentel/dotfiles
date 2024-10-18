@@ -37,10 +37,10 @@
     };
     finder = {
       _FXShowPosixPathInTitle = false;
-      # _FXSortFoldersFirst = true;
+      _FXSortFoldersFirst = true;
       AppleShowAllExtensions = true;
-      AppleShowAllFiles = true;
-      CreateDesktop = true;
+      AppleShowAllFiles = false;
+      CreateDesktop = false;
       FXDefaultSearchScope = "SCcf";
       FXEnableExtensionChangeWarning = false;
       FXPreferredViewStyle = "Nlsv";
