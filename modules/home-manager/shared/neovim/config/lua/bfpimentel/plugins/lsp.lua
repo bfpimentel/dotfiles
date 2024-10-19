@@ -1,33 +1,16 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-    lazy = false,
+		lazy = false,
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
 
-			lspconfig.stylua.setup({
-				capabilities = capabilities,
-			})
-
-			lspconfig.bashls.setup({
-				capabilities = capabilities,
-			})
-
-			lspconfig.yamlls.setup({
-				capabilities = capabilities,
-			})
-
-			lspconfig.clangd.setup({
-				capabilities = capabilities,
-			})
-
-			lspconfig.ts_ls.setup({
-				capabilities = capabilities,
-			})
-
+			lspconfig.lua_ls.setup({})
+			lspconfig.bashls.setup({})
+			lspconfig.yamlls.setup({})
+			lspconfig.clangd.setup({})
+			lspconfig.ts_ls.setup({})
 			lspconfig.nil_ls.setup({
-				capabilities = capabilities,
 				settings = {
 					nil_ls = { formatter = { command = "nixfmt" } },
 				},
@@ -41,7 +24,7 @@ return {
 	},
 	{
 		"smjonas/inc-rename.nvim",
-    lazy = false,
+		lazy = false,
 		config = function()
 			require("inc_rename").setup()
 
@@ -66,7 +49,7 @@ return {
 		opts = {
 			formatters_by_ft = {
 				-- ["*"] = { "codespell", "trim_whitespace" },
-				lua = { "stylua" },
+				lua = { "lua_ls" },
 				sh = { "bashls" },
 				yaml = { "yamlls" },
 				nix = { "nixfmt" },
@@ -77,5 +60,4 @@ return {
 			},
 		},
 	},
-
 }

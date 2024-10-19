@@ -12,7 +12,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export NVM_DIR="$HOME/.nvm"
 export AE_DEPLOYMENT_ENV="debug"
 
-export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+export PATH="$PATH:/run/current-system/sw/bin"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 export PATH="$PATH:$HOME/.flutter/bin"
 export PATH="$PATH:$BUN_INSTALL/bin"
