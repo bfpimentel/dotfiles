@@ -27,22 +27,22 @@
     ];
 
     casks = [
-      "xcodes"
-      "balenaetcher"
-      "vial"
-      "linearmouse"
-      "shottr"
-      "hiddenbar"
-      "notchnook"
-      "raycast"
-      "psst"
-      "altserver"
-      "pearcleaner"
-      "kap"
-      "aerospace"
-      "thunderbird@beta"
-      "font-space-mono-nerd-font"
-      # "zen-browser"
+      { name = "xcodes"; greedy = true; }
+      { name = "balenaetcher"; greedy = true; }
+      { name = "vial"; greedy = true; }
+      { name = "linearmouse"; greedy = true; }
+      { name = "shottr"; greedy = true; }
+      { name = "hiddenbar"; greedy = true; }
+      { name = "notchnook"; greedy = true; }
+      { name = "raycast"; greedy = true; }
+      { name = "psst"; greedy = true; }
+      { name = "altserver"; greedy = true; }
+      { name = "pearcleaner"; greedy = true; }
+      { name = "kap"; greedy = true; }
+      { name = "aerospace"; greedy = true; }
+      { name = "zen-browser"; greedy = true; }
+      { name = "thunderbird@beta"; greedy = true; }
+      { name = "font-space-mono-nerd-font"; greedy = true; }
     ];
   };
 }

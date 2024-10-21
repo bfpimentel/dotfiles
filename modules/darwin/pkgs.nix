@@ -14,7 +14,7 @@
     nodejs_22
 
     nil
-    stylua
+    lua-language-server
     bash-language-server
     yaml-language-server
     typescript-language-server

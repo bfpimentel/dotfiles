@@ -52,7 +52,7 @@ return {
 				-- Normal mode
 				line_left = "",
 				line_right = "",
-				line_down = "<C-S-j>",
+        line_down = "<C-S-j>",
 				line_up = "<C-S-k>",
 			},
 		},

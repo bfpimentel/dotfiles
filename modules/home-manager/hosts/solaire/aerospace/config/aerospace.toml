@@ -2,7 +2,7 @@ start-at-login = true
 after-login-command = []
 after-startup-command = [ 
   'exec-and-forget sketchybar',
-  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=4.0'
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0'
 ]
 
 key-mapping.preset = 'qwerty'
@@ -10,10 +10,10 @@ key-mapping.preset = 'qwerty'
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
-accordion-padding = 24
+accordion-padding = 12
 
 default-root-container-layout = 'tiles'
-default-root-container-orientation = 'auto'
+default-root-container-orientation = 'vertical'
 
 exec-on-workspace-change = [
   '/bin/bash', 
@@ -23,6 +23,7 @@ exec-on-workspace-change = [
 
 on-focus-changed = [
   'exec-and-forget sketchybar --trigger front_app_switched'
+  # 'exec-and-forget sketchybar --trigger send_message MESSAGE="Focus has changed"'
 ]
 
 [gaps]
@@ -43,7 +44,6 @@ alt-semicolon = [
 ]
 
 alt-tab = 'workspace-back-and-forth'
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -53,6 +53,7 @@ alt-l = 'focus right'
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
 alt-shift-k = 'move up'
+alt-shift-l = 'move right'
 
 alt-b = 'workspace B'
 alt-c = 'workspace C'
@@ -70,38 +71,32 @@ alt-shift-x = 'move-node-to-workspace X'
 
 alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
 
-# alt-enter = 'exec-and-forget open -a "/Applications/Nix Apps/kitty.app"' 
-
 [mode.service.binding]
 esc = [
   'reload-config', 
   'mode main', 
   'exec-and-forget sketchybar --reload',
-  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=4.0',
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0',
   'exec-and-forget sleep 0.5 && sketchybar --trigger send_message MESSAGE="Aerospace Reloaded"',
 ]
-r = [
-  'flatten-workspace-tree', 
-  'mode main',
-  'exec-and-forget sleep 0.5 && sketchybar --trigger hide_message',
+
+t = [
+  'layout tiles horizontal vertical', 
+] 
+a = [
+  'layout accordion horizontal vertical', 
 ] 
 f = [
   'layout floating tiling', 
-  'mode main',
-  'exec-and-forget sleep 0.5 && sketchybar --trigger hide_message',
 ] 
 # backspace = ['close-all-windows-but-current', 'mode main']
 
 minus = 'resize smart -50'
 equal = 'resize smart +50'
 
-alt-h = ['join-with left', 'mode main']
-alt-j = ['join-with down', 'mode main']
-alt-k = ['join-with up', 'mode main']
-alt-l = ['join-with right', 'mode main']
-
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
+check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace T']
 
 [[on-window-detected]]
@@ -111,22 +106,27 @@ run = ['layout tiling', 'move-node-to-workspace B']
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'
+check-further-callbacks = true
 if.window-title-regex-substring = 'picture-in-picture'
 run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.google.android.studio'
+check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace C'] 
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
+check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace F']
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.thunderbird'
+check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace E']
 
 [[on-window-detected]]
 if.app-id = 'com.jpochyla.psst'
+check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace E']
 

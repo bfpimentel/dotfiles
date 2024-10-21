@@ -9,7 +9,7 @@ local padding <const> = {
 
 local graphics <const> = {
   bar = {
-    height = 36,
+    height = 32,
     offset = 8,
   },
   background = {
@@ -27,8 +27,8 @@ local graphics <const> = {
 }
 
 local text <const> = {
-  icon = 16.0,
-  label = 14.0,
+  icon = 14.0,
+  label = 12.0,
 }
 
 return {
