@@ -2,7 +2,9 @@
   title = "bruno's lab";
   headerStyle = "clean";
   statusStyle = "dot";
-  theme = "dark";
+  theme = "light";
+  cardBlur = "md";
+  background = "/images/background.gif";
   useEqualHeights = true;
   hideVersion = true;
   layout = [

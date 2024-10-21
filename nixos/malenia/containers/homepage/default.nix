@@ -2,11 +2,15 @@
   vars,
   pkgs,
   config,
+  username,
   ...
 }:
 
 let
+  homepagePath = "${vars.containersConfigRoot}/homepage";
+
   settingsFormat = pkgs.formats.yaml { };
+
   homepageSettings = {
     docker = settingsFormat.generate "docker.yaml" (import ./config/docker.nix);
     services = settingsFormat.generate "services.yaml" (
@@ -18,9 +22,17 @@ let
       name = "bookmarks.yaml";
       text = "---";
     };
+    images = "${homepagePath}/images";
   };
+
+  directories = [
+    "${homepagePath}"
+    "${homepagePath}/images"
+  ];
 in
 {
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+
   virtualisation.oci-containers.containers = {
     homepage = {
       image = "ghcr.io/gethomepage/homepage:latest";
@@ -33,6 +45,7 @@ in
         "${homepageSettings.settings}:/app/config/settings.yaml"
         "${homepageSettings.widgets}:/app/config/widgets.yaml"
         "${homepageSettings.bookmarks}:/app/config/bookmarks.yaml"
+        "${homepageSettings.images}:/app/public/images"
       ];
       environmentFiles = [
         config.age.secrets.radarr.path

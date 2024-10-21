@@ -72,6 +72,7 @@ in
         "homepage.widget.key" = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
         "homepage.widget.url" = "http://immich:2283";
         "homepage.widget.fields" = ''["photos", "videos", "storage"]'';
+        "homepage.widget.version" = "2";
       };
     };
 
