@@ -18,6 +18,10 @@ let
     );
     widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
     settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
+    css = pkgs.writeTextFile {
+      name = "custom.css";
+      text = builtins.readFile ./config/custom.css;
+    };
     bookmarks = pkgs.writeTextFile {
       name = "bookmarks.yaml";
       text = "---";
@@ -45,6 +49,7 @@ in
         "${homepageSettings.settings}:/app/config/settings.yaml"
         "${homepageSettings.widgets}:/app/config/widgets.yaml"
         "${homepageSettings.bookmarks}:/app/config/bookmarks.yaml"
+        "${homepageSettings.css}:/app/config/custom.css"
         "${homepageSettings.images}:/app/public/images"
       ];
       environmentFiles = [
@@ -61,9 +66,8 @@ in
       labels = {
         "traefik.enable" = "true";
         "traefik.http.routers.homepage.entrypoints" = "https";
-        "traefik.http.routers.homepage.rule" = "Host(`home.${vars.domain}`)";
+        "traefik.http.routers.homepage.rule" = "Host(`dash.${vars.domain}`)";
         "traefik.http.services.homepage.loadbalancer.server.port" = "3000";
-        # "traefik.http.routers.homepage.middlewares" = "auth@file";
       };
     };
   };

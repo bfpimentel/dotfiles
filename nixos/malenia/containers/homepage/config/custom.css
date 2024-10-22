@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  h2 {
+    font-family: 'Space Mono', monospace !important;
+    @apply mt-4;
+  }
+}
+
+h1 {
+  font-family: 'Space Mono', monospace !important;
+}
+
+.information-widget-greeting {
+  font-family: 'Space Mono', monospace !important;
+}
+
+div#footer {
+  display: none;
+}
