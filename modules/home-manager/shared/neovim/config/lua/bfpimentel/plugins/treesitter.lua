@@ -31,6 +31,8 @@ return {
       "heex",
       "javascript",
       "html",
+      "markdown",
+      "markdown_inline"
     },
   },
 }
