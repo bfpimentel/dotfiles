@@ -6,7 +6,7 @@
 
   # domains
   domain = "local.luana.casa";
-  externalDomain = "luana.casa";
+  externalDomain = "external.luana.casa";
 
   # configs
   servicesConfigRoot = "/persistent/opt/services";

@@ -17,7 +17,7 @@ let
   settingsFormat = pkgs.formats.yaml { };
   ntfySettings = {
     server = settingsFormat.generate "${ntfyPath}/data/server.yml" (
-      (import ./config/server.nix) vars.domain
+      (import ./config/server.nix) vars.externalDomain
     );
   };
 in
@@ -40,15 +40,11 @@ in
         "${ntfySettings.server}:/etc/ntfy/server.yml"
       ];
       labels = {
-        "traefik.enable" = "true";
-        "traefik.http.routers.ntfy.rule" = "Host(`notify.${vars.domain}`)";
-        "traefik.http.routers.ntfy.entryPoints" = "https";
-        "traefik.http.services.ntfy.loadbalancer.server.port" = "80";
         # Homepage
         "homepage.group" = "Misc";
         "homepage.name" = "Ntfy";
         "homepage.icon" = "ntfy.svg";
-        "homepage.href" = "https://notify.${vars.domain}";
+        "homepage.href" = "https://notify.${vars.externalDomain}";
       };
     };
   };
