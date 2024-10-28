@@ -21,6 +21,7 @@
     nixfmt-rfc-style
     prettierd
 
+    ripgrep
     eza
     bat
     oh-my-posh

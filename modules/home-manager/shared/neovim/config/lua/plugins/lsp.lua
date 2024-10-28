@@ -20,7 +20,11 @@ return {
       lspconfig.bashls.setup {}
       lspconfig.yamlls.setup {}
       lspconfig.clangd.setup {}
-      lspconfig.ts_ls.setup {}
+      lspconfig.ts_ls.setup {
+        settings = {
+          ts_ls = { formatter = { command = "prettierd" } }
+        }
+      }
       lspconfig.nil_ls.setup {
         settings = {
           nil_ls = { formatter = { command = "nixfmt" } },
@@ -66,6 +70,9 @@ return {
         javascript = { "prettierd" },
         javascriptreact = { "prettierd" },
       },
+      prettier = {
+        require_cwd = true,
+      }
     },
   },
 }

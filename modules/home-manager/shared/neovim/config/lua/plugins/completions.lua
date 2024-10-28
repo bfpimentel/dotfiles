@@ -3,7 +3,7 @@ return {
   lazy = false,
   dependencies = "rafamadriz/friendly-snippets",
   version = "v0.*",
-  ---@module blink.cmp
+  ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
     highlight = {
