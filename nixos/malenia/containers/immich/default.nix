@@ -5,7 +5,7 @@
   ...
 }:
 let
-  immichVersion = "v1.118.2";
+  immichVersion = "v1.119.1";
 
   immichPath = "${vars.containersConfigRoot}/immich";
   immichPostgresPath = "${immichPath}/postgres";
