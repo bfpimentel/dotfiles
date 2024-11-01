@@ -1,7 +1,9 @@
-{ username, ... }:
+{ username, pkgs, ... }:
 
 {
-  imports = [ ];
+  imports = [
+    # ./services
+  ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 

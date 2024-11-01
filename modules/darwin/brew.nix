@@ -5,7 +5,7 @@
     enable = true;
 
     onActivation = {
-      autoUpdate = true;
+      autoUpdate = false;
       upgrade = true;
       cleanup = "uninstall";
     };
@@ -41,6 +41,7 @@
       { name = "kap"; greedy = true; }
       { name = "aerospace"; greedy = true; }
       { name = "zen-browser"; greedy = true; }
+      { name = "karabiner-elements"; greedy = true; }
       { name = "thunderbird@beta"; greedy = true; }
       { name = "font-space-mono-nerd-font"; greedy = true; }
     ];

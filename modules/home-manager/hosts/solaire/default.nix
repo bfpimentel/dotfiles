@@ -7,5 +7,7 @@
     ./aerospace
     ./sketchybar
     ./helix
+    ./karabiner
+    # ./goku
   ];
 }

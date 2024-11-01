@@ -7,6 +7,5 @@
   locale = import ./locale.nix;
   pkgs = import ./pkgs.nix;
 
-  # services
   services = import ./services;
 }

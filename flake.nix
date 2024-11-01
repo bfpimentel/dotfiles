@@ -88,10 +88,10 @@
                 fullname
                 email
                 ;
-              vars = import (./. + "/nixos/${hostname}/vars.nix");
+              vars = import (./. + "/hosts/${hostname}/vars.nix");
             };
             modules = (builtins.attrValues nixosModules) ++ [
-              (./. + "/nixos/${hostname}")
+              (./. + "/hosts/${hostname}")
               agenix.nixosModules.default
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
@@ -124,7 +124,7 @@
               system = "aarch64-darwin";
             };
             modules = (builtins.attrValues darwinModules) ++ [
-              (./. + "/darwin/${hostname}")
+              (./. + "/hosts/${hostname}")
               agenix.nixosModules.default
               home-manager.darwinModules.home-manager
               {
