@@ -6,23 +6,28 @@
 }:
 
 let
-  ntfyPath = "${vars.containersConfigRoot}/ntfy";
-
-  directories = [
-    "${ntfyPath}"
-    "${ntfyPath}/cache"
-    "${ntfyPath}/data"
-  ];
-
-  settingsFormat = pkgs.formats.yaml { };
-  ntfySettings = {
-    server = settingsFormat.generate "${ntfyPath}/data/server.yml" (
-      (import ./config/server.nix) vars.externalDomain
-    );
-  };
+  ntfyPaths =
+    let
+      settingsFormat = pkgs.formats.yaml { };
+      root = "${vars.containersConfigRoot}/ntfy";
+    in
+    {
+      volumes = {
+        inherit root;
+        cache = "${root}/cache";
+        data = "${root}/data";
+      };
+      generated = {
+        server = settingsFormat.generate "${root}/data/server.yml" (
+          (import ./config/server.nix) vars.externalDomain
+        );
+      };
+    };
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues ntfyPaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     ntfy = {
@@ -35,9 +40,9 @@ in
         TZ = vars.timeZone;
       };
       volumes = [
-        "${ntfyPath}/cache:/var/cache/ntfy"
-        "${ntfyPath}/data:/etc/ntfy"
-        "${ntfySettings.server}:/etc/ntfy/server.yml"
+        "${ntfyPaths.volumes.cache}:/var/cache/ntfy"
+        "${ntfyPaths.volumes.data}:/etc/ntfy"
+        "${ntfyPaths.generated.server}:/etc/ntfy/server.yml"
       ];
       labels = {
         # Homepage

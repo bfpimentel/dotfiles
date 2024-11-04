@@ -7,18 +7,25 @@
 }:
 
 let
-  traefikPath = "${vars.containersConfigRoot}/traefik";
-
-  directories = [ traefikPath ];
-  files = [ "${traefikPath}/acme.json" ];
-
-  settingsFormat = pkgs.formats.yaml { };
-  traefikConfig = {
-    config = settingsFormat.generate "config.yml" ((import ./config/config.nix) vars.domain);
-    dynamic = settingsFormat.generate "dynamic.yml" (
-      (import ./config/dynamic.nix) vars.ip vars.domain vars.godwynIp
-    );
-  };
+  traefikPaths =
+    let
+      settingsFormat = pkgs.formats.yaml { };
+      root = "${vars.containersConfigRoot}/traefik";
+    in
+    {
+      volumes = {
+        inherit root;
+      };
+      files = {
+        acme = "${root}/acme.json";
+      };
+      generated = {
+        config = settingsFormat.generate "config.yml" ((import ./config/config.nix) vars.domain);
+        dynamic = settingsFormat.generate "dynamic.yml" (
+          (import ./config/dynamic.nix) vars.ip vars.domain vars.godwynIp
+        );
+      };
+    };
 in
 {
   networking.firewall.allowedTCPPorts = [
@@ -27,8 +34,8 @@ in
   ];
 
   systemd.tmpfiles.rules =
-    map (x: "d ${x} 0775 ${username} ${username} - -") directories
-    ++ map (x: "f ${x} 0600 ${username} ${username} - -") files;
+    map (x: "d ${x} 0775 ${username} ${username} - -") (builtins.attrValues traefikPaths.volumes)
+    ++ map (x: "f ${x} 0600 ${username} ${username} - -") (builtins.attrValues traefikPaths.files);
 
   virtualisation.oci-containers.containers = {
     traefik = {
@@ -41,9 +48,9 @@ in
       ];
       volumes = [
         "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-        "${traefikPath}/acme.json:/acme.json"
-        "${traefikConfig.config}:/traefik.yml:ro"
-        "${traefikConfig.dynamic}:/dynamic.yml:ro"
+        "${traefikPaths.files.acme}:/acme.json"
+        "${traefikPaths.generated.config}:/traefik.yml:ro"
+        "${traefikPaths.generated.dynamic}:/dynamic.yml:ro"
       ];
       environmentFiles = [ config.age.secrets.cloudflare.path ];
       labels = {

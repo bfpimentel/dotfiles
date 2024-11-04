@@ -11,19 +11,18 @@ let
       root = "${vars.containersConfigRoot}/authentik";
     in
     {
-      user = {
+      volumes = {
         inherit root;
         media = "${root}/media";
         templates = "${root}/templates";
         certs = "${root}/certs";
-        redis = "${root}/redis";
       };
       postgres = "${root}/db";
     };
 in
 {
   systemd.tmpfiles.rules =
-    map (x: "d ${x} 0775 ${username} ${username} - -") (builtins.attrValues authentikPaths.user)
+    map (x: "d ${x} 0775 ${username} ${username} - -") (builtins.attrValues authentikPaths.volumes)
     ++ map (x: "d ${x} 0775 postgres ${username} - -") [ authentikPaths.postgres ];
 
   virtualisation.oci-containers.containers = {
@@ -38,8 +37,8 @@ in
       ];
       ports = [ "9000:9000" ];
       volumes = [
-        "${authentikPaths.user.media}:/media"
-        "${authentikPaths.user.templates}:/templates"
+        "${authentikPaths.volumes.media}:/media"
+        "${authentikPaths.volumes.templates}:/templates"
       ];
       environmentFiles = [ config.age.secrets.authentik.path ];
       environment = {
@@ -70,9 +69,9 @@ in
         "authentik-redis"
       ];
       volumes = [
-        "${authentikPaths.user.media}:/media"
-        "${authentikPaths.user.templates}:/templates"
-        "${authentikPaths.user.certs}:/certs"
+        "${authentikPaths.volumes.media}:/media"
+        "${authentikPaths.volumes.templates}:/templates"
+        "${authentikPaths.volumes.certs}:/certs"
       ];
       environmentFiles = [ config.age.secrets.authentik.path ];
       environment = {
@@ -99,7 +98,6 @@ in
       image = "docker.io/library/redis:alpine";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${authentikPaths.user.redis}:/data" ];
     };
   };
 }

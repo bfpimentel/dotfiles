@@ -1,16 +1,20 @@
 { username, vars, ... }:
 
 let
-  baikalPath = "${vars.containersConfigRoot}/baikal";
-
-  directories = [
-    "${baikalPath}"
-    "${baikalPath}/data"
-    "${baikalPath}/config"
-  ];
+  baikalPaths =
+    let
+      root = "${vars.containersConfigRoot}/baikal";
+    in
+    {
+      inherit root;
+      data = "${root}/data";
+      config = "${root}/config";
+    };
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues baikalPaths
+  );
 
   virtualisation.oci-containers.containers = {
     baikal = {
@@ -18,8 +22,8 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [
-        "${baikalPath}/data:/var/www/baikal/Specific"
-        "${baikalPath}/config:/var/www/baikal/config"
+        "${baikalPaths.data}:/var/www/baikal/Specific"
+        "${baikalPaths.config}:/var/www/baikal/config"
       ];
       labels = {
         "traefik.enable" = "true";

@@ -6,22 +6,30 @@
 }:
 
 let
-  speedtestPath = "${vars.containersConfigRoot}/speedtest-tracker";
-
-  directories = [ speedtestPath ];
+  speedtestPaths =
+    let
+      root = "${vars.containersConfigRoot}/speedtest-tracker";
+    in
+    {
+      volumes = {
+        inherit root;
+      };
+    };
 
   puid = toString vars.defaultUserUID;
   guid = toString vars.defaultUserGID;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues speedtestPaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     speedtest-tracker = {
       image = "lscr.io/linuxserver/speedtest-tracker:latest";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${speedtestPath}:/config" ];
+      volumes = [ "${speedtestPaths.volumes.root}:/config" ];
       environmentFiles = [ config.age.secrets.speedtest-tracker.path ];
       environment = {
         TZ = vars.timeZone;

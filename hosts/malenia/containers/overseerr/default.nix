@@ -1,22 +1,30 @@
 { vars, username, ... }:
 
 let
-  overseerrPath = "${vars.containersConfigRoot}/overseerr";
-
-  directories = [ overseerrPath ];
+  overseerrPaths =
+    let
+      root = "${vars.containersConfigRoot}/overseerr";
+    in
+    {
+      volumes = {
+        inherit root;
+      };
+    };
 
   puid = toString vars.defaultUserUID;
   guid = toString vars.defaultUserGID;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues overseerrPaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     overseerr = {
       image = "lscr.io/linuxserver/overseerr:latest";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${overseerrPath}:/config" ];
+      volumes = [ "${overseerrPaths.volumes.root}:/config" ];
       environment = {
         TZ = vars.timeZone;
         PORT = "5055";

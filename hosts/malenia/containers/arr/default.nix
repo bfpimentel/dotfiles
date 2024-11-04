@@ -1,23 +1,28 @@
 { vars, username, ... }:
 
 let
-  sonarrPath = "${vars.containersConfigRoot}/sonarr";
-  radarrPath = "${vars.containersConfigRoot}/radarr";
-  prowlarrPath = "${vars.containersConfigRoot}/prowlarr";
-  bazarrPath = "${vars.containersConfigRoot}/bazarr";
-
-  directories = [
-    sonarrPath
-    radarrPath
-    prowlarrPath
-    bazarrPath
-  ];
+  arrPaths = {
+    volumes = {
+      sonarr = "${vars.containersConfigRoot}/sonarr";
+      radarr = "${vars.containersConfigRoot}/radarr";
+      prowlarr = "${vars.containersConfigRoot}/prowlarr";
+      bazarr = "${vars.containersConfigRoot}/bazarr";
+    };
+    mounts = {
+      downloads = "${vars.mediaMountLocation}/downloads";
+      movies = "${vars.mediaMountLocation}/movies";
+      anime = "${vars.mediaMountLocation}/anime";
+      shows = "${vars.mediaMountLocation}/shows";
+    };
+  };
 
   puid = toString vars.defaultUserUID;
   pgid = toString vars.defaultUserGID;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues arrPaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     sonarr = {
@@ -25,10 +30,10 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [
-        "${sonarrPath}:/config"
-        "${vars.mediaMountLocation}/downloads:/downloads"
-        "${vars.mediaMountLocation}/anime:/anime"
-        "${vars.mediaMountLocation}/shows:/shows"
+        "${arrPaths.volumes.sonarr}:/config"
+        "${arrPaths.mounts.downloads}:/downloads"
+        "${arrPaths.mounts.anime}:/anime"
+        "${arrPaths.mounts.shows}:/shows"
       ];
       environment = {
         TZ = vars.timeZone;
@@ -57,9 +62,9 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [
-        "${radarrPath}:/config"
-        "${vars.mediaMountLocation}/downloads:/downloads"
-        "${vars.mediaMountLocation}/movies:/movies"
+        "${arrPaths.volumes.radarr}:/config"
+        "${arrPaths.mounts.downloads}:/downloads"
+        "${arrPaths.mounts.movies}:/movies"
       ];
       environment = {
         TZ = vars.timeZone;
@@ -88,10 +93,10 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [
-        "${bazarrPath}:/config"
-        "${vars.mediaMountLocation}/movies:/movies"
-        "${vars.mediaMountLocation}/anime:/anime"
-        "${vars.mediaMountLocation}/shows:/shows"
+        "${arrPaths.volumes.bazarr}:/config"
+        "${arrPaths.mounts.movies}:/movies"
+        "${arrPaths.mounts.anime}:/anime"
+        "${arrPaths.mounts.shows}:/shows"
       ];
       environment = {
         TZ = vars.timeZone;
@@ -119,7 +124,7 @@ in
       image = "lscr.io/linuxserver/prowlarr:latest";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${prowlarrPath}:/config" ];
+      volumes = [ "${arrPaths.volumes.prowlarr}:/config" ];
       environment = {
         TZ = vars.timeZone;
         PUID = puid;

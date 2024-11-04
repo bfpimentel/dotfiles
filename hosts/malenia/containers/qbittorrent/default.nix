@@ -1,19 +1,28 @@
 { vars, username, ... }:
 
 let
-  qbtPath = "${vars.containersConfigRoot}/qbittorrent/";
-
-  directories = [
-    qbtPath
-    "${qbtPath}/config"
-    "${qbtPath}/themes"
-  ];
+  qbtPaths =
+    let
+      root = "${vars.containersConfigRoot}/qbittorrent";
+    in
+    {
+      volumes = {
+        inherit root;
+        config = "${root}/config";
+        themes = "${root}/themes";
+      };
+      mounts = {
+        downloads = "${vars.mediaMountLocation}/downloads";
+      };
+    };
 
   puid = toString vars.defaultUserUID;
   pgid = toString vars.defaultUserGID;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues qbtPaths.volumes
+  );
 
   networking.firewall.allowedTCPPorts = [ 6881 ];
   networking.firewall.allowedUDPPorts = [ 6881 ];
@@ -28,9 +37,9 @@ in
         "127.0.0.1:6881:6881/udp"
       ];
       volumes = [
-        "${vars.mediaMountLocation}/downloads:/downloads"
-        "${qbtPath}/config:/config"
-        "${qbtPath}/themes:/themes"
+        "${qbtPaths.volumes.config}:/config"
+        "${qbtPaths.volumes.themes}:/themes"
+        "${qbtPaths.mounts.downloads}:/downloads"
       ];
       environment = {
         TZ = vars.timeZone;

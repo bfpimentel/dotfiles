@@ -5,15 +5,21 @@
 }:
 
 let
-  whisperPath = "${vars.containersConfigRoot}/whisper";
-
-  directories = [
-    "${whisperPath}"
-    "${whisperPath}/cache"
-  ];
+  whisperPaths =
+    let
+      root = "${vars.containersConfigRoot}/whisper";
+    in
+    {
+      volumes = {
+        inherit root;
+        cache = "${root}/cache";
+      };
+    };
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues whisperPaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     whisper = {
@@ -23,7 +29,7 @@ in
         "--pull=newer"
         "--gpus=all"
       ];
-      volumes = [ "${whisperPath}/cache:/root/.cache/whisper" ];
+      volumes = [ "${whisperPaths.volumes.cache}:/root/.cache/whisper" ];
       environment = {
         ASR_MODEL = "base";
         ASR_ENGINE = "openai_whisper";

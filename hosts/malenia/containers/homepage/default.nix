@@ -7,35 +7,38 @@
 }:
 
 let
-  homepagePath = "${vars.containersConfigRoot}/homepage";
-
-  settingsFormat = pkgs.formats.yaml { };
-
-  homepageSettings = {
-    docker = settingsFormat.generate "docker.yaml" (import ./config/docker.nix);
-    services = settingsFormat.generate "services.yaml" (
-      (import ./config/services.nix) vars.domain vars.networkInterface
-    );
-    widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
-    settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
-    css = pkgs.writeTextFile {
-      name = "custom.css";
-      text = builtins.readFile ./config/custom.css;
+  homepagePaths =
+    let
+      settingsFormat = pkgs.formats.yaml { };
+      root = "${vars.containersConfigRoot}/homepage";
+    in
+    {
+      volumes = {
+        inherit root;
+        images = "${root}/images";
+      };
+      generated = {
+        docker = settingsFormat.generate "docker.yaml" (import ./config/docker.nix);
+        services = settingsFormat.generate "services.yaml" (
+          (import ./config/services.nix) vars.domain vars.networkInterface
+        );
+        widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
+        settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
+        css = pkgs.writeTextFile {
+          name = "custom.css";
+          text = builtins.readFile ./config/custom.css;
+        };
+        bookmarks = pkgs.writeTextFile {
+          name = "bookmarks.yaml";
+          text = "---";
+        };
+      };
     };
-    bookmarks = pkgs.writeTextFile {
-      name = "bookmarks.yaml";
-      text = "---";
-    };
-    images = "${homepagePath}/images";
-  };
-
-  directories = [
-    "${homepagePath}"
-    "${homepagePath}/images"
-  ];
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues homepagePaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     homepage = {
@@ -44,13 +47,13 @@ in
       extraOptions = [ "--pull=newer" ];
       volumes = [
         "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-        "${homepageSettings.docker}:/app/config/docker.yaml"
-        "${homepageSettings.services}:/app/config/services.yaml"
-        "${homepageSettings.settings}:/app/config/settings.yaml"
-        "${homepageSettings.widgets}:/app/config/widgets.yaml"
-        "${homepageSettings.bookmarks}:/app/config/bookmarks.yaml"
-        "${homepageSettings.css}:/app/config/custom.css"
-        "${homepageSettings.images}:/app/public/images"
+        "${homepagePaths.generated.docker}:/app/config/docker.yaml"
+        "${homepagePaths.generated.services}:/app/config/services.yaml"
+        "${homepagePaths.generated.settings}:/app/config/settings.yaml"
+        "${homepagePaths.generated.widgets}:/app/config/widgets.yaml"
+        "${homepagePaths.generated.bookmarks}:/app/config/bookmarks.yaml"
+        "${homepagePaths.generated.css}:/app/config/custom.css"
+        "${homepagePaths.volumes.images}:/app/public/images"
       ];
       environmentFiles = [
         config.age.secrets.radarr.path

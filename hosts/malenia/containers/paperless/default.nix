@@ -11,11 +11,13 @@ let
       root = "${vars.containersConfigRoot}/paperless";
     in
     {
-      inherit root;
-      config = "${root}/config";
-      data = "${root}/data";
-      export = "${root}/export";
-      consume = "${root}/consume";
+      volumes = {
+        inherit root;
+        config = "${root}/config";
+        data = "${root}/data";
+        export = "${root}/export";
+        consume = "${root}/consume";
+      };
     };
 
   puid = toString vars.defaultUserUID;
@@ -23,7 +25,7 @@ let
 in
 {
   systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
-    builtins.attrValues paperlessPaths
+    builtins.attrValues paperlessPaths.volumes
   );
 
   virtualisation.oci-containers.containers = {
@@ -33,10 +35,10 @@ in
       extraOptions = [ "--pull=newer" ];
       dependsOn = [ "paperless-redis" ];
       volumes = [
-        "${paperlessPaths.config}:/usr/src/paperless/config"
-        "${paperlessPaths.data}:/usr/src/paperless/data"
-        "${paperlessPaths.export}:/usr/src/paperless/export"
-        "${paperlessPaths.consume}:/usr/src/paperless/consume"
+        "${paperlessPaths.volumes.config}:/usr/src/paperless/config"
+        "${paperlessPaths.volumes.data}:/usr/src/paperless/data"
+        "${paperlessPaths.volumes.export}:/usr/src/paperless/export"
+        "${paperlessPaths.volumes.consume}:/usr/src/paperless/consume"
       ];
       environmentFiles = [ config.age.secrets.paperless.path ];
       environment = {

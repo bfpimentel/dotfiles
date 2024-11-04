@@ -5,19 +5,27 @@
   ...
 }:
 let
-  vaultwardenPath = "${vars.containersConfigRoot}/vaultwarden";
-
-  directories = [ vaultwardenPath ];
+  vaultwardenPaths =
+    let
+      root = "${vars.containersConfigRoot}/vaultwarden";
+    in
+    {
+      volumes = {
+        inherit root;
+      };
+    };
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues vaultwardenPaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     vaultwarden = {
       image = "vaultwarden/server:latest";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${vaultwardenPath}:/data" ];
+      volumes = [ "${vaultwardenPaths.volumes.root}:/data" ];
       environmentFiles = [ config.age.secrets.vaultwarden.path ];
       environment = {
         DOMAIN = "https://vault.${vars.domain}";

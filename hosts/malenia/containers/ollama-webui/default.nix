@@ -6,19 +6,27 @@
 }:
 
 let
-  ollamaWebUiPath = "${vars.containersConfigRoot}/ollama-webui";
-
-  directories = [ ollamaWebUiPath ];
+  ollamaWebUiPaths =
+    let
+      root = "${vars.containersConfigRoot}/ollama-webui";
+    in
+    {
+      volumes = {
+        inherit root;
+      };
+    };
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues ollamaWebUiPaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     ollama-webui = {
       image = "ghcr.io/open-webui/open-webui:latest";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${ollamaWebUiPath}:/app/backend/data" ];
+      volumes = [ "${ollamaWebUiPaths.volumes.root}:/app/backend/data" ];
       environmentFiles = [ config.age.secrets.ollama-webui.path ];
       environment = {
         OLLAMA_BASE_URL = "https://ollama.${vars.domain}";

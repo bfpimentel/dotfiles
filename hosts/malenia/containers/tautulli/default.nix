@@ -1,22 +1,30 @@
 { vars, username, ... }:
 
 let
-  tautulliPath = "${vars.containersConfigRoot}/tautulli";
-
-  directories = [ tautulliPath ];
+  tautulliPaths =
+    let
+      root = "${vars.containersConfigRoot}/tautulli";
+    in
+    {
+      volumes = {
+        inherit root;
+      };
+    };
 
   puid = toString vars.defaultUserUID;
   guid = toString vars.defaultUserGID;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+    builtins.attrValues tautulliPaths.volumes
+  );
 
   virtualisation.oci-containers.containers = {
     tautulli = {
       image = "ghcr.io/tautulli/tautulli";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${tautulliPath}:/config" ];
+      volumes = [ "${tautulliPaths.volumes.root}:/config" ];
       environment = {
         TZ = vars.timeZone;
         PUID = puid;
