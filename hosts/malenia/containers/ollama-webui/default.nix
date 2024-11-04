@@ -8,9 +8,7 @@
 let
   ollamaWebUiPath = "${vars.containersConfigRoot}/ollama-webui";
 
-  directories = [
-    ollamaWebUiPath
-  ];
+  directories = [ ollamaWebUiPath ];
 in
 {
   systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;

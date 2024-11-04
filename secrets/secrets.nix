@@ -23,6 +23,7 @@ in
   "wordpress.age".publicKeys = allKeys;
   "jellyfin.age".publicKeys = allKeys;
   "ollama-webui.age".publicKeys = allKeys;
+  "paperless.age".publicKeys = allKeys;
 
   "tailscale/servers.age".publicKeys = allKeys;
 

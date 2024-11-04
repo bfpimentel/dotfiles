@@ -13,6 +13,7 @@
     ./immich
     ./overseerr
     ./tautulli
+    ./paperless
     ./authentik
     ./ntfy
     ./ollama-webui

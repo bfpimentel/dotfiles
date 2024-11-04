@@ -19,6 +19,7 @@
       wordpress.file = ../../secrets/wordpress.age;
       jellyfin.file = ../../secrets/jellyfin.age;
       ollama-webui.file = ../../secrets/ollama-webui.age;
+      paperless.file = ../../secrets/paperless.age;
       ntfy = {
         file = ../../secrets/ntfy.age;
         mode = "600";

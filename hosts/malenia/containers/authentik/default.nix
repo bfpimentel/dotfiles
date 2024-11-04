@@ -6,44 +6,25 @@
 }:
 
 let
-  authentikPath = "${vars.containersConfigRoot}/authentik";
-  authentikPostgresPath = "${authentikPath}/db";
-
-  directories = [
-    "${authentikPath}"
-    "${authentikPath}/media"
-    "${authentikPath}/templates"
-    "${authentikPath}/certs"
-    "${authentikPath}/redis"
-  ];
+  authentikPaths =
+    let
+      root = "${vars.containersConfigRoot}/authentik";
+    in
+    {
+      user = {
+        inherit root;
+        media = "${root}/media";
+        templates = "${root}/templates";
+        certs = "${root}/certs";
+        redis = "${root}/redis";
+      };
+      postgres = "${root}/db";
+    };
 in
 {
   systemd.tmpfiles.rules =
-    map (x: "d ${x} 0775 ${username} ${username} - -") directories
-    ++ map (x: "d ${x} 0775 postgres ${username} - -") [ authentikPostgresPath ];
-
-  systemd.services = {
-    podman-authentik-server = {
-      requires = [
-        "podman-authentik-db.service"
-        "podman-authentik-redis.service"
-      ];
-      after = [
-        "podman-authentik-db.service"
-        "podman-authentik-redis.service"
-      ];
-    };
-    podman-authentik-worker = {
-      requires = [
-        "podman-authentik-db.service"
-        "podman-authentik-redis.service"
-      ];
-      after = [
-        "podman-authentik-db.service"
-        "podman-authentik-redis.service"
-      ];
-    };
-  };
+    map (x: "d ${x} 0775 ${username} ${username} - -") (builtins.attrValues authentikPaths.user)
+    ++ map (x: "d ${x} 0775 postgres ${username} - -") [ authentikPaths.postgres ];
 
   virtualisation.oci-containers.containers = {
     authentik-server = {
@@ -51,10 +32,14 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       cmd = [ "server" ];
+      dependsOn = [
+        "authentik-db"
+        "authentik-redis"
+      ];
       ports = [ "9000:9000" ];
       volumes = [
-        "${authentikPath}/media:/media"
-        "${authentikPath}/templates:/templates"
+        "${authentikPaths.user.media}:/media"
+        "${authentikPaths.user.templates}:/templates"
       ];
       environmentFiles = [ config.age.secrets.authentik.path ];
       environment = {
@@ -80,10 +65,14 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       cmd = [ "worker" ];
+      dependsOn = [
+        "authentik-db"
+        "authentik-redis"
+      ];
       volumes = [
-        "${authentikPath}/media:/media"
-        "${authentikPath}/templates:/templates"
-        "${authentikPath}/certs:/certs"
+        "${authentikPaths.user.media}:/media"
+        "${authentikPaths.user.templates}:/templates"
+        "${authentikPaths.user.certs}:/certs"
       ];
       environmentFiles = [ config.age.secrets.authentik.path ];
       environment = {
@@ -98,7 +87,7 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [
-        "${authentikPostgresPath}:/var/lib/postgresql/data"
+        "${authentikPaths.postgres}:/var/lib/postgresql/data"
       ];
       environmentFiles = [ config.age.secrets.authentik.path ];
       environment = {
@@ -110,7 +99,7 @@ in
       image = "docker.io/library/redis:alpine";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${authentikPath}/redis:/data" ];
+      volumes = [ "${authentikPaths.user.redis}:/data" ];
     };
   };
 }
