@@ -78,6 +78,7 @@
         system: hostname: username: fullname: email:
         (
           let
+            vars = import (./. + "/hosts/${hostname}/vars.nix");
             specialArgs = {
               inherit
                 system
@@ -87,8 +88,8 @@
                 username
                 fullname
                 email
+                vars
                 ;
-              vars = import (./. + "/hosts/${hostname}/vars.nix");
             };
             modules = (builtins.attrValues nixosModules) ++ [
               (./. + "/hosts/${hostname}")
@@ -112,6 +113,7 @@
         hostname: username: fullname: email:
         (
           let
+            system = "aarch64-darwin";
             specialArgs = {
               inherit
                 inputs
@@ -120,8 +122,8 @@
                 username
                 fullname
                 email
+                system
                 ;
-              system = "aarch64-darwin";
             };
             modules = (builtins.attrValues darwinModules) ++ [
               (./. + "/hosts/${hostname}")
@@ -165,5 +167,7 @@
       darwinConfigurations = {
         solaire = createDarwin "solaire" "bruno" "Bruno Pimentel" "hello@bruno.so";
       };
+
+      darwinPackages = self.darwinConfigurations.${outputs.networking.hostName}.pkgs;
     };
 }

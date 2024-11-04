@@ -1,8 +1,8 @@
-{ username, pkgs, ... }:
+{ username, ... }:
 
 {
   imports = [
-    # ./services
+    ./services
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
@@ -11,8 +11,10 @@
 
   system.stateVersion = 4;
 
-  networking.hostName = "solaire";
-  networking.localHostName = "solaire";
+  networking = {
+    hostName = "solaire";
+    localHostName = "solaire";
+  };
 
   users.users.${username}.home = "/Users/${username}";
 }

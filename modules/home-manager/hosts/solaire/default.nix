@@ -8,6 +8,6 @@
     ./sketchybar
     ./helix
     ./karabiner
-    # ./goku
+    ./kanata
   ];
 }
