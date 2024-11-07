@@ -7,6 +7,9 @@
 
 let
   shareCredentialsPath = config.age.secrets.share.path;
+
+  puid = toString vars.defaultUserUID;
+  guid = toString vars.defaultUserGID;
 in
 {
   environment.persistence."/persistent" = {
@@ -36,8 +39,8 @@ in
     fsType = "cifs";
     options = [
       "credentials=${shareCredentialsPath}"
-      "uid=${toString vars.defaultUserUID}"
-      "gid=${toString vars.defaultUserGID}"
+      "uid=${puid}"
+      "gid=${guid}"
       "rw"
       "noserverino"
       "x-systemd.automount"
@@ -50,8 +53,22 @@ in
     fsType = "cifs";
     options = [
       "credentials=${shareCredentialsPath}"
-      "uid=${toString vars.defaultUserUID}"
-      "gid=${toString vars.defaultUserGID}"
+      "uid=${puid}"
+      "gid=${guid}"
+      "rw"
+      "noserverino"
+      "x-systemd.automount"
+      "noauto"
+    ];
+  };
+
+  fileSystems."${vars.documentsMountLocation}" = {
+    device = "//${vars.godwynIp}/documents";
+    fsType = "cifs";
+    options = [
+      "credentials=${shareCredentialsPath}"
+      "uid=${puid}"
+      "gid=${guid}"
       "rw"
       "noserverino"
       "x-systemd.automount"

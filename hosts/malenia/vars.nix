@@ -19,6 +19,7 @@
   # mounts
   mediaMountLocation = "/mnt/media";
   photosMountLocation = "/mnt/photos";
+  documentsMountLocation = "/mnt/documents";
 
   # user
   defaultUserUID = 1000;

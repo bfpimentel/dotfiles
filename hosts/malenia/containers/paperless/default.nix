@@ -9,14 +9,19 @@ let
   paperlessPaths =
     let
       root = "${vars.containersConfigRoot}/paperless";
+      documentsRoot = vars.documentsMountLocation;
     in
     {
       volumes = {
         inherit root;
-        config = "${root}/config";
         data = "${root}/data";
+        media = "${root}/media";
         export = "${root}/export";
         consume = "${root}/consume";
+      };
+      mounts = {
+        documentsConsume = "${documentsRoot}/consume";
+        documentsExport = "${documentsRoot}/export";
       };
     };
 
@@ -35,10 +40,10 @@ in
       extraOptions = [ "--pull=newer" ];
       dependsOn = [ "paperless-redis" ];
       volumes = [
-        "${paperlessPaths.volumes.config}:/usr/src/paperless/config"
         "${paperlessPaths.volumes.data}:/usr/src/paperless/data"
-        "${paperlessPaths.volumes.export}:/usr/src/paperless/export"
-        "${paperlessPaths.volumes.consume}:/usr/src/paperless/consume"
+        "${paperlessPaths.volumes.media}:/usr/src/paperless/media"
+        "${paperlessPaths.mounts.documentsConsume}:/usr/src/paperless/consume"
+        "${paperlessPaths.mounts.documentsExport}:/usr/src/paperless/export"
       ];
       environmentFiles = [ config.age.secrets.paperless.path ];
       environment = {
