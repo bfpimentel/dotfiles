@@ -13,9 +13,12 @@ in
 
   "sonarr.age".publicKeys = allKeys;
   "radarr.age".publicKeys = allKeys;
+  "readarr.age".publicKeys = allKeys;
   "bazarr.age".publicKeys = allKeys;
+  "prowlarr.age".publicKeys = allKeys;
   "vaultwarden.age".publicKeys = allKeys;
   "immich.age".publicKeys = allKeys;
+  "audiobookshelf.age".publicKeys = allKeys;
   "plex.age".publicKeys = allKeys;
   "speedtest-tracker.age".publicKeys = allKeys;
   "authentik.age".publicKeys = allKeys;

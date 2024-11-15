@@ -5,6 +5,7 @@ let
     volumes = {
       sonarr = "${vars.containersConfigRoot}/sonarr";
       radarr = "${vars.containersConfigRoot}/radarr";
+      readarr = "${vars.containersConfigRoot}/readarr";
       prowlarr = "${vars.containersConfigRoot}/prowlarr";
       bazarr = "${vars.containersConfigRoot}/bazarr";
     };
@@ -13,6 +14,8 @@ let
       movies = "${vars.mediaMountLocation}/movies";
       anime = "${vars.mediaMountLocation}/anime";
       shows = "${vars.mediaMountLocation}/shows";
+      audiobooks = "${vars.mediaMountLocation}/audiobooks";
+      podcasts = "${vars.mediaMountLocation}/podcasts";
     };
   };
 
@@ -24,16 +27,16 @@ in
     builtins.attrValues arrPaths.volumes
   );
 
-  virtualisation.oci-containers.containers = {
+  virtualisation.oci-containers.containers = with arrPaths; {
     sonarr = {
       image = "lscr.io/linuxserver/sonarr:develop";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [
-        "${arrPaths.volumes.sonarr}:/config"
-        "${arrPaths.mounts.downloads}:/downloads"
-        "${arrPaths.mounts.anime}:/anime"
-        "${arrPaths.mounts.shows}:/shows"
+        "${volumes.sonarr}:/config"
+        "${mounts.downloads}:/downloads"
+        "${mounts.anime}:/anime"
+        "${mounts.shows}:/shows"
       ];
       environment = {
         TZ = vars.timeZone;
@@ -47,7 +50,7 @@ in
         "traefik.http.routers.sonarr.middlewares" = "auth@file";
         "traefik.http.services.sonarr.loadbalancer.server.port" = "8989";
         # Homepage
-        "homepage.group" = "Media";
+        "homepage.group" = "Media Managers";
         "homepage.name" = "Sonarr";
         "homepage.icon" = "sonarr.svg";
         "homepage.href" = "https://sonarr.${vars.domain}";
@@ -62,9 +65,9 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [
-        "${arrPaths.volumes.radarr}:/config"
-        "${arrPaths.mounts.downloads}:/downloads"
-        "${arrPaths.mounts.movies}:/movies"
+        "${volumes.radarr}:/config"
+        "${mounts.downloads}:/downloads"
+        "${mounts.movies}:/movies"
       ];
       environment = {
         TZ = vars.timeZone;
@@ -78,7 +81,7 @@ in
         "traefik.http.routers.radarr.middlewares" = "auth@file";
         "traefik.http.services.radarr.loadbalancer.server.port" = "7878";
         # Homepage
-        "homepage.group" = "Media";
+        "homepage.group" = "Media Managers";
         "homepage.name" = "Radarr";
         "homepage.icon" = "radarr.svg";
         "homepage.href" = "https://radarr.${vars.domain}";
@@ -88,15 +91,47 @@ in
         "homepage.widget.url" = "http://radarr:7878";
       };
     };
+    readarr = {
+      image = "lscr.io/linuxserver/readarr:develop";
+      autoStart = true;
+      extraOptions = [ "--pull=newer" ];
+      volumes = [
+        "${volumes.readarr}:/config"
+        "${mounts.downloads}:/downloads"
+        "${mounts.audiobooks}:/audiobooks"
+        "${mounts.podcasts}:/podcasts"
+      ];
+      environment = {
+        TZ = vars.timeZone;
+        PUID = puid;
+        PGID = pgid;
+        UMASK = "002";
+      };
+      labels = {
+        "traefik.enable" = "true";
+        "traefik.http.routers.readarr.rule" = "Host(`readarr.${vars.domain}`)";
+        "traefik.http.routers.readarr.middlewares" = "auth@file";
+        "traefik.http.services.readarr.loadbalancer.server.port" = "8787";
+        # Homepage
+        "homepage.group" = "Media Managers";
+        "homepage.name" = "Readarr";
+        "homepage.icon" = "readarr.svg";
+        "homepage.href" = "https://readarr.${vars.domain}";
+        "homepage.weight" = "21";
+        "homepage.widget.type" = "readarr";
+        "homepage.widget.key" = "{{HOMEPAGE_VAR_READARR_KEY}}";
+        "homepage.widget.url" = "http://readarr:8787";
+      };
+    };
     bazarr = {
       image = "lscr.io/linuxserver/bazarr:latest";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       volumes = [
-        "${arrPaths.volumes.bazarr}:/config"
-        "${arrPaths.mounts.movies}:/movies"
-        "${arrPaths.mounts.anime}:/anime"
-        "${arrPaths.mounts.shows}:/shows"
+        "${volumes.bazarr}:/config"
+        "${mounts.movies}:/movies"
+        "${mounts.anime}:/anime"
+        "${mounts.shows}:/shows"
       ];
       environment = {
         TZ = vars.timeZone;
@@ -110,7 +145,7 @@ in
         "traefik.http.routers.bazarr.middlewares" = "auth@file";
         "traefik.http.services.bazarr.loadbalancer.server.port" = "6767";
         # Homepage
-        "homepage.group" = "Media";
+        "homepage.group" = "Media Managers";
         "homepage.name" = "Bazarr";
         "homepage.icon" = "bazarr.svg";
         "homepage.href" = "https://bazarr.${vars.domain}";
@@ -124,7 +159,7 @@ in
       image = "lscr.io/linuxserver/prowlarr:latest";
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
-      volumes = [ "${arrPaths.volumes.prowlarr}:/config" ];
+      volumes = [ "${volumes.prowlarr}:/config" ];
       environment = {
         TZ = vars.timeZone;
         PUID = puid;
@@ -137,10 +172,14 @@ in
         "traefik.http.routers.prowlarr.middlewares" = "auth@file";
         "traefik.http.services.prowlarr.loadbalancer.server.port" = "9696";
         # Homepage
-        "homepage.group" = "Download Managers";
+        "homepage.group" = "Media Managers";
         "homepage.name" = "Prowlarr";
         "homepage.icon" = "prowlarr.svg";
         "homepage.href" = "https://prowlarr.${vars.domain}";
+        "homepage.weight" = "40";
+        "homepage.widget.type" = "prowlarr";
+        "homepage.widget.key" = "{{HOMEPAGE_VAR_PROWLARR_KEY}}";
+        "homepage.widget.url" = "http://prowlarr:9696";
       };
     };
     flaresolverr = {

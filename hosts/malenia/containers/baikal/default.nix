@@ -29,7 +29,6 @@ in
         "traefik.enable" = "true";
         "traefik.http.routers.baikal.rule" = "Host(`baikal.${vars.domain}`)";
         "traefik.http.routers.baikal.entryPoints" = "https";
-        "traefik.http.routers.baikal.service" = "baikal";
         "traefik.http.services.baikal.loadbalancer.server.port" = "80";
         # Homepage
         "homepage.group" = "Documents";

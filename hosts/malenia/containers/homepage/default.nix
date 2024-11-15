@@ -56,12 +56,15 @@ in
         "${homepagePaths.volumes.images}:/app/public/images"
       ];
       environmentFiles = [
+        config.age.secrets.immich.path
+        config.age.secrets.audiobookshelf.path
+        config.age.secrets.jellyfin.path
         config.age.secrets.radarr.path
+        config.age.secrets.readarr.path
         config.age.secrets.sonarr.path
         config.age.secrets.bazarr.path
+        config.age.secrets.prowlarr.path
         config.age.secrets.plex.path
-        config.age.secrets.immich.path
-        config.age.secrets.jellyfin.path
       ];
       environment = {
         TZ = vars.timeZone;

@@ -10,6 +10,8 @@
     ./vaultwarden
     ./arr
     ./qbittorrent
+    ./audiobookshelf
+    ./openaudible
     ./immich
     ./overseerr
     ./tautulli

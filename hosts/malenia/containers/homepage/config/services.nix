@@ -73,6 +73,7 @@ domain: networkInterface: [
       }
     ];
   }
+  { "Media Managers" = [ ]; }
   { "Download Managers" = [ ]; }
   { "Documents" = [ ]; }
   { "Misc" = [ ]; }

@@ -24,6 +24,12 @@
         columns = 4;
       };
     }
+    {
+      "Media Managers" = {
+        style = "row";
+        columns = 4;
+      };
+    }
     { "Download Managers" = { }; }
     { "Documents" = { }; }
     { "Misc" = { }; }

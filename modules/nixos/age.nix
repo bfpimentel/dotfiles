@@ -10,9 +10,12 @@
 
       sonarr.file = ../../secrets/sonarr.age;
       radarr.file = ../../secrets/radarr.age;
+      readarr.file = ../../secrets/readarr.age;
       bazarr.file = ../../secrets/bazarr.age;
+      prowlarr.file = ../../secrets/prowlarr.age;
       vaultwarden.file = ../../secrets/vaultwarden.age;
       immich.file = ../../secrets/immich.age;
+      audiobookshelf.file = ../../secrets/audiobookshelf.age;
       plex.file = ../../secrets/plex.age;
       speedtest-tracker.file = ../../secrets/speedtest-tracker.age;
       authentik.file = ../../secrets/authentik.age;
