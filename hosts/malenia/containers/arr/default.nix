@@ -15,6 +15,7 @@ let
       anime = "${vars.mediaMountLocation}/anime";
       shows = "${vars.mediaMountLocation}/shows";
       audiobooks = "${vars.mediaMountLocation}/audiobooks";
+      ebooks = "${vars.mediaMountLocation}/ebooks";
       podcasts = "${vars.mediaMountLocation}/podcasts";
     };
   };
@@ -99,6 +100,7 @@ in
         "${volumes.readarr}:/config"
         "${mounts.downloads}:/downloads"
         "${mounts.audiobooks}:/audiobooks"
+        "${mounts.ebooks}:/ebooks"
         "${mounts.podcasts}:/podcasts"
       ];
       environment = {

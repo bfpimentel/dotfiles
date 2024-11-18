@@ -12,6 +12,7 @@ let
       };
       mounts = {
         audiobooks = "${vars.mediaMountLocation}/audiobooks";
+        downloads = "${vars.mediaMountLocation}/downloads";
       };
     };
 
@@ -33,7 +34,7 @@ in
       extraOptions = [ "--pull=newer" ];
       volumes = [
         "${openaudiblePaths.volumes.config}:/config/OpenAudible"
-        "${openaudiblePaths.mounts.audiobooks}:/audiobooks"
+        "${openaudiblePaths.mounts.downloads}:/downloads"
       ];
       environment = {
         TZ = vars.timeZone;

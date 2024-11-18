@@ -24,8 +24,8 @@ in
     builtins.attrValues qbtPaths.volumes
   );
 
-  networking.firewall.allowedTCPPorts = [ 6881 ];
-  networking.firewall.allowedUDPPorts = [ 6881 ];
+  networking.firewall.allowedTCPPorts = [ 51123 ];
+  networking.firewall.allowedUDPPorts = [ 51123 ];
 
   virtualisation.oci-containers.containers = {
     qbittorrent = {
@@ -33,8 +33,8 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       ports = [
-        "127.0.0.1:6881:6881"
-        "127.0.0.1:6881:6881/udp"
+        "51123:51123"
+        "51123:51123/udp"
       ];
       volumes = [
         "${qbtPaths.volumes.config}:/config"
@@ -46,7 +46,7 @@ in
         PUID = puid;
         PGID = pgid;
         UMASK = "002";
-        TORRENTING_PORT = "6881";
+        TORRENTING_PORT = "51123";
         WEBUI_PORT = "8080";
       };
       labels = {

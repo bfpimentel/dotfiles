@@ -3,7 +3,7 @@
 let
   audioBookshelfPaths =
     let
-      root = "${vars.containersConfigRoot}/audioBookshelf";
+      root = "${vars.containersConfigRoot}/audiobookshelf";
     in
     {
       volumes = {
