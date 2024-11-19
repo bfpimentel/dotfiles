@@ -21,7 +21,6 @@
     nixfmt-rfc-style
     prettierd
 
-    nh
     ripgrep
     eza
     bat

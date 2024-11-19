@@ -29,6 +29,7 @@
     casks = [
       { name = "xcodes"; greedy = true; }
       { name = "balenaetcher"; greedy = true; }
+      { name = "openaudible"; greedy = true; }
       { name = "vial"; greedy = true; }
       { name = "linearmouse"; greedy = true; }
       { name = "shottr"; greedy = true; }

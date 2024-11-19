@@ -1,15 +1,15 @@
-{ username, ... }:
+{ username, pkgs, ... }:
 
 {
   imports = [
     ./services
   ];
 
+  nix.package = pkgs.nix;
+
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   services.nix-daemon.enable = true;
-
-  system.stateVersion = 4;
 
   networking = {
     hostName = "solaire";
@@ -17,4 +17,6 @@
   };
 
   users.users.${username}.home = "/Users/${username}";
+
+  system.stateVersion = 4;
 }

@@ -7,15 +7,17 @@ return {
   ---@type blink.cmp.Config
   opts = {
     highlight = {
-      use_nvim_cmp_as_default = false,
+      use_nvim_cmp_as_default = true,
     },
     nerd_font_variant = "normal",
-    keymap = {
-      show = "<C-CR>",
-      show_documentation = "<C-CR>",
-      hide_documentation = "<C-CR>",
-    },
+    opts_extend = { "sources.completion.enabled_providers" },
     trigger = { signature_help = { enabled = true } },
+    keymap = { preset = "super-tab", },
+    -- keymap = {
+    --   show = "<C-CR>",
+    --   show_documentation = "<C-CR>",
+    --   hide_documentation = "<C-CR>",
+    -- },
     windows = {
       documentation = {
         min_width = 15,

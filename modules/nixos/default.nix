@@ -1,5 +1,5 @@
 {
-  nix = import ./nix.nix;
+  system = import ./system.nix;
 
   age = import ./age.nix;
   users = import ./users.nix;

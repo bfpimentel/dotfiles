@@ -2,6 +2,7 @@
 
 {
   imports = [
+    # ./nh
     ./neovim
     ./lazygit
     ./zsh

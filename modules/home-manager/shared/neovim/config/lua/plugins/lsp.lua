@@ -1,8 +1,9 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "saghen/blink.cmp" },
     lazy = false,
-    config = function()
+    config = function(_, opts)
       local lspconfig = require("lspconfig")
 
       lspconfig.lua_ls.setup {
@@ -30,6 +31,11 @@ return {
           nil_ls = { formatter = { command = "nixfmt" } },
         },
       }
+
+      for server, config in pairs(opts.servers or {}) do
+        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
 
       vim.keymap.set("n", "<leader>sh", vim.lsp.buf.hover, { desc = "[S]how [H]over Info" })
       vim.keymap.set("n", "<leader>gi", vim.lsp.buf.definition, { desc = "[G]o to [I]mplementation" })

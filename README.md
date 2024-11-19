@@ -1,9 +1,9 @@
 # bfpimentel's nixOS configs
 
-⚠️ This is an work in progress project so doesn't expect any stability of it. It's just for demo purposes and something to learn.
+This repo is for my personal NixOS machines and Nix Package Manager. It's public for demo purposes and I'm happy to answer any questions, but don't expect me to be fast on answering them.
 
-This repo contains configurations for my NixOS machines:
-1. *malenia*: Homelab powered by NixOS entirely for ease of setup. 
-2. *solaire*: MacOS (Darwin) machine powered by NixOS package manager for environment and user configuration.
-3. *miquella*: OCI (Arm) machine powered by NixOS entirely.
+The following machines are being configured:
+1. *malenia*: Homelab (x64) powered by NixOS.
+2. *miquella*: OCI (Arm) machine powered by NixOS.
+3. *solaire*: MacOS (Darwin) machine powered by NixOS package manager for environment and user configuration.
 
