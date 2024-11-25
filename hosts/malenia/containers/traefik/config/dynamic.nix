@@ -1,6 +1,18 @@
-ip: domain: godwynIp: {
+ip: domain: godwynIp: radagonIp: {
   http = {
     routers = {
+      homeassistant = {
+        entryPoints = [
+          "https"
+          "http"
+        ];
+        rule = "Host(`home.${domain}`)";
+        middlewares = [ "https-redirect" ];
+        tls = {
+          certResolver = "cloudflare";
+        };
+        service = "homeassistant";
+      };
       ollama = {
         entryPoints = [
           "https"
@@ -63,6 +75,12 @@ ip: domain: godwynIp: {
       };
     };
     services = {
+      homeassistant = {
+        loadBalancer = {
+          servers = [ { url = "http://${radagonIp}:8123"; } ];
+          passHostHeader = true;
+        };
+      };
       ollama = {
         loadBalancer = {
           servers = [ { url = "http://${ip}:11434"; } ];

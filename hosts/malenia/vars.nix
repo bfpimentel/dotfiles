@@ -14,6 +14,7 @@
 
   # hosts
   godwynIp = "10.22.4.4";
+  radagonIp = "10.22.4.3";
   miquellaIp = "159.112.184.83";
 
   # mounts

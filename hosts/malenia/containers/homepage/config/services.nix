@@ -91,6 +91,12 @@ domain: networkInterface: [
   {
     "Management" = [
       {
+        "Home Assistant" = {
+          icon = "homeassistant";
+          href = "https://home.${domain}";
+        };
+      }
+      {
         "Unraid" = {
           icon = "unraid";
           href = "https://storage.${domain}";
@@ -98,5 +104,14 @@ domain: networkInterface: [
       }
     ];
   }
-  { "Networking" = [ ]; }
+  {
+    "Networking" = [
+      {
+        "Unifi Console" = {
+          icon = "unifi";
+          href = "https://unifi.ui.com";
+        };
+      }
+    ];
+  }
 ]
