@@ -26,11 +26,15 @@ in
     openFirewall = true;
     package = pkgs.ollama;
     host = "0.0.0.0";
+    port = 11434;
     acceleration = "cuda";
     home = "${ollamaPath}/data";
     models = "${ollamaPath}/models";
     loadModels = [
       "llama3.2:3b"
     ];
+    environmentVariables = {
+      OLLAMA_ORIGINS = "http://localhost:11434,https://ollama.local.luana.casa";
+    };
   };
 }

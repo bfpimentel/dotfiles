@@ -3,7 +3,6 @@
 {
   imports = [ 
     ./hardware-configuration.nix
-    ./networking.nix
     ./filesystems.nix
     ./containers
   ];
@@ -16,6 +15,10 @@
   time.timeZone = vars.timeZone;
 
   users.users.${username}.home = "/home/${username}";
+
+  networking = {
+    networkmanager.enable = false;
+  };
 
   system.stateVersion = "24.11";
 }

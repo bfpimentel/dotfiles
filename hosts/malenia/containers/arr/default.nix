@@ -92,39 +92,6 @@ in
         "homepage.widget.url" = "http://radarr:7878";
       };
     };
-    # readarr = {
-    #   image = "lscr.io/linuxserver/readarr:develop";
-    #   autoStart = true;
-    #   extraOptions = [ "--pull=newer" ];
-    #   volumes = [
-    #     "${volumes.readarr}:/config"
-    #     "${mounts.downloads}:/downloads"
-    #     "${mounts.audiobooks}:/audiobooks"
-    #     "${mounts.ebooks}:/ebooks"
-    #     "${mounts.podcasts}:/podcasts"
-    #   ];
-    #   environment = {
-    #     TZ = vars.timeZone;
-    #     PUID = puid;
-    #     PGID = pgid;
-    #     UMASK = "002";
-    #   };
-    #   labels = {
-    #     "traefik.enable" = "true";
-    #     "traefik.http.routers.readarr.rule" = "Host(`readarr.${vars.domain}`)";
-    #     "traefik.http.routers.readarr.middlewares" = "auth@file";
-    #     "traefik.http.services.readarr.loadbalancer.server.port" = "8787";
-    #     # Homepage
-    #     "homepage.group" = "Media Managers";
-    #     "homepage.name" = "Readarr";
-    #     "homepage.icon" = "readarr.svg";
-    #     "homepage.href" = "https://readarr.${vars.domain}";
-    #     "homepage.weight" = "21";
-    #     "homepage.widget.type" = "readarr";
-    #     "homepage.widget.key" = "{{HOMEPAGE_VAR_READARR_KEY}}";
-    #     "homepage.widget.url" = "http://readarr:8787";
-    #   };
-    # };
     bazarr = {
       image = "lscr.io/linuxserver/bazarr:latest";
       autoStart = true;

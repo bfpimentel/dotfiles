@@ -1,8 +1,11 @@
 {
   # general
-  ip = "10.0.0.57";
-  networkInterface = "enp0s6";
   timeZone = "America/Sao_Paulo";
+
+  # networking
+  ip = "10.0.0.57";
+  defaultGateway = "10.0.0.1";
+  networkInterface = "enp0s6";
 
   # domains
   domain = "external.luana.casa";

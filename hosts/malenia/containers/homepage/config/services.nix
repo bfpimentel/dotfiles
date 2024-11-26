@@ -92,7 +92,7 @@ domain: networkInterface: [
     "Management" = [
       {
         "Home Assistant" = {
-          icon = "homeassistant";
+          icon = "home-assistant-alt";
           href = "https://home.${domain}";
         };
       }

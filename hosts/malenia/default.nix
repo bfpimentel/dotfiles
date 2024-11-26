@@ -9,7 +9,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./networking.nix
     ./filesystems.nix
     ./users.nix
     ./pkgs.nix
@@ -44,6 +43,11 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
     nvidia-container-toolkit.enable = true;
+  };
+
+  networking = {
+    firewall.trustedInterfaces = [ "lo" ];
+    networkmanager.enable = true;
   };
 
   system.stateVersion = "24.05";
