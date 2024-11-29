@@ -45,10 +45,5 @@
     nvidia-container-toolkit.enable = true;
   };
 
-  networking = {
-    firewall.trustedInterfaces = [ "lo" ];
-    networkmanager.enable = true;
-  };
-
   system.stateVersion = "24.05";
 }

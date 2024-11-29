@@ -21,7 +21,7 @@ in
           version = "1.41.2.9200-c6bbc1b53";
           src = pkgs.fetchurl {
             url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-            sha256 = "";
+            sha256 = "sha256-HmgtnUsDzRIUThYdlZIzhiU02n9jSU7wtwnEA0+r1iQ=";
           };
         });
       };
