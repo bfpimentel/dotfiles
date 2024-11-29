@@ -1,59 +1,38 @@
--- Vim Config
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
-vim.g.autoformat = true
 
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.autochdir = true
-vim.opt.rnu = true
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
+-- bootstrap lazy and all plugins
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
-vim.opt.clipboard = "unnamedplus"
+if not vim.uv.fs_stat(lazypath) then
+  local repo = "https://github.com/folke/lazy.nvim.git"
+  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+end
 
--- Keybindings
-local opts = { noremap = true, silent = true }
-local map = vim.api.nvim_set_keymap
+vim.opt.rtp:prepend(lazypath)
 
-map("n", "<C-h>", "<CMD>wincmd h<CR>", opts)
-map("n", "<C-k>", "<CMD>wincmd k<CR>", opts)
-map("n", "<C-l>", "<CMD>wincmd l<CR>", opts)
-map("n", "<C-j>", "<CMD>wincmd j<CR>", opts)
-map("n", "<CR>", "<CMD>noh<CR><CR>", opts)
-
--- Clipboard
-local osc52 = require("vim.ui.clipboard.osc52")
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = osc52.copy("+"),
-    ["*"] = osc52.copy("*"),
-  },
-  paste = {
-    ["+"] = osc52.paste("+"),
-    ["*"] = osc52.paste("*"),
-  },
-}
-
-vim.cmd([[
-  augroup highlight_yank
-  autocmd!
-  au TextYankPost * silent! lua vim.highlight.on_yank({ higroup="Visual", timeout=200 })
-  augroup END
-]])
+local lazy_config = require("configs.lazy")
 
 require("lazy").setup({
-  spec = {
-    { "LazyVim/LazyVim" },
-    { import = "plugins" },
+  -- { "LazyVim/LazyVim" },
+  -- { import = "plugins/bfpimentel" },
+  {
+    "NvChad/NvChad",
+    lazy = false,
+    branch = "v2.5",
+    import = "nvchad.plugins",
   },
-  defaults = {
-    lazy = true,
-    version = false,
-  },
-  checker = { enabled = true, notify = false },
-})
+  { import = "plugins/nvchad" },
+}, lazy_config)
 
-vim.cmd([[colorscheme tokyonight]])
+-- load theme
+dofile(vim.g.base46_cache .. "defaults")
+dofile(vim.g.base46_cache .. "statusline")
+
+require("configs.options")
+
+require("nvchad.autocmds")
+
+vim.schedule(function()
+  require("configs.mappings")
+end)

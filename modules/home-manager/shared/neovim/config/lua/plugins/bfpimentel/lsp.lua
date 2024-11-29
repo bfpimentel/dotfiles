@@ -52,33 +52,4 @@ return {
       vim.keymap.set("n", "<leader>rn", ":IncRename ", { desc = "[R]e[n]ame" })
     end,
   },
-  {
-    "stevearc/conform.nvim",
-    lazy = false,
-    keys = {
-      {
-        "<leader>ff",
-        function()
-          require("conform").format({ async = true, lsp_fallback = true })
-        end,
-        mode = "",
-        desc = "[F]ormat [F]ile",
-      },
-    },
-    opts = {
-      formatters_by_ft = {
-        lua = { "lua_ls" },
-        sh = { "bashls" },
-        yaml = { "yamlls" },
-        nix = { "nixfmt" },
-        typescript = { "prettierd" },
-        typescriptreact = { "prettierd" },
-        javascript = { "prettierd" },
-        javascriptreact = { "prettierd" },
-      },
-      prettier = {
-        require_cwd = true,
-      }
-    },
-  },
 }
