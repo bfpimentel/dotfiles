@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy_config = require("configs.lazy")
 
+---@diagnostic disable-next-line: different-requires
 require("lazy").setup({
   -- { "LazyVim/LazyVim" },
   -- { import = "plugins/bfpimentel" },

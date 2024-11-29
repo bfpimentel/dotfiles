@@ -12,10 +12,10 @@ M.base46 = {
 
 M.term = {
   float = {
-    row = 0.1,
-    col = 0.1,
-    width = 0.8,
-    height = 0.7,
+    row = 0.05,
+    col = 0.05,
+    width = 0.875,
+    height = 0.8,
     border = "single",
   },
 }
@@ -23,7 +23,18 @@ M.term = {
 M.ui = {
   tabufline = {
     enabled = false,
-  }
+  },
+  statusline = {
+    separator_style = "block",
+  },
+}
+
+M.nvdash = {
+  load_on_startup = true,
+}
+
+M.cheatsheet = {
+  theme = "grid",
 }
 
 return M
