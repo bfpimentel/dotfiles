@@ -6,6 +6,7 @@ return {
     local opts = require("nvchad.configs.nvimtree")
     opts.view.side = "right"
     opts.view.width = 40
+    opts.renderer.icons.git_placement = "right_align"
     return opts
   end
 }
