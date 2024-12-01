@@ -38,4 +38,5 @@ in
   "restic/password-containers.age".publicKeys = allKeys;
 
   "nginx/vault.age".publicKeys = allKeys;
+  "nginx/baikal.age".publicKeys = allKeys;
 }

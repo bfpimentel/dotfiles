@@ -45,6 +45,12 @@
         owner = username;
         group = username;
       };
+      nginx-baikal = {
+        file = ../../secrets/nginx/baikal.age;
+        mode = "600";
+        owner = username;
+        group = username;
+      };
     };
   };
 }
