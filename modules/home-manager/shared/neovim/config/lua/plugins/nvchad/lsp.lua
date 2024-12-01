@@ -1,12 +1,13 @@
 return {
   "neovim/nvim-lspconfig",
   config = function()
-    require("nvchad.configs.lspconfig").defaults()
+    local lspconfig = require("lspconfig")
+    local nvlsp = require("nvchad.configs.lspconfig")
 
-    local lspconfig = require "lspconfig"
-    local nvlsp = require "nvchad.configs.lspconfig"
+    nvlsp.defaults()
 
     local servers = { "bashls", "yamlls", "clangd", "html", "cssls" }
+
     for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup {
         on_attach = nvlsp.on_attach,
@@ -35,8 +36,13 @@ return {
       on_attach = nvlsp.on_attach,
       on_init = nvlsp.on_init,
       capabilities = nvlsp.capabilities,
+      cmd = { "nil" },
       settings = {
-        nil_ls = { formatter = { command = "nixfmt" } },
+        ["nil"] = {
+          formatting = {
+            command = { "nixfmt" },
+          },
+        },
       },
     }
 

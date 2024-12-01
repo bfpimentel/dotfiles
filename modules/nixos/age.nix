@@ -17,6 +17,7 @@
       immich.file = ../../secrets/immich.age;
       audiobookshelf.file = ../../secrets/audiobookshelf.age;
       plex.file = ../../secrets/plex.age;
+      freshrss.file = ../../secrets/freshrss.age;
       speedtest-tracker.file = ../../secrets/speedtest-tracker.age;
       authentik.file = ../../secrets/authentik.age;
       wordpress.file = ../../secrets/wordpress.age;

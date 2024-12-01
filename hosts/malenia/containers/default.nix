@@ -11,7 +11,7 @@
     ./arr
     ./qbittorrent
     ./audiobookshelf
-    # ./openaudible
+    ./freshrss
     ./immich
     ./overseerr
     ./tautulli

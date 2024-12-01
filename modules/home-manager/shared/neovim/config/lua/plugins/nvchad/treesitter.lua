@@ -23,7 +23,7 @@ return {
       "typescript",
       "c",
       "lua",
-      "nix",
+      -- "nix",
       "vim",
       "vimdoc",
       "query",

@@ -20,6 +20,7 @@ in
   "immich.age".publicKeys = allKeys;
   "audiobookshelf.age".publicKeys = allKeys;
   "plex.age".publicKeys = allKeys;
+  "freshrss.age".publicKeys = allKeys;
   "speedtest-tracker.age".publicKeys = allKeys;
   "authentik.age".publicKeys = allKeys;
   "ntfy.age".publicKeys = allKeys;

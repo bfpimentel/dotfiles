@@ -46,5 +46,13 @@
         proxyWebsockets = true;
       };
     };
+    "vault.external.luana.casa" = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/" = {
+        proxyPass = "http://malenia:9045";
+        proxyWebsockets = true;
+      };
+    };
   };
 }
