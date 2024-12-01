@@ -38,6 +38,13 @@
       restic-password-containers.file = ../../secrets/restic/password-containers.age;
       restic-repo-photos.file = ../../secrets/restic/repo-photos.age;
       restic-password-photos.file = ../../secrets/restic/password-photos.age;
+
+      nginx-vault = {
+        file = ../../secrets/nginx/vault.age;
+        mode = "600";
+        owner = username;
+        group = username;
+      };
     };
   };
 }

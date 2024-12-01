@@ -36,4 +36,6 @@ in
   "restic/password-photos.age".publicKeys = allKeys;
   "restic/repo-containers.age".publicKeys = allKeys;
   "restic/password-containers.age".publicKeys = allKeys;
+
+  "nginx/vault.age".publicKeys = allKeys;
 }
