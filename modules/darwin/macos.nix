@@ -41,7 +41,7 @@
           "/Users/${username}/Applications/Android Studio.app"
         ];
         expose-animation-duration = 0.2;
-        expose-group-by-app = true;
+        expose-group-apps = true;
         wvous-bl-corner = 1;
         wvous-br-corner = 4;
         wvous-tl-corner = 1;

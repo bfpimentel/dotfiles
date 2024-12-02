@@ -7,7 +7,6 @@
     ./aerospace
     ./sketchybar
     ./helix
-    ./karabiner
     ./kanata
   ];
 }
