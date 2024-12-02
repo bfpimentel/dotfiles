@@ -72,8 +72,11 @@
         basicAuthFile = config.age.secrets.nginx-baikal.path;
         locations."/admin" = {
           proxyPass = "http://malenia:9040/admin";
+          proxyWebsockets = true;
           extraConfig = ''
             auth_basic "Admin";
+            proxy_set_header Host $host:$server_port;
+            proxy_set_header X-Forwarded-Proto $scheme;
           '';
         };
         locations."/" = {
@@ -81,6 +84,8 @@
           proxyWebsockets = true;
           extraConfig = ''
             auth_basic off;
+            proxy_set_header Host $host:$server_port;
+            proxy_set_header X-Forwarded-Proto $scheme;
           '';
         };
       };
