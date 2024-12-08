@@ -3,6 +3,9 @@ require "nvchad.mappings"
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
 
+-- General
+map("n", "<S-u>", "<C-r><CR>", opts)
+
 -- Formatting
 map("n", "<leader>ff", function()
   require("conform").format { lsp_fallback = true }

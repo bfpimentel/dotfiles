@@ -3,6 +3,11 @@ local settings = require("config.settings")
 
 local currentAudioDevice = "None"
 
+sbar.add("item", {
+  position = "right",
+  width = settings.dimens.padding.label
+})
+
 local volumeValue = sbar.add("item", constants.items.VOLUME .. ".value", {
   position = "right",
   label = {
@@ -11,9 +16,14 @@ local volumeValue = sbar.add("item", constants.items.VOLUME .. ".value", {
   },
 })
 
-local volumeBracket = sbar.add("bracket", constants.items.VOLUME .. ".bracket", { volumeValue.name }, {
+local volumeBracket = sbar.add("bracket", constants.items.VOLUME .. ".bracket", {
+  volumeValue.name,
+}, {
   popup = {
     align = "center"
+  },
+  background = {
+    color = settings.colors.bg1,
   },
 })
 

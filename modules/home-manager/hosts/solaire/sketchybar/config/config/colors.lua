@@ -1,4 +1,5 @@
 local colors <const> = {
+  transparent = 0x00000000,
   black = 0xff181819,
   white = 0xfff8f8f2,
   red = 0xf1cc3e44,
@@ -13,7 +14,6 @@ local colors <const> = {
   grey = 0xff7f8490,
   dirty_white = 0xc8cad3f5,
   dark_grey = 0xff2b2736,
-  transparent = 0x00000000,
   bar = {
     bg = 0xf1151320,
     border = 0xff2c2e34,

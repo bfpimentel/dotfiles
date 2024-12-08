@@ -3,9 +3,17 @@ local settings = require("config.settings")
 
 local isCharging = false
 
+sbar.add("item", {
+  position = "right",
+  width = settings.dimens.padding.label
+})
+
 local battery = sbar.add("item", constants.items.battery, {
   position = "right",
   update_freq = 60,
+  background = {
+    color = settings.colors.bg1,
+  },
 })
 
 local batteryPopup = sbar.add("item", {

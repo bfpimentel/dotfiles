@@ -14,7 +14,7 @@
       "lua"
       "ripgrep"
       "sketchybar"
-      "borders"
+      # "borders"
       "libpcap"
       "hcxtools"
       "xz"
@@ -30,6 +30,7 @@
       { name = "zoom"; greedy = true; }
       { name = "xcodes"; greedy = true; }
       { name = "balenaetcher"; greedy = true; }
+      { name = "wifiman"; greedy = true; }
       { name = "vial"; greedy = true; }
       { name = "linearmouse"; greedy = true; }
       { name = "legcord"; greedy = true; }

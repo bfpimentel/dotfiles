@@ -3,6 +3,10 @@ local settings = require("config.settings")
 
 local spaces = {}
 
+sbar.add("item", {
+  width = settings.dimens.padding.label
+})
+
 local swapWatcher = sbar.add("item", {
   drawing = false,
   updates = true,
