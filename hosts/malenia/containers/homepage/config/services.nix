@@ -93,7 +93,7 @@ domain: networkInterface: [
       {
         "Home Assistant" = {
           icon = "home-assistant-alt";
-          href = "https://home.${domain}";
+          href = "https://home.luana.casa";
         };
       }
       {
