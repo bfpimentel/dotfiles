@@ -5,8 +5,7 @@
 
   environment.systemPackages = with pkgs; [
     neovim
-    localsend
-    kitty
+    qrencode
 
     python3
     wget

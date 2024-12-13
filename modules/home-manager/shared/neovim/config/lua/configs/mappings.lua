@@ -28,7 +28,12 @@ end, { desc = "terminal Toggle Floating Term" })
 map({ "n" }, "<leader>gg", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm-git", cmd = 'lazygit' }
 end, { desc = "terminal Toggle LazyGit" })
--- map("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "lazygit Launch LazyGit" })
+
+-- Tree
+-- map("n", "<leader>tt", "<cmd>NvimTreeToggle<cr>", { desc = "tree Toggle Tree" })
+map("n", "<leader>tt", function()
+  require("mini.files").open()
+end, { desc = "tree Toggle Tree" })
 
 -- Telescope
 map("n", "<leader>fp", "<cmd>Telescope find_files<cr>", { desc = "telescope Find Files" })

@@ -10,6 +10,10 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+
 local lazy_config = require("configs.lazy")
 
 ---@diagnostic disable-next-line: different-requires

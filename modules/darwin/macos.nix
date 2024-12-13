@@ -30,7 +30,7 @@
         minimize-to-application = true;
         show-process-indicators = true;
         show-recents = false;
-        showhidden = true;
+        showhidden = false;
         static-only = false;
         dashboard-in-overlay = false;
         persistent-apps = [
