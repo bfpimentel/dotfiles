@@ -1,0 +1,136 @@
+#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+version = 2
+final_space = true
+console_title_template = ' {{ .Folder }} :: {{if .Root}}Admin{{end}}'
+terminal_background = 'transparent'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = '➜ '
+    background = 'transparent'
+    foreground = 'p:terminal-blue'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = '{{ .UserName }}@{{.HostName }} '
+    background = 'transparent'
+    foreground = 'p:terminal-yellow'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'plain'
+    template = '<b>{{ .Path }}</b> <p:light-sky-blue>⚡</>'
+    background = ''
+    foreground = 'p:terminal-magenta'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+    [blocks.segments.properties]
+      style = 'folder'
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'plain'
+    foreground_templates = ['{{ if or (.Working.Changed) (.Staging.Changed) }}p:terminal-red{{ end }}', '{{ if and (gt .Ahead 0) (gt .Behind 0)}}p:light-sky-blue {{ end }}', '{{ if gt .Ahead 0 }}p:terminal-blue{{ end }}', '{{ if gt .Behind 0 }}p:celeste-blue{{ end }}']
+    template = '({{ .HEAD}})'
+    background = ''
+    foreground = 'p:light-sky-blue'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      fetch_status = true
+
+  [[blocks.segments]]
+    type = 'status'
+    style = 'plain'
+    template = ' '
+    background = ''
+    foreground = 'p:terminal-red'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+  overflow = 'hide'
+
+  [[blocks.segments]]
+    type = 'command'
+    style = 'plain'
+    background = ''
+    foreground = 'p:white-blue'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+    [blocks.segments.properties]
+      command = 'git log --pretty=format:%cr -1 || date +%H:%M:%S'
+      shell = 'bash'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = '▶'
+    background = ''
+    foreground = 'p:pistachio-green'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+# [transient_prompt]
+#   template = '➜ '
+#   background = 'p:t-background'
+#   foreground = 'p:terminal-blue'
+#   Text = ''
+#   Duration = 0
+#   NameLength = 0
+
+# [secondary_prompt]
+#   template = '➜ '
+#   background = 'transparent'
+#   foreground = 'p:terminal-blue'
+#   Text = ''
+#   Duration = 0
+#   NameLength = 0
+
+[palette]
+  blue-bell = '#9aa5ce'
+  blue-black = '#565f89'
+  celeste-blue = '#b4f9f8'
+  light-sky-blue = '#7dcfff'
+  main-bg = '#24283b'
+  pastal-grey = '#cfc9c2'
+  pistachio-green = '#9ece6a'
+  t-background = 'p:main-bg'
+  terminal-black = '#414868'
+  terminal-blue = '#7aa2f7'
+  terminal-green = '#73daca'
+  terminal-magenta = '#bb9af7'
+  terminal-red = '#f7768e'
+  terminal-white = '#c0caf5'
+  terminal-yellow = '#e0af68'
+  white-blue = '#a9b1d6'
