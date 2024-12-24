@@ -37,7 +37,7 @@
           "/Applications/Psst.app"
           "/Applications/Thunderbird Beta.app"
           "/Applications/Zen Browser.app"
-          "/Applications/Nix Apps/kitty.app"
+          "/Applications/kitty.app"
           "/Users/${username}/Applications/Android Studio.app"
         ];
         expose-animation-duration = 0.2;

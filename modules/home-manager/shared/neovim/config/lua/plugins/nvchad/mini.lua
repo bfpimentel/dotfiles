@@ -17,13 +17,4 @@ return {
     version = false,
     opts = {},
   },
-  {
-    "echasnovski/mini.files",
-    lazy = false,
-    version = false,
-    -- opts = {},
-    config = function()
-      require('mini.files').setup()
-    end,
-  },
 }
