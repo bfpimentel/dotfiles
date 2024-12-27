@@ -24,8 +24,15 @@
       jellyfin.file = ../../secrets/jellyfin.age;
       ollama-webui.file = ../../secrets/ollama-webui.age;
       paperless.file = ../../secrets/paperless.age;
+
       ntfy = {
         file = ../../secrets/ntfy.age;
+        mode = "600";
+        owner = username;
+        group = username;
+      };
+      telegram = {
+        file = ../../secrets/telegram.age;
         mode = "600";
         owner = username;
         group = username;

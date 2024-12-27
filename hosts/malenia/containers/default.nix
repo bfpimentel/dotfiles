@@ -17,9 +17,9 @@
     ./tautulli
     ./paperless
     ./authentik
-    ./ntfy
     ./ollama-webui
     ./whisper
+    # ./ntfy
   ];
 
   virtualisation = {

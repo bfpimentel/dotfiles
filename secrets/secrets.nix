@@ -23,11 +23,13 @@ in
   "freshrss.age".publicKeys = allKeys;
   "speedtest-tracker.age".publicKeys = allKeys;
   "authentik.age".publicKeys = allKeys;
-  "ntfy.age".publicKeys = allKeys;
   "wordpress.age".publicKeys = allKeys;
   "jellyfin.age".publicKeys = allKeys;
   "ollama-webui.age".publicKeys = allKeys;
   "paperless.age".publicKeys = allKeys;
+
+  "ntfy.age".publicKeys = allKeys;
+  "telegram.age".publicKeys = allKeys;
 
   "tailscale/servers.age".publicKeys = allKeys;
 
