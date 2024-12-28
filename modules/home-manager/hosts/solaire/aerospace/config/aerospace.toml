@@ -81,10 +81,10 @@ esc = [
 ]
 
 t = [
-  'layout tiles horizontal vertical', 
+  'layout tiles vertical horizontal', 
 ] 
 a = [
-  'layout accordion horizontal vertical', 
+  'layout accordion vertical horizontal', 
 ] 
 f = [
   'layout floating tiling', 
@@ -95,9 +95,9 @@ minus = 'resize smart -50'
 equal = 'resize smart +50'
 
 [[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
+if.app-id = 'com.mitchellh.ghostty'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace T']
+run = ['layout floating', 'move-node-to-workspace T']
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'
