@@ -3,8 +3,10 @@
 {
   imports = [ 
     ./hardware-configuration.nix
+    ./networking.nix
     ./filesystems.nix
     ./containers
+    ./services
   ];
 
   boot.loader = {

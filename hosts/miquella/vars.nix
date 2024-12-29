@@ -6,6 +6,7 @@
   ip = "10.0.0.57";
   defaultGateway = "10.0.0.1";
   networkInterface = "enp0s6";
+  wireguardInterface = "wg0";
 
   # domains
   domain = "external.luana.casa";
