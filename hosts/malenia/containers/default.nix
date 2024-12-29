@@ -19,6 +19,7 @@
     ./authentik
     ./ollama-webui
     ./whisper
+    ./ddns
     # ./ntfy
   ];
 

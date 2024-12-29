@@ -7,5 +7,6 @@
     # ./jellyfin
     ./ollama
     ./plex
+    # ./ddns
   ];
 }
