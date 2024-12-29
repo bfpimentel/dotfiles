@@ -18,7 +18,7 @@
         '';
         peers = [
           {
-            name = "solaire";
+            name = "malenia";
             publicKey = "DGIv16Ow92a2EzupVjD5K8wm9F0dicocvIuhKO9YbXQ=";
             allowedIPs = [ "10.22.10.2/32" ];
           }

@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./tailscale
+    # ./tailscale
     ./glances
     ./ssh
     ./prometheus
