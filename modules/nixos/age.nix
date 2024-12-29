@@ -24,6 +24,7 @@
       jellyfin.file = ../../secrets/jellyfin.age;
       ollama-webui.file = ../../secrets/ollama-webui.age;
       paperless.file = ../../secrets/paperless.age;
+      wireguard.file = ../../secrets/wireguard.age;
 
       ntfy = {
         file = ../../secrets/ntfy.age;

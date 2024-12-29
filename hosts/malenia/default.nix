@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ./filesystems.nix
+    ./networking.nix
     ./users.nix
     ./pkgs.nix
     ./containers
