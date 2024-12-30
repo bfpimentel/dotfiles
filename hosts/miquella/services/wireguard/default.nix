@@ -20,7 +20,12 @@
           {
             name = "malenia";
             publicKey = "DGIv16Ow92a2EzupVjD5K8wm9F0dicocvIuhKO9YbXQ=";
-            allowedIPs = [ "10.22.10.2/32" ];
+            allowedIPs = [ "10.22.10.2/32" "10.22.10.3/32" ];
+          }
+          {
+            name = "solaire";
+            publicKey = "xMWICTNi398NCBj8DS3085R4jbqXZBSECyq3pWmx+U4=";
+            allowedIPs = [ "10.22.10.3/32" "10.22.10.2/32" ];
           }
         ];
       };
