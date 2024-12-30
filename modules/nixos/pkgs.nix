@@ -21,6 +21,7 @@
     lm_sensors
     lazygit
     oh-my-posh
+    wireguard-tools
 
     clang-tools
     gcc

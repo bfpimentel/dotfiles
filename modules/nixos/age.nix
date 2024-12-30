@@ -24,7 +24,6 @@
       jellyfin.file = ../../secrets/jellyfin.age;
       ollama-webui.file = ../../secrets/ollama-webui.age;
       paperless.file = ../../secrets/paperless.age;
-      wireguard.file = ../../secrets/wireguard.age;
 
       ntfy = {
         file = ../../secrets/ntfy.age;
@@ -59,6 +58,9 @@
         owner = username;
         group = username;
       };
+
+      wireguard-miquella.file = ../../secrets/wireguard/miquella.age;
+      wireguard-malenia.file = ../../secrets/wireguard/malenia.age;
     };
   };
 }
