@@ -15,10 +15,7 @@
             name = "miquella";
             publicKey = "foEvCoTUel5bw8+M+8zl3Vgoq598BC6ff+xAHj0+knA=";
             endpoint = "vpn.luana.casa:51820";
-            allowedIPs = [
-              "10.22.10.2/32"
-              "10.22.4.0/24"
-            ];
+            allowedIPs = [ "0.0.0.0/0" ];
             persistentKeepalive = 25;
           }
           {
