@@ -15,11 +15,11 @@
     ./immich
     ./overseerr
     ./tautulli
-    ./paperless
+    # ./paperless
     ./authentik
     ./ollama-webui
     ./whisper
-    ./ddns
+    # ./ddns
     # ./ntfy
   ];
 
