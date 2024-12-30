@@ -35,7 +35,10 @@
           {
             name = "malenia";
             publicKey = "DGIv16Ow92a2EzupVjD5K8wm9F0dicocvIuhKO9YbXQ=";
-            allowedIPs = [ "10.22.10.2/32" "10.22.4.0/24" ];
+            allowedIPs = [
+              "10.22.10.2/32"
+              "10.22.4.0/24"
+            ];
           }
           {
             name = "solaire";
