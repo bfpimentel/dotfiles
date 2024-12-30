@@ -1,4 +1,4 @@
-{ vars, config, pkgs, ... }:
+{ vars, config, ... }:
 
 {
   networking.firewall.allowedUDPPorts = [ 51820 ];
@@ -9,11 +9,11 @@
       "${vars.wireguardInterface}" = {
         ips = [ "10.22.10.2/24" ];
         listenPort = 51820;
-        privateKeyFile = config.age.secrets.wireguard.path;
+        privateKeyFile = config.age.secrets.wireguard-malenia.path;
         peers = [
           {
-            name = "solaire";
-            publicKey = "DGIv16Ow92a2EzupVjD5K8wm9F0dicocvIuhKO9YbXQ=";
+            name = "miquella";
+            publicKey = "foEvCoTUel5bw8+M+8zl3Vgoq598BC6ff+xAHj0+knA=";
             endpoint = "vpn.luana.casa:51820";
             allowedIPs = [ "0.0.0.0/0" ];
             persistentKeepAlive = 25;

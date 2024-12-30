@@ -6,7 +6,5 @@
     cudatoolkit
 
     immich-cli
-
-    wireguard-tools
   ];
 }

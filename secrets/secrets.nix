@@ -27,7 +27,6 @@ in
   "jellyfin.age".publicKeys = allKeys;
   "ollama-webui.age".publicKeys = allKeys;
   "paperless.age".publicKeys = allKeys;
-  "wireguard.age".publicKeys = allKeys;
 
   "ntfy.age".publicKeys = allKeys;
   "telegram.age".publicKeys = allKeys;
@@ -42,4 +41,7 @@ in
 
   "nginx/vault.age".publicKeys = allKeys;
   "nginx/baikal.age".publicKeys = allKeys;
+
+  "wireguard/miquella.age".publicKeys = allKeys;
+  "wireguard/malenia.age".publicKeys = allKeys;
 }
