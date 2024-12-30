@@ -15,17 +15,11 @@
         ips = [ "10.22.10.1/24" ];
         listenPort = 51820;
         privateKeyFile = config.age.secrets.wireguard-miquella.path;
-        # postSetup = ''
-        #   ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.22.10.0/24 -o ${vars.networkInterface} -j MASQUERADE
-        # '';
         postSetup = ''
           ${pkgs.iptables}/bin/iptables -A FORWARD -i ${vars.wireguardInterface} -j ACCEPT;
           ${pkgs.iptables}/bin/iptables -A FORWARD -o ${vars.wireguardInterface} -j ACCEPT;
           ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -o ${vars.networkInterface} -j MASQUERADE;
         '';
-        # postShutdown = ''
-        #   ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.22.10.0/24 -o ${vars.networkInterface} -j MASQUERADE
-        # '';
         postShutdown = ''
           ${pkgs.iptables}/bin/iptables -D FORWARD -i ${vars.wireguardInterface} -j ACCEPT;
           ${pkgs.iptables}/bin/iptables -D FORWARD -o ${vars.wireguardInterface} -j ACCEPT;
@@ -44,6 +38,11 @@
             name = "solaire";
             publicKey = "xMWICTNi398NCBj8DS3085R4jbqXZBSECyq3pWmx+U4=";
             allowedIPs = [ "10.22.10.3/32" ];
+          }
+          {
+            name = "brunoS24U";
+            publicKey = "YlprTAlepekMcelIeqV/JfDsQkAyo8TjpLLIvrvRrRE=";
+            allowedIPs = [ "10.22.10.4/32" ];
           }
         ];
       };

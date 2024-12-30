@@ -44,7 +44,7 @@
         forceSSL = true;
         enableACME = true;
         locations."/" = {
-          proxyPass = "http://malenia:9012";
+          proxyPass = "http://${vars.maleniaIp}:9012";
           proxyWebsockets = true;
         };
       };
@@ -53,13 +53,13 @@
         enableACME = true;
         basicAuthFile = config.age.secrets.nginx-vault.path;
         locations."/admin" = {
-          proxyPass = "http://malenia:9045/admin";
+          proxyPass = "http://${vars.maleniaIp}:9045/admin";
           extraConfig = ''
             auth_basic "Admin";
           '';
         };
         locations."/" = {
-          proxyPass = "http://malenia:9045";
+          proxyPass = "http://${vars.maleniaIp}:9045";
           proxyWebsockets = true;
           extraConfig = ''
             auth_basic off;
@@ -71,7 +71,7 @@
         enableACME = true;
         basicAuthFile = config.age.secrets.nginx-baikal.path;
         locations."/admin" = {
-          proxyPass = "http://malenia:9040/admin";
+          proxyPass = "http://${vars.maleniaIp}:9040/admin";
           proxyWebsockets = true;
           extraConfig = ''
             auth_basic "Admin";
@@ -80,7 +80,7 @@
           '';
         };
         locations."/" = {
-          proxyPass = "http://malenia:9040";
+          proxyPass = "http://${vars.maleniaIp}:9040";
           proxyWebsockets = true;
           extraConfig = ''
             auth_basic off;
