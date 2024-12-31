@@ -40,55 +40,6 @@
           return = "301 $scheme://loja.jalotopimentel.com$request_uri";
         };
       };
-      "notify.external.luana.casa" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://${vars.maleniaIp}:9012";
-          proxyWebsockets = true;
-        };
-      };
-      "vault.external.luana.casa" = {
-        forceSSL = true;
-        enableACME = true;
-        basicAuthFile = config.age.secrets.nginx-vault.path;
-        locations."/admin" = {
-          proxyPass = "http://${vars.maleniaIp}:9045/admin";
-          extraConfig = ''
-            auth_basic "Admin";
-          '';
-        };
-        locations."/" = {
-          proxyPass = "http://${vars.maleniaIp}:9045";
-          proxyWebsockets = true;
-          extraConfig = ''
-            auth_basic off;
-          '';
-        };
-      };
-      "baikal.external.luana.casa" = {
-        forceSSL = true;
-        enableACME = true;
-        basicAuthFile = config.age.secrets.nginx-baikal.path;
-        locations."/admin" = {
-          proxyPass = "http://${vars.maleniaIp}:9040/admin";
-          proxyWebsockets = true;
-          extraConfig = ''
-            auth_basic "Admin";
-            proxy_set_header Host $host:$server_port;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
-        };
-        locations."/" = {
-          proxyPass = "http://${vars.maleniaIp}:9040";
-          proxyWebsockets = true;
-          extraConfig = ''
-            auth_basic off;
-            proxy_set_header Host $host:$server_port;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
-        };
-      };
     };
   };
 }
