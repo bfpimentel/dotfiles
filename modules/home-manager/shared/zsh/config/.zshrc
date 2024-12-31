@@ -46,10 +46,8 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-bindkey -v
 bindkey '^[OA' history-substring-search-up
 bindkey '^[OB' history-substring-search-down
-bindkey '^L' autosuggest-accept
 
 # BAT
 export BAT_THEME=tokyonight_night

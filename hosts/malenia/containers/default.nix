@@ -16,6 +16,7 @@
     ./overseerr
     ./tautulli
     ./authentik
+    ./beszel
     # ./ollama-webui
     # ./whisper
     # ./paperless
