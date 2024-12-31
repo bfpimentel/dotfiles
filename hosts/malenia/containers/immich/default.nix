@@ -5,7 +5,7 @@
   ...
 }:
 let
-  immichVersion = "v1.122.2";
+  immichVersion = "v1.123.0";
 
   immichPaths =
     let

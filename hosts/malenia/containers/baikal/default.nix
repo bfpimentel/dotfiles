@@ -34,7 +34,7 @@ in
         "homepage.group" = "Documents";
         "homepage.name" = "Baikal";
         "homepage.icon" = "baikal.png";
-        "homepage.href" = "https://baikal.${vars.externalDomain}";
+        "homepage.href" = "https://baikal.${vars.domain}";
       };
     };
   };

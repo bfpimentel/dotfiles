@@ -24,7 +24,7 @@ in
   services.ollama = {
     enable = true;
     openFirewall = true;
-    package = pkgs.ollama;
+    # package = pkgs.ollama;
     host = "0.0.0.0";
     port = 11434;
     acceleration = "cuda";

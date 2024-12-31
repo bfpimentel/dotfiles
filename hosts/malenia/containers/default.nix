@@ -15,10 +15,10 @@
     ./immich
     ./overseerr
     ./tautulli
-    # ./paperless
     ./authentik
-    ./ollama-webui
-    ./whisper
+    # ./ollama-webui
+    # ./whisper
+    # ./paperless
     # ./ddns
     # ./ntfy
   ];
