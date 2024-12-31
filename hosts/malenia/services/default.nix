@@ -2,11 +2,10 @@
 
 {
   imports = [ 
-    ./grafana
     ./restic
     ./wireguard
     # ./jellyfin
-    ./ollama
+    # ./ollama
     ./plex
   ];
 }
