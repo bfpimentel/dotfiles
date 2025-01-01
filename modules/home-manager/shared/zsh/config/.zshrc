@@ -51,6 +51,9 @@ bindkey '^[OA' history-substring-search-up
 bindkey '^[OB' history-substring-search-down
 bindkey '^L' autosuggest-accept
 
+# MAN
+export MANPAGER="nvim +Man!"
+
 # BAT
 export BAT_THEME=tokyonight_night
 
