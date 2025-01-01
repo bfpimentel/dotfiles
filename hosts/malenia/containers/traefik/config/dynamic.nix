@@ -25,18 +25,6 @@ ip: domain: godwynIp: radagonIp: {
         };
         service = "media";
       };
-      glances = {
-        entryPoints = [
-          "https"
-          "http"
-        ];
-        rule = "Host(`glances.${domain}`)";
-        middlewares = [ "https-redirect" ];
-        tls = {
-          certResolver = "cloudflare";
-        };
-        service = "glances";
-      };
       unraid = {
         entryPoints = [
           "https"
@@ -48,18 +36,6 @@ ip: domain: godwynIp: radagonIp: {
           certResolver = "cloudflare";
         };
         service = "unraid";
-      };
-      grafana = {
-        entryPoints = [
-          "https"
-          "http"
-        ];
-        rule = "Host(`grafana.${domain}`)";
-        middlewares = [ "https-redirect" ];
-        tls = {
-          certResolver = "cloudflare";
-        };
-        service = "grafana";
       };
     };
     services = {
@@ -75,21 +51,9 @@ ip: domain: godwynIp: radagonIp: {
           passHostHeader = true;
         };
       };
-      glances = {
-        loadBalancer = {
-          servers = [ { url = "http://${ip}:61208"; } ];
-          passHostHeader = true;
-        };
-      };
       unraid = {
         loadBalancer = {
           servers = [ { url = "http://${godwynIp}"; } ];
-          passHostHeader = true;
-        };
-      };
-      grafana = {
-        loadBalancer = {
-          servers = [ { url = "http://${ip}:2342"; } ];
           passHostHeader = true;
         };
       };

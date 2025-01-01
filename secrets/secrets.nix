@@ -27,6 +27,7 @@ in
   "jellyfin.age".publicKeys = allKeys;
   "ollama-webui.age".publicKeys = allKeys;
   "paperless.age".publicKeys = allKeys;
+  "beszel.age".publicKeys = allKeys;
 
   "ntfy.age".publicKeys = allKeys;
   "telegram.age".publicKeys = allKeys;
