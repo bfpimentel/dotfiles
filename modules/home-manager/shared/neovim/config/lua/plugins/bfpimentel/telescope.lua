@@ -6,10 +6,10 @@ return {
 	},
 	lazy = true,
 	keys = {
-		{ "<leader>fp", "<cmd>Telescope find_files<cr>", mode = "n", desc = "[F]ind [P]roject files" },
-		{ "<leader>fg", "<cmd>Telescope git_files<cr>", mode = "n", desc = "[F]ind [G]it files" },
-		{ "<leader>fi", "<cmd>Telescope live_grep<cr>", mode = "n", desc = "[F]ind [I]n files" },
-		{ "<leader>rp", "<cmd>Telescope projects<cr>", mode = "n", desc = "Show [R]ecent [P]rojects" },
+		{ "<leader>fp", "<cmd>Telescope find_files<cr>", mode = "n", desc = "[F]ind [P]roject files", { buffer = true} },
+		{ "<leader>fg", "<cmd>Telescope git_files<cr>", mode = "n", desc = "[F]ind [G]it files", { buffer = true} },
+		{ "<leader>fi", "<cmd>Telescope live_grep<cr>", mode = "n", desc = "[F]ind [I]n files", { buffer = true} },
+		{ "<leader>rp", "<cmd>Telescope projects<cr>", mode = "n", desc = "Show [R]ecent [P]rojects", { buffer = true} },
 	},
 	config = function()
 		require("project_nvim").setup({
@@ -20,7 +20,9 @@ return {
 		local telescope = require("telescope")
 		telescope.load_extension("projects")
 		telescope.setup({
-			path_display = { "shorten" },
+      defaults = {
+			  path_display = { "shorten" },
+      },
 		})
 	end,
 }

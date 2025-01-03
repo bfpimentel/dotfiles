@@ -17,6 +17,8 @@
     ./tautulli
     ./authentik
     ./beszel
+    ./stirling-pdf
+    ./it-tools
     # ./ollama-webui
     # ./whisper
     # ./paperless

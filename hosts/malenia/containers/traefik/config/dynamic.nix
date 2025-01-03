@@ -13,6 +13,18 @@ ip: domain: godwynIp: radagonIp: {
         };
         service = "ollama";
       };
+      glances = {
+        entryPoints = [
+          "https"
+          "http"
+        ];
+        rule = "Host(`glances.${domain}`)";
+        middlewares = [ "https-redirect" ];
+        tls = {
+          certResolver = "cloudflare";
+        };
+        service = "glances";
+      };
       media = {
         entryPoints = [
           "https"
@@ -42,6 +54,12 @@ ip: domain: godwynIp: radagonIp: {
       ollama = {
         loadBalancer = {
           servers = [ { url = "http://${ip}:11434"; } ];
+          passHostHeader = true;
+        };
+      };
+      glances = {
+        loadBalancer = {
+          servers = [ { url = "http://${ip}:61208"; } ];
           passHostHeader = true;
         };
       };

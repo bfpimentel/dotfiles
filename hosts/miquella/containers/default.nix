@@ -3,6 +3,7 @@
 {
   imports = [
     ./nginx
+    ./beszel
   ];
 
   virtualisation = {

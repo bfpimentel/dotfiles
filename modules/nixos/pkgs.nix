@@ -22,6 +22,7 @@
     lazygit
     oh-my-posh
     wireguard-tools
+    inetutils
 
     clang-tools
     gcc
