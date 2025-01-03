@@ -49,6 +49,9 @@ setopt hist_find_no_dups
 bindkey '^[OA' history-substring-search-up
 bindkey '^[OB' history-substring-search-down
 
+# MAN
+export MANPAGER="nvim +Man!"
+
 # BAT
 export BAT_THEME=tokyonight_night
 
