@@ -8,10 +8,16 @@ return {
     "MunifTanjim/nui.nvim",
   },
   opts = {
+    default_component_configs = {
+      indent = {
+        indent_size = 1,
+      },
+    },
     window = {
       position = "right",
     },
     filesystem = {
+      bind_to_cwd = true,
       filtered_items = {
         hide_dotfiles = false,
       },
@@ -20,7 +26,5 @@ return {
         enabled = true,
       },
     },
-  },
-  keys = {
   },
 }

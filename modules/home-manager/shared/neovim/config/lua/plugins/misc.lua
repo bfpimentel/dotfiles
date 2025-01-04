@@ -6,9 +6,6 @@ return {
       vim.o.timeout = true
       vim.o.timeoutlen = 300
     end,
-    keys = {
-      { "U", "<cmd>redo<cr>" },
-    },
     opts = {},
   },
   {

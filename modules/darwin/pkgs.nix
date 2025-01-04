@@ -11,6 +11,7 @@
     wget
     helix
     nodejs_22
+    gradle
 
     nil
     lua-language-server

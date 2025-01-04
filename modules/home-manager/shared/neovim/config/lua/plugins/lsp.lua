@@ -1,55 +1,125 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = { "saghen/blink.cmp" },
-    lazy = false,
-    config = function(_, opts)
-      local lspconfig = require("lspconfig")
+  "neovim/nvim-lspconfig",
+  dependencies = {
+    { "williamboman/mason.nvim",                  config = true }, -- NOTE: Must be loaded before dependants
+    { "j-hui/fidget.nvim",                        opts = {} },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+    { "saghen/blink.cmp" },
+  },
+  lazy = false,
+  config = function()
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+      callback = function(event)
+        local map = function(keys, func, desc, mode)
+          mode = mode or "n"
+          vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+        end
 
-      lspconfig.lua_ls.setup {
+        local telescopeBuiltIn = require("telescope.builtin")
+        map("gd", telescopeBuiltIn.lsp_definitions, "[G]oto [D]efinition")
+        map("gr", telescopeBuiltIn.lsp_references, "[G]oto [R]eferences")
+        map("gI", telescopeBuiltIn.lsp_implementations, "[G]oto [I]mplementation")
+        map("<leader>D", telescopeBuiltIn.lsp_type_definitions, "Type [D]efinition")
+        map("<leader>ds", telescopeBuiltIn.lsp_document_symbols, "[D]ocument [S]ymbols")
+        map("<leader>ws", telescopeBuiltIn.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+        map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+          vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            buffer = event.buf,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.document_highlight,
+          })
+
+          vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            buffer = event.buf,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.clear_references,
+          })
+
+          vim.api.nvim_create_autocmd("LspDetach", {
+            group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+            callback = function(event2)
+              vim.lsp.buf.clear_references()
+              vim.api.nvim_clear_autocmds { group = "kickstart-lsp-highlight", buffer = event2.buf }
+            end,
+          })
+        end
+
+        -- The following code creates a keymap to toggle inlay hints in your
+        -- code, if the language server you are using supports them
+        --
+        -- This may be unwanted, since they displace some of your code
+        if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          map("<leader>th", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+          end, "[T]oggle Inlay [H]ints")
+        end
+      end,
+    })
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+
+    local servers = {
+      bashls = {},
+      yammls = {},
+      clangd = {},
+      lua_ls = {
         settings = {
           Lua = {
+            completion = {
+              callSnippet = "Replace",
+            },
             diagnostics = {
               globals = {
                 "vim",
                 "use",
               }
-            }
+            },
+            formatter = { command = "stylua" },
           }
-        }
-      }
-      lspconfig.bashls.setup {}
-      lspconfig.yamlls.setup {}
-      lspconfig.clangd.setup {}
-      lspconfig.ts_ls.setup {
+        },
+      },
+      ts_ls = {
         settings = {
-          ts_ls = { formatter = { command = "prettierd" } }
-        }
-      }
-      lspconfig.nil_ls.setup {
+          ts_ls = {
+            formatter = { command = "prettierd" },
+          },
+        },
+      },
+      nil_ls = {
         settings = {
-          nil_ls = { formatter = { command = "nixfmt" } },
+          nil_ls = {
+            formatter = { command = "nixfmt" }
+          },
         },
       }
+    }
 
-      for server, config in pairs(opts.servers or {}) do
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
-      end
+    require("mason").setup()
 
-      vim.keymap.set("n", "<leader>sh", vim.lsp.buf.hover, { desc = "[S]how [H]over Info" })
-      vim.keymap.set("n", "<leader>gi", vim.lsp.buf.definition, { desc = "[G]o to [I]mplementation" })
-      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "[G]o to [R]eferences" })
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
-    end,
-  },
-  {
-    "smjonas/inc-rename.nvim",
-    lazy = false,
-    config = function()
-      require("inc_rename").setup()
+    local ensure_installed = { "bashls", "yamlls", "clangd", "lua_ls" }
+    vim.list_extend(ensure_installed, {})
 
-      vim.keymap.set("n", "<leader>rn", ":IncRename ", { desc = "[R]e[n]ame" })
-    end,
-  },
+    require("mason-tool-installer").setup { ensure_installed = ensure_installed }
+
+    require("mason-lspconfig").setup {
+      ensure_installed = ensure_installed,
+      automatic_installation = true,
+      handlers = {
+        function(server_name)
+          local server = servers[server_name] or {}
+          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+          require("lspconfig")[server_name].setup(server)
+        end,
+      },
+    }
+  end,
 }
