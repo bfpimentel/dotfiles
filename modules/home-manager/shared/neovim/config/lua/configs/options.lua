@@ -1,5 +1,3 @@
-require("nvchad.options")
-
 -- Vim Config
 vim.g.autoformat = true
 
@@ -13,26 +11,28 @@ vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 
 -- Clipboard
-local osc52 = require("vim.ui.clipboard.osc52")
+vim.schedule(function()
+  local osc52 = require("vim.ui.clipboard.osc52")
 
-vim.opt.clipboard = "unnamedplus"
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = osc52.copy("+"),
-    ["*"] = osc52.copy("*"),
-  },
-  paste = {
-    ["+"] = osc52.paste("+"),
-    ["*"] = osc52.paste("*"),
-  },
-}
+  vim.opt.clipboard = "unnamedplus"
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
+    },
+    paste = {
+      ["+"] = osc52.paste("+"),
+      ["*"] = osc52.paste("*"),
+    },
+  }
+end)
 
 -- Highlight Yank
-vim.cmd([[
-  augroup highlight_yank
-  autocmd!
-  au TextYankPost * silent! lua vim.highlight.on_yank({ higroup="Visual", timeout=200 })
-  augroup END
-]])
-
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})

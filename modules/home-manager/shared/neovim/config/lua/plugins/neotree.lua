@@ -1,6 +1,6 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  lazy = false,
+  lazy = true,
   cmd = "Neotree",
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -22,11 +22,5 @@ return {
     },
   },
   keys = {
-    {
-      "<leader>ns",
-      ":Neotree toggle=true source=filesystem action=focus<CR>",
-      mode = "n",
-      desc = "[N]eotree [S]how",
-    },
   },
 }
