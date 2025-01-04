@@ -20,12 +20,11 @@ return {
         local telescopeBuiltIn = require("telescope.builtin")
         map("gd", telescopeBuiltIn.lsp_definitions, "[G]oto [D]efinition")
         map("gr", telescopeBuiltIn.lsp_references, "[G]oto [R]eferences")
-        map("gI", telescopeBuiltIn.lsp_implementations, "[G]oto [I]mplementation")
-        map("<leader>D", telescopeBuiltIn.lsp_type_definitions, "Type [D]efinition")
-        map("<leader>ds", telescopeBuiltIn.lsp_document_symbols, "[D]ocument [S]ymbols")
-        map("<leader>ws", telescopeBuiltIn.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+        map("gi", telescopeBuiltIn.lsp_implementations, "[G]oto [I]mplementation")
+        -- map("<leader>ds", telescopeBuiltIn.lsp_document_symbols, "[D]ocument [S]ymbols")
+        -- map("<leader>ws", telescopeBuiltIn.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+        -- map("<leader>D", telescopeBuiltIn.lsp_type_definitions, "Type [D]efinition")
+        map("ga", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -52,10 +51,6 @@ return {
           })
         end
 
-        -- The following code creates a keymap to toggle inlay hints in your
-        -- code, if the language server you are using supports them
-        --
-        -- This may be unwanted, since they displace some of your code
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
           map("<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
