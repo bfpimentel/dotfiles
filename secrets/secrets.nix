@@ -29,6 +29,7 @@ in
   "paperless.age".publicKeys = allKeys;
   "beszel.age".publicKeys = allKeys;
 
+  "apprise.age".publicKeys = allKeys;
   "ntfy.age".publicKeys = allKeys;
   "telegram.age".publicKeys = allKeys;
 

@@ -53,7 +53,6 @@ in
         "traefik.enable" = "true";
         "traefik.http.routers.qbittorrent.rule" = "Host(`torrent.${vars.domain}`)";
         "traefik.http.routers.qbittorrent.entryPoints" = "https";
-        "traefik.http.routers.qbittorrent.service" = "qbittorrent";
         "traefik.http.services.qbittorrent.loadbalancer.server.port" = "8080";
         # Homepage
         "homepage.group" = "Download Managers";

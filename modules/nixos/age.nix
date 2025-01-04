@@ -26,6 +26,12 @@
       paperless.file = ../../secrets/paperless.age;
       beszel.file = ../../secrets/beszel.age;
 
+      apprise = {
+        file = ../../secrets/apprise.age;
+        mode = "600";
+        owner = username;
+        group = username;
+      };
       ntfy = {
         file = ../../secrets/ntfy.age;
         mode = "600";

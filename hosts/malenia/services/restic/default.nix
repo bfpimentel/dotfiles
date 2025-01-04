@@ -69,12 +69,11 @@ in
           User = username;
         };
         script = ''
-          sleep 60
-          source ${config.age.secrets.telegram.path}
-          ${pkgs.curl}/bin/curl -s -X POST \
-            "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
-            -d chat_id="$TELEGRAM_CHAT_ID" \
-            -d text="${message}"
+          # sleep 60
+          ${pkgs.apprise}/bin/apprise \ 
+            --tag="telegram" \
+            --body="${message}" \
+            --config="${config.age.secrets.apprise.path}"
         '';
       }
     ) backupNotifications;

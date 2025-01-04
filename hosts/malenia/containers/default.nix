@@ -19,6 +19,7 @@
     ./beszel
     ./stirling-pdf
     ./it-tools
+    ./apprise
     # ./ollama-webui
     # ./whisper
     # ./paperless
