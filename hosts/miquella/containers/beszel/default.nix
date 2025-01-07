@@ -20,6 +20,10 @@ in
     builtins.attrValues beszelPaths.volumes
   );
 
+  networking.firewall = {
+    allowedTCPPorts = [ 45876 ]; 
+  };
+
   virtualisation.oci-containers.containers = {
     beszel-agent = {
       image = "henrygd/beszel-agent:latest";
