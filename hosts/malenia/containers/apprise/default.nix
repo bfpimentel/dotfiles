@@ -49,7 +49,7 @@ in
         # Homepage
         "homepage.group" = "Monitoring";
         "homepage.name" = "Apprise";
-        "homepage.icon" = "apprise.svg";
+        "homepage.icon" = "apprise.png";
         "homepage.href" = "https://notify.${vars.domain}";
       };
     };

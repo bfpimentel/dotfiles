@@ -69,11 +69,10 @@ in
           User = username;
         };
         script = ''
-          # sleep 60
-          ${pkgs.apprise}/bin/apprise \ 
+          sleep 60
+          ${pkgs.apprise}/bin/apprise --config=${config.age.secrets.apprise.path} \
             --tag="telegram" \
-            --body="${message}" \
-            --config="${config.age.secrets.apprise.path}"
+            --body="${message}"
         '';
       }
     ) backupNotifications;

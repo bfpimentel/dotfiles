@@ -100,7 +100,7 @@ return {
 
     require("mason").setup()
 
-    local ensure_installed = { "bashls", "yamlls", "clangd", "lua_ls" }
+    local ensure_installed = { "nil", "bashls", "yamlls", "clangd", "lua_ls" }
     vim.list_extend(ensure_installed, {})
 
     require("mason-tool-installer").setup { ensure_installed = ensure_installed }
