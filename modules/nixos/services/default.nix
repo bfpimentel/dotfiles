@@ -5,6 +5,5 @@
     # ./tailscale
     ./glances
     ./ssh
-    ./prometheus
   ];
 }

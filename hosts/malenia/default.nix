@@ -25,8 +25,5 @@
 
   users.users.${username}.home = "/home/${username}";
 
-  # hardware.pulseaudio.enable = true;
-  # security.rtkit.enable = true;
-
   system.stateVersion = "24.05";
 }

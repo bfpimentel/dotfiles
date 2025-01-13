@@ -8,8 +8,5 @@
     immich-cli
 
     apprise
-
-    sunshine
-    xorg.xrandr
   ];
 }

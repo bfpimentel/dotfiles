@@ -20,6 +20,7 @@
     ./stirling-pdf
     ./it-tools
     ./apprise
+    # ./n8n
     # ./ollama-webui
     # ./whisper
     # ./paperless

@@ -6,8 +6,10 @@
     ./wireguard
     ./plex
     ./xserver
-    # ./sunshine
+    ./sunshine
     # ./jellyfin
     # ./ollama
   ];
+
+  programs.sunshine.enable = false;
 }

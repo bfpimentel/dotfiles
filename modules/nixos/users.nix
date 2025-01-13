@@ -25,13 +25,15 @@
       isNormalUser = true;
       shell = pkgs.zsh;
       extraGroups = [
-        "podman"
         "networkmanager"
+        "podman"
         "wheel"
         "postgres"
         "grafana"
         "render"
         "video"
+        "audio"
+        "input"
       ];
       subUidRanges = [
         {

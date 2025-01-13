@@ -29,14 +29,6 @@
     cargo
     nodejs_22
 
-    nil
-    lua-language-server
-    bash-language-server
-    yaml-language-server
-    typescript-language-server
-    nixfmt-rfc-style
-    prettierd
-
     podman-tui
     podman-compose
 

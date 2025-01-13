@@ -2,10 +2,13 @@
   pkgs,
   config,
   lib,
+  username,
   ...
 }:
 
 let
+  cfg = config.programs.sunshine;
+
   configFile = pkgs.writeTextDir "config/sunshine.conf" ''
     origin_web_ui_allowed=wan,wg0
   '';
@@ -26,25 +29,39 @@ let
       });
 in
 {
-  services.avahi.publish.enable = true;
-  services.avahi.publish.userServices = true;
-
-  boot.kernelModules = [ "uinput" ];
-
-  programs.steam.enable = true;
-
-  security.wrappers.sunshine = {
-    owner = "root";
-    group = "root";
-    capabilities = "cap_sys_admin+p";
-    source = "${sunshinePkg}/bin/sunshine";
+  options.programs.sunshine = with lib; {
+    enable = mkEnableOption "sunshine";
   };
 
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-    package = sunshinePkg;
+  config = lib.mkIf cfg.enable {
+    services.avahi.publish.enable = true;
+    services.avahi.publish.userServices = true;
+    services.udisks2.enable = lib.mkForce false;
+
+    boot.kernelModules = [ "uinput" ];
+
+    programs.steam.enable = true;
+
+    # security.wrappers.sunshine = {
+    #   owner = "root";
+    #   group = "root";
+    #   capabilities = "cap_sys_admin+p";
+    #   source = "${sunshinePkg}/bin/sunshine";
+    # };
+
+    services.sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
+      package = sunshinePkg;
+    };
+
+    systemd.user.services.sunshine = {
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+    };
   };
 }
