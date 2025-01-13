@@ -6,12 +6,9 @@
   ...
 }:
 
+with lib;
 let
-  cfg = config.programs.sunshine;
-
-  configFile = pkgs.writeTextDir "config/sunshine.conf" ''
-    origin_web_ui_allowed=wan,wg0
-  '';
+  cfg = config.bfmp.services.sunshine;
 
   sunshinePkg =
     (pkgs.sunshine.override {
@@ -21,33 +18,26 @@ let
       (old: {
         nativeBuildInputs = old.nativeBuildInputs ++ [
           pkgs.cudaPackages.cuda_nvcc
-          (lib.getDev pkgs.cudaPackages.cuda_cudart)
+          (getDev pkgs.cudaPackages.cuda_cudart)
         ];
         cmakeFlags = old.cmakeFlags ++ [
-          "-DCMAKE_CUDA_COMPILER=${(lib.getExe pkgs.cudaPackages.cuda_nvcc)}"
+          "-DCMAKE_CUDA_COMPILER=${(getExe pkgs.cudaPackages.cuda_nvcc)}"
         ];
       });
 in
 {
-  options.programs.sunshine = with lib; {
-    enable = mkEnableOption "sunshine";
+  options.bfmp.services.sunshine = {
+    enable = mkEnableOption "Enable Sunshine";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.avahi.publish.enable = true;
     services.avahi.publish.userServices = true;
-    services.udisks2.enable = lib.mkForce false;
+    services.udisks2.enable = mkForce false;
 
     boot.kernelModules = [ "uinput" ];
 
     programs.steam.enable = true;
-
-    # security.wrappers.sunshine = {
-    #   owner = "root";
-    #   group = "root";
-    #   capabilities = "cap_sys_admin+p";
-    #   source = "${sunshinePkg}/bin/sunshine";
-    # };
 
     services.sunshine = {
       enable = true;

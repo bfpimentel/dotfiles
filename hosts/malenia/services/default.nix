@@ -1,15 +1,24 @@
 { ... }:
 
+let
+  enableSunshine = false;
+in
 {
   imports = [
+    ./xserver
+    ./sunshine
     ./restic
     ./wireguard
     ./plex
-    ./xserver
-    ./sunshine
     # ./jellyfin
     # ./ollama
   ];
 
-  programs.sunshine.enable = false;
+  bfmp.services = {
+    sunshine.enable = enableSunshine;
+    xserver = {
+      enable = true;
+      configureForSunshine = enableSunshine;
+    };
+  };
 }
