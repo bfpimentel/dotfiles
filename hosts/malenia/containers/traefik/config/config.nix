@@ -1,4 +1,4 @@
-domain: {
+vars: {
   api = {
     dashboard = true;
     debug = true;
@@ -74,8 +74,8 @@ domain: {
           certResolver = "cloudflare";
           domains = [
             {
-              main = domain;
-              sans = [ "*.${domain}" ];
+              main = vars.domain;
+              sans = [ "*.${vars.domain}" ];
             }
           ];
         };

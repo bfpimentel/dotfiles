@@ -1,4 +1,4 @@
-ip: domain: godwynIp: radagonIp: {
+vars: {
   http = {
     routers = {
       ollama = {
@@ -6,7 +6,7 @@ ip: domain: godwynIp: radagonIp: {
           "https"
           "http"
         ];
-        rule = "Host(`ollama.${domain}`)";
+        rule = "Host(`ollama.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
         tls = {
           certResolver = "cloudflare";
@@ -18,7 +18,7 @@ ip: domain: godwynIp: radagonIp: {
           "https"
           "http"
         ];
-        rule = "Host(`glances.${domain}`)";
+        rule = "Host(`glances.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
         tls = {
           certResolver = "cloudflare";
@@ -30,7 +30,7 @@ ip: domain: godwynIp: radagonIp: {
           "https"
           "http"
         ];
-        rule = "Host(`media.${domain}`)";
+        rule = "Host(`media.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
         tls = {
           certResolver = "cloudflare";
@@ -42,7 +42,7 @@ ip: domain: godwynIp: radagonIp: {
           "https"
           "http"
         ];
-        rule = "Host(`storage.${domain}`)";
+        rule = "Host(`storage.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
         tls = {
           certResolver = "cloudflare";
@@ -53,25 +53,25 @@ ip: domain: godwynIp: radagonIp: {
     services = {
       ollama = {
         loadBalancer = {
-          servers = [ { url = "http://${ip}:11434"; } ];
+          servers = [ { url = "http://${vars.defaultIp}:11434"; } ];
           passHostHeader = true;
         };
       };
       glances = {
         loadBalancer = {
-          servers = [ { url = "http://${ip}:61208"; } ];
+          servers = [ { url = "http://${vars.defaultIp}:61208"; } ];
           passHostHeader = true;
         };
       };
       media = {
         loadBalancer = {
-          servers = [ { url = "http://${ip}:32400"; } ];
+          servers = [ { url = "http://${vars.defaultIp}:32400"; } ];
           passHostHeader = true;
         };
       };
       unraid = {
         loadBalancer = {
-          servers = [ { url = "http://${godwynIp}"; } ];
+          servers = [ { url = "http://${vars.godwynIp}"; } ];
           passHostHeader = true;
         };
       };

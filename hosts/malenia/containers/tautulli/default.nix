@@ -1,6 +1,9 @@
-{ vars, username, ... }:
+{ config, lib, ... }:
 
+with lib;
 let
+  inherit (config.bfmp.malenia) vars;
+
   tautulliPaths =
     let
       root = "${vars.containersConfigRoot}/tautulli";
@@ -13,33 +16,41 @@ let
 
   puid = toString vars.defaultUserUID;
   guid = toString vars.defaultUserGID;
+
+  cfg = config.bfmp.containers.tautulli;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
-    builtins.attrValues tautulliPaths.volumes
-  );
+  options.bfmp.containers.tautulli = {
+    enable = mkEnableOption "Enable Tautulli";
+  };
 
-  virtualisation.oci-containers.containers = {
-    tautulli = {
-      image = "ghcr.io/tautulli/tautulli";
-      autoStart = true;
-      extraOptions = [ "--pull=newer" ];
-      volumes = [ "${tautulliPaths.volumes.root}:/config" ];
-      environment = {
-        TZ = vars.timeZone;
-        PUID = puid;
-        PGID = guid;
-      };
-      labels = {
-        "traefik.enable" = "true";
-        "traefik.http.routers.tautulli.rule" = "Host(`tautulli.${vars.domain}`)";
-        "traefik.http.routers.tautulli.entryPoints" = "https";
-        "traefik.http.services.tautulli.loadbalancer.server.port" = "8181";
-        # Homepage
-        "homepage.group" = "Monitoring";
-        "homepage.name" = "Tautulli";
-        "homepage.icon" = "tautulli.svg";
-        "homepage.href" = "https://tautulli.${vars.domain}";
+  config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
+      builtins.attrValues tautulliPaths.volumes
+    );
+
+    virtualisation.oci-containers.containers = {
+      tautulli = {
+        image = "ghcr.io/tautulli/tautulli";
+        autoStart = true;
+        extraOptions = [ "--pull=newer" ];
+        volumes = [ "${tautulliPaths.volumes.root}:/config" ];
+        environment = {
+          TZ = vars.timeZone;
+          PUID = puid;
+          PGID = guid;
+        };
+        labels = {
+          "traefik.enable" = "true";
+          "traefik.http.routers.tautulli.rule" = "Host(`tautulli.${vars.domain}`)";
+          "traefik.http.routers.tautulli.entryPoints" = "https";
+          "traefik.http.services.tautulli.loadbalancer.server.port" = "8181";
+          # Homepage
+          "homepage.group" = "Monitoring";
+          "homepage.name" = "Tautulli";
+          "homepage.icon" = "tautulli.svg";
+          "homepage.href" = "https://tautulli.${vars.domain}";
+        };
       };
     };
   };

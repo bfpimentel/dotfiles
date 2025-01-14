@@ -1,6 +1,9 @@
-{ vars, username, ... }:
+{ config, lib, ... }:
 
+with lib;
 let
+  inherit (config.bfmp.malenia) vars;
+
   ddnsUpdaterPaths =
     let
       root = "${vars.containersConfigRoot}/ddns-updater";
@@ -13,28 +16,36 @@ let
         config = "${root}/config.json";
       };
     };
+
+  cfg = config.bfmp.containers.ddns;
 in
 {
-  systemd.tmpfiles.rules =
-    map (x: "d ${x} 0775 ${username} ${username} - -") (builtins.attrValues ddnsUpdaterPaths.volumes)
-    ++ map (x: "f ${x} 0600 ${username} ${username} - -") (builtins.attrValues ddnsUpdaterPaths.files);
+  options.bfmp.containers.ddns = {
+    enable = mkEnableOption "Enable DDNS Updater";
+  };
 
-  virtualisation.oci-containers.containers = {
-    ddns-updater = {
-      image = "ghcr.io/qdm12/ddns-updater:latest";
-      autoStart = true;
-      extraOptions = [ "--pull=newer" ];
-      volumes = [ "${ddnsUpdaterPaths.volumes.root}:/updater/data" ];
-      labels = {
-        "traefik.enable" = "true";
-        "traefik.http.routers.ddns-updater.rule" = "Host(`ddns.${vars.domain}`)";
-        "traefik.http.routers.ddns-updater.entryPoints" = "https";
-        "traefik.http.services.ddns-updater.loadbalancer.server.port" = "8000";
-        # Homepage
-        "homepage.group" = "Networking";
-        "homepage.name" = "DDNS Updater";
-        "homepage.icon" = "ddns-updater.svg";
-        "homepage.href" = "https://ddns.${vars.domain}";
+  config = mkIf cfg.enable {
+    systemd.tmpfiles.rules =
+      map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (builtins.attrValues ddnsUpdaterPaths.volumes)
+      ++ map (x: "f ${x} 0600 ${vars.defaultUser} ${vars.defaultUser} - -") (builtins.attrValues ddnsUpdaterPaths.files);
+
+    virtualisation.oci-containers.containers = {
+      ddns-updater = {
+        image = "ghcr.io/qdm12/ddns-updater:latest";
+        autoStart = true;
+        extraOptions = [ "--pull=newer" ];
+        volumes = [ "${ddnsUpdaterPaths.volumes.root}:/updater/data" ];
+        labels = {
+          "traefik.enable" = "true";
+          "traefik.http.routers.ddns-updater.rule" = "Host(`ddns.${vars.domain}`)";
+          "traefik.http.routers.ddns-updater.entryPoints" = "https";
+          "traefik.http.services.ddns-updater.loadbalancer.server.port" = "8000";
+          # Homepage
+          "homepage.group" = "Networking";
+          "homepage.name" = "DDNS Updater";
+          "homepage.icon" = "ddns-updater.svg";
+          "homepage.href" = "https://ddns.${vars.domain}";
+        };
       };
     };
   };

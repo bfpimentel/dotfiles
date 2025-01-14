@@ -1,12 +1,14 @@
 {
-  vars,
-  pkgs,
   config,
-  username,
+  lib,
+  pkgs,
   ...
 }:
 
+with lib;
 let
+  inherit (config.bfmp.malenia) vars;
+
   homepagePaths =
     let
       settingsFormat = pkgs.formats.yaml { };
@@ -34,46 +36,54 @@ let
         };
       };
     };
+
+  cfg = config.bfmp.containers.homepage;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
-    builtins.attrValues homepagePaths.volumes
-  );
+  options.bfmp.containers.homepage = {
+    enable = mkEnableOption "Enable Homepage";
+  };
 
-  virtualisation.oci-containers.containers = {
-    homepage = {
-      image = "ghcr.io/gethomepage/homepage:latest";
-      autoStart = true;
-      extraOptions = [ "--pull=newer" ];
-      volumes = [
-        "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-        "${homepagePaths.generated.docker}:/app/config/docker.yaml"
-        "${homepagePaths.generated.services}:/app/config/services.yaml"
-        "${homepagePaths.generated.settings}:/app/config/settings.yaml"
-        "${homepagePaths.generated.widgets}:/app/config/widgets.yaml"
-        "${homepagePaths.generated.bookmarks}:/app/config/bookmarks.yaml"
-        "${homepagePaths.generated.css}:/app/config/custom.css"
-        "${homepagePaths.volumes.images}:/app/public/images"
-      ];
-      environmentFiles = [
-        config.age.secrets.immich.path
-        config.age.secrets.audiobookshelf.path
-        config.age.secrets.jellyfin.path
-        config.age.secrets.radarr.path
-        config.age.secrets.readarr.path
-        config.age.secrets.sonarr.path
-        config.age.secrets.bazarr.path
-        config.age.secrets.prowlarr.path
-        config.age.secrets.plex.path
-      ];
-      environment = {
-        TZ = vars.timeZone;
-      };
-      labels = {
-        "traefik.enable" = "true";
-        "traefik.http.routers.homepage.entrypoints" = "https";
-        "traefik.http.routers.homepage.rule" = "Host(`dash.${vars.domain}`)";
-        "traefik.http.services.homepage.loadbalancer.server.port" = "3000";
+  config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
+      builtins.attrValues homepagePaths.volumes
+    );
+
+    virtualisation.oci-containers.containers = {
+      homepage = {
+        image = "ghcr.io/gethomepage/homepage:latest";
+        autoStart = true;
+        extraOptions = [ "--pull=newer" ];
+        volumes = [
+          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
+          "${homepagePaths.generated.docker}:/app/config/docker.yaml"
+          "${homepagePaths.generated.services}:/app/config/services.yaml"
+          "${homepagePaths.generated.settings}:/app/config/settings.yaml"
+          "${homepagePaths.generated.widgets}:/app/config/widgets.yaml"
+          "${homepagePaths.generated.bookmarks}:/app/config/bookmarks.yaml"
+          "${homepagePaths.generated.css}:/app/config/custom.css"
+          "${homepagePaths.volumes.images}:/app/public/images"
+        ];
+        environmentFiles = [
+          config.age.secrets.immich.path
+          config.age.secrets.audiobookshelf.path
+          config.age.secrets.jellyfin.path
+          config.age.secrets.radarr.path
+          config.age.secrets.readarr.path
+          config.age.secrets.sonarr.path
+          config.age.secrets.bazarr.path
+          config.age.secrets.prowlarr.path
+          config.age.secrets.plex.path
+        ];
+        environment = {
+          TZ = vars.timeZone;
+        };
+        labels = {
+          "traefik.enable" = "true";
+          "traefik.http.routers.homepage.entrypoints" = "https";
+          "traefik.http.routers.homepage.rule" = "Host(`dash.${vars.domain}`)";
+          "traefik.http.services.homepage.loadbalancer.server.port" = "3000";
+        };
       };
     };
   };

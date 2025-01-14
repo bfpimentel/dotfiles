@@ -98,6 +98,4 @@ with lib;
       type = types.str;
     };
   };
-
-  config = { };
 }

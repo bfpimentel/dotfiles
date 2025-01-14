@@ -1,42 +1,43 @@
 { ... }:
 
+let
+  enableAIStack = false;
+in
 {
   imports = [
-    ./traefik
-    ./dozzle
-    ./homepage
-    ./speedtest
-    ./baikal
-    ./vaultwarden
-    ./arr
-    ./qbittorrent
-    ./audiobookshelf
-    ./freshrss
-    ./immich
-    ./overseerr
-    ./tautulli
-    ./authentik
-    ./beszel
-    ./stirling-pdf
-    ./it-tools
     ./apprise
-    # ./n8n
-    # ./ollama-webui
-    # ./whisper
-    # ./paperless
-    # ./ddns
-    # ./ntfy
+    ./arr
+    ./audiobookshelf
+    ./authentik
+    ./baikal
+    ./beszel
+    ./ddns
+    ./dozzle
+    ./freshrss
+    ./homepage
+    ./immich
+    ./it-tools
+    ./n8n
+    ./ntfy
+    ./ollama-webui
+    ./overseerr
+    ./paperless
+    ./qbittorrent
+    ./speedtest
+    ./stirling-pdf
+    ./tautulli
+    ./traefik
+    ./vaultwarden
+    ./whisper
   ];
 
   virtualisation = {
     containers.enable = true;
+    oci-containers.backend = "podman";
     podman = {
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
-    };
-    oci-containers = {
-      backend = "podman";
     };
   };
 
@@ -44,4 +45,31 @@
     53
     5353
   ];
+
+  bfmp.containers = {
+    apprise.enable = true;
+    arr.enable = true;
+    audiobookshelf.enable = true;
+    authentik.enable = true;
+    baikal.enable = true;
+    beszel.enable = true;
+    ddns.enable = false;
+    dozzle.enable = true;
+    freshrss.enable = true;
+    homepage.enable = true;
+    immich.enable = true;
+    it-tools.enable = true;
+    n8n.enable = false;
+    ntfy.enable = false;
+    ollama-webui.enable = enableAIStack;
+    overseerr.enable = true;
+    paperless.enable = false;
+    qbittorrent.enable = true;
+    speedtest.enable = true;
+    stirling-pdf.enable = true;
+    tautulli.enable = true;
+    traefik.enable = true;
+    vaultwarden.enable = true;
+    whisper.enable = enableAIStack;
+  };
 }
