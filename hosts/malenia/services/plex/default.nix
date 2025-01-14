@@ -1,38 +1,44 @@
-{
-  vars,
-  pkgs,
-  username,
-  ...
-}:
+{ config, lib, ... }:
 
+with lib;
 let
-  plexPath = "${vars.servicesConfigRoot}/plex";
-in
-{
-  systemd.services.plex.serviceConfig = {
-    User = username;
-    Group = username;
-  };
+  inherit (config.bfmp.malenia) vars;
 
-  services.plex =
+  plexPaths =
     let
-      plexPassPkg = pkgs.plex.override {
-        plexRaw = pkgs.plexRaw.overrideAttrs (old: rec {
-          version = "1.41.2.9200-c6bbc1b53";
-          src = pkgs.fetchurl {
-            url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-            sha256 = "sha256-HmgtnUsDzRIUThYdlZIzhiU02n9jSU7wtwnEA0+r1iQ=";
-          };
-        });
-      };
+      root = "${vars.servicesConfigRoot}/plex";
     in
     {
+      volumes = {
+        inherit root;
+      };
+    };
+
+  cfg = config.bfmp.services.plex;
+in
+{
+  options.bfmp.services.plex = {
+    enable = mkEnableOption "Enable Plex";
+  };
+
+  config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
+      builtins.attrValues plexPaths.volumes
+    );
+
+    systemd.services.plex.serviceConfig = {
+      User = vars.defaultUser;
+      Group = vars.defaultUser;
+    };
+
+    services.plex = {
       enable = true;
       openFirewall = true;
-      user = username;
-      group = username;
-      package = plexPassPkg;
-      dataDir = plexPath;
+      user = vars.defaultUser;
+      group = vars.defaultUser;
+      # package = plexPassPkg;
+      dataDir = plexPaths.volumes.root;
       accelerationDevices = [ "*" ];
     };
+  };
 }

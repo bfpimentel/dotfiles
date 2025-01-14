@@ -1,40 +1,55 @@
 {
-  pkgs,
-  username,
-  vars,
+  config,
+  lib,
   ...
 }:
 
+with lib;
 let
-  ollamaPath = "${vars.servicesConfigRoot}/ollama";
+  inherit (config.bfmp.malenia) vars;
 
-  directories = [
-    "${ollamaPath}"
-    "${ollamaPath}/data"
-    "${ollamaPath}/models"
-  ];
+  ollamaPaths =
+    let
+      root = "${vars.servicesConfigRoot}/ollama";
+    in
+    {
+      volumes = {
+        inherit root;
+        data = "${root}/data";
+        models = "${root}/models";
+      };
+    };
+
+  cfg = config.bfmp.services.ollama;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
-
-  systemd.services.ollama.serviceConfig = {
-    User = username;
+  options.bfmp.services.ollama = {
+    enable = mkEnableOption "Enable Ollama";
   };
 
-  services.ollama = {
-    enable = true;
-    openFirewall = true;
-    # package = pkgs.ollama;
-    host = "0.0.0.0";
-    port = 11434;
-    acceleration = "cuda";
-    home = "${ollamaPath}/data";
-    models = "${ollamaPath}/models";
-    loadModels = [
-      "llama3.2:3b"
-    ];
-    environmentVariables = {
-      OLLAMA_ORIGINS = "http://localhost:11434,https://ollama.local.luana.casa";
+  config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
+      builtins.mapAttrs ollamaPaths.volumes
+    );
+
+    systemd.services.ollama.serviceConfig = {
+      User = vars.defaultUser;
+    };
+
+    services.ollama = {
+      enable = true;
+      openFirewall = true;
+      host = "0.0.0.0";
+      port = 11434;
+      acceleration = "cuda";
+      home = ollamaPaths.volumes.data;
+      models = ollamaPaths.volumes.models;
+      loadModels = [
+        "llama3.2:3b"
+      ];
+      environmentVariables = {
+        OLLAMA_ORIGINS = "http://localhost:11434,https://ollama.${vars.domain}";
+      };
     };
   };
 }

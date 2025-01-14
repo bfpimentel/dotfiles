@@ -1,28 +1,47 @@
 {
-  username,
-  vars,
+  config,
+  lib,
   pkgs,
   ...
 }:
 
+with lib;
 let
-  jellyfinPath = "${vars.servicesConfigRoot}/jellyfin";
+  inherit (config.bfmp.malenia) vars;
 
-  directories = [ jellyfinPath ];
+  jellyfinPaths =
+    let
+      root = "${vars.servicesConfigRoot}/jellyfin";
+    in
+    {
+      volumes = {
+        inherit root;
+      };
+    };
+
+  cfg = config.bfmp.services.jellyfin;
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") directories;
+  options.bfmp.services.jellyfin = {
+    enable = mkEnableOption "Enable Jellyfin";
+  };
 
-  environment.systemPackages = with pkgs; [
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-  ];
+  config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
+      builtins.mapAttrs jellyfinPaths.volumes
+    );
 
-  services.jellyfin = {
-    enable = true;
-    openFirewall = true;
-    user = username;
-    configDir = jellyfinPath;
+    environment.systemPackages = with pkgs; [
+      jellyfin
+      jellyfin-web
+      jellyfin-ffmpeg
+    ];
+
+    services.jellyfin = {
+      enable = true;
+      openFirewall = true;
+      user = vars.defaultUser;
+      configDir = jellyfinPaths.volumes.root;
+    };
   };
 }

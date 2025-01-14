@@ -1,4 +1,6 @@
-{ username, config,
+{
+  username,
+  config,
   lib,
   vars,
   ...
@@ -6,14 +8,15 @@
 
 {
   imports = [
+    ./containers
+    ./services
     ./hardware-configuration.nix
     ./filesystems.nix
     ./networking.nix
     ./nvidia.nix
     ./users.nix
     ./pkgs.nix
-    ./containers
-    ./services
+    ./options.nix
   ];
 
   boot.loader = {

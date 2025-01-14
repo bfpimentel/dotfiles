@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  username,
   ...
 }:
 
@@ -73,7 +72,7 @@ in
         defaultSession = "gnome";
         autoLogin = {
           enable = true;
-          user = username;
+          user = config.bfmp.malenia.username;
         };
       };
     })
