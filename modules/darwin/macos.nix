@@ -1,4 +1,4 @@
-{ username, ... }:
+{ vars, ... }:
 
 {
   security.pam.enableSudoTouchIdAuth = true;
@@ -38,7 +38,7 @@
           "/Applications/Thunderbird Beta.app"
           "/Applications/Zen Browser.app"
           "/Applications/Ghostty.app"
-          "/Users/${username}/Applications/Android Studio.app"
+          "/Users/${vars.defaultUser}/Applications/Android Studio.app"
         ];
         expose-animation-duration = 0.2;
         expose-group-apps = true;

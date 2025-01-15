@@ -70,9 +70,8 @@
           sharedPath = "${rootPath}/shared";
         in
         {
-          linkHostApp = config: app: outputs.config.lib.file.mkOutOfStoreSymlink "${hostPath}/${app}/config";
-          linkSharedApp =
-            config: app: outputs.config.lib.file.mkOutOfStoreSymlink "${sharedPath}/${app}/config";
+          linkHostApp = config: app: config.lib.file.mkOutOfStoreSymlink "${hostPath}/${app}/config";
+          linkSharedApp = config: app: config.lib.file.mkOutOfStoreSymlink "${sharedPath}/${app}/config";
         };
 
       createNixOS =

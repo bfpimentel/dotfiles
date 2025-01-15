@@ -30,8 +30,8 @@
       { name = "zoom"; greedy = true; }
       { name = "xcodes"; greedy = true; }
       { name = "ghostty"; greedy = true; }
+      { name = "moonlight"; greedy = true; }
       { name = "localsend"; greedy = true; }
-      { name = "kitty"; greedy = true; }
       { name = "balenaetcher"; greedy = true; }
       { name = "wifiman"; greedy = true; }
       { name = "vial"; greedy = true; }

@@ -18,5 +18,24 @@ return {
       })
     end,
   },
-  { "tpope/vim-sleuth" }
+  {
+    "tpope/vim-sleuth",
+    lazy = false,
+  },
+  {
+    "andrewferrier/wrapping.nvim",
+    lazy = false,
+    opts = {
+      auto_set_mode_filetype_allowlist = {
+        "asciidoc",
+        "gitcommit",
+        "latex",
+        "mail",
+        "markdown",
+        "rst",
+        "tex",
+        "text",
+      },
+    },
+  },
 }

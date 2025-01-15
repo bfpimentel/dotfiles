@@ -1,11 +1,11 @@
 {
   config,
-  username,
+  vars,
   ...
 }:
 
 let
-  kanataPath = "${config.users.users.${username}.home}/.config/kanata";
+  kanataPath = "${config.users.users.${vars.defaultUser}.home}/.config/kanata";
 in
 {
   launchd.daemons.kanata = {
