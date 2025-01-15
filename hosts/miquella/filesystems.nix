@@ -1,5 +1,8 @@
-{ username, ... }:
+{ vars, ... }:
 
+let
+  username = vars.defaultUser;
+in
 {
   environment.persistence."/persistent" = {
     enable = true;

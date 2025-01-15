@@ -1,7 +1,7 @@
-{ username, vars, ... }:
+{ vars, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ./networking.nix
     ./filesystems.nix
@@ -16,12 +16,7 @@
 
   time.timeZone = vars.timeZone;
 
-  users.users.${username}.home = "/home/${username}";
-
-  networking = {
-    networkmanager.enable = false;
-  };
+  users.users.${vars.defaultUser}.home = "/home/${vars.defaultUser}";
 
   system.stateVersion = "24.11";
 }
-

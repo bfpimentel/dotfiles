@@ -1,7 +1,6 @@
 {
-  vars,
-  username,
   config,
+  vars,
   ...
 }:
 let
@@ -16,12 +15,12 @@ let
     };
 in
 {
-  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${username} ${username} - -") (
+  systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
     builtins.attrValues beszelPaths.volumes
   );
 
   networking.firewall = {
-    allowedTCPPorts = [ 45876 ]; 
+    allowedTCPPorts = [ 45876 ];
   };
 
   virtualisation.oci-containers.containers = {

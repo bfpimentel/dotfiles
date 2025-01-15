@@ -1,6 +1,4 @@
 {
-  username,
-  config,
   vars,
   ...
 }:
@@ -18,7 +16,7 @@
 
   services.nginx = {
     enable = true;
-    user = username;
+    user = vars.defaultUser;
     virtualHosts = {
       "jalotopimentel.com" = {
         forceSSL = true;

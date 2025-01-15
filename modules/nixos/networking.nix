@@ -13,7 +13,7 @@
     interfaces = {
       "${vars.networkInterface}".ipv4.addresses = [
         {
-          address = vars.ip;
+          address = vars.defaultIp;
           prefixLength = 24;
         }
       ];
