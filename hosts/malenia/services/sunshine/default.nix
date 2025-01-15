@@ -7,8 +7,6 @@
 
 with lib;
 let
-  cfg = config.bfmp.services.sunshine;
-
   sunshinePkg =
     (pkgs.sunshine.override {
       cudaSupport = true;
@@ -23,6 +21,8 @@ let
           "-DCMAKE_CUDA_COMPILER=${(getExe pkgs.cudaPackages.cuda_nvcc)}"
         ];
       });
+
+  cfg = config.bfmp.services.sunshine;
 in
 {
   options.bfmp.services.sunshine = {

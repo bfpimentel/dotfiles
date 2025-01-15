@@ -1,6 +1,6 @@
 {
-  system,
   config,
+  vars,
   ...
 }:
 
@@ -15,7 +15,7 @@ in
       ServerAliveInterval 60
     '';
     matchBlocks =
-      if (system != "aarch64-darwin") then
+      if (vars.system != "aarch64-darwin") then
         {
           "github.com" = {
             hostname = "github.com";
@@ -29,11 +29,6 @@ in
             hostname = "github.com";
             user = "bfpimentel";
             identityFile = "${home}/.ssh/id_personal";
-          };
-          "github.com-owlet" = {
-            hostname = "github.com";
-            user = "bfpimentel-owlet";
-            identityFile = "${home}/.ssh/id_owlet";
           };
           "malenia" = {
             hostname = "10.22.4.2";

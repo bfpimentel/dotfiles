@@ -1,14 +1,13 @@
 {
   config,
   lib,
+  vars,
   pkgs,
   ...
 }:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   jellyfinPaths =
     let
       root = "${vars.servicesConfigRoot}/jellyfin";

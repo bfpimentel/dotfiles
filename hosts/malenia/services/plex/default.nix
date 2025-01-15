@@ -1,9 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  vars,
+  ...
+}:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   plexPaths =
     let
       root = "${vars.servicesConfigRoot}/plex";

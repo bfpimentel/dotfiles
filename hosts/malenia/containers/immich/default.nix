@@ -1,13 +1,13 @@
 {
   config,
   lib,
+  vars,
+  pkgs,
   ...
 }:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   immichVersion = "v1.124.2";
 
   immichPaths =
@@ -36,6 +36,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      immich-cli
+    ];
+
     systemd.tmpfiles.rules =
       map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
         builtins.attrValues immichPaths.volumes

@@ -1,13 +1,12 @@
 {
   config,
   lib,
+  vars,
   ...
 }:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   ollamaPaths =
     let
       root = "${vars.servicesConfigRoot}/ollama";

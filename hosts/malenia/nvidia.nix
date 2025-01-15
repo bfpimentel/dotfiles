@@ -1,7 +1,17 @@
-{ lib, config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   boot.kernelModules = [ "nvidia-uvm" ];
+
+  environment.systemPackages = with pkgs; [
+    nvidia-container-toolkit
+    cudatoolkit
+  ];
 
   hardware = {
     enableRedistributableFirmware = lib.mkDefault true;

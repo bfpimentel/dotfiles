@@ -1,14 +1,13 @@
 {
   config,
-  pkgs,
   lib,
+  vars,
+  pkgs,
   ...
 }:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   cfg = config.bfmp.services.wireguard;
 in
 {

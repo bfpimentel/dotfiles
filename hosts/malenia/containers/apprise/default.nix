@@ -1,13 +1,13 @@
 {
   config,
   lib,
+  vars,
+  pkgs,
   ...
 }:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   apprisePaths =
     let
       root = "${vars.containersConfigRoot}/apprise";
@@ -31,6 +31,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      apprise
+    ];
+
     systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
       builtins.attrValues apprisePaths.volumes
     );

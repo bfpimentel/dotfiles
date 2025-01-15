@@ -1,12 +1,13 @@
 {
   config,
-  username,
   vars,
   ...
 }:
 
 let
   shareCredentialsPath = config.age.secrets.share.path;
+
+  username = vars.defaultUser;
 
   puid = toString vars.defaultUserUID;
   guid = toString vars.defaultUserGID;

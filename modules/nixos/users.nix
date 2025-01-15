@@ -1,15 +1,12 @@
 {
   pkgs,
-  username,
-  fullname,
   vars,
-  lib,
   ...
 }:
 
 {
   users.groups = {
-    "${username}" = {
+    "${vars.defaultUser}" = {
       gid = vars.defaultUserGID;
     };
     podman = {
@@ -18,10 +15,10 @@
   };
 
   users.users = {
-    "${username}" = {
+    "${vars.defaultUser}" = {
       uid = vars.defaultUserUID;
-      group = "${username}";
-      description = "${fullname}";
+      group = "${vars.defaultUser}";
+      description = "${vars.defaultUserFullName}";
       isNormalUser = true;
       shell = pkgs.zsh;
       extraGroups = [

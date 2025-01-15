@@ -1,5 +1,8 @@
-{ username, ... }:
+{ vars, ... }:
 
+let
+  username = vars.defaultUser;
+in
 {
   age = {
     identityPaths = [ "/home/${username}/.ssh/id_personal" ];

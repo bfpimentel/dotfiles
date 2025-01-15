@@ -1,13 +1,12 @@
 {
   config,
   lib,
+  vars,
   ...
 }:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   authentikPaths =
     let
       root = "${vars.containersConfigRoot}/authentik";

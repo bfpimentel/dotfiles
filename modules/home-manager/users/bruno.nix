@@ -1,9 +1,9 @@
-{ ... }:
+{ vars, ... }:
 
 {
   programs.git = {
     enable = true;
-    userName = "Bruno Pimentel";
-    userEmail = "hello@bruno.so";
+    userName = vars.defaultUserFullName;
+    userEmail = vars.defaultUserEmail;
   };
 }

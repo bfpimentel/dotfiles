@@ -53,19 +53,19 @@ vars: {
     services = {
       ollama = {
         loadBalancer = {
-          servers = [ { url = "http://${vars.defaultIp}:11434"; } ];
+          servers = [ { url = "http://${vars.maleniaIp}:11434"; } ];
           passHostHeader = true;
         };
       };
       glances = {
         loadBalancer = {
-          servers = [ { url = "http://${vars.defaultIp}:61208"; } ];
+          servers = [ { url = "http://${vars.maleniaIp}:61208"; } ];
           passHostHeader = true;
         };
       };
       media = {
         loadBalancer = {
-          servers = [ { url = "http://${vars.defaultIp}:32400"; } ];
+          servers = [ { url = "http://${vars.maleniaIp}:32400"; } ];
           passHostHeader = true;
         };
       };

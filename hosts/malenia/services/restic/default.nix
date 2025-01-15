@@ -1,14 +1,13 @@
 {
   config,
-  pkgs,
   lib,
+  vars,
+  pkgs,
   ...
 }:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   backupNotifications = {
     restic-backups-photos-failure = "Photos backup failure!";
     restic-backups-photos-success = "Photos backup success!";

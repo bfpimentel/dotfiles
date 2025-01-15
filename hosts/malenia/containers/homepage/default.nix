@@ -1,14 +1,13 @@
 {
   config,
   lib,
+  vars,
   pkgs,
   ...
 }:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   homepagePaths =
     let
       settingsFormat = pkgs.formats.yaml { };

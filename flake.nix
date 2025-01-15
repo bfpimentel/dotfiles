@@ -70,38 +70,32 @@
           sharedPath = "${rootPath}/shared";
         in
         {
-          linkHostApp = config: app: config.lib.file.mkOutOfStoreSymlink "${hostPath}/${app}/config";
-          linkSharedApp = config: app: config.lib.file.mkOutOfStoreSymlink "${sharedPath}/${app}/config";
+          linkHostApp = config: app: outputs.config.lib.file.mkOutOfStoreSymlink "${hostPath}/${app}/config";
+          linkSharedApp =
+            config: app: outputs.config.lib.file.mkOutOfStoreSymlink "${sharedPath}/${app}/config";
         };
 
       createNixOS =
         system: hostname: username: fullname: email:
         (
           let
-            vars = import (./. + "/hosts/${hostname}/vars.nix");
-            specialArgs = {
-              inherit
-                system
-                inputs
-                outputs
-                hostname
-                username
-                fullname
-                email
-                vars
-                ;
-            };
+            commonVars = ((import (./. + "/hosts/shared/vars.nix")) system hostname username fullname email);
+            systemSpecificVars = (import (./. + "/hosts/${commonVars.hostname}/vars.nix"));
+            vars = commonVars // systemSpecificVars;
+
+            specialArgs = { inherit inputs outputs vars; };
+
             modules = (builtins.attrValues nixosModules) ++ [
-              (./. + "/hosts/${hostname}")
+              (./. + "/hosts/${vars.hostname}")
               agenix.nixosModules.default
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.users."${username}" = homeManagerModules;
+                home-manager.users."${vars.defaultUser}" = homeManagerModules;
                 home-manager.extraSpecialArgs = specialArgs // {
-                  homeManagerConfig = buildHomeManagerConfig hostname;
+                  homeManagerConfig = buildHomeManagerConfig vars.hostname;
                 };
               }
             ];
@@ -114,15 +108,13 @@
         (
           let
             system = "aarch64-darwin";
+            vars = ((import (./. + "/hosts/shared/vars.nix")) system hostname username fullname email);
+
             specialArgs = {
               inherit
                 inputs
                 outputs
-                hostname
-                username
-                fullname
-                email
-                system
+                vars
                 ;
             };
             modules = (builtins.attrValues darwinModules) ++ [

@@ -1,9 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  vars,
+  ...
+}:
 
 with lib;
 let
-  inherit (config.bfmp.malenia) vars;
-
   ddnsUpdaterPaths =
     let
       root = "${vars.containersConfigRoot}/ddns-updater";
@@ -26,8 +29,12 @@ in
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules =
-      map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (builtins.attrValues ddnsUpdaterPaths.volumes)
-      ++ map (x: "f ${x} 0600 ${vars.defaultUser} ${vars.defaultUser} - -") (builtins.attrValues ddnsUpdaterPaths.files);
+      map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
+        builtins.attrValues ddnsUpdaterPaths.volumes
+      )
+      ++ map (x: "f ${x} 0600 ${vars.defaultUser} ${vars.defaultUser} - -") (
+        builtins.attrValues ddnsUpdaterPaths.files
+      );
 
     virtualisation.oci-containers.containers = {
       ddns-updater = {

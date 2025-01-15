@@ -1,13 +1,13 @@
 {
-  system,
   config,
+  vars,
   homeManagerConfig,
   ...
 }:
 
 let
   systemSpecificRebuildCmd =
-    if (system == "aarch64-darwin") then "darwin-rebuild" else "sudo nixos-rebuild";
+    if (vars.system == "aarch64-darwin") then "darwin-rebuild" else "sudo nixos-rebuild";
 in
 {
   programs.zsh = {

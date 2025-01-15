@@ -1,8 +1,8 @@
-{ vars, hostname, ... }:
+{ vars, ... }:
 
 {
   networking = {
-    hostName = "${hostname}";
+    hostName = "${vars.hostname}";
     defaultGateway = vars.defaultGateway;
     enableIPv6 = false;
     useDHCP = false;
