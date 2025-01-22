@@ -107,10 +107,10 @@ local function createSpaces()
   findAndSelectCurrentSpace()
 end
 
-swapWatcher:subscribe(constants.events.SWAP_MENU_AND_SPACES, function(env)
-  local isShowingSpaces = env.isShowingMenu == "off" and true or false
-  sbar.set("/" .. constants.items.SPACES .. "\\..*/", { drawing = isShowingSpaces })
-end)
+-- swapWatcher:subscribe(constants.events.SWAP_MENU_AND_SPACES, function(env)
+--   local isShowingSpaces = env.isShowingMenu == "off" and true or false
+--   sbar.set("/" .. constants.items.SPACES .. "\\..*/", { drawing = isShowingSpaces })
+-- end)
 
 currentSpaceWatcher:subscribe(constants.events.AEROSPACE_WORKSPACE_CHANGED, function(env)
   selectCurrentSpace(env.FOCUSED_WORKSPACE)
