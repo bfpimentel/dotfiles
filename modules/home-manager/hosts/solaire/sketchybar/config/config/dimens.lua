@@ -1,4 +1,4 @@
-local padding <const> = {
+local padding = {
   background = 8,
   icon = 8,
   label = 8,
@@ -7,10 +7,13 @@ local padding <const> = {
   popup = 8,
 }
 
-local graphics <const> = {
+local graphics = {
   bar = {
     height = 32,
-    offset = 8,
+    notch_height = 41,
+    y_offset = -1,
+    margin = -1,
+    border_width = 1,
   },
   background = {
     height = 24,
@@ -26,7 +29,7 @@ local graphics <const> = {
   blur_radius = 30,
 }
 
-local text <const> = {
+local text = {
   icon = 14.0,
   label = 12.0,
 }

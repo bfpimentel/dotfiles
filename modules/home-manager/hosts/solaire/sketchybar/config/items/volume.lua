@@ -3,17 +3,19 @@ local settings = require("config.settings")
 
 local currentAudioDevice = "None"
 
-sbar.add("item", {
-  position = "right",
-  width = settings.dimens.padding.label
-})
-
 local volumeValue = sbar.add("item", constants.items.VOLUME .. ".value", {
   position = "right",
+  icon = {
+    padding_right = 0,
+  },
   label = {
     string = "??%",
     padding_left = 0,
   },
+  background = {
+    padding_left = 8,
+    padding_right = 8,
+  }
 })
 
 local volumeBracket = sbar.add("bracket", constants.items.VOLUME .. ".bracket", {
@@ -21,9 +23,6 @@ local volumeBracket = sbar.add("bracket", constants.items.VOLUME .. ".bracket", 
 }, {
   popup = {
     align = "center"
-  },
-  background = {
-    color = settings.colors.bg1,
   },
 })
 
@@ -37,18 +36,6 @@ volumeValue:subscribe("volume_change", function(env)
   local volume = tonumber(env.INFO)
 
   sbar.exec("SwitchAudioSource -t output -c", function(result)
-    -- local currentOutputDevice = result:sub(1, -2)
-    -- if currentOutputDevice == "AirPods Max" then
-    --   icon = "􀺹"
-    -- elseif currentOutputDevice == "AirPods von Longdong Silver" or currentOutputDevice == "AirPods von Anna" then
-    --   icon = "􀟥"
-    -- elseif currentOutputDevice == "Arctis Nova Pro Wireless" then
-    --   icon = "􀑈"
-    -- elseif currentOutputDevice == "Ear (2)" then
-    --   icon = "􀪷"
-    -- elseif currentOutputDevice == "iD4" then
-    --   icon = "􀝎"
-    -- else
     if volume > 60 then
       icon = settings.icons.text.volume._100
     elseif volume > 30 then
@@ -65,15 +52,16 @@ volumeValue:subscribe("volume_change", function(env)
       lead = "0"
     end
 
-    -- volumeIcon:set({ label = icon })
     volumeSlider:set({ slider = { percentage = volume } })
 
     local hasVolume = volume ~= 0
     volumeValue:set({
-      icon = icon,
+      icon = {
+        string = icon,
+      },
       label = {
         string = hasVolume and lead .. volume .. "%" or "",
-        padding_right = hasVolume and 8 or 0,
+        padding_left = hasVolume and 8 or 0,
       },
     })
   end)

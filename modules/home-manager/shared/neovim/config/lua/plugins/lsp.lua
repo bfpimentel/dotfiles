@@ -1,7 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    { "j-hui/fidget.nvim", opts = {} },
+    -- { "j-hui/fidget.nvim", opts = {} },
     { "saghen/blink.cmp" },
   },
   lazy = false,
@@ -61,7 +61,7 @@ return {
 
     local servers = {
       bashls = {},
-      yammls = {},
+      yamlls = {},
       clangd = {},
       lua_ls = {
         settings = {

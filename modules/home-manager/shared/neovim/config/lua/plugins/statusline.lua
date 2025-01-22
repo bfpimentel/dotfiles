@@ -4,7 +4,7 @@ return {
   lazy = false,
   opts = {
     options = {
-      theme = "tokyonight",
+      theme = "catppuccin",
       component_separators = { left = "|", right = "|" },
       section_separators = { left = "", right = "" },
     },

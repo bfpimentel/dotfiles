@@ -1,4 +1,4 @@
-local events <const> = {
+local events = {
   AEROSPACE_WORKSPACE_CHANGED = "aerospace_workspace_changed",
   AEROSPACE_SWITCH = "aerospace_switch",
   SWAP_MENU_AND_SPACES = "swap_menu_and_spaces",
@@ -8,7 +8,7 @@ local events <const> = {
   HIDE_MESSAGE = "hide_message",
 }
 
-local items <const> = {
+local items = {
   SPACES = "workspaces",
   MENU = "menu",
   MENU_TOGGLE = "menu_toggle",
@@ -20,7 +20,7 @@ local items <const> = {
   CALENDAR = "widgets.calendar",
 }
 
-local aerospace <const> = {
+local aerospace = {
   LIST_ALL_WORKSPACES = "aerospace list-workspaces --all",
   GET_CURRENT_WORKSPACE = "aerospace list-workspaces --focused",
   LIST_WINDOWS = "aerospace list-windows --workspace focused --format \"id=%{window-id}, name=%{app-name}\"",

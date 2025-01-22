@@ -1,4 +1,4 @@
-local apps <const> = {
+local apps = {
   ["Live"] = ":ableton:",
   ["Adobe Bridge 2024"] = ":adobe_bridge:",
   ["Affinity Designer"] = ":affinity_designer:",
@@ -283,7 +283,7 @@ local apps <const> = {
   ["default"] = ":default:",
 }
 
-local text <const> = {
+local text = {
   nerdfont = {
     plus = "",
     loading = "",

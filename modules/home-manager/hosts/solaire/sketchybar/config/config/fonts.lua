@@ -1,4 +1,4 @@
-local dimens <const> = require("config.dimens")
+local dimens = require("config.dimens")
 
 return {
   text = "SpaceMono Nerd Font",

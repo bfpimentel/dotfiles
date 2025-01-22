@@ -1,7 +1,7 @@
 local constants = require("constants")
 local settings = require("config.settings")
 
-local maxItems <const> = 15
+local maxItems = 15
 local menuItems = {}
 local isShowingMenu = false
 
@@ -33,7 +33,6 @@ local function createPlaceholders()
 
   sbar.add("bracket", { "/" .. constants.items.MENU .. "\\..*/" }, {
     background = {
-      color = settings.colors.bg1,
       padding_left = settings.dimens.padding.item,
       padding_right = settings.dimens.padding.item,
     },

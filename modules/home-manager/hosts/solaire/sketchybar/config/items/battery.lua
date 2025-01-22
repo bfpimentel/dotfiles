@@ -3,26 +3,22 @@ local settings = require("config.settings")
 
 local isCharging = false
 
-sbar.add("item", {
-  position = "right",
-  width = settings.dimens.padding.label
-})
-
 local battery = sbar.add("item", constants.items.battery, {
   position = "right",
   update_freq = 60,
-  background = {
-    color = settings.colors.bg1,
+  label = {
+    color = settings.colors.white,
+    padding_left = 8,
   },
+  background = {
+    padding_left = 8,
+    padding_right = 8,
+  }
 })
 
 local batteryPopup = sbar.add("item", {
   position = "popup." .. battery.name,
   width = "dynamic",
-  label = {
-    padding_right = settings.dimens.padding.label,
-    padding_left = settings.dimens.padding.label,
-  },
   icon = {
     padding_left = 0,
     padding_right = 0,
@@ -48,18 +44,9 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
     if charging then
       icon = settings.icons.text.battery.charging
     else
-      if found and charge > 80 then
-        icon = settings.icons.text.battery._100
-      elseif found and charge > 60 then
-        icon = settings.icons.text.battery._75
-      elseif found and charge > 40 then
-        icon = settings.icons.text.battery._50
-      elseif found and charge > 30 then
-        icon = settings.icons.text.battery._50
-        color = settings.colors.yellow
-      elseif found and charge > 20 then
+      if found and charge > 20 then
         icon = settings.icons.text.battery._25
-        color = settings.colors.orange
+        color = settings.colors.white
       else
         icon = settings.icons.text.battery._0
         color = settings.colors.red
@@ -78,7 +65,6 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
       },
       label = {
         string = lead .. label,
-        padding_left = 0,
       },
     })
   end)

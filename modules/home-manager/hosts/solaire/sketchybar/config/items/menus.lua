@@ -1,7 +1,7 @@
 local constants = require("constants")
 local settings = require("config.settings")
 
-local maxItems <const> = 15
+local maxItems = 15
 local menuItems = {}
 local isShowingMenu = false
 

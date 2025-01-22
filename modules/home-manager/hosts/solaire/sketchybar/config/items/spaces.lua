@@ -1,8 +1,6 @@
 local constants = require("constants")
 local settings = require("config.settings")
 
-local spaces = {}
-
 sbar.add("item", {
   width = settings.dimens.padding.label
 })
@@ -12,87 +10,89 @@ local swapWatcher = sbar.add("item", {
   updates = true,
 })
 
-local currentWorkspaceWatcher = sbar.add("item", {
+local currentSpaceWatcher = sbar.add("item", {
   drawing = false,
   updates = true,
 })
 
-local spaceConfigs <const> = {
-  ["B"] = { icon = "󰖟", name = "Browsing" },
-  ["C"] = { icon = "", name = "Coding" },
-  ["E"] = { icon = "", name = "Mail" },
-  ["F"] = { icon = "", name = "Files" },
-  ["T"] = { icon = "", name = "Terminal" },
-  ["X"] = { icon = "", name = "Misc" },
+local spaces = {}
+
+local spacesConfig = {
+  ["X"] = { name = "Misc" },
+  ["T"] = { name = "Terminal" },
+  ["F"] = { name = "Files" },
+  ["E"] = { name = "Mail" },
+  ["C"] = { name = "Coding" },
+  ["B"] = { name = "Browsing" },
 }
 
-local function selectCurrentWorkspace(focusedWorkspaceName)
+local function selectCurrentSpace(focusedSpaceName)
   for sid, item in pairs(spaces) do
     if item ~= nil then
-      local isSelected = sid == constants.items.SPACES .. "." .. focusedWorkspaceName
-      item:set({
-        icon = { color = isSelected and settings.colors.bg1 or settings.colors.white },
-        label = { color = isSelected and settings.colors.bg1 or settings.colors.white },
-        background = { color = isSelected and settings.colors.white or settings.colors.bg1 },
-      })
+      local isSelected = sid == constants.items.SPACES .. "." .. focusedSpaceName
+      item:set({ icon = { string = isSelected and "" or "" } })
     end
   end
 
   sbar.trigger(constants.events.UPDATE_WINDOWS)
 end
 
-local function findAndSelectCurrentWorkspace()
-  sbar.exec(constants.aerospace.GET_CURRENT_WORKSPACE, function(focusedWorkspaceOutput)
-    local focusedWorkspaceName = focusedWorkspaceOutput:match("[^\r\n]+")
-    selectCurrentWorkspace(focusedWorkspaceName)
+local function findAndSelectCurrentSpace()
+  sbar.exec(constants.aerospace.GET_CURRENT_WORKSPACE, function(focusedSpaceOutput)
+    local focusedSpaceName = focusedSpaceOutput:match("[^\r\n]+")
+    selectCurrentSpace(focusedSpaceName)
   end)
 end
 
-local function addWorkspaceItem(workspaceName)
-  local spaceName = constants.items.SPACES .. "." .. workspaceName
-  local spaceConfig = spaceConfigs[workspaceName]
+local function addSpace(spaceName)
+  local spaceId = constants.items.SPACES .. "." .. spaceName
+  local spaceConfig = spacesConfig[spaceName]
 
-  spaces[spaceName] = sbar.add("item", spaceName, {
+  spaces[spaceId] = sbar.add("item", spaceId, {
+    background = {
+      padding_right = 8,
+      padding_left = 4,
+    },
     label = {
       width = 0,
-      padding_left = 0,
       string = spaceConfig.name,
     },
     icon = {
-      string = spaceConfig.icon or settings.icons.apps["default"],
+      padding_left = 0,
+      font = { size = 24.0 },
       color = settings.colors.white,
     },
-    background = {
-      color = settings.colors.bg1,
-    },
-    click_script = "aerospace workspace " .. workspaceName,
+    click_script = "aerospace workspace " .. spaceName,
   })
 
-  spaces[spaceName]:subscribe("mouse.entered", function(env)
+  spaces[spaceId]:subscribe("mouse.entered", function()
     sbar.animate("tanh", 30, function()
-      spaces[spaceName]:set({ label = { width = "dynamic" } })
+      spaces[spaceId]:set({ label = { width = "dynamic", padding_left = 8 } })
     end)
   end)
 
-  spaces[spaceName]:subscribe("mouse.exited", function(env)
+  spaces[spaceId]:subscribe("mouse.exited", function()
     sbar.animate("tanh", 30, function()
-      spaces[spaceName]:set({ label = { width = 0 } })
+      spaces[spaceId]:set({ label = { width = 0, padding_left = 0 } })
     end)
   end)
-
-  sbar.add("item", spaceName .. ".padding", {
-    width = settings.dimens.padding.label
-  })
 end
 
-local function createWorkspaces()
-  sbar.exec(constants.aerospace.LIST_ALL_WORKSPACES, function(workspacesOutput)
-    for workspaceName in workspacesOutput:gmatch("[^\r\n]+") do
-      addWorkspaceItem(workspaceName)
-    end
+local function createSpaces()
+  for spaceName, _ in pairs(spacesConfig) do
+    addSpace(spaceName)
+  end
 
-    findAndSelectCurrentWorkspace()
-  end)
+  sbar.add("bracket", { "/" .. constants.items.SPACES .. "\\..*/" }, {
+    background = {
+      color = settings.colors.surface2,
+      padding_right = 0,
+      padding_left = 0,
+      corner_radius = 8,
+    },
+  })
+
+  findAndSelectCurrentSpace()
 end
 
 swapWatcher:subscribe(constants.events.SWAP_MENU_AND_SPACES, function(env)
@@ -100,9 +100,9 @@ swapWatcher:subscribe(constants.events.SWAP_MENU_AND_SPACES, function(env)
   sbar.set("/" .. constants.items.SPACES .. "\\..*/", { drawing = isShowingSpaces })
 end)
 
-currentWorkspaceWatcher:subscribe(constants.events.AEROSPACE_WORKSPACE_CHANGED, function(env)
-  selectCurrentWorkspace(env.FOCUSED_WORKSPACE)
+currentSpaceWatcher:subscribe(constants.events.AEROSPACE_WORKSPACE_CHANGED, function(env)
+  selectCurrentSpace(env.FOCUSED_WORKSPACE)
   sbar.trigger(constants.events.UPDATE_WINDOWS)
 end)
 
-createWorkspaces()
+createSpaces()

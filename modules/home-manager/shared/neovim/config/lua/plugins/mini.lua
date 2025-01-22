@@ -52,7 +52,7 @@ return {
 				-- Normal mode
 				line_left = "",
 				line_right = "",
-        line_down = "<C-S-j>",
+				line_down = "<C-S-j>",
 				line_up = "<C-S-k>",
 			},
 		},
@@ -69,5 +69,45 @@ return {
 				return package.loaded["nvim-web-devicons"]
 			end
 		end,
+	},
+	{
+		"echasnovski/mini.notify",
+		lazy = false,
+		version = false,
+		opts = {
+			window = {
+				config = function()
+					local has_statusline = vim.o.laststatus > 0
+					local pad = vim.o.cmdheight + (has_statusline and 1 or 0)
+					return { anchor = 'SE', col = vim.o.columns, row = vim.o.lines - pad }
+				end,
+			},
+		},
+	},
+	{
+		"echasnovski/mini.base16",
+		lazy = false,
+		version = false,
+		enabled = false,
+		opts = {
+			palette = {
+				base00 = "#24283b",
+				base01 = "#1f2335",
+				base02 = "#292e42",
+				base03 = "#565f89",
+				base04 = "#a9b1d6",
+				base05 = "#c0caf5",
+				base06 = "#c0caf5",
+				base07 = "#c0caf5",
+				base08 = "#f7768e",
+				base09 = "#ff9e64",
+				base0A = "#e0af68",
+				base0B = "#9ece6a",
+				base0C = "#1abc9c",
+				base0D = "#41a6b5",
+				base0E = "#bb9af7",
+				base0F = "#ff007c",
+			},
+		},
 	},
 }
