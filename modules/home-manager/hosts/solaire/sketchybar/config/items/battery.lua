@@ -36,7 +36,7 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
       label = charge .. "%"
     end
 
-    local color = settings.colors.green
+    local color = settings.colors.white
     local charging, _, _ = batteryInfo:find("AC Power")
 
     isCharging = charging
@@ -44,12 +44,19 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
     if charging then
       icon = settings.icons.text.battery.charging
     else
-      if found and charge > 20 then
+      if found and charge > 80 then
+        icon = settings.icons.text.battery._100
+      elseif found and charge > 60 then
+        icon = settings.icons.text.battery._75
+      elseif found and charge > 40 then
+        icon = settings.icons.text.battery._50
+      elseif found and charge > 30 then
+        icon = settings.icons.text.battery._50
+      elseif found and charge > 20 then
         icon = settings.icons.text.battery._25
-        color = settings.colors.white
       else
         icon = settings.icons.text.battery._0
-        color = settings.colors.red
+        color = settings.colors.maroon
       end
     end
 
@@ -61,7 +68,7 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
     battery:set({
       icon = {
         string = icon,
-        color = color
+        color = color,
       },
       label = {
         string = lead .. label,
@@ -70,7 +77,7 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
   end)
 end)
 
-battery:subscribe("mouse.clicked", function(env)
+battery:subscribe("mouse.clicked", function()
   local drawing = battery:query().popup.drawing
 
   battery:set({ popup = { drawing = "toggle" } })

@@ -32,39 +32,26 @@ local volumeSlider = sbar.add("slider", constants.items.VOLUME .. ".slider", set
 })
 
 volumeValue:subscribe("volume_change", function(env)
-  local icon = settings.icons.text.volume._0
   local volume = tonumber(env.INFO)
 
-  sbar.exec("SwitchAudioSource -t output -c", function(result)
-    if volume > 60 then
-      icon = settings.icons.text.volume._100
-    elseif volume > 30 then
-      icon = settings.icons.text.volume._66
-    elseif volume > 10 then
-      icon = settings.icons.text.volume._33
-    elseif volume > 0 then
-      icon = settings.icons.text.volume._10
-    end
-    -- end
+  local lead = ""
+  if volume < 10 then
+    lead = "0"
+  end
 
-    local lead = ""
-    if volume < 10 then
-      lead = "0"
-    end
+  volumeSlider:set({ slider = { percentage = volume } })
 
-    volumeSlider:set({ slider = { percentage = volume } })
+  local hasVolume = volume ~= 0
 
-    local hasVolume = volume ~= 0
-    volumeValue:set({
-      icon = {
-        string = icon,
-      },
-      label = {
-        string = hasVolume and lead .. volume .. "%" or "",
-        padding_left = hasVolume and 8 or 0,
-      },
-    })
-  end)
+  volumeValue:set({
+    icon = {
+      string = hasVolume and settings.icons.text.volume._100 or settings.icons.text.volume._0,
+    },
+    label = {
+      string = hasVolume and lead .. volume .. "%" or "",
+      padding_left = hasVolume and 8 or 0,
+    },
+  })
 end)
 
 local function hideVolumeDetails()

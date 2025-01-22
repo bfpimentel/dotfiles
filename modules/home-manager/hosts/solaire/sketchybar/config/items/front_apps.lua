@@ -39,8 +39,8 @@ local function updateWindows(windows)
 		frontApps[windowName] = sbar.add("item", constants.items.FRONT_APPS .. "." .. windowName, {
 			label = {
 				padding_left = 0,
-        padding_right = 0,
-        -- string = windowName,
+				padding_right = 0,
+				-- string = windowName,
 			},
 			icon = {
 				string = icon,

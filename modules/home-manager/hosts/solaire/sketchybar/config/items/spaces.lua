@@ -2,7 +2,9 @@ local constants = require("constants")
 local settings = require("config.settings")
 
 sbar.add("item", {
-  width = settings.dimens.padding.label
+  width = settings.dimens.padding.label,
+  label = { drawing = false },
+  icon = { drawing = false },
 })
 
 local swapWatcher = sbar.add("item", {
@@ -67,13 +69,23 @@ local function addSpace(spaceName)
 
   spaces[spaceId]:subscribe("mouse.entered", function()
     sbar.animate("tanh", 30, function()
-      spaces[spaceId]:set({ label = { width = "dynamic", padding_left = 8 } })
+      spaces[spaceId]:set({
+        label = {
+          width = "dynamic",
+          padding_left = 8,
+        }
+      })
     end)
   end)
 
   spaces[spaceId]:subscribe("mouse.exited", function()
     sbar.animate("tanh", 30, function()
-      spaces[spaceId]:set({ label = { width = 0, padding_left = 0 } })
+      spaces[spaceId]:set({
+        label = {
+          width = 0,
+          padding_left = 0,
+        }
+      })
     end)
   end)
 end
@@ -85,10 +97,10 @@ local function createSpaces()
 
   sbar.add("bracket", { "/" .. constants.items.SPACES .. "\\..*/" }, {
     background = {
-      color = settings.colors.surface2,
+      color = settings.colors.surface1,
       padding_right = 0,
       padding_left = 0,
-      corner_radius = 8,
+      corner_radius = 4,
     },
   })
 

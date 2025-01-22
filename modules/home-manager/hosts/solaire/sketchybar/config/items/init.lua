@@ -10,7 +10,7 @@ require("items.message")
 require("items.calendar")
 require("items.battery")
 require("items.volume")
--- require("items.network_speed")
+require("items.network_speed")
 require("items.wifi")
 
 -- require("items.media")

@@ -4,7 +4,11 @@ local settings = require("config.settings")
 local message = sbar.add("item", constants.items.MESSAGE, {
   width = 0,
   position = "center",
-  popup = { align = "center" },
+  popup = {
+    drawing = true,
+    align = "center",
+    y_offset = -60,
+  },
   label = {
     padding_left = 0,
     padding_right = 0,
@@ -29,14 +33,21 @@ local messagePopup = sbar.add("item", {
 })
 
 local function hideMessage()
-  message:set({ popup = { drawing = false } })
+  sbar.animate("sin", 30, function()
+    message:set({ popup = { y_offset = 12 } })
+    message:set({ popup = { y_offset = -60 } })
+  end)
 end
 
 local function showMessage(content, hold)
   hideMessage()
 
-  message:set({ popup = { drawing = true } })
   messagePopup:set({ label = { string = content } })
+
+  sbar.animate("sin", 30, function()
+    message:set({ popup = { y_offset = -60 } })
+    message:set({ popup = { y_offset = 12 } })
+  end)
 
   if hold == false then
     sbar.delay(5, function()

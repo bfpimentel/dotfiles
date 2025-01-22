@@ -4,7 +4,7 @@ local padding = {
   label = 8,
   bar = 12,
   item = 8,
-  popup = 8,
+  popup = 12,
 }
 
 local graphics = {
