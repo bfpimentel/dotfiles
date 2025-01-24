@@ -65,20 +65,18 @@ in
             ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -o ${vars.networkInterface} -j MASQUERADE;
           '';
           peers = [
-            # {
-            #   name = "malenia";
-            #   publicKey = "DGIv16Ow92a2EzupVjD5K8wm9F0dicocvIuhKO9YbXQ=";
-            #   allowedIPs = [
-            #     "10.22.10.2/32"
-            #     "10.22.4.0/24"
-            #   ];
-            # }
+            {
+              name = "miquella";
+              publicKey = "foEvCoTUel5bw8+M+8zl3Vgoq598BC6ff+xAHj0+knA=";
+              allowedIPs = [
+                "10.22.10.2/32"
+              ];
+            }
             {
               name = "solaire";
               publicKey = "xMWICTNi398NCBj8DS3085R4jbqXZBSECyq3pWmx+U4=";
               allowedIPs = [
                 "10.22.10.3/32"
-                # "10.22.4.0/24"
               ];
             }
             {
@@ -86,7 +84,6 @@ in
               publicKey = "YlprTAlepekMcelIeqV/JfDsQkAyo8TjpLLIvrvRrRE=";
               allowedIPs = [
                 "10.22.10.4/32"
-                # "10.22.4.0/24"
               ];
             }
           ];
