@@ -9,7 +9,7 @@
       url = "github:nixos/nixpkgs/nixos-24.11";
     };
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew = {
@@ -27,6 +27,9 @@
     impermanence = {
       url = "github:nix-community/impermanence";
     };
+    textfox = {
+      url = "github:adriankarlen/textfox";
+    };
   };
 
   outputs =
@@ -39,6 +42,7 @@
       home-manager,
       agenix,
       impermanence,
+      textfox,
       ...
     }@inputs:
     let

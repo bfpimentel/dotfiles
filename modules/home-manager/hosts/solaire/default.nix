@@ -1,13 +1,11 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   imports = [
-    ./tmux
-    ./kitty
-    ./ghostty
+    inputs.textfox.homeManagerModules.default
     ./aerospace
+    ./ghostty
     ./sketchybar
-    ./helix
-    ./kanata
+    ./textfox
   ];
 }

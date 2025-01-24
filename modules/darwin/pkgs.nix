@@ -13,13 +13,13 @@
     nodejs_22
     gradle
 
-    nil
-    lua-language-server
-    bash-language-server
-    yaml-language-server
-    typescript-language-server
-    nixfmt-rfc-style
-    prettierd
+    # nil
+    # lua-language-server
+    # bash-language-server
+    # yaml-language-server
+    # typescript-language-server
+    # nixfmt-rfc-style
+    # prettierd
 
     ripgrep
     eza
