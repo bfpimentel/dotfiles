@@ -23,6 +23,7 @@
     oh-my-posh
     wireguard-tools
     inetutils
+    lemonade
 
     clang-tools
     gcc
