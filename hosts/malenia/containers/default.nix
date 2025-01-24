@@ -53,7 +53,7 @@ in
     authentik.enable = true;
     baikal.enable = true;
     beszel.enable = true;
-    ddns.enable = false;
+    ddns.enable = true;
     dozzle.enable = true;
     freshrss.enable = true;
     homepage.enable = true;

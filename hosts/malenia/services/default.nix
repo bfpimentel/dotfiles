@@ -26,7 +26,7 @@ in
     };
     wireguard = {
       enable = true;
-      isServer = false;
+      isServer = true;
     };
   };
 }
