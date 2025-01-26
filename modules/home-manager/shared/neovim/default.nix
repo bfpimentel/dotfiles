@@ -18,6 +18,7 @@
       bash-language-server
       yaml-language-server
       typescript-language-server
+      tailwindcss-language-server
       nixfmt-rfc-style
       prettierd
     ];

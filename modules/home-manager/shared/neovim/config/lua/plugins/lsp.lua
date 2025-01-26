@@ -82,8 +82,14 @@ return {
       ts_ls = {
         settings = {
           ts_ls = {
+            filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
             formatter = { command = "prettierd" },
           },
+        },
+      },
+      tailwindcss = {
+        settings = {
+          filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
         },
       },
       nil_ls = {
