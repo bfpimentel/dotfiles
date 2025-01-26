@@ -1,7 +1,7 @@
 { ... }:
 
 let
-  enableSunshine = false;
+  enableSunshine = true;
 in
 {
   imports = [
