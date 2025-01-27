@@ -2,7 +2,16 @@ shell-integration = zsh
 shell-integration-features = cursor,title,sudo
 
 theme = catppuccin-mocha
-font-family = "SpaceMono Nerd Font Mono"
+
+font-family = "BerkeleyMonoVariable Nerd Font"
+font-size = 14
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+adjust-cell-height = 20%
+adjust-cursor-height = 20%
+
 background-opacity = 0.7
 background-blur-radius = 20
 

@@ -13,13 +13,8 @@
     nodejs_22
     gradle
 
-    # nil
-    # lua-language-server
-    # bash-language-server
-    # yaml-language-server
-    # typescript-language-server
-    # nixfmt-rfc-style
-    # prettierd
+    argparse
+    python313Packages.fontforge
 
     ripgrep
     eza

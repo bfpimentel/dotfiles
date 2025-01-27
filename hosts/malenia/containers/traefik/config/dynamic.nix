@@ -13,6 +13,18 @@ vars: {
         };
         service = "ollama";
       };
+      sunshine = {
+        entryPoints = [
+          "https"
+          "http"
+        ];
+        rule = "Host(`sunshine.${vars.domain}`)";
+        middlewares = [ "https-redirect" ];
+        tls = {
+          certResolver = "cloudflare";
+        };
+        service = "sunshine";
+      };
       glances = {
         entryPoints = [
           "https"
@@ -60,6 +72,12 @@ vars: {
       glances = {
         loadBalancer = {
           servers = [ { url = "http://${vars.maleniaIp}:61208"; } ];
+          passHostHeader = true;
+        };
+      };
+      sunshine = {
+        loadBalancer = {
+          servers = [ { url = "http://${vars.maleniaIp}:47990"; } ];
           passHostHeader = true;
         };
       };
