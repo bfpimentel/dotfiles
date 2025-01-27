@@ -1,5 +1,10 @@
 { ... }:
 
 {
-  imports = [ ];
+  imports = [
+    ./ghostty
+    ./hypr
+    ./waybar
+    ./wofi
+  ];
 }
