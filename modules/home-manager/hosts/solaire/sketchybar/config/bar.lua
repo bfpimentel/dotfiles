@@ -10,6 +10,6 @@ sbar.bar {
   corner_radius = 12,
   y_offset = 4,
   border_width = 0,
-  blur_radius = 30,
+  blur_radius = 20,
   border_color = colors.border,
 }

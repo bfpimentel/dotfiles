@@ -2,11 +2,29 @@ local colors = require("colors").sections.spaces
 local icons = require("icons")
 local icon_map = require("helpers.icon_map")
 
+local function add_windows(space, space_name)
+  sbar.exec("aerospace list-windows --format %{app-name} --workspace " .. space_name, function(windows)
+    -- local no_app = true
+    local icon_line = ""
+    for app in windows:gmatch "[^\r\n]+" do
+      -- no_app = false
+      local lookup = icon_map[app]
+      local icon = ((lookup == nil) and icon_map["default"] or lookup)
+      icon_line = icon_line .. " " .. icon
+    end
+
+    sbar.animate("tanh", 10, function()
+      space:set { label = icon_line }
+    end)
+  end)
+end
+
 sbar.exec("aerospace list-workspaces --all", function(spaces)
   for space_name in spaces:gmatch "[^\r\n]+" do
     local space = sbar.add("item", "space." .. space_name, {
       icon = {
-        string = space_name .. " " .. icons.separators.right,
+        string = space_name,
+        -- string = space_name .. " " .. icons.separators.right,
         color = colors.icon.color,
         highlight_color = colors.icon.highlight,
         padding_left = 8,
@@ -23,6 +41,8 @@ sbar.exec("aerospace list-workspaces --all", function(spaces)
       click_script = "aerospace workspace " .. space_name,
       padding_left = space_name == "1" and 0 or 4,
     })
+
+    add_windows(space, space_name)
 
     space:subscribe("aerospace_workspace_change", function(env)
       local selected = env.FOCUSED_WORKSPACE == space_name
@@ -58,19 +78,7 @@ sbar.exec("aerospace list-workspaces --all", function(spaces)
     end)
 
     space:subscribe("space_windows_change", function()
-      sbar.exec("aerospace list-windows --format %{app-name} --workspace " .. space_name, function(windows)
-        local no_app = true
-        local icon_line = ""
-        for app in windows:gmatch "[^\r\n]+" do
-          no_app = false
-          local lookup = icon_map[app]
-          local icon = ((lookup == nil) and icon_map["default"] or lookup)
-          icon_line = icon_line .. " " .. icon
-        end
-        sbar.animate("tanh", 10, function()
-          space:set { label = no_app and " —" or icon_line }
-        end)
-      end)
+      add_windows(space, space_name)
     end)
 
     space:subscribe("mouse.clicked", function()
