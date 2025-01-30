@@ -77,7 +77,7 @@ vars: {
       };
       sunshine = {
         loadBalancer = {
-          servers = [ { url = "http://${vars.maleniaIp}:47990"; } ];
+          servers = [ { url = "https://${vars.maleniaIp}:47990"; } ];
           passHostHeader = true;
         };
       };

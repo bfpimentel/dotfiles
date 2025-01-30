@@ -18,63 +18,65 @@ in
       default = false;
       description = "Whether to configure X11 Server for Headless Sunshine Server";
     };
+    configureHyprland = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Whether to configure Hyprland";
+    };
   };
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.xserver.videoDrivers = [ "nvidia" ];
+      services.xserver = {
+        enable = true;
+        videoDrivers = [ "nvidia" ];
+      };
     })
-    (mkIf cfg.configureForSunshine {
-      environment.systemPackages = with pkgs; [
-        xorg.xrandr
-      ];
+    (mkIf cfg.configureHyprland {
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
       security.rtkit.enable = true;
 
+      services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        wireplumber.enable = true;
+      };
+
       services.displayManager = {
-        defaultSession = "gnome";
-        autoLogin = {
+        defaultSession = "hyprland-uwsm";
+        sddm = {
           enable = true;
-          user = vars.defaultUser;
+          wayland.enable = true;
+          package = pkgs.kdePackages.sddm;
+          extraPackages = with pkgs; [
+            kdePackages.qtsvg
+            kdePackages.qtmultimedia
+            kdePackages.qtvirtualkeyboard
+          ];
+          settings = {
+            Autologin = {
+              Session = "hyprland-uwsm";
+              User = vars.defaultUser;
+            };
+          };
         };
       };
 
-      services.xserver = {
-        xkb = {
-          layout = "en";
-          variant = "qwerty";
-        };
-
-        desktopManager.gnome.enable = true;
-
-        displayManager.gdm = {
+      programs = {
+        hyprland.enable = true;
+        uwsm = {
           enable = true;
-          autoSuspend = false;
+          waylandCompositors = {
+            hyprland = {
+              prettyName = "Hyprland";
+              comment = "Hyprland compositor manager by UWSM";
+              binPath = "/run/current-system/sw/bin/Hyprland";
+            };
+          };
         };
-
-        # deviceSection = ''
-        #   VendorName      "NVIDIA Corporation"
-        #   Option          "AllowEmptyInitialConfiguration"
-        #   Option          "ConnectedMonitor" "DFP"
-        #   Option          "CustomEDID" "DFP-0"
-        # '';
-        #
-        # monitorSection = ''
-        #   Identifier      "Configured Monitor"
-        #   HorizSync       30-85
-        #   VertRefresh     48-120
-        # '';
-        #
-        # screenSection = ''
-        #   Identifier      "Default Screen"
-        #   DefaultDepth    24
-        #   Option          "ModeValidation" "AllowNonEdidModes, NoVesaModes"
-        #   Option          "MetaModes" "1920x1080"
-        #   SubSection      "Display"
-        #       Depth       24
-        #       Modes       "1920x1080"
-        #   EndSubSection
-        # '';
       };
     })
   ];

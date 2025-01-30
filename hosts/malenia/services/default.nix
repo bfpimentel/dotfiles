@@ -1,7 +1,7 @@
 { ... }:
 
 let
-  enableSunshine = true;
+  enableSunshine = false;
 in
 {
   imports = [
@@ -19,9 +19,10 @@ in
     jellyfin.enable = false;
     restic.enable = true;
     ollama.enable = false;
-    sunshine.enable = enableSunshine;
+    sunshine.enable = true;
     xserver = {
       enable = true;
+      configureHyprland = true;
       configureForSunshine = enableSunshine;
     };
     wireguard = {
