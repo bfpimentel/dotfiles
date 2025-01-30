@@ -1,120 +1,150 @@
-local constants = require("constants")
-local settings = require("config.settings")
+local colors = require("colors").sections.spaces
+local icons = require("icons")
+local icon_map = require("helpers.icon_map")
 
-sbar.add("item", {
-  width = settings.dimens.padding.label,
-  label = { drawing = false },
-  icon = { drawing = false },
-})
+sbar.exec("aerospace list-workspaces --all", function(spaces)
+  for space_name in spaces:gmatch "[^\r\n]+" do
+    local space = sbar.add("item", "space." .. space_name, {
+      icon = {
+        string = space_name .. " " .. icons.separators.right,
+        color = colors.icon.color,
+        highlight_color = colors.icon.highlight,
+        padding_left = 8,
+        padding_right = 4,
+      },
+      label = {
+        font = "sketchybar-app-font:Regular:14.0",
+        string = "",
+        color = colors.label.color,
+        highlight_color = colors.label.highlight,
+        y_offset = -1,
+        padding_right = 12,
+      },
+      click_script = "aerospace workspace " .. space_name,
+      padding_left = space_name == "1" and 0 or 4,
+    })
 
-local swapWatcher = sbar.add("item", {
-  drawing = false,
-  updates = true,
-})
+    space:subscribe("aerospace_workspace_change", function(env)
+      local selected = env.FOCUSED_WORKSPACE == space_name
+      space:set {
+        icon = { highlight = selected },
+        label = { highlight = selected },
+      }
 
-local currentSpaceWatcher = sbar.add("item", {
-  drawing = false,
-  updates = true,
-})
+      if selected then
+        sbar.animate("tanh", 8, function()
+          space:set {
+            background = {
+              shadow = {
+                distance = 0,
+              },
+            },
+            y_offset = -4,
+            padding_left = 8,
+            padding_right = 0,
+          }
+          space:set {
+            background = {
+              shadow = {
+                distance = 4,
+              },
+            },
+            y_offset = 0,
+            padding_left = 4,
+            padding_right = 4,
+          }
+        end)
+      end
+    end)
 
-local spaces = {}
+    space:subscribe("space_windows_change", function()
+      sbar.exec("aerospace list-windows --format %{app-name} --workspace " .. space_name, function(windows)
+        local no_app = true
+        local icon_line = ""
+        for app in windows:gmatch "[^\r\n]+" do
+          no_app = false
+          local lookup = icon_map[app]
+          local icon = ((lookup == nil) and icon_map["default"] or lookup)
+          icon_line = icon_line .. " " .. icon
+        end
+        sbar.animate("tanh", 10, function()
+          space:set { label = no_app and " —" or icon_line }
+        end)
+      end)
+    end)
 
-local spacesConfig = {
-  ["X"] = { name = "Misc" },
-  ["T"] = { name = "Terminal" },
-  ["F"] = { name = "Files" },
-  ["E"] = { name = "Mail" },
-  ["C"] = { name = "Coding" },
-  ["B"] = { name = "Browsing" },
-}
-
-local function selectCurrentSpace(focusedSpaceName)
-  for sid, item in pairs(spaces) do
-    if item ~= nil then
-      local isSelected = sid == constants.items.SPACES .. "." .. focusedSpaceName
-      item:set({ icon = { string = isSelected and "" or "" } })
-    end
-  end
-
-  sbar.trigger(constants.events.UPDATE_WINDOWS)
-end
-
-local function findAndSelectCurrentSpace()
-  sbar.exec(constants.aerospace.GET_CURRENT_WORKSPACE, function(focusedSpaceOutput)
-    local focusedSpaceName = focusedSpaceOutput:match("[^\r\n]+")
-    selectCurrentSpace(focusedSpaceName)
-  end)
-end
-
-local function addSpace(spaceName)
-  local spaceId = constants.items.SPACES .. "." .. spaceName
-  local spaceConfig = spacesConfig[spaceName]
-
-  spaces[spaceId] = sbar.add("item", spaceId, {
-    background = {
-      padding_right = 8,
-      padding_left = 4,
-    },
-    label = {
-      width = 0,
-      string = spaceConfig.name,
-    },
-    icon = {
-      padding_left = 0,
-      font = { size = 24.0 },
-      color = settings.colors.white,
-    },
-    click_script = "aerospace workspace " .. spaceName,
-  })
-
-  spaces[spaceId]:subscribe("mouse.entered", function()
-    sbar.animate("tanh", 30, function()
-      spaces[spaceId]:set({
-        label = {
-          width = "dynamic",
+    space:subscribe("mouse.clicked", function()
+      sbar.animate("tanh", 8, function()
+        space:set {
+          background = {
+            shadow = {
+              distance = 0,
+            },
+          },
+          y_offset = -4,
           padding_left = 8,
+          padding_right = 0,
         }
-      })
-    end)
-  end)
-
-  spaces[spaceId]:subscribe("mouse.exited", function()
-    sbar.animate("tanh", 30, function()
-      spaces[spaceId]:set({
-        label = {
-          width = 0,
-          padding_left = 0,
+        space:set {
+          background = {
+            shadow = {
+              distance = 4,
+            },
+          },
+          y_offset = 0,
+          padding_left = 4,
+          padding_right = 4,
         }
-      })
+      end)
     end)
-  end)
-end
-
-local function createSpaces()
-  for spaceName, _ in pairs(spacesConfig) do
-    addSpace(spaceName)
   end
-
-  sbar.add("bracket", { "/" .. constants.items.SPACES .. "\\..*/" }, {
-    background = {
-      color = settings.colors.surface1,
-      padding_right = 0,
-      padding_left = 0,
-      corner_radius = 4,
-    },
-  })
-
-  findAndSelectCurrentSpace()
-end
-
--- swapWatcher:subscribe(constants.events.SWAP_MENU_AND_SPACES, function(env)
---   local isShowingSpaces = env.isShowingMenu == "off" and true or false
---   sbar.set("/" .. constants.items.SPACES .. "\\..*/", { drawing = isShowingSpaces })
--- end)
-
-currentSpaceWatcher:subscribe(constants.events.AEROSPACE_WORKSPACE_CHANGED, function(env)
-  selectCurrentSpace(env.FOCUSED_WORKSPACE)
-  sbar.trigger(constants.events.UPDATE_WINDOWS)
 end)
 
-createSpaces()
+local spaces_indicator = sbar.add("item", {
+  icon = {
+    padding_left = 8,
+    padding_right = 9,
+    string = icons.switch.on,
+    color = colors.indicator,
+  },
+  label = {
+    width = 0,
+    padding_left = 0,
+    padding_right = 8,
+  },
+  padding_right = 8,
+})
+
+spaces_indicator:subscribe("swap_menus_and_spaces", function()
+  local currently_on = spaces_indicator:query().icon.value == icons.switch.on
+  spaces_indicator:set {
+    icon = currently_on and icons.switch.off or icons.switch.on,
+  }
+end)
+
+spaces_indicator:subscribe("mouse.clicked", function()
+  sbar.animate("tanh", 8, function()
+    spaces_indicator:set {
+      background = {
+        shadow = {
+          distance = 0,
+        },
+      },
+      y_offset = -4,
+      padding_left = 8,
+      padding_right = 4,
+    }
+    spaces_indicator:set {
+      background = {
+        shadow = {
+          distance = 4,
+        },
+      },
+      y_offset = 0,
+      padding_left = 4,
+      padding_right = 8,
+    }
+  end)
+
+  sbar.trigger("swap_menus_and_spaces")
+end)

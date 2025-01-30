@@ -14,11 +14,13 @@
       "lua"
       "ripgrep"
       "sketchybar"
-      # "borders"
       "libpcap"
       "hcxtools"
       "xz"
       "ykman"
+      "switchaudio-osx"
+      "nowplaying-cli"
+      # "borders"
     ];
 
     taps = [
@@ -51,7 +53,12 @@
       { name = "the-unarchiver"; greedy = true; }
       { name = "firefox"; greedy = true; }
       { name = "thunderbird@beta"; greedy = true; }
+
+      { name = "sf-symbols"; greedy = true; }
+      { name = "font-sf-pro"; greedy = true; }
+      { name = "font-sf-mono"; greedy = true; }
       { name = "font-space-mono-nerd-font"; greedy = true; }
+      { name = "font-sketchybar-app-font"; greedy = true; }
     ];
 
     masApps = { 

@@ -1,7 +1,7 @@
 local constants = require("constants")
-local settings = require("settings")
+local settings = require("config.settings")
 
-local message = sbar.add("item", "messages", {
+local message = sbar.add("item", constants.items.MESSAGE, {
   width = 0,
   position = "center",
   popup = {

@@ -1,65 +1,58 @@
-local settings = require("config.settings")
+local settings = require "settings"
+local colors = require("colors").sections
 
-sbar.default({
+-- Equivalent to the --default domain
+sbar.default {
   updates = "when_shown",
   icon = {
-    color = settings.colors.white,
     font = {
-      family = settings.fonts.text,
-      style = settings.fonts.styles.regular,
-      size = settings.dimens.text.icon,
+      family = settings.font.text,
+      style = settings.font.style_map["Semibold"],
+      size = 14.0,
     },
-    padding_left = 0,
-    padding_right = 0,
+    color = colors.item.text,
+    padding_left = settings.paddings,
+    padding_right = settings.paddings,
+    background = { image = { corner_radius = 14 } },
   },
   label = {
-    color = settings.colors.white,
-    padding_left = 0,
-    padding_right = 0,
     font = {
-      family = settings.fonts.text,
-      style = settings.fonts.styles.regular,
-      size = settings.dimens.text.label,
+      family = settings.font.text,
+      style = settings.font.style_map["Semibold"],
+      size = 14.0,
     },
+    color = colors.item.text,
+    padding_left = settings.paddings,
+    padding_right = settings.paddings,
   },
   background = {
-    color = settings.colors.transparent,
-    height = settings.dimens.graphics.background.height,
-    padding_left = settings.dimens.padding.item,
-    padding_right = settings.dimens.padding.item,
-    border_width = 0,
+    height = 26,
+    corner_radius = 8,
+    color = colors.item.bg,
+    border_color = colors.item.border,
+    border_width = 2,
+    shadow = {
+      drawing = true,
+      angle = 45,
+      distance = 4,
+      color = colors.item.border,
+    },
   },
   popup = {
-    y_offset = settings.dimens.padding.popup,
-    align = "center",
     background = {
-      corner_radius = settings.dimens.graphics.background.corner_radius,
-      color = settings.colors.with_alpha(settings.colors.base, 0.5),
-      border_color = settings.colors.surface0,
-      border_width = 1,
-      padding_left = settings.dimens.padding.icon,
-      padding_right = settings.dimens.padding.icon,
-    },
-    blur_radius = settings.dimens.graphics.blur_radius,
-  },
-  slider = {
-    highlight_color = settings.colors.lavender,
-    background = {
-      height = settings.dimens.graphics.slider.height,
-      corner_radius = settings.dimens.graphics.background.corner_radius,
-      color = settings.colors.with_alpha(settings.colors.base, 0.5),
-      border_color = settings.colors.surface0,
-      border_width = 1,
-    },
-    knob = {
-      font = {
-        family = settings.fonts.text,
-        style = settings.fonts.styles.regular,
-        size = 32,
+      color = colors.item.bg,
+      border_color = colors.item.border,
+      border_width = 2,
+      corner_radius = 8,
+      shadow = {
+        drawing = true,
+        angle = 45,
+        distance = 4,
+        color = colors.item.border,
       },
-      string = settings.icons.text.slider.knob,
-      drawing = false,
     },
   },
+  padding_left = 4,
+  padding_right = 4,
   scroll_texts = true,
-})
+}
