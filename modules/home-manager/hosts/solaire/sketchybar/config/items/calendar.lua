@@ -48,6 +48,6 @@ cal:subscribe("mouse.clicked", function()
 end)
 
 -- english date
-cal:subscribe({ "forced", "routine", "system_woke" }, function(env)
-  cal:set { icon = os.date "%H:%M", label = icons.separators.left .. " " .. icons.calendar }
+cal:subscribe({ "forced", "routine", "system_woke" }, function()
+  cal:set { icon = os.date "%H:%M", label = icons.calendar }
 end)

@@ -38,34 +38,26 @@ local catppuccin = {
   crust = 0xFF11111B,
 }
 
-local rp_moon = {
-  base = 0xFF232136,
-  surface = 0xFF2A273F,
-  overlay = 0xFF393552,
-  muted = 0xFF6E6A86,
-  subtle = 0xFF908CAA,
-  text = 0xFFE0DEF4,
-  love = 0xFFEB6F92,
-  rose = 0xFFEA9A97,
-  gold = 0xFFF6C177,
-  iris = 0xFFC4A7E7,
-  pine = 0xFF3E8FB0,
-  foam = 0xFF9CCFD8,
-  highlight_low = 0xFF21202E,
-  highlight_med = 0xFF44415A,
-}
-
 M.sections = {
+  -- Core Components
   bar = {
-    bg = with_alpha(catppuccin.base, 0.5),
-    border = transparent,
+    bg = with_alpha(catppuccin.base, 0.7),
+    border = catppuccin.crust,
   },
   item = {
     bg = catppuccin.surface0,
     border = catppuccin.crust,
     text = catppuccin.text,
   },
+  popup = {
+    bg = with_alpha(catppuccin.base, 0.7),
+    border = catppuccin.crust,
+  },
+
+  -- Items
   apple = catppuccin.flamingo,
+  media = { label = catppuccin.text },
+  calendar = { label = catppuccin.text },
   spaces = {
     icon = {
       color = catppuccin.subtext0,
@@ -75,34 +67,31 @@ M.sections = {
       color = catppuccin.subtext0,
       highlight = catppuccin.yellow,
     },
-    indicator = rp_moon.iris,
-  },
-  media = {
-    label = rp_moon.subtle,
+    indicator = catppuccin.mauve,
   },
   widgets = {
     battery = {
-      low = rp_moon.love,
-      mid = rp_moon.gold,
-      high = rp_moon.pine,
+      low = catppuccin.red,
+      mid = catppuccin.yellow,
+      high = catppuccin.green,
     },
-    wifi = { icon = rp_moon.rose },
+    wifi = {
+      icon = catppuccin.text,
+    },
     volume = {
-      icon = rp_moon.foam,
+      icon = catppuccin.blue,
       popup = {
-        item = rp_moon.subtle,
-        highlight = rp_moon.text,
+        item = catppuccin.text,
+        highlight = catppuccin.subtext0,
+        bg = with_alpha(catppuccin.base, 0.7),
       },
       slider = {
-        highlight = rp_moon.foam,
-        bg = rp_moon.highlight_med,
-        border = rp_moon.highlight_low,
+        highlight = catppuccin.text,
+        bg = with_alpha(catppuccin.base, 0.7),
+        border = catppuccin.surface0,
       },
     },
-    messages = { icon = rp_moon.love },
-  },
-  calendar = {
-    label = rp_moon.subtle,
+    messages = { icon = catppuccin.flamingo },
   },
 }
 

@@ -1,7 +1,6 @@
 local settings = require "settings"
 local colors = require("colors").sections
 
--- Equivalent to the --default domain
 sbar.default {
   updates = "when_shown",
   icon = {
@@ -40,8 +39,8 @@ sbar.default {
   },
   popup = {
     background = {
-      color = colors.item.bg,
-      border_color = colors.item.border,
+      color = colors.popup.bg,
+      border_color = colors.popup.border,
       border_width = 2,
       corner_radius = 8,
       shadow = {

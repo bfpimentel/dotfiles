@@ -1,18 +1,18 @@
 local icons = require("icons")
 local colors = require("colors").sections.media
 
-local whitelist = { ["Spotify"] = true, ["Music"] = true }
+local whitelist = { ["Spotify"] = true, ["Psst"] = true }
 
 local media_playback = sbar.add("item", {
   position = "right",
   icon = {
-    max_chars = 50,
+    string = icons.music,
+    color = colors.label,
     padding_left = 8,
   },
   label = {
-    string = icons.separators.left .. " " .. icons.music,
+    max_chars = 50,
     padding_right = 8,
-    color = colors.label,
   },
   popup = {
     horizontal = true,
@@ -31,6 +31,7 @@ sbar.add("item", {
   background = { drawing = false },
   click_script = "nowplaying-cli previous",
 })
+
 sbar.add("item", {
   position = "popup." .. media_playback.name,
   padding_left = 6,
@@ -40,6 +41,7 @@ sbar.add("item", {
   background = { drawing = false },
   click_script = "nowplaying-cli togglePlayPause",
 })
+
 sbar.add("item", {
   position = "popup." .. media_playback.name,
   padding_left = 6,
@@ -52,8 +54,14 @@ sbar.add("item", {
 
 media_playback:subscribe("media_change", function(env)
   if whitelist[env.INFO.app] then
-    local drawing = (env.INFO.state == "playing")
-    media_playback:set { drawing = drawing, icon = env.INFO.artist .. " - " .. env.INFO.title }
+    local is_playing = (env.INFO.state == "playing")
+    media_playback:set {
+      drawing = is_playing,
+      label = {
+        string = env.INFO.artist .. " - " .. env.INFO.title,
+        padding_left = is_playing and 8 or 0,
+      },
+    }
   end
 end)
 

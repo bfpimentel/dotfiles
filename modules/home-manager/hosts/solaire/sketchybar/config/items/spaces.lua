@@ -4,17 +4,20 @@ local icon_map = require("helpers.icon_map")
 
 local function add_windows(space, space_name)
   sbar.exec("aerospace list-windows --format %{app-name} --workspace " .. space_name, function(windows)
-    -- local no_app = true
     local icon_line = ""
     for app in windows:gmatch "[^\r\n]+" do
-      -- no_app = false
       local lookup = icon_map[app]
-      local icon = ((lookup == nil) and icon_map["default"] or lookup)
+      local icon = ((lookup == nil) and icon_map["Default"] or lookup)
       icon_line = icon_line .. " " .. icon
     end
 
     sbar.animate("tanh", 10, function()
-      space:set { label = icon_line }
+      space:set {
+        label = {
+          string = icon_line,
+          padding_right = icon_line == "" and 4 or 12,
+        },
+      }
     end)
   end)
 end
@@ -24,11 +27,9 @@ sbar.exec("aerospace list-workspaces --all", function(spaces)
     local space = sbar.add("item", "space." .. space_name, {
       icon = {
         string = space_name,
-        -- string = space_name .. " " .. icons.separators.right,
         color = colors.icon.color,
         highlight_color = colors.icon.highlight,
         padding_left = 8,
-        padding_right = 4,
       },
       label = {
         font = "sketchybar-app-font:Regular:14.0",
@@ -36,7 +37,6 @@ sbar.exec("aerospace list-workspaces --all", function(spaces)
         color = colors.label.color,
         highlight_color = colors.label.highlight,
         y_offset = -1,
-        padding_right = 12,
       },
       click_script = "aerospace workspace " .. space_name,
       padding_left = space_name == "1" and 0 or 4,

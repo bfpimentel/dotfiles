@@ -3,6 +3,10 @@ local settings = require("config.settings")
 
 local popupWidth = settings.dimens.graphics.popup.width + 20
 
+sbar.exec(
+  "killall network_load >/dev/null; $CONFIG_DIR/helpers/event_providers/network_load/bin/network_load en0 network_update 2.0"
+)
+
 sbar.add("item", {
   position = "right",
   width = settings.dimens.padding.label
@@ -119,6 +123,5 @@ local function copyLabelToClipboard(env)
 end
 
 wifi:subscribe("mouse.clicked", toggleDetails)
-
 ip:subscribe("mouse.clicked", copyLabelToClipboard)
 router:subscribe("mouse.clicked", copyLabelToClipboard)
