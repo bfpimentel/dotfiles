@@ -12,6 +12,7 @@
     helix
     nodejs_22
     gradle
+    cmake
 
     argparse
     python313Packages.fontforge

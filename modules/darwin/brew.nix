@@ -20,7 +20,7 @@
       "ykman"
       "switchaudio-osx"
       "nowplaying-cli"
-      # "borders"
+      "borders"
     ];
 
     taps = [

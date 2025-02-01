@@ -14,8 +14,8 @@ local function add_windows(space, space_name)
     sbar.animate("tanh", 10, function()
       space:set {
         label = {
-          string = icon_line,
-          padding_right = icon_line == "" and 4 or 12,
+          string = icon_line == "" and "—" or icon_line,
+          padding_right = icon_line == "" and 8 or 12,
         },
       }
     end)
