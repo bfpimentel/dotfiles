@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  pkgs,
   ...
 }:
 
@@ -28,8 +29,13 @@ in
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
-      builtins.mapAttrs ollamaPaths.volumes
+      builtins.attrValues ollamaPaths.volumes
     );
+
+    environment.systemPackages = with pkgs; [
+      ollama
+      ollama-cuda
+    ];
 
     systemd.services.ollama.serviceConfig = {
       User = vars.defaultUser;
@@ -45,6 +51,8 @@ in
       models = ollamaPaths.volumes.models;
       loadModels = [
         "llama3.2:3b"
+        "deepseek-r1:1.5b"
+        "deepseek-r1:7b"
       ];
       environmentVariables = {
         OLLAMA_ORIGINS = "http://localhost:11434,https://ollama.${vars.domain}";

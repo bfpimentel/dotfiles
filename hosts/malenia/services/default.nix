@@ -18,7 +18,7 @@ in
     plex.enable = true;
     jellyfin.enable = false;
     restic.enable = true;
-    ollama.enable = false;
+    ollama.enable = true;
     sunshine.enable = true;
     xserver = {
       enable = true;

@@ -1,7 +1,7 @@
 { ... }:
 
 let
-  enableAIStack = false;
+  enableAIStack = true;
 in
 {
   imports = [
@@ -16,6 +16,7 @@ in
     ./freshrss
     ./homepage
     ./immich
+    ./invoke
     ./it-tools
     ./n8n
     ./ntfy
@@ -58,6 +59,7 @@ in
     freshrss.enable = true;
     homepage.enable = true;
     immich.enable = true;
+    invoke.enable = false;
     it-tools.enable = true;
     n8n.enable = false;
     ntfy.enable = false;
