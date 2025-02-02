@@ -2,7 +2,6 @@ start-at-login = true
 after-login-command = []
 after-startup-command = [ 
   'exec-and-forget sketchybar',
-  # 'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0'
 ]
 
 key-mapping.preset = 'qwerty'
@@ -76,7 +75,6 @@ esc = [
   'reload-config', 
   'mode main', 
   'exec-and-forget sketchybar --reload',
-  # 'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=2.0',
   'exec-and-forget sleep 0.2 && sketchybar --trigger send_message MESSAGE="Aerospace Reloaded"',
 ]
 
@@ -100,14 +98,14 @@ check-further-callbacks = true
 run = ['layout floating', 'move-node-to-workspace T']
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.com.zen.browser'
+if.app-id = 'app.zen-browser.zen'
 check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace B']
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.com.zen.browser'
+if.app-id = 'app.zen-browser.zen'
 check-further-callbacks = true
-if.window-title-regex-substring = 'picture-in-picture'
+if.window-title-regex-substring = 'Picture-in-Picture'
 run = ['layout floating']
 
 [[on-window-detected]]
@@ -121,7 +119,7 @@ check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace F']
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.thunderbird'
+if.app-id = 'org.mozilla.thunderbirdbeta'
 check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace E']
 
