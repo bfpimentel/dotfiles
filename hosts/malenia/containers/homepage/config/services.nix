@@ -44,35 +44,7 @@ domain: networkInterface: [
       }
     ];
   }
-  {
-    "Media" = [
-      # {
-      #   "Jellyfin" = {
-      #     icon = "jellyfin";
-      #     href = "https://media.${domain}";
-      #     weight = 5;
-      #     widget = {
-      #       type = "jellyfin";
-      #       url = "https://media.${domain}";
-      #       key = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
-      #     };
-      #   };
-      # }
-      {
-        "Plex" = {
-          icon = "plex";
-          href = "https://media.${domain}";
-          weight = 6;
-          widget = {
-            type = "tautulli";
-            url = "http://tautulli:8181";
-            key = "{{HOMEPAGE_VAR_PLEX_KEY}}";
-            enableUser = true;
-          };
-        };
-      }
-    ];
-  }
+  { "Media" = [ ]; }
   { "Media Managers" = [ ]; }
   { "Download Managers" = [ ]; }
   { "Documents" = [ ]; }

@@ -23,6 +23,7 @@
     oh-my-posh
     wireguard-tools
     inetutils
+    ncdu
 
     clang-tools
     gcc

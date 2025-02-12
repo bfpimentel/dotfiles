@@ -24,6 +24,7 @@ in
     ./ollama-webui
     ./overseerr
     ./paperless
+    ./plex
     ./qbittorrent
     ./speedtest
     ./stirling-pdf
@@ -68,6 +69,7 @@ in
     ollama-webui.enable = enableAIStack;
     overseerr.enable = true;
     paperless.enable = false;
+    plex.enable = true;
     qbittorrent.enable = true;
     speedtest.enable = true;
     stirling-pdf.enable = true;

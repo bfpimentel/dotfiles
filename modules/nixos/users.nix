@@ -31,6 +31,7 @@
         "video"
         "audio"
         "input"
+        "plex"
       ];
       subUidRanges = [
         {

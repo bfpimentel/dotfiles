@@ -37,18 +37,6 @@ vars: {
         };
         service = "glances";
       };
-      media = {
-        entryPoints = [
-          "https"
-          "http"
-        ];
-        rule = "Host(`media.${vars.domain}`)";
-        middlewares = [ "https-redirect" ];
-        tls = {
-          certResolver = "cloudflare";
-        };
-        service = "media";
-      };
       unraid = {
         entryPoints = [
           "https"
@@ -78,12 +66,6 @@ vars: {
       sunshine = {
         loadBalancer = {
           servers = [ { url = "https://${vars.maleniaIp}:47990"; } ];
-          passHostHeader = true;
-        };
-      };
-      media = {
-        loadBalancer = {
-          servers = [ { url = "http://${vars.maleniaIp}:32400"; } ];
           passHostHeader = true;
         };
       };

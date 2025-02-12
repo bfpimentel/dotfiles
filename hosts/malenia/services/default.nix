@@ -9,14 +9,10 @@ in
     ./sunshine
     ./restic
     ./wireguard
-    ./plex
-    ./jellyfin
     ./ollama
   ];
 
   bfmp.services = {
-    plex.enable = true;
-    jellyfin.enable = false;
     restic.enable = true;
     ollama.enable = true;
     sunshine.enable = true;
