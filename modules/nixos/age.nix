@@ -28,6 +28,7 @@ in
       ollama-webui.file = ../../secrets/ollama-webui.age;
       paperless.file = ../../secrets/paperless.age;
       beszel.file = ../../secrets/beszel.age;
+      hoarder.file = ../../secrets/hoarder.age;
 
       apprise = {
         file = ../../secrets/apprise.age;

@@ -14,6 +14,7 @@ in
     ./ddns
     ./dozzle
     ./freshrss
+    ./hoarder
     ./homepage
     ./immich
     ./invoke
@@ -57,6 +58,7 @@ in
     ddns.enable = false;
     dozzle.enable = true;
     freshrss.enable = true;
+    hoarder.enable = true;
     homepage.enable = true;
     immich.enable = true;
     invoke.enable = false;
