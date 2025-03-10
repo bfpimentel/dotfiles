@@ -4,7 +4,7 @@
   imports = [
     ./aerospace
     ./ghostty
-    ./sketchybar
+    # ./sketchybar
     # ./textfox
   ];
 }

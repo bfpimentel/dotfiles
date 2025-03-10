@@ -7,3 +7,12 @@ The following machines are being configured:
 2. *miquella*: OCI (Arm) machine powered by NixOS.
 3. *solaire*: MacOS (Darwin) machine powered by NixOS package manager for environment and user configuration.
 
+## Darwin Setup
+
+1. Install Nix through Determinate Nix Installer
+    ```curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install```
+2. Update flake
+    ```cd /etc/nixos && nix flake update```
+3. Rebuild
+    ```cd /etc/nixos && nix run nix-darwin/master#darwin-rebuild -- switch --flake .#<host_name>```
+

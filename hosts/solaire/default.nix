@@ -5,11 +5,11 @@
     ./services
   ];
 
+  nix.enable = false;
+
   nix.package = pkgs.nix;
 
   nixpkgs.hostPlatform = vars.system;
-
-  services.nix-daemon.enable = true;
 
   networking = {
     hostName = vars.hostname;

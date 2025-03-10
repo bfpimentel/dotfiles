@@ -12,6 +12,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export NVM_DIR="$HOME/.nvm"
 export AE_DEPLOYMENT_ENV="debug"
 export GOKU_EDN_CONFIG_FILE="$HOME/.config/goku/karabiner.edn"
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 
 export PATH="$PATH:/run/current-system/sw/bin"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"

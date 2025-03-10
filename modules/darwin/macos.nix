@@ -1,7 +1,7 @@
 { vars, ... }:
 
 {
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   system = {
     keyboard = {
@@ -34,11 +34,8 @@
         static-only = false;
         dashboard-in-overlay = false;
         persistent-apps = [
-          "/Applications/Psst.app"
-          "/Applications/Thunderbird Beta.app"
-          "/Applications/Zen Browser.app"
+          "/Applications/Zen.app"
           "/Applications/Ghostty.app"
-          "/Users/${vars.defaultUser}/Applications/Android Studio.app"
         ];
         expose-animation-duration = 0.2;
         expose-group-apps = true;
