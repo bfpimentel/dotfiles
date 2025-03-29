@@ -7,14 +7,17 @@
 
 let
   systemSpecificRebuildCmd =
-    if (vars.system == "aarch64-darwin") then "darwin-rebuild" else "sudo nixos-rebuild";
+    if (vars.system == "aarch64-darwin") then
+      "darwin-rebuild switch --flake /private/etc/nixos"
+    else
+      "sudo nixos-rebuild switch --flake /etc/nixos";
 in
 {
   programs.zsh = {
     enable = true;
     envExtra = ''
       ZDOTDIR="${config.home.homeDirectory}/.config/zsh"
-      alias rnix="${systemSpecificRebuildCmd} switch --flake /etc/nixos --impure"
+      alias rnix="${systemSpecificRebuildCmd} --impure"
     '';
   };
 

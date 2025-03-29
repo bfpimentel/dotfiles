@@ -18,11 +18,12 @@
       "lua"
       "ripgrep"
       "libpcap"
-      "hcxtools"
       "xz"
-      "ykman"
-      "switchaudio-osx"
-      "nowplaying-cli"
+      "hcxtools"
+      "cocoapods"
+      # "ykman"
+      # "switchaudio-osx"
+      # "nowplaying-cli"
       # "sketchybar"
       # "borders"
     ];
@@ -50,7 +51,6 @@
       { name = "aerospace"; greedy = true; }
       { name = "zen-browser"; greedy = true; }
       { name = "the-unarchiver"; greedy = true; }
-
       { name = "font-space-mono-nerd-font"; greedy = true; }
       # { name = "sf-symbols"; greedy = true; }
       # { name = "font-sf-pro"; greedy = true; }

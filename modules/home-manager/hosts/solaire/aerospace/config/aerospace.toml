@@ -1,7 +1,7 @@
 start-at-login = true
 after-login-command = []
 after-startup-command = [ 
-  'exec-and-forget sketchybar',
+  # 'exec-and-forget sketchybar',
 ]
 
 key-mapping.preset = 'qwerty'
@@ -12,13 +12,15 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 12
 
 default-root-container-layout = 'tiles'
-default-root-container-orientation = 'vertical'
+default-root-container-orientation = 'horizontal'
 
-exec-on-workspace-change = [
-  '/bin/bash', 
-  '-c',
-  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-]
+# exec-on-workspace-change = [
+#   '/bin/bash', 
+#   '-c',
+#   'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+# ]
+
+exec-on-workspace-change = ['/Users/bruno/.config/aerospace/on-ws-change.sh']
 
 on-focus-changed = [
   # 'exec-and-forget sketchybar --trigger front_app_switched'
@@ -26,7 +28,7 @@ on-focus-changed = [
 ]
 
 [gaps]
-outer.top =        [{ monitor."built-in.*" = 16 }, 48]
+outer.top =        [{ monitor."built-in.*" = 16 }, 16]
 outer.left =       16
 outer.bottom =     16
 outer.right =      16
@@ -39,7 +41,7 @@ cmd-alt-h = [] # Disable "hide others"
 
 alt-semicolon = [
   'mode service',
-  'exec-and-forget sketchybar --trigger send_message MESSAGE="Aerospace in Service Mode" HOLD="true"',
+  # 'exec-and-forget sketchybar --trigger send_message MESSAGE="Aerospace in Service Mode" HOLD="true"',
 ]
 
 alt-tab = 'workspace-back-and-forth'
@@ -54,35 +56,32 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-alt-b = 'workspace B'
-alt-c = 'workspace C'
-alt-e = 'workspace E'
-alt-f = 'workspace F'
-alt-t = 'workspace T'
-alt-x = 'workspace X'
+alt-b = 'workspace [B]rowser'
+alt-c = 'workspace [C]oding'
+alt-e = 'workspace [E]mail'
+alt-f = 'workspace [F]iles'
+alt-t = 'workspace [T]erminal'
+alt-x = 'workspace [X]'
 
-alt-shift-b = 'move-node-to-workspace B'
-alt-shift-c = 'move-node-to-workspace C'
-alt-shift-e = 'move-node-to-workspace E'
-alt-shift-f = 'move-node-to-workspace F'
-alt-shift-t = 'move-node-to-workspace T'
-alt-shift-x = 'move-node-to-workspace X'
+alt-shift-b = 'move-node-to-workspace [B]rowser'
+alt-shift-c = 'move-node-to-workspace [C]oding'
+alt-shift-e = 'move-node-to-workspace [E]mail'
+alt-shift-f = 'move-node-to-workspace [F]iles'
+alt-shift-t = 'move-node-to-workspace [T]erminal'
+alt-shift-x = 'move-node-to-workspace [X]'
 
-alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
+# alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
 
 [mode.service.binding]
 esc = [
   'reload-config', 
   'mode main', 
-  'exec-and-forget sketchybar --reload',
-  'exec-and-forget sleep 0.2 && sketchybar --trigger send_message MESSAGE="Aerospace Reloaded"',
+  # 'exec-and-forget sketchybar --reload',
+  # 'exec-and-forget sleep 0.2 && sketchybar --trigger send_message MESSAGE="Aerospace Reloaded"',
 ]
 
 t = [
-  'layout tiles vertical horizontal', 
-] 
-a = [
-  'layout accordion vertical horizontal', 
+  'layout h_tiles v_accordion', 
 ] 
 f = [
   'layout floating tiling', 
@@ -95,12 +94,12 @@ equal = 'resize smart +50'
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 check-further-callbacks = true
-run = ['layout floating', 'move-node-to-workspace T']
+run = ['layout floating', 'move-node-to-workspace [T]erminal']
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace B']
+run = ['layout tiling', 'move-node-to-workspace [B]rowser']
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
@@ -111,20 +110,15 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.google.android.studio'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace C'] 
+run = ['layout tiling', 'move-node-to-workspace [C]oding'] 
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace F']
+run = ['layout floating', 'move-node-to-workspace [F]iles']
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.thunderbirdbeta'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace E']
-
-[[on-window-detected]]
-if.app-id = 'com.jpochyla.psst'
-check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace E']
+run = ['layout tiling', 'move-node-to-workspace [E]mail']
 

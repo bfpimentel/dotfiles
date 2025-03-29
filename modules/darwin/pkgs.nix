@@ -10,12 +10,11 @@
     python3
     wget
     helix
-    nodejs_22
     gradle
     cmake
-
     argparse
-    python313Packages.fontforge
+
+    nodejs_23
 
     ripgrep
     eza

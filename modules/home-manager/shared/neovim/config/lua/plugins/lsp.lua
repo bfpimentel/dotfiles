@@ -6,6 +6,21 @@ return {
   },
   lazy = false,
   config = function()
+    vim.api.nvim_create_autocmd("LspProgress", {
+      ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+      callback = function(ev)
+        local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+        vim.notify(vim.lsp.status(), "info", {
+          id = "lsp_progress",
+          title = "LSP Progress",
+          opts = function(notif)
+            notif.icon = ev.data.params.value.kind == "end" and " "
+                or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+          end,
+        })
+      end,
+    })
+
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
       callback = function(event)
@@ -13,16 +28,6 @@ return {
           mode = mode or "n"
           vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
-
-        local telescopeBuiltIn = require("telescope.builtin")
-        map("gd", telescopeBuiltIn.lsp_definitions, "[G]oto [D]efinition")
-        map("gr", telescopeBuiltIn.lsp_references, "[G]oto [R]eferences")
-        map("gi", telescopeBuiltIn.lsp_implementations, "[G]oto [I]mplementation")
-        -- map("<leader>ds", telescopeBuiltIn.lsp_document_symbols, "[D]ocument [S]ymbols")
-        -- map("<leader>ws", telescopeBuiltIn.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-        -- map("<leader>D", telescopeBuiltIn.lsp_type_definitions, "Type [D]efinition")
-        map("ga", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
-        map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then

@@ -4,7 +4,7 @@ shell-integration-features = cursor,title,sudo
 theme = catppuccin-mocha
 
 font-family = "SpaceMono Nerd Font"
-font-size = 14
+font-size = 13.5
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig

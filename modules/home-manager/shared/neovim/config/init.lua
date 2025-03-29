@@ -5,23 +5,24 @@ vim.g.autoformat = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.have_nerd_font = true
-vim.opt.termguicolors = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.autochdir = false
-vim.opt.rnu = true
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.signcolumn = "yes"
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.opt.inccommand = "split"
-vim.opt.cursorline = true
-vim.opt.scrolloff = 10
+vim.o.termguicolors = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.autochdir = false
+vim.o.rnu = true
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.signcolumn = "yes"
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+-- vim.o.list = true
+-- vim.o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.o.inccommand = "split"
+vim.o.cursorline = true
+vim.o.scrolloff = 10
+vim.o.winborder = "single"
 
 require("configs.mappings")
 
@@ -48,6 +49,5 @@ vim.opt.rtp:prepend(lazypath)
 local lazy_config = require("configs.lazy")
 
 require("lazy").setup({
-  { "LazyVim/LazyVim" },
   { import = "plugins" },
 }, lazy_config)

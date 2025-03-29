@@ -120,7 +120,7 @@ gui:
     screenMode: normal
     # Window border style.
     # One of 'rounded' (default) | 'single' | 'double' | 'hidden'
-    border: rounded
+    border: single
     # If true, show a seriously epic explosion animation when nuking the working tree.
     animateExplosion: true
     # Whether to stack UI components on top of each other.
