@@ -28,6 +28,7 @@ let
         css = pkgs.writeTextFile {
           name = "custom.css";
           text = builtins.readFile ./config/custom.css;
+          # text = "";
         };
         bookmarks = pkgs.writeTextFile {
           name = "bookmarks.yaml";
@@ -37,6 +38,9 @@ let
     };
 
   cfg = config.bfmp.containers.homepage;
+
+  puid = toString vars.defaultUserUID;
+  guid = toString vars.defaultUserGID;
 in
 {
   options.bfmp.containers.homepage = {
@@ -50,7 +54,7 @@ in
 
     virtualisation.oci-containers.containers = {
       homepage = {
-        image = "ghcr.io/gethomepage/homepage:latest";
+        image = "ghcr.io/gethomepage/homepage:v1.1.0";
         autoStart = true;
         extraOptions = [ "--pull=newer" ];
         volumes = [
@@ -61,7 +65,7 @@ in
           "${homepagePaths.generated.widgets}:/app/config/widgets.yaml"
           "${homepagePaths.generated.bookmarks}:/app/config/bookmarks.yaml"
           "${homepagePaths.generated.css}:/app/config/custom.css"
-          "${homepagePaths.volumes.images}:/app/public/images"
+          # "${homepagePaths.volumes.images}:/app/public/images"
         ];
         environmentFiles = [
           config.age.secrets.immich.path
@@ -76,6 +80,9 @@ in
         ];
         environment = {
           TZ = vars.timeZone;
+          PUID = puid;
+          PGID = guid;
+          HOMEPAGE_ALLOWED_HOSTS = "dash.${vars.domain}";
         };
         labels = {
           "traefik.enable" = "true";

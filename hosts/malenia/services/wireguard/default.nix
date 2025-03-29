@@ -21,13 +21,11 @@ in
   };
 
   config = mkMerge [
+    ({ networking.firewall.allowedUDPPorts = [ 51820 ]; })
     (mkIf cfg.enable {
-      networking = {
-        firewall.allowedUDPPorts = [ 51820 ];
-        wireguard.enable = true;
-      };
+      networking.wireguard.enable = true;
     })
-    (mkIf (!cfg.isServer) {
+    (mkIf (cfg.enable && !cfg.isServer) {
       networking.wireguard.interfaces = {
         "${vars.wireguardInterface}" = {
           ips = [ "10.22.10.2/24" ];
@@ -48,7 +46,7 @@ in
         };
       };
     })
-    (mkIf cfg.isServer {
+    (mkIf (cfg.enable && cfg.isServer) {
       networking.wireguard.interfaces = {
         "${vars.wireguardInterface}" = {
           ips = [ "10.22.10.1/24" ];

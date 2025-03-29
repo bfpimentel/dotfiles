@@ -13,11 +13,6 @@ in
 {
   options.bfmp.services.xserver = {
     enable = mkEnableOption "Enable X11 Server";
-    configureForSunshine = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Whether to configure X11 Server for Headless Sunshine Server";
-    };
     configureHyprland = mkOption {
       type = types.bool;
       default = false;
@@ -30,9 +25,19 @@ in
       services.xserver = {
         enable = true;
         videoDrivers = [ "nvidia" ];
+        displayManager.lightdm.enable = false;
       };
     })
     (mkIf cfg.configureHyprland {
+      nix.settings = {
+        substituters = [ "https://hyprland.cachix.org" ];
+        trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+      };
+
+      fonts.packages = with pkgs; [
+        nerd-fonts.space-mono
+      ];
+
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
       security.rtkit.enable = true;

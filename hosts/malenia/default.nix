@@ -1,6 +1,5 @@
 {
   vars,
-  pkgs,
   ...
 }:
 
@@ -24,14 +23,10 @@
 
   users.users.${vars.defaultUser}.home = "/home/${vars.defaultUser}";
 
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.space-mono
-  ];
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 
   system.stateVersion = "24.05";
 }

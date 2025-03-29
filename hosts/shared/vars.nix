@@ -20,8 +20,8 @@ system: hostname: username: fullname: email: {
   miquellaIp = "159.112.184.83";
 
   # domains
-  domain = "local.luana.casa";
-  externalDomain = "external.luana.casa";
+  domain = "local.jalotopimentel.com";
+  externalDomain = "external.jalotopimentel.com";
 
   # configs
   servicesConfigRoot = "/persistent/opt/services";
