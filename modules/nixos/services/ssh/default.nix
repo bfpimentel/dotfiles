@@ -6,7 +6,7 @@
     openFirewall = true;
     settings = {
       PermitRootLogin = "no";
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
       ClientAliveInterval = 300;
       ClientAliveCountMax = 3;
       TCPKeepAlive = "yes";

@@ -1,8 +1,5 @@
 { ... }:
 
-let
-  enableSunshine = false;
-in
 {
   imports = [
     ./xserver
@@ -14,16 +11,15 @@ in
 
   bfmp.services = {
     restic.enable = true;
-    ollama.enable = true;
-    sunshine.enable = true;
+    ollama.enable = false;
+    sunshine.enable = false;
     xserver = {
       enable = true;
-      configureHyprland = true;
-      configureForSunshine = enableSunshine;
+      configureHyprland = false;
     };
     wireguard = {
-      enable = true;
-      isServer = true;
+      enable = false;
+      isServer = false;
     };
   };
 }

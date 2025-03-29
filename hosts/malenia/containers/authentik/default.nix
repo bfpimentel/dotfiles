@@ -66,7 +66,7 @@ in
           "homepage.group" = "Auth";
           "homepage.name" = "Authentik";
           "homepage.icon" = "authentik.png";
-          "homepage.href" = "https://auth.${vars.externalDomain}";
+          "homepage.href" = "https://auth.${vars.domain}";
         };
       };
       authentik-worker = {

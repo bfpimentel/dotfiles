@@ -6,7 +6,7 @@
   useEqualHeights = true;
   hideVersion = true;
   background = {
-    image = "/images/background.gif";
+    # image = "/images/background.gif";
     blur = "sm";
     brightness = 50;
   };
