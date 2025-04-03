@@ -82,14 +82,14 @@ in
           # Homepage
           "homepage.group" = "Media";
           "homepage.name" = "Immich";
-          "homepage.icon" = "immich.svg";
-          "homepage.href" = "https://photos.${vars.domain}";
-          "homepage.weight" = "0";
-          "homepage.widget.type" = "immich";
-          "homepage.widget.key" = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
-          "homepage.widget.url" = "http://immich:2283";
-          "homepage.widget.fields" = ''["photos", "videos", "storage"]'';
-          "homepage.widget.version" = "2";
+          "homepage.icon" = "si:immich";
+          "homepage.url" = "https://photos.${vars.domain}";
+          # "homepage.weight" = "0";
+          # "homepage.widget.type" = "immich";
+          # "homepage.widget.key" = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
+          # "homepage.widget.url" = "http://immich:2283";
+          # "homepage.widget.fields" = ''["photos", "videos", "storage"]'';
+          # "homepage.widget.version" = "2";
         };
       };
 

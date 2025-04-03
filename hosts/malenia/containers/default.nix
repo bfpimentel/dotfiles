@@ -1,7 +1,7 @@
 { ... }:
 
 let
-  enableAIStack = true;
+  enableAIStack = false;
 in
 {
   imports = [

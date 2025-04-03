@@ -35,6 +35,9 @@ outer.right =      16
 inner.horizontal = 16
 inner.vertical =   16
 
+[workspace-to-monitor-force-assignment]
+Browser = [ 'secondary', 'main' ]
+
 [mode.main.binding]
 cmd-h = [] # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
@@ -56,19 +59,19 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-alt-b = 'workspace [B]rowser'
-alt-c = 'workspace [C]oding'
-alt-e = 'workspace [E]mail'
-alt-f = 'workspace [F]iles'
-alt-t = 'workspace [T]erminal'
-alt-x = 'workspace [X]'
+alt-b = 'workspace Browser'
+alt-c = 'workspace Coding'
+alt-e = 'workspace Email'
+alt-f = 'workspace Files'
+alt-t = 'workspace Terminal'
+alt-x = 'workspace X'
 
-alt-shift-b = 'move-node-to-workspace [B]rowser'
-alt-shift-c = 'move-node-to-workspace [C]oding'
-alt-shift-e = 'move-node-to-workspace [E]mail'
-alt-shift-f = 'move-node-to-workspace [F]iles'
-alt-shift-t = 'move-node-to-workspace [T]erminal'
-alt-shift-x = 'move-node-to-workspace [X]'
+alt-shift-b = 'move-node-to-workspace Browser'
+alt-shift-c = 'move-node-to-workspace Coding'
+alt-shift-e = 'move-node-to-workspace Email'
+alt-shift-f = 'move-node-to-workspace Files'
+alt-shift-t = 'move-node-to-workspace Terminal'
+alt-shift-x = 'move-node-to-workspace X'
 
 # alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
 
@@ -94,12 +97,12 @@ equal = 'resize smart +50'
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 check-further-callbacks = true
-run = ['layout floating', 'move-node-to-workspace [T]erminal']
+run = ['layout floating', 'move-node-to-workspace Terminal']
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace [B]rowser']
+run = ['layout tiling', 'move-node-to-workspace Browser']
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
@@ -110,15 +113,15 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.google.android.studio'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace [C]oding'] 
+run = ['layout tiling', 'move-node-to-workspace Coding'] 
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 check-further-callbacks = true
-run = ['layout floating', 'move-node-to-workspace [F]iles']
+run = ['layout floating', 'move-node-to-workspace Files']
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.thunderbirdbeta'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace [E]mail']
+run = ['layout tiling', 'move-node-to-workspace Email']
 

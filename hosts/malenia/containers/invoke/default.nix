@@ -47,10 +47,10 @@ in
           "traefik.http.routers.invoke.entryPoints" = "https";
           "traefik.http.services.invoke.loadbalancer.server.port" = "9090";
           # Homepage
-          "homepage.group" = "Misc";
-          "homepage.name" = "Invoke AI";
-          "homepage.icon" = "sh-invoke-ai-light.svg";
-          "homepage.href" = "https://invoke.${vars.domain}";
+          "glance.group" = "Misc";
+          "glance.name" = "Invoke AI";
+          "glance.icon" = "di:invoke-ai";
+          "glance.url" = "https://invoke.${vars.domain}";
         };
       };
     };
