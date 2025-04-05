@@ -70,6 +70,9 @@
         }
       );
 
+      domain = "local.jalotopimentel.com";
+      externalDomain = "external.jalotopimentel.com";
+
       buildHomeManagerConfig =
         hostname:
         let
@@ -86,11 +89,31 @@
         system: hostname: username: fullname: email:
         (
           let
-            commonVars = ((import (./. + "/hosts/shared/vars.nix")) system hostname username fullname email);
+            commonVars = (
+              import (./. + "/hosts/shared/vars.nix") {
+                system = system;
+                hostname = hostname;
+                username = username;
+                fullname = fullname;
+                email = email;
+                domain = domain;
+                externalDomain = externalDomain;
+              }
+            );
             systemSpecificVars = (import (./. + "/hosts/${commonVars.hostname}/vars.nix"));
             vars = commonVars // systemSpecificVars;
+            util = import ./util.nix {
+              domain = domain;
+            };
 
-            specialArgs = { inherit inputs outputs vars; };
+            specialArgs = {
+              inherit
+                inputs
+                outputs
+                vars
+                util
+                ;
+            };
 
             modules = (builtins.attrValues nixosModules) ++ [
               (./. + "/hosts/${vars.hostname}")
@@ -107,7 +130,9 @@
               }
             ];
           in
-          nixpkgs.lib.nixosSystem { inherit system modules specialArgs; }
+          nixpkgs.lib.nixosSystem {
+            inherit system modules specialArgs;
+          }
         );
 
       createDarwin =
@@ -115,13 +140,27 @@
         (
           let
             system = "aarch64-darwin";
-            vars = ((import (./. + "/hosts/shared/vars.nix")) system hostname username fullname email);
+            vars = (
+              import (./. + "/hosts/shared/vars.nix") {
+                system = system;
+                hostname = hostname;
+                username = username;
+                fullname = fullname;
+                email = email;
+                domain = domain;
+                externalDomain = externalDomain;
+              }
+            );
+            util = import ./util.nix {
+              domain = domain;
+            };
 
             specialArgs = {
               inherit
                 inputs
                 outputs
                 vars
+                util
                 ;
             };
             modules = (builtins.attrValues darwinModules) ++ [
@@ -148,7 +187,10 @@
               }
             ];
           in
-          nix-darwin.lib.darwinSystem { inherit specialArgs modules; }
+          nix-darwin.lib.darwinSystem {
+            inherit specialArgs modules;
+
+          }
         );
     in
     {

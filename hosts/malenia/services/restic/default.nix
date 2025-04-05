@@ -23,6 +23,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      restic
+    ];
+
     systemd.services =
       {
         restic-backups-podman-stop = {

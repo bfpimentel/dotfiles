@@ -1,4 +1,14 @@
-system: hostname: username: fullname: email: {
+{
+  system,
+  hostname,
+  username,
+  fullname,
+  email,
+  domain,
+  externalDomain,
+}:
+
+{
   # general
   system = system;
   hostname = hostname;
@@ -20,8 +30,8 @@ system: hostname: username: fullname: email: {
   miquellaIp = "159.112.184.83";
 
   # domains
-  domain = "local.jalotopimentel.com";
-  externalDomain = "external.jalotopimentel.com";
+  domain = domain;
+  externalDomain = externalDomain;
 
   # configs
   servicesConfigRoot = "/persistent/opt/services";

@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -52,22 +53,7 @@ in
           TZ = vars.timeZone;
           VERSION = "docker";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.plex.entrypoints" = "https";
-          "traefik.http.routers.plex.rule" = "Host(`media.${vars.domain}`)";
-          "traefik.http.services.plex.loadbalancer.server.port" = "32400";
-          # Homepage
-          "homepage.group" = "Media";
-          "homepage.name" = "Plex";
-          "homepage.icon" = "sh-plex.svg";
-          "homepage.href" = "https://media.${vars.domain}";
-          "homepage.weight" = "6";
-          "homepage.widget.type" = "tautulli";
-          "homepage.widget.key" = "{{HOMEPAGE_VAR_PLEX_KEY}}";
-          "homepage.widget.url" = "http://tautulli:8181";
-          "homepage.widget.enableUser" = "true";
-        };
+        labels = util.mkDockerLabels "plex" "Plex" "media" 32400;
       };
     };
   };

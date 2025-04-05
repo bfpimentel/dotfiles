@@ -8,7 +8,7 @@
 
 with lib;
 let
-  immichVersion = "v1.130.3";
+  immichVersion = "v1.131.3";
 
   immichPaths =
     let
@@ -79,11 +79,11 @@ in
           "traefik.http.routers.immich.entrypoints" = "https";
           "traefik.http.routers.immich.rule" = "Host(`photos.${vars.domain}`)";
           "traefik.http.services.immich.loadbalancer.server.port" = "2283";
-          # Homepage
-          "homepage.group" = "Media";
-          "homepage.name" = "Immich";
-          "homepage.icon" = "si:immich";
-          "homepage.url" = "https://photos.${vars.domain}";
+          # Glance
+          "glance.id" = "immich";
+          "glance.name" = "Immich";
+          "glance.icon" = "si:immich";
+          "glance.url" = "https://photos.${vars.domain}";
           # "homepage.weight" = "0";
           # "homepage.widget.type" = "immich";
           # "homepage.widget.key" = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
@@ -106,6 +106,10 @@ in
           DB_USERNAME = "postgres";
           REDIS_HOSTNAME = "immich-redis";
         };
+        labels = {
+          "glance.parent" = "immich";
+          "glance.name" = "Machine Learning";
+        };
       };
 
       immich-postgres = {
@@ -119,12 +123,20 @@ in
           POSTGRES_DB = "immich";
           POSTGRES_USER = "postgres";
         };
+        labels = {
+          "glance.parent" = "immich";
+          "glance.name" = "Postgres";
+        };
       };
 
       immich-redis = {
         image = "redis";
         autoStart = true;
         extraOptions = [ "--pull=newer" ];
+        labels = {
+          "glance.parent" = "immich";
+          "glance.name" = "Redis";
+        };
       };
     };
   };

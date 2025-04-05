@@ -2,6 +2,7 @@
 
 let
   enableAIStack = false;
+  enableGlanceDashboard = true;
 in
 {
   imports = [
@@ -14,6 +15,7 @@ in
     ./ddns
     ./dozzle
     ./freshrss
+    ./glance
     ./hoarder
     ./homepage
     ./immich
@@ -59,8 +61,9 @@ in
     ddns.enable = false;
     dozzle.enable = true;
     freshrss.enable = true;
+    glance.enable = enableGlanceDashboard;
     hoarder.enable = true;
-    homepage.enable = true;
+    homepage.enable = !enableGlanceDashboard;
     immich.enable = true;
     invoke.enable = false;
     it-tools.enable = true;

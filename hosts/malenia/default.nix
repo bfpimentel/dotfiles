@@ -19,6 +19,8 @@
     efi.canTouchEfiVariables = true;
   };
 
+  boot.kernelParams = [ "fsck.mode=force" ];
+
   time.timeZone = vars.timeZone;
 
   users.users.${vars.defaultUser}.home = "/home/${vars.defaultUser}";

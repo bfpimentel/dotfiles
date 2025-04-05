@@ -19,9 +19,7 @@ let
         data = "${root}/data";
       };
       generated = {
-        server = settingsFormat.generate "${root}/data/server.yml" (
-          (import ./config/server.nix) vars.externalDomain
-        );
+        server = settingsFormat.generate "${root}/data/server.yml" ((import ./config/server.nix) vars);
       };
     };
 
@@ -53,11 +51,10 @@ in
           "${ntfyPaths.generated.server}:/etc/ntfy/server.yml"
         ];
         labels = {
-          # Homepage
-          "homepage.group" = "Misc";
-          "homepage.name" = "Ntfy";
-          "homepage.icon" = "ntfy.svg";
-          "homepage.href" = "https://notify.${vars.externalDomain}";
+          "glance.id" = "ntfy";
+          "glance.name" = "Ntfy";
+          "glance.icon" = "si:ntfy";
+          "glance.url" = "https://notify.${vars.domain}";
         };
       };
     };

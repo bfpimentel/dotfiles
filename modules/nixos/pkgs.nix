@@ -25,6 +25,9 @@
     inetutils
     ncdu
 
+    smartmontools
+    memtester
+
     clang-tools
     gcc
     cargo

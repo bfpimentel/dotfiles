@@ -18,8 +18,7 @@ let
         inherit root;
       };
       generated = {
-        widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
-        settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
+        glance = settingsFormat.generate "glance.yml" (import ./config/glance.nix);
       };
     };
 
@@ -36,19 +35,24 @@ in
     );
 
     virtualisation.oci-containers.containers = {
-      ntfy = {
+      glance = {
         image = "glanceapp/glance:latest";
         autoStart = true;
         extraOptions = [ "--pull=newer" ];
         volumes = [
           "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
-          "${glancePaths.generated.server}:/etc/ntfy/server.yml"
+          "${glancePaths.generated.glance}:/app/config/glance.yml"
         ];
         labels = {
           "traefik.enable" = "true";
           "traefik.http.routers.glance.entrypoints" = "https";
           "traefik.http.routers.glance.rule" = "Host(`dash.${vars.domain}`)";
           "traefik.http.services.glance.loadbalancer.server.port" = "8080";
+          # Glance
+          "glance.id" = "glance";
+          "glance.name" = "Glance";
+          "glance.icon" = "si:glance";
+          "glance.url" = "https://dash.${vars.domain}";
         };
       };
     };
