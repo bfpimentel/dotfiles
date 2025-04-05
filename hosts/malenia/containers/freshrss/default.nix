@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -45,16 +46,11 @@ in
           PUID = puid;
           PGID = pgid;
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.freshrss.rule" = "Host(`rss.${vars.domain}`)";
-          "traefik.http.routers.freshrss.entryPoints" = "https";
-          "traefik.http.services.freshrss.loadbalancer.server.port" = "80";
-          # Homepage
-          "homepage.group" = "Documents";
-          "homepage.name" = "FreshRSS";
-          "homepage.icon" = "freshrss.png";
-          "homepage.href" = "https://rss.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "freshrss";
+          name = "FreshRSS";
+          subdomain = "rss";
+          port = 80;
         };
       };
     };

@@ -3,6 +3,7 @@
   lib,
   vars,
   pkgs,
+  util,
   ...
 }:
 
@@ -74,22 +75,11 @@ in
           DB_DATABASE_NAME = "immich";
           REDIS_HOSTNAME = "immich-redis";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.immich.entrypoints" = "https";
-          "traefik.http.routers.immich.rule" = "Host(`photos.${vars.domain}`)";
-          "traefik.http.services.immich.loadbalancer.server.port" = "2283";
-          # Glance
-          "glance.id" = "immich";
-          "glance.name" = "Immich";
-          "glance.icon" = "si:immich";
-          "glance.url" = "https://photos.${vars.domain}";
-          # "homepage.weight" = "0";
-          # "homepage.widget.type" = "immich";
-          # "homepage.widget.key" = "{{HOMEPAGE_VAR_IMMICH_KEY}}";
-          # "homepage.widget.url" = "http://immich:2283";
-          # "homepage.widget.fields" = ''["photos", "videos", "storage"]'';
-          # "homepage.widget.version" = "2";
+        labels = util.mkDockerLabels {
+          id = "immich";
+          name = "Immich";
+          subdomain = "photos";
+          port = 2283;
         };
       };
 

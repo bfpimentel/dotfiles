@@ -104,6 +104,7 @@
             vars = commonVars // systemSpecificVars;
             util = import ./util.nix {
               domain = domain;
+              lib = nixpkgs.config.lib;
             };
 
             specialArgs = {
@@ -153,6 +154,7 @@
             );
             util = import ./util.nix {
               domain = domain;
+              lib = nixpkgs.config.lib;
             };
 
             specialArgs = {

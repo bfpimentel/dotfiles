@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -38,16 +39,11 @@ in
           "${baikalPaths.data}:/var/www/baikal/Specific"
           "${baikalPaths.config}:/var/www/baikal/config"
         ];
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.baikal.rule" = "Host(`baikal.${vars.domain}`)";
-          "traefik.http.routers.baikal.entryPoints" = "https";
-          "traefik.http.services.baikal.loadbalancer.server.port" = "80";
-          # Homepage
-          "homepage.group" = "Documents";
-          "homepage.name" = "Baikal";
-          "homepage.icon" = "baikal.png";
-          "homepage.href" = "https://baikal.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "baikal";
+          name = "Baikal";
+          subdomain = "baikal";
+          port = 80;
         };
       };
     };

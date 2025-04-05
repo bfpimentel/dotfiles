@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -62,16 +63,11 @@ in
           TORRENTING_PORT = "51123";
           WEBUI_PORT = "8080";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.qbittorrent.rule" = "Host(`torrent.${vars.domain}`)";
-          "traefik.http.routers.qbittorrent.entryPoints" = "https";
-          "traefik.http.services.qbittorrent.loadbalancer.server.port" = "8080";
-          # Homepage
-          "homepage.group" = "Download Managers";
-          "homepage.name" = "Qbittorrent";
-          "homepage.icon" = "qbittorrent.svg";
-          "homepage.href" = "https://torrent.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "qbittorrent";
+          name = "Qbittorrent";
+          subdomain = "torrent";
+          port = 8080;
         };
       };
     };

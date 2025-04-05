@@ -3,6 +3,7 @@
   lib,
   vars,
   pkgs,
+  util,
   ...
 }:
 
@@ -63,20 +64,16 @@ in
           "${traefikPaths.generated.dynamic}:/dynamic.yml:ro"
         ];
         environmentFiles = [ config.age.secrets.cloudflare.path ];
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.traefik.rule" = "Host(`traefik.${vars.domain}`)";
-          "traefik.http.routers.traefik.entryPoints" = "https";
-          "traefik.http.routers.traefik.service" = "api@internal";
-          "traefik.http.services.traefik.loadbalancer.server.port" = "8080";
-          # Homepage
-          "homepage.group" = "Networking";
-          "homepage.name" = "Traefik";
-          "homepage.icon" = "traefik.svg";
-          "homepage.href" = "https://traefik.${vars.domain}";
-          "homepage.widget.type" = "traefik";
-          "homepage.widget.url" = "http://traefik:8080";
-        };
+        labels =
+          util.mkDockerLabels {
+            id = "traefik";
+            name = "Traefik";
+            subdomain = "traefik";
+            port = 8080;
+          }
+          // {
+            "traefik.http.routers.traefik.service" = "api@internal";
+          };
       };
     };
   };

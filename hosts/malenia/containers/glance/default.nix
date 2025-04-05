@@ -3,6 +3,7 @@
   lib,
   vars,
   pkgs,
+  util,
   ...
 }:
 
@@ -43,16 +44,11 @@ in
           "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
           "${glancePaths.generated.glance}:/app/config/glance.yml"
         ];
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.glance.entrypoints" = "https";
-          "traefik.http.routers.glance.rule" = "Host(`dash.${vars.domain}`)";
-          "traefik.http.services.glance.loadbalancer.server.port" = "8080";
-          # Glance
-          "glance.id" = "glance";
-          "glance.name" = "Glance";
-          "glance.icon" = "si:glance";
-          "glance.url" = "https://dash.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "glance";
+          name = "Glance";
+          subdomain = "dash";
+          port = 8080;
         };
       };
     };

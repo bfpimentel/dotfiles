@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+util,
   ...
 }:
 
@@ -49,20 +50,11 @@ in
         environment = {
           TZ = vars.timeZone;
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.audiobookshelf.rule" = "Host(`audiobooks.${vars.domain}`)";
-          "traefik.http.routers.audiobookshelf.entryPoints" = "https";
-          "traefik.http.services.audiobookshelf.loadbalancer.server.port" = "80";
-          # Homepage
-          "homepage.group" = "Media";
-          "homepage.name" = "Audio Bookshelf";
-          "homepage.icon" = "audiobookshelf.png";
-          "homepage.href" = "https://audiobooks.${vars.domain}";
-          "homepage.weight" = "7";
-          "homepage.widget.type" = "audiobookshelf";
-          "homepage.widget.key" = "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_KEY}}";
-          "homepage.widget.url" = "http://audiobookshelf:80";
+        labels = util.mkDockerLabels {
+          id = "audiobookshelf";
+          name = "Audio Bookshelf";
+          subdomain = "audiobooks";
+          port = 80;
         };
       };
     };

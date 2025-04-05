@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -41,18 +42,14 @@ in
         environment = {
           BROWSER_WEB_URL = "http://hoarder-chrome:9222";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.hoarder.entrypoints" = "https";
-          "traefik.http.routers.hoarder.rule" = "Host(`hoarder.${vars.domain}`)";
-          "traefik.http.services.hoarder.loadbalancer.server.port" = "3000";
-          # Homepage
-          "homepage.group" = "Misc";
-          "homepage.name" = "Hoarder";
-          "homepage.icon" = "sh-hoarder.png";
-          "homepage.href" = "https://hoarder.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "hoarder";
+          name = "Hoarder";
+          subdomain = "bookmarks";
+          port = 3000;
         };
       };
+
       hoarder-chrome = {
         image = "gcr.io/zenika-hub/alpine-chrome:123";
         autoStart = true;
@@ -65,7 +62,12 @@ in
           "--remote-debugging-port=9222"
           "--hide-scrollbars"
         ];
+        labels = {
+          "glance.parent" = "hoarder";
+          "glance.name" = "Chrome";
+        };
       };
+
       hoarder-meili = {
         image = "getmeili/meilisearch:v1.11.1";
         autoStart = true;
@@ -74,6 +76,10 @@ in
         environmentFiles = [ config.age.secrets.hoarder.path ];
         environment = {
           MEILI_NO_ANALYTICS = "true";
+        };
+        labels = {
+          "glance.parent" = "hoarder";
+          "glance.name" = "Meili";
         };
       };
     };

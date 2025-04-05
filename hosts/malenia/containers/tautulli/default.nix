@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -43,16 +44,11 @@ in
           PUID = puid;
           PGID = guid;
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.tautulli.rule" = "Host(`tautulli.${vars.domain}`)";
-          "traefik.http.routers.tautulli.entryPoints" = "https";
-          "traefik.http.services.tautulli.loadbalancer.server.port" = "8181";
-          # Homepage
-          "homepage.group" = "Monitoring";
-          "homepage.name" = "Tautulli";
-          "homepage.icon" = "tautulli.svg";
-          "homepage.href" = "https://tautulli.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "tautulli";
+          name = "Tautulli";
+          subdomain = "tautulli";
+          port = 8181;
         };
       };
     };

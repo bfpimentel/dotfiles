@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -48,16 +49,11 @@ in
           NODE_ENV = "production";
           GENERIC_TIMEZONE = vars.timeZone;
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.n8n.rule" = "Host(`n8n.${vars.domain}`)";
-          "traefik.http.routers.n8n.entryPoints" = "https";
-          "traefik.http.services.n8n.loadbalancer.server.port" = "5678";
-          # Homepage
-          "homepage.group" = "Misc";
-          "homepage.name" = "n8n";
-          "homepage.icon" = "n8n.svg";
-          "homepage.href" = "https://n8n.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "n8n";
+          name = "N8n";
+          subdomain = "n8n";
+          port = 5678;
         };
       };
     };

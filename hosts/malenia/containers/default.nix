@@ -22,10 +22,8 @@ in
     ./invoke
     ./it-tools
     ./n8n
-    ./ntfy
     ./ollama-webui
     ./overseerr
-    ./paperless
     ./plex
     ./qbittorrent
     ./speedtest
@@ -65,20 +63,18 @@ in
     hoarder.enable = true;
     homepage.enable = !enableGlanceDashboard;
     immich.enable = true;
-    invoke.enable = false;
+    invoke.enable = enableAIStack;
     it-tools.enable = true;
     n8n.enable = false;
-    ntfy.enable = false;
     ollama-webui.enable = enableAIStack;
     overseerr.enable = true;
-    paperless.enable = false;
     plex.enable = true;
     qbittorrent.enable = true;
     speedtest.enable = true;
     stirling-pdf.enable = true;
     tautulli.enable = true;
     traefik.enable = true;
-    vaultwarden.enable = true;
+    vaultwarden.enable = false;
     whisper.enable = enableAIStack;
   };
 }

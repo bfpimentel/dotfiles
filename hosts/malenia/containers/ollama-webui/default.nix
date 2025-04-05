@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -42,16 +43,12 @@ in
           OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
           OAUTH_PROVIDER_NAME = "Authentik";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.ollama-webui.rule" = "Host(`chat.${vars.domain}`)";
-          "traefik.http.routers.ollama-webui.entryPoints" = "https";
-          "traefik.http.services.ollama-webui.loadbalancer.server.port" = "8080";
-          # Homepage
-          "homepage.group" = "Misc";
-          "homepage.name" = "Ollama Web UI";
-          "homepage.icon" = "ollama.svg";
-          "homepage.href" = "https://chat.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "open-webui";
+          icon = "ollama";
+          name = "Ollama WebUI";
+          subdomain = "chat";
+          port = 8080;
         };
       };
     };

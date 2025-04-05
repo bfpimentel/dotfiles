@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -51,18 +52,11 @@ in
           APP_DEBUG = "false";
           PRUNE_RESULTS_OLDER_THAN = "30";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.speedtest-tracker.rule" = "Host(`speedtest.${vars.domain}`)";
-          "traefik.http.routers.speedtest-tracker.entryPoints" = "https";
-          "traefik.http.services.speedtest-tracker.loadbalancer.server.port" = "80";
-          # Homepage
-          "homepage.group" = "Networking";
-          "homepage.name" = "Speedtest Tracker";
-          "homepage.icon" = "speedtest-tracker.png";
-          "homepage.href" = "https://speedtest.${vars.domain}";
-          "homepage.widget.type" = "speedtest";
-          "homepage.widget.url" = "http://speedtest-tracker:80";
+        labels = util.mkDockerLabels {
+          id = "speedtest-tracker";
+          name = "Speedtest Tracker";
+          subdomain = "speedtest";
+          port = 80;
         };
       };
     };

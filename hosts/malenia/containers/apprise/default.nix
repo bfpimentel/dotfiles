@@ -3,6 +3,7 @@
   lib,
   vars,
   pkgs,
+  util,
   ...
 }:
 
@@ -54,16 +55,11 @@ in
           PGID = pgid;
           APPRISE_ATTACH_SIZE = "10";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.apprise.rule" = "Host(`notify.${vars.domain}`)";
-          "traefik.http.routers.apprise.entryPoints" = "https";
-          "traefik.http.services.apprise.loadbalancer.server.port" = "8000";
-          # Homepage
-          "homepage.group" = "Monitoring";
-          "homepage.name" = "Apprise";
-          "homepage.icon" = "apprise.png";
-          "homepage.href" = "https://notify.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "apprise";
+          name = "Apprise";
+          subdomain = "notify";
+          port = 8000;
         };
       };
     };

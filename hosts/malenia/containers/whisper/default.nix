@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -43,11 +44,11 @@ in
           ASR_MODEL = "base";
           ASR_ENGINE = "openai_whisper";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.whisper.rule" = "Host(`whisper.${vars.domain}`)";
-          "traefik.http.routers.whisper.entryPoints" = "https";
-          "traefik.http.services.whisper.loadbalancer.server.port" = "9000";
+        labels = util.mkDockerLabels {
+          id = "whisper";
+          name = "Whisper";
+          subdomain = "whisper";
+          port = 9000;
         };
       };
     };

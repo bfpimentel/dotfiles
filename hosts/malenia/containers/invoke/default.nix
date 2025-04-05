@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -41,16 +42,11 @@ in
         environment = {
           INVOKEAI_ROOT = "/data";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.invoke.rule" = "Host(`invoke.${vars.domain}`)";
-          "traefik.http.routers.invoke.entryPoints" = "https";
-          "traefik.http.services.invoke.loadbalancer.server.port" = "9090";
-          # Homepage
-          "glance.group" = "Misc";
-          "glance.name" = "Invoke AI";
-          "glance.icon" = "di:invoke-ai";
-          "glance.url" = "https://invoke.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "invoke";
+          name = "Invoke AI";
+          subdomain = "invoke";
+          port = 9090;
         };
       };
     };

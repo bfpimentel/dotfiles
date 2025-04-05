@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -57,16 +58,11 @@ in
           AUTHENTIK_POSTGRESQL__USER = "authentik";
           AUTHENTIK_POSTGRESQL__NAME = "authentik";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.authentik.entrypoints" = "https";
-          "traefik.http.routers.authentik.rule" = "Host(`auth.${vars.domain}`)";
-          "traefik.http.services.authentik.loadbalancer.server.port" = "9000";
-          # Homepage
-          "homepage.group" = "Auth";
-          "homepage.name" = "Authentik";
-          "homepage.icon" = "authentik.png";
-          "homepage.href" = "https://auth.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "authentik";
+          name = "Authentik";
+          subdomain = "auth";
+          port = 9000;
         };
       };
       authentik-worker = {
@@ -90,6 +86,10 @@ in
           AUTHENTIK_POSTGRESQL__USER = "authentik";
           AUTHENTIK_POSTGRESQL__NAME = "authentik";
         };
+        labels = {
+          "glance.parent" = "authentik";
+          "glance.name" = "Worker";
+        };
       };
       authentik-db = {
         image = "docker.io/library/postgres:12-alpine";
@@ -103,11 +103,19 @@ in
           POSTGRES_USER = "authentik";
           POSTGRES_DB = "authentik";
         };
+        labels = {
+          "glance.parent" = "authentik";
+          "glance.name" = "Postgres";
+        };
       };
       authentik-redis = {
         image = "docker.io/library/redis:alpine";
         autoStart = true;
         extraOptions = [ "--pull=newer" ];
+        labels = {
+          "glance.parent" = "authentik";
+          "glance.name" = "Redis";
+        };
       };
     };
   };

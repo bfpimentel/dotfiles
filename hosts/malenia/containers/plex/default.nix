@@ -53,7 +53,12 @@ in
           TZ = vars.timeZone;
           VERSION = "docker";
         };
-        labels = util.mkDockerLabels "plex" "Plex" "media" 32400;
+        labels = util.mkDockerLabels {
+          id = "plex";
+          name = "Plex";
+          subdomain = "media";
+          port = 32400;
+        };
       };
     };
   };

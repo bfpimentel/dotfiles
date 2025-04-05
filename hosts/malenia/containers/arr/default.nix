@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -54,20 +55,12 @@ in
           PGID = pgid;
           UMASK = "002";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.sonarr.rule" = "Host(`sonarr.${vars.domain}`)";
-          "traefik.http.routers.sonarr.middlewares" = "auth@file";
-          "traefik.http.services.sonarr.loadbalancer.server.port" = "8989";
-          # Homepage
-          "homepage.group" = "Media Managers";
-          "homepage.name" = "Sonarr";
-          "homepage.icon" = "sonarr.svg";
-          "homepage.href" = "https://sonarr.${vars.domain}";
-          "homepage.weight" = "10";
-          "homepage.widget.type" = "sonarr";
-          "homepage.widget.key" = "{{HOMEPAGE_VAR_SONARR_KEY}}";
-          "homepage.widget.url" = "http://sonarr:8989";
+        labels = util.mkDockerLabels {
+          id = "sonarr";
+          name = "Sonarr";
+          subdomain = "sonarr";
+          port = 8989;
+          auth = true;
         };
       };
       radarr = {
@@ -85,20 +78,12 @@ in
           PGID = pgid;
           UMASK = "002";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.radarr.rule" = "Host(`radarr.${vars.domain}`)";
-          "traefik.http.routers.radarr.middlewares" = "auth@file";
-          "traefik.http.services.radarr.loadbalancer.server.port" = "7878";
-          # Homepage
-          "homepage.group" = "Media Managers";
-          "homepage.name" = "Radarr";
-          "homepage.icon" = "radarr.svg";
-          "homepage.href" = "https://radarr.${vars.domain}";
-          "homepage.weight" = "20";
-          "homepage.widget.type" = "radarr";
-          "homepage.widget.key" = "{{HOMEPAGE_VAR_RADARR_KEY}}";
-          "homepage.widget.url" = "http://radarr:7878";
+        labels = util.mkDockerLabels {
+          id = "radarr";
+          name = "Radarr";
+          subdomain = "radarr";
+          port = 7878;
+          auth = true;
         };
       };
       bazarr = {
@@ -117,20 +102,12 @@ in
           PGID = pgid;
           UMASK = "002";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.bazarr.rule" = "Host(`bazarr.${vars.domain}`)";
-          "traefik.http.routers.bazarr.middlewares" = "auth@file";
-          "traefik.http.services.bazarr.loadbalancer.server.port" = "6767";
-          # Homepage
-          "homepage.group" = "Media Managers";
-          "homepage.name" = "Bazarr";
-          "homepage.icon" = "bazarr.svg";
-          "homepage.href" = "https://bazarr.${vars.domain}";
-          "homepage.weight" = "30";
-          "homepage.widget.type" = "bazarr";
-          "homepage.widget.key" = "{{HOMEPAGE_VAR_BAZARR_KEY}}";
-          "homepage.widget.url" = "http://bazarr:6767";
+        labels = util.mkDockerLabels {
+          id = "bazarr";
+          name = "Bazarr";
+          subdomain = "bazarr";
+          port = 6767;
+          auth = true;
         };
       };
       prowlarr = {
@@ -144,20 +121,12 @@ in
           PGID = pgid;
           UMASK = "002";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.prowlarr.rule" = "Host(`prowlarr.${vars.domain}`)";
-          "traefik.http.routers.prowlarr.middlewares" = "auth@file";
-          "traefik.http.services.prowlarr.loadbalancer.server.port" = "9696";
-          # Homepage
-          "homepage.group" = "Media Managers";
-          "homepage.name" = "Prowlarr";
-          "homepage.icon" = "prowlarr.svg";
-          "homepage.href" = "https://prowlarr.${vars.domain}";
-          "homepage.weight" = "40";
-          "homepage.widget.type" = "prowlarr";
-          "homepage.widget.key" = "{{HOMEPAGE_VAR_PROWLARR_KEY}}";
-          "homepage.widget.url" = "http://prowlarr:9696";
+        labels = util.mkDockerLabels {
+          id = "prowlarr";
+          name = "Prowlarr";
+          subdomain = "prowlarr";
+          port = 9696;
+          auth = true;
         };
       };
       flaresolverr = {
@@ -168,6 +137,13 @@ in
           TZ = vars.timeZone;
           LOG_LEVEL = "info";
           LOG_HTML = "false";
+        };
+        labels = util.mkDockerLabels {
+          id = "flaresolverr";
+          name = "Flaresolverr";
+          subdomain = "flaresolverr";
+          port = 8191;
+          auth = false;
         };
       };
     };

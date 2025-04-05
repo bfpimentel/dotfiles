@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -45,16 +46,11 @@ in
           PUID = puid;
           GUID = guid;
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.overseerr.rule" = "Host(`request.${vars.domain}`)";
-          "traefik.http.routers.overseerr.entryPoints" = "https";
-          "traefik.http.services.overseerr.loadbalancer.server.port" = "5055";
-          # Homepage
-          "homepage.group" = "Misc";
-          "homepage.name" = "Overseerr";
-          "homepage.icon" = "overseerr.svg";
-          "homepage.href" = "https://request.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "overseerr";
+          name = "Overseerr";
+          subdomain = "request";
+          port = 5055;
         };
       };
     };

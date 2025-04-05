@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -42,16 +43,11 @@ in
         autoStart = true;
         extraOptions = [ "--pull=newer" ];
         volumes = [ "${ddnsUpdaterPaths.volumes.root}:/updater/data" ];
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.ddns-updater.rule" = "Host(`ddns.${vars.domain}`)";
-          "traefik.http.routers.ddns-updater.entryPoints" = "https";
-          "traefik.http.services.ddns-updater.loadbalancer.server.port" = "8000";
-          # Homepage
-          "homepage.group" = "Networking";
-          "homepage.name" = "DDNS Updater";
-          "homepage.icon" = "ddns-updater.svg";
-          "homepage.href" = "https://ddns.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "ddns";
+          name = "DDNS Updater";
+          subdomain = "ddns";
+          port = 8000;
         };
       };
     };

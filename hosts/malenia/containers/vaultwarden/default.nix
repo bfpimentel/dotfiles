@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+util,
   ...
 }:
 
@@ -47,16 +48,11 @@ in
           WEB_VAULT_ENABLED = "true";
           EXPERIMENTAL_CLIENT_FEATURE_FLAGS = "ssh-key-vault-item,ssh-agent";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.vaultwarden.rule" = "Host(`vault.${vars.domain}`)";
-          "traefik.http.routers.vaultwarden.entryPoints" = "https";
-          "traefik.http.services.vaultwarden.loadbalancer.server.port" = "80";
-          # Homepage
-          "homepage.group" = "Management";
-          "homepage.name" = "Vaultwarden";
-          "homepage.icon" = "vaultwarden.svg";
-          "homepage.href" = "https://vault.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "vaultwarden";
+          name = "Vaultwarden";
+          subdomain = "vault";
+          port = 80;
         };
       };
     };

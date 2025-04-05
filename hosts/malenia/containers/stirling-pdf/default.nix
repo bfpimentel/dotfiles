@@ -2,6 +2,7 @@
   config,
   lib,
   vars,
+  util,
   ...
 }:
 
@@ -51,16 +52,11 @@ in
           INSTALL_BOOK_AND_ADVANCED_HTML_OPS = "false";
           LANGS = "en_US,pt_BR";
         };
-        labels = {
-          "traefik.enable" = "true";
-          "traefik.http.routers.stirling-pdf.rule" = "Host(`pdf.${vars.domain}`)";
-          "traefik.http.routers.stirling-pdf.entryPoints" = "https";
-          "traefik.http.services.stirling-pdf.loadbalancer.server.port" = "8080";
-          # Homepage
-          "homepage.group" = "Documents";
-          "homepage.name" = "Stirling PDF";
-          "homepage.icon" = "stirling-pdf.svg";
-          "homepage.href" = "https://pdf.${vars.domain}";
+        labels = util.mkDockerLabels {
+          id = "stirling-pdf";
+          name = "StirlingPDF";
+          subdomain = "pdf";
+          port = 8080;
         };
       };
     };
