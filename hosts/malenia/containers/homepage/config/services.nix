@@ -49,23 +49,13 @@ domain: networkInterface: [
   { "Download Managers" = [ ]; }
   { "Documents" = [ ]; }
   { "Misc" = [ ]; }
-  {
-    "Monitoring" = [
-      {
-        "Grafana" = {
-          icon = "grafana";
-          href = "https://grafana.${domain}";
-          weight = 50;
-        };
-      }
-    ];
-  }
+  { "Monitoring" = [ ]; }
   {
     "Management" = [
       {
         "Home Assistant" = {
           icon = "home-assistant-alt";
-          href = "https://home.luana.casa";
+          href = "https://home.local.${domain}";
         };
       }
       {
