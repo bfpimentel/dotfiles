@@ -51,7 +51,7 @@ in
           PUID = puid;
           PGID = pgid;
           TZ = vars.timeZone;
-          VERSION = "docker";
+          VERSION = "latest";
         };
         labels = util.mkDockerLabels {
           id = "plex";

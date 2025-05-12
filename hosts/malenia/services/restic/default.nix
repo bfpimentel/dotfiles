@@ -9,10 +9,10 @@
 with lib;
 let
   backupNotifications = {
-    restic-backups-photos-failure = "Photos backup failure!";
-    restic-backups-photos-success = "Photos backup success!";
-    restic-backups-containers-failure = "Containers backup failure!";
-    restic-backups-containers-success = "Containers backup success!";
+    restic-backups-photos-failure = "Backup de fotos falhou!";
+    restic-backups-photos-success = "Backup de fotos feito com sucesso!";
+    restic-backups-containers-failure = "Backup de containers falhou!";
+    restic-backups-containers-success = "Backup de containers feito com sucesso!";
   };
 
   cfg = config.bfmp.services.restic;
@@ -83,6 +83,7 @@ in
             sleep 60
             ${pkgs.apprise}/bin/apprise --config=${config.age.secrets.apprise.path} \
               --tag="telegram" \
+              --title=":computer: Servidor" \
               --body="${message}"
           '';
         }
