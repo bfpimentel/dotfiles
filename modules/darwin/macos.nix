@@ -1,4 +1,4 @@
-{ vars, ... }:
+{ ... }:
 
 {
   security.pam.services.sudo_local.touchIdAuth = true;
@@ -34,7 +34,8 @@
         static-only = false;
         dashboard-in-overlay = false;
         persistent-apps = [
-          "/Applications/Zen.app"
+          # "/Applications/Zen.app"
+          "/Applications/Brave Browser.app"
           "/Applications/Ghostty.app"
         ];
         expose-animation-duration = 0.2;

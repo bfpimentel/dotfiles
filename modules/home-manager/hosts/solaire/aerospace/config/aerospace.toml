@@ -37,6 +37,7 @@ inner.vertical =   16
 
 [workspace-to-monitor-force-assignment]
 Browser = [ 'secondary', 'main' ]
+Simulator = [ 'secondary', 'main' ]
 
 [mode.main.binding]
 cmd-h = [] # Disable "hide application"
@@ -63,6 +64,7 @@ alt-b = 'workspace Browser'
 alt-c = 'workspace Coding'
 alt-e = 'workspace Email'
 alt-f = 'workspace Files'
+alt-s = 'workspace Simulator'
 alt-t = 'workspace Terminal'
 alt-x = 'workspace X'
 
@@ -70,6 +72,7 @@ alt-shift-b = 'move-node-to-workspace Browser'
 alt-shift-c = 'move-node-to-workspace Coding'
 alt-shift-e = 'move-node-to-workspace Email'
 alt-shift-f = 'move-node-to-workspace Files'
+alt-shift-s = 'move-node-to-workspace Simulator'
 alt-shift-t = 'move-node-to-workspace Terminal'
 alt-shift-x = 'move-node-to-workspace X'
 
@@ -102,10 +105,21 @@ run = ['layout floating', 'move-node-to-workspace Terminal']
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace Browser']
+run = ['move-node-to-workspace Browser']
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
+check-further-callbacks = true
+if.window-title-regex-substring = 'Picture-in-Picture'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+check-further-callbacks = true
+run = ['move-node-to-workspace Browser']
+
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
 check-further-callbacks = true
 if.window-title-regex-substring = 'Picture-in-Picture'
 run = ['layout floating']
@@ -124,4 +138,9 @@ run = ['layout floating', 'move-node-to-workspace Files']
 if.app-id = 'org.mozilla.thunderbirdbeta'
 check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace Email']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.iphonesimulator'
+check-further-callbacks = true
+run = ['layout floating', 'move-node-to-workspace Simulator']
 

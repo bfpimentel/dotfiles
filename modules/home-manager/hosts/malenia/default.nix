@@ -6,5 +6,6 @@
     ./hypr
     ./waybar
     ./wofi
+    ./zsh
   ];
 }

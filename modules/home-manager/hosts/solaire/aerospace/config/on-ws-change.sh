@@ -6,7 +6,7 @@ IFS=$'\n' all_wins=$(aerospace list-windows --all --format '%{window-id}|%{app-n
 IFS=$'\n' all_ws=$(aerospace list-workspaces --all --format '%{workspace}|%{monitor-id}')
 
 # Array of possible window titles
-floating_titles=("Picture-in-picture" "Simulator")
+floating_titles=("Picture-in-Picture")
 
 # Function to find matching PIP windows
 find_windows_to_float() {

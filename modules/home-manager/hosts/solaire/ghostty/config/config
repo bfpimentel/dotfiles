@@ -17,6 +17,7 @@ background-blur-radius = 20
 
 clipboard-read = allow
 clipboard-write = allow
+copy-on-select = clipboard
 clipboard-paste-protection = false
 clipboard-trim-trailing-spaces = true
 

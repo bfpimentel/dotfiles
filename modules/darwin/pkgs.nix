@@ -1,11 +1,11 @@
 { pkgs, ... }:
 
 {
-  programs.zsh.enable = true;
-
   environment.systemPackages = with pkgs; [
     neovim
+
     qrencode
+    android-tools
 
     python3
     wget
@@ -15,6 +15,7 @@
     argparse
 
     nodejs_23
+    zulu17
 
     ripgrep
     eza
