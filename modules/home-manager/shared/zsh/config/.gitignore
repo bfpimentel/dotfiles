@@ -3,5 +3,6 @@
 !.gitignore
 !plugins
 !themes
-!.zshrc*
+!.zshrc
 
+.zshrc.zwc

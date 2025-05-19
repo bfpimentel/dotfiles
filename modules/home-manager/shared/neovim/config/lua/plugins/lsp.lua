@@ -1,7 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    -- { "j-hui/fidget.nvim", opts = {} },
     { "saghen/blink.cmp" },
   },
   lazy = false,
@@ -64,7 +63,6 @@ return {
         },
       }
     }
-
 
     for server_name, server in pairs(servers) do
       server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})

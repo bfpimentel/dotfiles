@@ -68,9 +68,6 @@
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [
-            neovim-nightly.overlays.default
-          ];
         }
       );
 
