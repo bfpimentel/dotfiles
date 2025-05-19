@@ -19,18 +19,23 @@ return {
     words = { enabled = true },
     zen = { enabled = false },
   },
-  keys = {
-    -- Other
-    { "<leader>.",  function() Snacks.scratch() end,               desc = "Toggle Scratch Buffer" },
-    { "<leader>S",  function() Snacks.scratch.select() end,        desc = "Select Scratch Buffer" },
-    { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
-    { "<leader>bd", function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
-    { "<leader>rN", function() Snacks.rename.rename_file() end,    desc = "Rename File" },
-    { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
-    { "<leader>un", function() Snacks.notifier.hide() end,         desc = "Dismiss All Notifications" },
-    { "<c-t>",      function() Snacks.terminal() end,              desc = "Toggle Terminal" },
-  },
+  keys = function()
+    local Snacks = require("snacks")
+    return {
+      -- Other
+      { "<leader>.",  function() Snacks.scratch() end,               desc = "Toggle Scratch Buffer" },
+      { "<leader>S",  function() Snacks.scratch.select() end,        desc = "Select Scratch Buffer" },
+      { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+      { "<leader>bd", function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
+      { "<leader>rN", function() Snacks.rename.rename_file() end,    desc = "Rename File" },
+      { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
+      { "<leader>un", function() Snacks.notifier.hide() end,         desc = "Dismiss All Notifications" },
+      { "<c-t>",      function() Snacks.terminal() end,              desc = "Toggle Terminal" },
+    }
+  end,
   init = function()
+    local Snacks = require("snacks")
+
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()

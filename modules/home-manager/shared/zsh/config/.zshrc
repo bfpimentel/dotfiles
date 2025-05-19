@@ -48,8 +48,7 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-bindkey '^[OA' history-substring-search-up
-bindkey '^[OB' history-substring-search-down
+zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}" "r:|=*"
 
 # MAN
 export MANPAGER="nvim +Man!"

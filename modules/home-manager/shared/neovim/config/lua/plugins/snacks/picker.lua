@@ -1,13 +1,37 @@
+local Snacks = require("snacks")
+
 return {
   "snacks.nvim",
   opts = {
     picker = {
       enabled = true,
+      layout = {
+        layout = {
+          backdrop = false,
+          width = 0.7,
+          min_width = 40,
+          height = 0.8,
+          box = "vertical",
+          border = "single",
+          title = "{title} {live} {flags}",
+          title_pos = "center",
+          { win = "input",   border = "bottom", height = 1 },
+          { win = "list",    border = "none",   height = 0.3 },
+          { win = "preview", border = "top",    title = "{preview}" }
+        }
+      },
       sources = {
         explorer = {
           layout = {
+            preset = "sidebar",
+            preview = false,
             layout = {
-              position = "right"
+              box = "vertical",
+              border = "none",
+              width = 40,
+              position = "right",
+              { win = "input", border = "bottom", height = 1 },
+              { win = "list",  border = "none" },
             },
           },
         },
