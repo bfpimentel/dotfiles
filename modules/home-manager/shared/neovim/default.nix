@@ -2,14 +2,14 @@
   pkgs,
   homeManagerConfig,
   config,
-  inputs,
   ...
 }:
 
 {
+  # home.packages = [ pkgs.neovim ];
+
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages."${pkgs.system}".default;
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;

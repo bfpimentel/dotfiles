@@ -13,12 +13,14 @@ export AE_DEPLOYMENT_ENV="debug"
 export GOKU_EDN_CONFIG_FILE="$HOME/.config/goku/karabiner.edn"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 
+export PATH="$PATH:/run/wrappers/bin"
 export PATH="$PATH:/run/current-system/sw/bin"
+export PATH="$PATH:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin"
+
 export PATH="$PATH:/opt/homebrew/opt/ruby/bin"
 export PATH="$PATH:$HOME/.flutter/bin"
 export PATH="$PATH:$BUN_INSTALL/bin"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-export PATH="$PATH:$HOME/neovim/bin"
 
 # Antigen
 source "$ZSH/plugins/antigen.zsh"

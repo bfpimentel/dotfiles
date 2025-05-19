@@ -31,7 +31,7 @@
     textfox = {
       url = "github:adriankarlen/textfox";
     };
-    neovim-nightly-overlay = {
+    neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
   };
@@ -47,6 +47,7 @@
       agenix,
       impermanence,
       textfox,
+      neovim-nightly,
       ...
     }@inputs:
     let
@@ -67,6 +68,9 @@
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
+          overlays = [
+            neovim-nightly.overlays.default
+          ];
         }
       );
 
