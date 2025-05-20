@@ -5,20 +5,22 @@ let
 in
 {
   imports = [
-    ./hyprland
+    ./displaymanager
     ./ollama
     ./restic
+    ./steam
     ./sunshine
     ./wireguard
-    ./xserver
   ];
+
+  services.xserver.enable = true;
 
   bfmp.services = {
     restic.enable = true;
     ollama.enable = false;
+    steam.enable = configureForGaming;
     sunshine.enable = configureForGaming;
-    hyprland.enable = configureForGaming;
-    xserver.enable = true;
+    displayManager.enable = configureForGaming;
     wireguard = {
       enable = false;
       isServer = false;

@@ -76,7 +76,7 @@ in
     plex.enable = true;
     speedtest.enable = true;
     stirling-pdf.enable = true;
-    tautulli.enable = true;
+    tautulli.enable = false;
     traefik.enable = true;
     vaultwarden.enable = false;
     whisper.enable = enableAIStack;

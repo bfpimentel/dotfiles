@@ -76,4 +76,9 @@ in
       "noauto"
     ];
   };
+
+  fileSystems."${vars.massMountLocation}" = {
+    device = "/dev/disk/by-uuid/46f4dc53-f6d4-44a6-a2d8-2999c04aa30b";
+    fsType = "ext4";
+  };
 }

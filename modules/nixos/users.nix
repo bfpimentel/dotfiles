@@ -20,7 +20,7 @@
       group = "${vars.defaultUser}";
       description = "${vars.defaultUserFullName}";
       isNormalUser = true;
-      shell = pkgs.zsh;
+      # shell = pkgs.zsh;
       extraGroups = [
         "networkmanager"
         "podman"

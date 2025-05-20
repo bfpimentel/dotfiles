@@ -8,4 +8,6 @@
   mediaMountLocation = "/mnt/media";
   photosMountLocation = "/mnt/photos";
   documentsMountLocation = "/mnt/documents";
+
+  massMountLocation = "/mnt/mass";
 }
