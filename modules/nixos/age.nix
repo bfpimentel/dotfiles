@@ -29,6 +29,7 @@ in
       paperless.file = ../../secrets/paperless.age;
       beszel.file = ../../secrets/beszel.age;
       hoarder.file = ../../secrets/hoarder.age;
+      aliasvault.file = ../../secrets/aliasvault.age;
 
       apprise = {
         file = ../../secrets/apprise.age;

@@ -1,9 +1,5 @@
 { ... }:
 
-let
-  enableAIStack = false;
-  enableGlanceDashboard = true;
-in
 {
   imports = [
     ./apprise
@@ -23,6 +19,8 @@ in
     ./immich
     ./invoke
     ./it-tools
+    ./jellyfin
+    ./jellyseerr
     ./n8n
     ./ollama-webui
     ./overseerr
@@ -51,34 +49,42 @@ in
     5353
   ];
 
-  bfmp.containers = {
-    apprise.enable = true;
-    arr.enable = true;
-    audiobookshelf.enable = true;
-    authentik.enable = true;
-    baikal.enable = true;
-    beszel.enable = true;
-    ddns.enable = false;
-    deluge.enable = true;
-    dozzle.enable = true;
-    freshrss.enable = true;
-    glance.enable = enableGlanceDashboard;
-    grocy.enable = true;
-    hoarder.enable = true;
-    homepage.enable = !enableGlanceDashboard;
-    immich.enable = true;
-    invoke.enable = enableAIStack;
-    it-tools.enable = true;
-    n8n.enable = true;
-    ollama-webui.enable = enableAIStack;
-    overseerr.enable = true;
-    pingvin.enable = true;
-    plex.enable = true;
-    speedtest.enable = true;
-    stirling-pdf.enable = true;
-    tautulli.enable = false;
-    traefik.enable = true;
-    vaultwarden.enable = false;
-    whisper.enable = enableAIStack;
-  };
+  bfmp.containers =
+    let
+      enableAIStack = false;
+      enableGlanceDashboard = true;
+      enableJellyfin = true;
+    in
+    {
+      apprise.enable = true;
+      arr.enable = true;
+      audiobookshelf.enable = true;
+      authentik.enable = true;
+      baikal.enable = true;
+      beszel.enable = true;
+      ddns.enable = false;
+      deluge.enable = true;
+      dozzle.enable = true;
+      freshrss.enable = true;
+      glance.enable = enableGlanceDashboard;
+      grocy.enable = true;
+      hoarder.enable = true;
+      homepage.enable = !enableGlanceDashboard;
+      immich.enable = true;
+      invoke.enable = enableAIStack;
+      it-tools.enable = true;
+      jellyfin.enable = enableJellyfin;
+      jellyseerr.enable = enableJellyfin;
+      n8n.enable = true;
+      ollama-webui.enable = enableAIStack;
+      overseerr.enable = !enableJellyfin;
+      pingvin.enable = true;
+      plex.enable = !enableJellyfin;
+      speedtest.enable = true;
+      stirling-pdf.enable = true;
+      tautulli.enable = !enableJellyfin;
+      traefik.enable = true;
+      vaultwarden.enable = false;
+      whisper.enable = enableAIStack;
+    };
 }

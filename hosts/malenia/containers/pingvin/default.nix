@@ -49,6 +49,7 @@ in
           name = "Pingvin";
           subdomain = "upload";
           port = 3000;
+          icon = "pingvin-share";
         };
       };
     };

@@ -29,6 +29,7 @@ in
   "paperless.age".publicKeys = allKeys;
   "beszel.age".publicKeys = allKeys;
   "hoarder.age".publicKeys = allKeys;
+  "aliasvault.age".publicKeys = allKeys;
 
   "apprise.age".publicKeys = allKeys;
   "ntfy.age".publicKeys = allKeys;

@@ -8,13 +8,6 @@
 
 with lib;
 let
-  backupNotifications = {
-    restic-backups-photos-failure = "Backup de fotos falhou!";
-    restic-backups-photos-success = "Backup de fotos feito com sucesso!";
-    restic-backups-containers-failure = "Backup de containers falhou!";
-    restic-backups-containers-success = "Backup de containers feito com sucesso!";
-  };
-
   cfg = config.bfmp.services.restic;
 in
 {
@@ -44,50 +37,49 @@ in
           };
           script = ''${pkgs.systemd}/bin/systemctl start --no-block --all "podman-*"'';
         };
-
-        restic-backups-photos = {
-          requires = [ "restic-backups-podman-stop.service" ];
-          after = [ "restic-backups-podman-stop.service" ];
-          onFailure = [
-            "restic-backups-podman-start.service"
-            "restic-backups-photos-failure.service"
-          ];
-          onSuccess = [
-            "restic-backups-podman-start.service"
-            "restic-backups-photos-success.service"
-          ];
-        };
-
-        restic-backups-containers = {
-          requires = [ "restic-backups-podman-stop.service" ];
-          after = [ "restic-backups-podman-stop.service" ];
-          onFailure = [
-            "restic-backups-podman-start.service"
-            "restic-backups-containers-failure.service"
-          ];
-          onSuccess = [
-            "restic-backups-podman-start.service"
-            "restic-backups-containers-success.service"
-          ];
-        };
       }
-      // mapAttrs' (
-        name: message:
-        attrsets.nameValuePair name {
-          enable = true;
-          serviceConfig = {
-            Type = "oneshot";
-            User = vars.defaultUser;
+      //
+        genAttrs
+          [
+            "restic-backups-photos"
+            "restic-backups-containers"
+          ]
+          (name: {
+            requires = [ "restic-backups-podman-stop.service" ];
+            after = [ "restic-backups-podman-stop.service" ];
+            onFailure = [
+              "restic-backups-podman-start.service"
+              "${name}-failure.service"
+            ];
+            onSuccess = [
+              "restic-backups-podman-start.service"
+              "${name}-success.service"
+            ];
+          })
+      //
+        mapAttrs'
+          (
+            name: message:
+            attrsets.nameValuePair "restic-backups-${name}" {
+              enable = true;
+              serviceConfig = {
+                Type = "oneshot";
+                User = vars.defaultUser;
+              };
+              script = ''
+                ${pkgs.apprise}/bin/apprise --config=${config.age.secrets.apprise.path} \
+                  --tag="telegram" \
+                  --title="🖥️ Server" \
+                  --body="${message}"
+              '';
+            }
+          )
+          {
+            photos-failure = "Photos backup failure!";
+            photos-success = "Photos backup succcess!";
+            containers-failure = "Containers backup failure!";
+            containers-success = "Containers backup succcess!";
           };
-          script = ''
-            sleep 60
-            ${pkgs.apprise}/bin/apprise --config=${config.age.secrets.apprise.path} \
-              --tag="telegram" \
-              --title=":computer: Servidor" \
-              --body="${message}"
-          '';
-        }
-      ) backupNotifications;
 
     services.restic.backups = {
       photos = {

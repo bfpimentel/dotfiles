@@ -9,7 +9,7 @@
 
 with lib;
 let
-  immichVersion = "v1.132.3";
+  immichVersion = "v1.133.1";
 
   immichPaths =
     let
@@ -46,13 +46,6 @@ in
         builtins.attrValues immichPaths.volumes
       )
       ++ map (x: "d ${x} 0775 postgres ${vars.defaultUser} - -") [ immichPaths.postgres ];
-
-    systemd.services = {
-      podman-immich-postgres = {
-        requires = [ "podman-immich-redis.service" ];
-        after = [ "podman-immich-redis.service" ];
-      };
-    };
 
     virtualisation.oci-containers.containers = {
       immich = {
@@ -103,9 +96,8 @@ in
       };
 
       immich-postgres = {
-        image = "tensorchord/pgvecto-rs:pg14-v0.2.1";
+        image = "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0";
         autoStart = true;
-        dependsOn = [ "immich-redis" ];
         extraOptions = [ "--user=100001:100001" ];
         volumes = [ "${immichPaths.postgres}:/var/lib/postgresql/data" ];
         environmentFiles = [ config.age.secrets.immich.path ];

@@ -16,9 +16,16 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      lutris
+    ];
+
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+      ];
     };
 
     systemd.user.services.steam = {
