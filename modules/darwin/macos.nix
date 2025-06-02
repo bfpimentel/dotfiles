@@ -1,9 +1,10 @@
-{ ... }:
+{ vars, ... }:
 
 {
   security.pam.services.sudo_local.touchIdAuth = true;
 
   system = {
+    primaryUser = "${vars.defaultUser}";
     keyboard = {
       enableKeyMapping = true;
       remapCapsLockToControl = true;

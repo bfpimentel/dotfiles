@@ -1,5 +1,5 @@
 local Snacks = require("snacks")
-local blink = require("blink-cmp")
+-- local blink = require("blink-cmp")
 
 local function command_line(icon, prompt)
   return Snacks.input(
@@ -50,6 +50,7 @@ end, { noremap = true })
 return {
   "snacks.nvim",
   opts = {
+    ---@class snacks.input.Config
     input = {
       icon = " ",
     },

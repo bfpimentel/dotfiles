@@ -57,7 +57,7 @@ return {
       },
       nil_ls = {
         settings = {
-          nil_ls = {
+          ["nil"] = {
             formatter = { command = "nixfmt" }
           },
         },

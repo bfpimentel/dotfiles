@@ -1,5 +1,6 @@
 return {
   "snacks.nvim",
+  ---@class snacks.notification.Config
   opts = {
     styles = {
       notification = {

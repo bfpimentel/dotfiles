@@ -11,6 +11,7 @@ return {
     indent = { enabled = true },
     input = { enabled = true },
     lazygit = { enabled = true },
+    git = { enabled = false },
     notifier = { enabled = true },
     quickfile = { enabled = true },
     scope = { enabled = true },
@@ -29,7 +30,6 @@ return {
       { "<leader>bd", function() Snacks.bufdelete() end,             desc = "Delete Buffer" },
       { "<leader>rN", function() Snacks.rename.rename_file() end,    desc = "Rename File" },
       { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
-      { "<leader>un", function() Snacks.notifier.hide() end,         desc = "Dismiss All Notifications" },
       { "<c-t>",      function() Snacks.terminal() end,              desc = "Toggle Terminal" },
     }
   end,

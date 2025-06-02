@@ -3,6 +3,7 @@ local Snacks = require("snacks")
 return {
   "snacks.nvim",
   opts = {
+    ---@class snacks.picker.Config
     picker = {
       enabled = true,
       layout = {

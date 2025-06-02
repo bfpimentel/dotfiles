@@ -14,7 +14,7 @@
     cmake
     argparse
 
-    nodejs_23
+    nodejs_24
     zulu17
 
     ripgrep

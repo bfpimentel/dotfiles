@@ -19,8 +19,8 @@
       "ripgrep"
       "libpcap"
       "xz"
-      "hcxtools"
       "cocoapods"
+      "immich-go"
       # "ykman"
       # "switchaudio-osx"
       # "nowplaying-cli"
@@ -37,8 +37,10 @@
     casks = [
       { name = "xcodes"; greedy = true; }
       { name = "ghostty"; greedy = true; }
+      { name = "anydesk"; greedy = true; }
       { name = "zoom"; greedy = true; }
       { name = "ankerwork"; greedy = true; }
+      { name = "insomnia"; greedy = true; }
       { name = "balance-lock"; greedy = true; }
       { name = "linearmouse"; greedy = true; }
       { name = "shottr"; greedy = true; }

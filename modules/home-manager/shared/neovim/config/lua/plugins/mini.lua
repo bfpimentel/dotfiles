@@ -12,6 +12,12 @@ return {
 		opts = {},
 	},
 	{
+		"echasnovski/mini.diff",
+		lazy = false,
+		version = false,
+		opts = {},
+	},
+	{
 		"echasnovski/mini.bracketed",
 		lazy = false,
 		version = false,
@@ -33,7 +39,8 @@ return {
 				}
 			end
 
-			-- "0xFFEACDTE"
+			-- "0xEACDTE"
+			-- #00EACDTE
 			local argb_color = function(_, match)
 				if string.len(match) ~= 10 then
 					return false
