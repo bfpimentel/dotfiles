@@ -41,25 +41,43 @@ in
       //
         genAttrs
           [
-            "restic-backups-photos"
-            "restic-backups-containers"
+            "photos"
+            "containers"
           ]
           (name: {
             requires = [ "restic-backups-podman-stop.service" ];
             after = [ "restic-backups-podman-stop.service" ];
             onFailure = [
               "restic-backups-podman-start.service"
-              "${name}-failure.service"
+              "restic-backups-${name}-failure.service"
             ];
             onSuccess = [
               "restic-backups-podman-start.service"
-              "${name}-success.service"
+              "restic-backups-${name}-success.service"
             ];
           })
       //
-        mapAttrs'
+        getAttrs
+          [
+            {
+              name = "photos-failure";
+              message = "Photos backup failure!";
+            }
+            {
+              name = "photos-success";
+              message = "Photos backup success!";
+            }
+            {
+              name = "containers-failure";
+              message = "Containers backup failure!";
+            }
+            {
+              name = "containers-success";
+              message = "Containers backup success!";
+            }
+          ]
           (
-            name: message:
+            { name, message }:
             attrsets.nameValuePair "restic-backups-${name}" {
               enable = true;
               serviceConfig = {
@@ -67,19 +85,14 @@ in
                 User = vars.defaultUser;
               };
               script = ''
+                sleep 60
                 ${pkgs.apprise}/bin/apprise --config=${config.age.secrets.apprise.path} \
                   --tag="telegram" \
                   --title="🖥️ Server" \
                   --body="${message}"
               '';
             }
-          )
-          {
-            photos-failure = "Photos backup failure!";
-            photos-success = "Photos backup succcess!";
-            containers-failure = "Containers backup failure!";
-            containers-success = "Containers backup succcess!";
-          };
+          );
 
     services.restic.backups = {
       photos = {
