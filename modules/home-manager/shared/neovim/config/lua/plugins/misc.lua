@@ -19,10 +19,6 @@ return {
     end,
   },
   {
-    "tpope/vim-sleuth",
-    lazy = false,
-  },
-  {
     "andrewferrier/wrapping.nvim",
     lazy = false,
     opts = {

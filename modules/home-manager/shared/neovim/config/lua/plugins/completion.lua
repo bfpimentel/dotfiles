@@ -31,19 +31,12 @@ return {
         }
       }
     },
-    accept = {
-      auto_brackets = { enabled = false },
-    },
     fuzzy = {
       implementation = "prefer_rust_with_warning"
     },
     sources = {
-      default = { "lsp", "lazydev", "path", "snippets", "buffer" },
+      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
       providers = {
-        lsp = {
-          name = "LSP",
-          module = "blink.cmp.sources.lsp",
-        },
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",

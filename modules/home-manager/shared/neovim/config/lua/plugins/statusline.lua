@@ -4,9 +4,23 @@ return {
   lazy = false,
   opts = {
     options = {
-      theme = "catppuccin",
+      theme = vim.g.theme,
       component_separators = { left = "|", right = "|" },
       section_separators = { left = "", right = "" },
     },
+    sections = {
+      lualine_a = {
+        {
+          'lsp_status',
+          icon = '',
+          symbols = {
+            spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
+            done = '✓',
+            separator = ' ',
+          },
+          ignore_lsp = {},
+        }
+      }
+    }
   },
 }

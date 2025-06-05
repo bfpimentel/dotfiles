@@ -1,0 +1,64 @@
+local blink = require("blink.cmp")
+
+--- @type vim.lsp.Config
+return {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  root_markers = {
+    ".git",
+    ".luacheckrc",
+    ".luarc.json",
+    ".luarc.jsonc",
+    ".stylua.toml",
+    "selene.toml",
+    "selene.yml",
+    "stylua.toml",
+  },
+  single_file_support = true,
+  telemetry = { enabled = false },
+  log_level = vim.lsp.protocol.MessageType.Warning,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = {
+          'lua/?.lua',
+          'lua/?/init.lua',
+        },
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME
+        }
+      },
+      diagnostics = {
+        disable = { "missing-parameters", "missing-fields" },
+        globals = {
+          "vim",
+          "use",
+        }
+      },
+      hint = {
+        enable = true,
+        setType = false,
+        paramType = true,
+        paramName = "Disable",
+        semicolon = "Disable",
+        arrayIndex = "Disable",
+      },
+    },
+  },
+  capabilities = vim.tbl_deep_extend(
+    "force",
+    {},
+    vim.lsp.protocol.make_client_capabilities(),
+    blink.get_lsp_capabilities(),
+    {
+      fileOperations = {
+        didRename = true,
+        willRename = true,
+      },
+    }
+  ),
+}

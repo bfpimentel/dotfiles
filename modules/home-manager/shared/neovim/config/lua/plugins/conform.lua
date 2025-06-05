@@ -5,8 +5,7 @@ return {
   cmd = { 'ConformInfo' },
   opts = {
     formatters_by_ft = {
-      lua = { "lua_ls" },
-      sh = { "bashls" },
+      lua = { "stylua" },
       yaml = { "yamlls" },
       nix = { "nixfmt" },
       typescript = { "prettierd" },
