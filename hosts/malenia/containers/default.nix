@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./actualbudget
     ./apprise
     ./arr
     ./audiobookshelf
@@ -56,6 +57,7 @@
       enableJellyfin = true;
     in
     {
+      actualbudget.enable = true;
       apprise.enable = true;
       arr.enable = true;
       audiobookshelf.enable = true;

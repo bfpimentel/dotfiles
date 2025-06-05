@@ -14,13 +14,20 @@ return {
           'lsp_status',
           icon = '',
           symbols = {
-            spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
+            spinner = { "◐", "◓", "◑", "◒" },
             done = '✓',
             separator = ' ',
           },
           ignore_lsp = {},
         }
+      },
+      lualine_x = {
+        {
+          require("noice").api.statusline.mode.get,
+          cond = require("noice").api.statusline.mode.has,
+          -- color = { bg = "#ff9e64" },
+        }
       }
-    }
-  },
+    },
+  }
 }
