@@ -3,6 +3,7 @@ vim.lsp.enable({
   "lua",
   "nix",
   "typescript",
+  -- "eslint",
   "yaml",
 })
 

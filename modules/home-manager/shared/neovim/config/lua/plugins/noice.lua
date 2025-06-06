@@ -2,6 +2,9 @@ return {
   "folke/noice.nvim",
   dependencies = { "MunifTanjim/nui.nvim" },
   event = "VeryLazy",
+  init = function()
+    vim.cmd("set cmdheight=0")
+  end,
   opts = {
     messages = { enabled = false },
     notify = { enabled = false },
@@ -19,7 +22,7 @@ return {
       cmdline_popup = {
         position = {
           row = 8,
-          col = "50%"
+          col = "50%",
         },
         size = {
           width = 60,
@@ -27,13 +30,13 @@ return {
         },
         border = {
           style = "single",
-        }
+        },
       },
       popupmenu = {
         relative = "editor",
         position = {
           row = 11,
-          col = "50%"
+          col = "50%",
         },
         size = {
           width = 60,
@@ -47,6 +50,6 @@ return {
           winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
         },
       },
-    }
+    },
   },
 }

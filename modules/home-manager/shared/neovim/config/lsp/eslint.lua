@@ -5,23 +5,24 @@ capabilities = blink.get_lsp_capabilities(capabilities)
 
 --- @type vim.lsp.Config
 return {
-  cmd = { "typescript-language-server", "--stdio" },
+  cmd = { "vscode-eslint-language-server", "--stdio" },
   filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
+    "typescript",
     "typescript.tsx",
-    "typescriptreact",
     "typescriptreact",
   },
   root_markers = {
-    ".git",
-    "jsconfig.json",
-    "package.json",
-    "tsconfig.json",
+    "eslint.config.js",
+    "eslint.config.mjs",
+    "eslint.config.cjs",
+    "eslint.config.ts",
+    "eslint.config.mts",
+    "eslint.config.cts",
   },
-  init_options = { hostInfo = "neovim" },
-  single_file_support = true,
+  settings = {
+    packageManager = "npm",
+    useFlatConfig = true,
+  },
   capabilities = vim.tbl_deep_extend("force", {}, capabilities, {
     fileOperations = {
       didRename = true,

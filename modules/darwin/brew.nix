@@ -52,9 +52,10 @@
       { name = "pearcleaner"; greedy = true; }
       { name = "kap"; greedy = true; }
       { name = "aerospace"; greedy = true; }
-      { name = "zen-browser"; greedy = true; }
+      { name = "http-toolkit"; greedy = true; }
       { name = "the-unarchiver"; greedy = true; }
       { name = "android-studio-preview@beta"; greedy = true; }
+      # { name = "zen-browser"; greedy = true; }
       # { name = "notchnook"; greedy = true; }
       # { name = "raycast"; greedy = true; }
 

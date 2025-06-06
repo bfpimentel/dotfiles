@@ -2,11 +2,11 @@ return {
   "saghen/blink.cmp",
   lazy = false,
   dependencies = "rafamadriz/friendly-snippets",
-  version = "*",
+  version = "1.*",
   ---@module "blink.cmp"
   ---@type blink.cmp.Config
   opts = {
-    keymap = { preset = "super-tab", },
+    keymap = { preset = "super-tab" },
     appearance = {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "normal",
@@ -25,14 +25,14 @@ return {
       menu = {
         draw = {
           columns = {
-            { "label",     "label_description", gap = 1 },
-            { "kind_icon", "kind" }
-          }
-        }
-      }
+            { "label", "label_description", gap = 1 },
+            { "kind_icon", "kind" },
+          },
+        },
+      },
     },
     fuzzy = {
-      implementation = "prefer_rust_with_warning"
+      implementation = "prefer_rust_with_warning",
     },
     sources = {
       default = { "lazydev", "lsp", "path", "snippets", "buffer" },
