@@ -5,6 +5,7 @@ capabilities = blink.get_lsp_capabilities(capabilities)
 
 --- @type vim.lsp.Config
 return {
+  dependencies = { "esmuellert/nvim-eslint" },
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = {
     "javascript",
@@ -28,4 +29,5 @@ return {
       willRename = true,
     },
   }),
+  on_attach = function() vim.lsp.start({ "nvim-eslint" }) end,
 }

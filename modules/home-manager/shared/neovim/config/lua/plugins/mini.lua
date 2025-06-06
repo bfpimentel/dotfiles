@@ -123,6 +123,9 @@ return {
     "echasnovski/mini.statusline",
     lazy = false,
     version = false,
+    init = function()
+      vim.cmd([[set cmdheight=0]])
+    end,
     opts = function()
       local MiniStatusline = require("mini.statusline")
 
@@ -144,7 +147,7 @@ return {
           { hl = "MiniStatuslineFilename", strings = { filename } },
           "%=", -- End left alignment
           { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
-          { hl = mode_hl, strings = { search, location } },
+          { hl = mode_hl, strings = { search ~= "" and " " .. search, " " .. location } },
         })
       end
 
