@@ -19,7 +19,7 @@ return {
       cmdline_popup = {
         position = {
           row = 8,
-          col = "50%"
+          col = "50%",
         },
         size = {
           width = 60,
@@ -27,13 +27,13 @@ return {
         },
         border = {
           style = "single",
-        }
+        },
       },
       popupmenu = {
         relative = "editor",
         position = {
           row = 11,
-          col = "50%"
+          col = "50%",
         },
         size = {
           width = 60,
@@ -47,6 +47,6 @@ return {
           winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
         },
       },
-    }
+    },
   },
 }

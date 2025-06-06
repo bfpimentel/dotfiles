@@ -57,27 +57,9 @@ in
             ];
           })
       //
-        getAttrs
-          [
-            {
-              name = "photos-failure";
-              message = "Photos backup failure!";
-            }
-            {
-              name = "photos-success";
-              message = "Photos backup success!";
-            }
-            {
-              name = "containers-failure";
-              message = "Containers backup failure!";
-            }
-            {
-              name = "containers-success";
-              message = "Containers backup success!";
-            }
-          ]
+        mapAttrs'
           (
-            { name, message }:
+            name: message:
             attrsets.nameValuePair "restic-backups-${name}" {
               enable = true;
               serviceConfig = {
@@ -92,7 +74,13 @@ in
                   --body="${message}"
               '';
             }
-          );
+          )
+          {
+            "photos-failure" = "Photos backup failure!";
+            "photos-success" = "Photos backup success!";
+            "containers-failure" = "Containers backup failure!";
+            "containers-success" = "Containers backup success!";
+          };
 
     services.restic.backups = {
       photos = {

@@ -4,13 +4,18 @@ shell-integration-features = cursor,title,sudo
 theme = catppuccin-mocha
 
 font-family = "SpaceMono Nerd Font"
-font-size = 13.5
+font-size = 13
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-# adjust-cell-height = 20%
-# adjust-cursor-height = 20%
+adjust-cell-height = 10%
+adjust-cursor-height = 10%
+
+window-padding-balance = true
+window-padding-x = 0
+window-padding-y = 0
+window-padding-color = extend
 
 background-opacity = 0.7
 background-blur-radius = 20

@@ -1,5 +1,8 @@
 local blink = require("blink.cmp")
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = blink.get_lsp_capabilities(capabilities)
+
 --- @type vim.lsp.Config
 return {
   cmd = { "lua-language-server" },
@@ -20,24 +23,24 @@ return {
   settings = {
     Lua = {
       runtime = {
-        version = 'LuaJIT',
+        version = "LuaJIT",
         path = {
-          'lua/?.lua',
-          'lua/?/init.lua',
+          "lua/?.lua",
+          "lua/?/init.lua",
         },
       },
       workspace = {
         checkThirdParty = false,
         library = {
-          vim.env.VIMRUNTIME
-        }
+          vim.env.VIMRUNTIME,
+        },
       },
       diagnostics = {
         disable = { "missing-parameters", "missing-fields" },
         globals = {
           "vim",
           "use",
-        }
+        },
       },
       hint = {
         enable = true,
@@ -49,16 +52,10 @@ return {
       },
     },
   },
-  capabilities = vim.tbl_deep_extend(
-    "force",
-    {},
-    vim.lsp.protocol.make_client_capabilities(),
-    blink.get_lsp_capabilities(),
-    {
-      fileOperations = {
-        didRename = true,
-        willRename = true,
-      },
-    }
-  ),
+  capabilities = vim.tbl_deep_extend("force", {}, capabilities, {
+    fileOperations = {
+      didRename = true,
+      willRename = true,
+    },
+  }),
 }
