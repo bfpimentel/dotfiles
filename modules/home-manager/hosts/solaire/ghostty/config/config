@@ -1,7 +1,7 @@
 shell-integration = zsh
 shell-integration-features = cursor,title,sudo
 
-theme = catppuccin-mocha
+theme = GruvboxDark
 
 font-family = "SpaceMono Nerd Font"
 font-size = 13
@@ -9,25 +9,28 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-adjust-cell-height = 10%
-adjust-cursor-height = 10%
+adjust-cell-height = 20%
+adjust-cursor-height = 20%
 
-window-padding-balance = true
-window-padding-x = 0
+window-padding-x = 1
 window-padding-y = 0
+window-padding-balance = true
 window-padding-color = extend
 
-background-opacity = 0.7
+background-opacity = 0.9
 background-blur-radius = 20
 
 clipboard-read = allow
 clipboard-write = allow
-copy-on-select = clipboard
 clipboard-paste-protection = false
 clipboard-trim-trailing-spaces = true
+copy-on-select = clipboard
 
 macos-auto-secure-input = false
 macos-secure-input-indication = true
 macos-titlebar-style = tabs
 
 config-file = keybindings
+config-file = colors
+
+# vim: set ft=conf :

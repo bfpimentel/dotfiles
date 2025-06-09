@@ -12,6 +12,10 @@
     withNodeJs = true;
     withPython3 = true;
     withRuby = true;
+    # plugins = with pkgs.vimPlugins; [
+    #   mini-deps
+    #   lazy-nvim
+    # ];
     extraPackages = with pkgs; [
       lua-language-server
       stylua

@@ -1,8 +1,13 @@
-return {
-  "folke/noice.nvim",
-  dependencies = { "MunifTanjim/nui.nvim" },
-  event = "VeryLazy",
-  opts = {
+local add, now = MiniDeps.add, MiniDeps.now
+
+add({
+  source = "folke/noice.nvim",
+  depends = { "MunifTanjim/nui.nvim" } }
+)
+
+now(function()
+  local Noice = require("noice")
+  Noice.setup({
     messages = { enabled = false },
     notify = { enabled = false },
     lsp = {
@@ -12,9 +17,7 @@ return {
       message = { enabled = false },
       documentation = { enabled = false },
     },
-    presets = {
-      inc_rename = true,
-    },
+    presets = { inc_rename = true },
     views = {
       cmdline_popup = {
         position = {
@@ -25,8 +28,7 @@ return {
           width = 60,
           height = "auto",
         },
-        border = {
-          style = "single",
+        border = { style = "single",
         },
       },
       popupmenu = {
@@ -48,5 +50,5 @@ return {
         },
       },
     },
-  },
-}
+  })
+end)

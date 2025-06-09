@@ -1,11 +1,12 @@
-return {
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  lazy = false,
-  config = function(_, opts)
-    require('nvim-treesitter.configs').setup(opts)
-  end,
-  opts = {
+local add, later = MiniDeps.add, MiniDeps.later
+
+add({
+  source = "nvim-treesitter/nvim-treesitter",
+  hooks = { post_checkout = function() vim.cmd("TSUpdate") end },
+})
+
+later(function()
+  require("nvim-treesitter").setup({
     sync_install = false,
     auto_install = true,
     highlight = { enable = true, additional_vim_regex_highlighting = false },
@@ -20,7 +21,6 @@ return {
       },
     },
     ensure_installed = {
-      "typescript",
       "c",
       "lua",
       "nix",
@@ -29,10 +29,11 @@ return {
       "query",
       "elixir",
       "heex",
-      "javascript",
       "html",
+      "javascript",
+      "typescript",
       "markdown",
-      "markdown_inline"
+      "markdown_inline",
     },
-  },
-}
+  })
+end)

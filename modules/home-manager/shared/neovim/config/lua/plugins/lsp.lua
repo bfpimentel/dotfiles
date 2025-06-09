@@ -1,19 +1,67 @@
-return {
-  "esmuellert/nvim-eslint",
-  lazy = false,
-  opts = function()
-    local eslint = require("nvim-eslint")
-    local blink = require("blink.cmp")
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
-    local capabilities = eslint.make_client_capabilities()
-    capabilities = blink.get_lsp_capabilities(capabilities)
+add({ source = "esmuellert/nvim-eslint" })
+add({ source = "folke/lazydev.nvim" })
 
-    return {
-      capabilities = capabilities,
-      settings = {
-        useFlatConfig = true,
-        workingDirectory = { mode = "location" },
+now(function()
+  vim.lsp.enable({
+    "json",
+    "lua",
+    "nix",
+    "typescript",
+    -- "eslint",
+    "yaml",
+  })
+end)
+
+now(function()
+  local Eslint = require("nvim-eslint")
+  local Blink = require("blink.cmp")
+
+  local capabilities = Eslint.make_client_capabilities()
+  capabilities = Blink.get_lsp_capabilities(capabilities)
+
+  Eslint.setup({
+    capabilities = capabilities,
+    settings = {
+      useFlatConfig = true,
+      workingDirectory = { mode = "location" },
+    },
+  })
+
+  require("lazydev").setup({
+    library = {
+      "lazy.nvim",
+      { path = "LazyVim", words = { "LazyVim" } },
+      { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+    },
+  })
+end)
+
+later(function()
+  vim.diagnostic.config({
+    virtual_lines = {
+      current_line = true,
+    },
+    -- virtual_text = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+    float = {
+      border = "single",
+      source = true,
+    },
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = "󰅚 ",
+        [vim.diagnostic.severity.WARN] = "󰀪 ",
+        [vim.diagnostic.severity.INFO] = "󰋽 ",
+        [vim.diagnostic.severity.HINT] = "󰌶 ",
       },
-    }
-  end,
-}
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+        [vim.diagnostic.severity.WARN] = "WarningMsg",
+      },
+    },
+  })
+end)

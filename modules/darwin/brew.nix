@@ -45,6 +45,7 @@
       { name = "linearmouse"; greedy = true; }
       { name = "shottr"; greedy = true; }
       { name = "raspberry-pi-imager"; greedy = true; }
+      { name = "private-internet-access"; greedy = true; }
       { name = "brave-browser"; greedy = true; }
       { name = "hiddenbar"; greedy = true; }
       { name = "bitwarden"; greedy = true; }
