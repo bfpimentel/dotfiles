@@ -2,6 +2,7 @@
   pkgs,
   homeManagerConfig,
   config,
+  inputs,
   ...
 }:
 
@@ -12,6 +13,7 @@
     withNodeJs = true;
     withPython3 = true;
     withRuby = true;
+    package = inputs.neovim-nightly.packages.${pkgs.system}.default;
     # plugins = with pkgs.vimPlugins; [
     #   mini-deps
     #   lazy-nvim

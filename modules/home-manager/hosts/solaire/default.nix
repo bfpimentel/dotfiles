@@ -5,6 +5,5 @@
     ./aerospace
     ./ghostty
     # ./sketchybar
-    # ./textfox
   ];
 }

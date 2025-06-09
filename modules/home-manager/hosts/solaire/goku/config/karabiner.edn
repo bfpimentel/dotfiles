@@ -1,1 +1,0 @@
-{:des "caps_lock" :rules [[:##caps_lock :left_control nil {:alone : escape} 11}
