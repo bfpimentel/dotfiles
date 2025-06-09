@@ -15,8 +15,6 @@ add({
 
 now(function()
   require("smear_cursor").setup()
-  require("inc_rename").setup()
-  require("which-key").setup()
   require("markview").setup()
   require("wrapping").setup({
     auto_set_mode_filetype_allowlist = {
@@ -32,4 +30,21 @@ now(function()
   })
 end)
 
-now(function() vim.keymap.set("n", "<leader>rn", ":IncRename ") end)
+now(function()
+  local WhichKey = require("which-key")
+  WhichKey.setup({
+    win = {
+      border = "single",
+      title_pos = "left",
+    },
+    layout = {
+      align = "right",
+    },
+  })
+end)
+
+now(function()
+  require("inc_rename").setup()
+
+  vim.keymap.set("n", "<leader>rn", ":IncRename ")
+end)

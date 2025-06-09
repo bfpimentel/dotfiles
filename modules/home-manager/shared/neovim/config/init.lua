@@ -1,7 +1,6 @@
 require("config.autocmds")
 require("config.keymaps")
 require("config.options")
-
 require("config.mini")
 
 require("plugins.colorscheme")

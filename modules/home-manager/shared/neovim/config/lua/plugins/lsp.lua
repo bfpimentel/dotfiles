@@ -29,10 +29,10 @@ now(function()
     },
   })
 
-  require("lazydev").setup({
+  local LazyDev = require("lazydev")
+  LazyDev.setup({
     library = {
-      "lazy.nvim",
-      { path = "LazyVim", words = { "LazyVim" } },
+      { path = "MiniDeps", words = { "MiniDeps" } },
       { path = "${3rd}/luv/library", words = { "vim%.uv" } },
     },
   })

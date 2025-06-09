@@ -3,14 +3,13 @@ local add, now = MiniDeps.add, MiniDeps.now
 add({
   source = "saghen/blink.cmp",
   depends = { "rafamadriz/friendly-snippets" },
-  checkout = "v1*"
+  checkout = "v1.3.1",
 })
 
 now(function()
   local Blink = require("blink.cmp")
-  Blink.opts_extend = { "sources.default" }
   Blink.setup({
-    keymap = { preset = "super-tab" },
+    keymap = { preset = "default" },
     appearance = {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "normal",
@@ -35,9 +34,7 @@ now(function()
         },
       },
     },
-    fuzzy = {
-      implementation = "prefer_rust",
-    },
+    fuzzy = { implementation = "lua" },
     sources = {
       default = { "lazydev", "lsp", "path", "snippets", "buffer" },
       providers = {
@@ -49,4 +46,5 @@ now(function()
       },
     },
   })
+  Blink.opts_extend = { "sources.default" }
 end)

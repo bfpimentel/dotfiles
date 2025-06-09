@@ -2,23 +2,36 @@ local add, now = MiniDeps.add, MiniDeps.now
 
 add({
   source = "folke/noice.nvim",
-  depends = { "MunifTanjim/nui.nvim" } }
-)
+  depends = { "MunifTanjim/nui.nvim" },
+})
 
 now(function()
   local Noice = require("noice")
   Noice.setup({
-    messages = { enabled = false },
+    presets = {
+      inc_rename = true,
+      long_message_to_split = true,
+      bottom_search = false,
+    },
+    cmdline = { enabled = true },
+    popupmenu = { enabled = true },
+    messages = { enabled = true },
     notify = { enabled = false },
     lsp = {
+      message = { enabled = true },
       progress = { enabled = false },
       hover = { enabled = false },
       signature = { enabled = false },
-      message = { enabled = false },
       documentation = { enabled = false },
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+      },
     },
-    presets = { inc_rename = true },
     views = {
+      messages = {
+        border = { style = "single" },
+      },
       cmdline_popup = {
         position = {
           row = 8,
@@ -28,8 +41,7 @@ now(function()
           width = 60,
           height = "auto",
         },
-        border = { style = "single",
-        },
+        border = { style = "single" },
       },
       popupmenu = {
         relative = "editor",

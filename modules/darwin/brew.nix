@@ -45,7 +45,6 @@
       { name = "linearmouse"; greedy = true; }
       { name = "shottr"; greedy = true; }
       { name = "raspberry-pi-imager"; greedy = true; }
-      { name = "private-internet-access"; greedy = true; }
       { name = "brave-browser"; greedy = true; }
       { name = "hiddenbar"; greedy = true; }
       { name = "bitwarden"; greedy = true; }
@@ -58,7 +57,6 @@
       { name = "android-studio-preview@beta"; greedy = true; }
       # { name = "zen-browser"; greedy = true; }
       # { name = "notchnook"; greedy = true; }
-      # { name = "raycast"; greedy = true; }
 
       { name = "font-space-mono-nerd-font"; greedy = true; }
       # { name = "sf-symbols"; greedy = true; }

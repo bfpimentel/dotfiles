@@ -6,11 +6,15 @@ now(function()
   require("mini.pairs").setup()
   require("mini.diff").setup()
   require("mini.bracketed").setup()
+  require("mini.tabline").setup()
 end)
 
 now(function()
+  local MiniIcons = require("mini.icons")
+  MiniIcons.setup()
+
   package.preload["nvim-web-devicons"] = function()
-    require("mini.icons").mock_nvim_web_devicons()
+    MiniIcons.mock_nvim_web_devicons()
     return package.loaded["nvim-web-devicons"]
   end
 end)

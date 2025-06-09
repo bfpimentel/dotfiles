@@ -13,18 +13,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Track Macro Recording [Start]
-vim.api.nvim_create_autocmd("RecordingEnter", {
-  pattern = "*",
-  callback = function() vim.cmd("redrawstatus") end,
-})
-
--- Track Macro Recording [End]
-vim.api.nvim_create_autocmd("RecordingLeave", {
-  pattern = "*",
-  callback = function() vim.cmd("redrawstatus") end,
-})
-
 -- Attach Treesitter
 vim.api.nvim_create_autocmd("FileType", {
   callback = function() pcall(vim.treesitter.start) end,
@@ -90,5 +78,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
         "[T]oggle Inlay [H]ints"
       )
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd("LspProgress", {
+  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+  callback = function(ev)
+    local spinner = { "◐", "◓", "◑", "◒" }
+    vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
+      id = "lsp_progress",
+      title = "LSP Progress",
+      opts = function(notif)
+        notif.icon = ev.data.params.value.kind == "end" and " "
+          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+      end,
+    })
   end,
 })

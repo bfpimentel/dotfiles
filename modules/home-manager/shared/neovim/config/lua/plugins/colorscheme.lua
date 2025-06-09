@@ -8,9 +8,7 @@ add({ source = "webhooked/kanso.nvim", name = "kanso" })
 now(function()
   vim.g.theme = "kanso"
   vim.g.theme_transparency = true
-end)
 
-now(function()
   require("catppuccin").setup({
     flavour = "mocha",
     transparent_background = vim.g.theme_transparency,

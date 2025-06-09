@@ -5,106 +5,10 @@ add({ source = "folke/snacks.nvim" })
 now(function()
   local Snacks = require("snacks")
   Snacks.setup({
-    bigfile = { enabled = true },
-    lazygit = { enabled = true },
     notifier = { enabled = true },
-    scope = { enabled = true },
-    scroll = { enabled = true },
-
-    -- Disable everything else
-    dashboard = { enabled = false },
-    explorer = { enabled = false },
-    indent = { enabled = false },
-    input = { enabled = false },
-    git = { enabled = false },
-    quickfile = { enabled = true },
-    statuscolumn = { enabled = false },
-    words = { enabled = false },
-    zen = { enabled = false },
-  })
-end)
-
-now(function()
-  local Snacks = require("snacks")
-
-  local map = vim.keymap.set
-  -- stylua: ignore start
-  map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })
-  map("n", "<leader>S", function() Snacks.scratch.select() end, { desc = "Select Scratch Buffer" })
-  map("n", "<leader>n", function() Snacks.notifier.show_history() end, { desc = "Show Notification History" })
-  map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
-  map("n", "<leader>rN", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
-  map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
-  map("n", "<C-t>", function() Snacks.terminal() end, { desc = "Toggle Terminal" })
-  -- stylua: ignore end
-end)
-
-later(function()
-  local Snacks = require("snacks")
-
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "VeryLazy",
-    callback = function()
-      -- Setup some globals for debugging (lazy-loaded)
-      _G.dd = function(...) Snacks.debug.inspect(...) end
-      _G.bt = function() Snacks.debug.backtrace() end
-      vim.print = _G.dd -- Override print to use snacks for `:=` command
-
-      -- Create some toggle mappings
-      Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-      Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-      Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-      Snacks.toggle.diagnostics():map("<leader>ud")
-      Snacks.toggle.line_number():map("<leader>ul")
-      Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-      Snacks.toggle.inlay_hints():map("<leader>uh")
-      Snacks.toggle.indent():map("<leader>ug")
-      Snacks.toggle.dim():map("<leader>uD")
-    end,
-  })
-end)
-
-now(function()
-  local Snacks = require("snacks")
-
-  Snacks.opts = {
-    ---@class snacks.lazygit.Config
-    lazygit = {
-      configure = true,
-    },
-  }
-end)
-
-now(function()
-  local Snacks = require("snacks")
-
-  Snacks.opts = {
-    ---@class snacks.notification.Config
-    notification = {},
-    styles = {
-      notification = {
-        border = "single",
-        zindex = 100,
-        ft = "markdown",
-        wo = {
-          winblend = 5,
-          wrap = true,
-          conceallevel = 2,
-          colorcolumn = "",
-        },
-        bo = { filetype = "snacks_notif" },
-      },
-    },
-  }
-end)
-
-now(function()
-  local Snacks = require("snacks")
-
-  Snacks.opts = {
-    ---@class snacks.picker.Config
+    indent = { enabled = true },
+    lazygit = { configure = true },
     picker = {
-      enabled = true,
       layout = {
         layout = {
           backdrop = false,
@@ -120,27 +24,31 @@ now(function()
           { win = "preview", border = "top", title = "{preview}" },
         },
       },
-      sources = {
-        explorer = {
-          layout = {
-            preset = "sidebar",
-            preview = "main",
-            layout = {
-              box = "vertical",
-              border = "none",
-              width = 40,
-              position = "right",
-              { win = "input", border = "bottom", height = 1 },
-              { win = "list", border = "none" },
-            },
-          },
-        },
-      },
     },
-  }
+    styles = {
+      notification = { border = "single" },
+      notification_history = { border = "single" },
+    },
+    scope = { enabled = false },
+    dashboard = { enabled = false },
+    explorer = { enabled = false },
+    git = { enabled = false },
+    quickfile = { enabled = true },
+    statuscolumn = { enabled = false },
+    words = { enabled = false },
+    zen = { enabled = false },
+  })
+end)
+
+now(function()
+  local Snacks = require("snacks")
 
   local map = vim.keymap.set
   -- stylua: ignore start
+  map("n", "<C-t>", function() Snacks.terminal() end, { desc = "Toggle Terminal" })
+  map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })
+  map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
+  --
   map( "n", "<leader>,", function() Snacks.picker.buffers() end, { desc = "Buffers" } )
   map( "n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" } )
   map( "n", "<leader>:", function() Snacks.picker.command_history() end, { desc = "Command History" } )
@@ -181,4 +89,28 @@ now(function()
   map( "n", "<leader>gs", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" } )
   map( "n", "<leader>gS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" } )
   -- stylua: ignore end
+end)
+
+later(function()
+  vim.api.nvim_create_autocmd("User", {
+    callback = function()
+      local Snacks = require("snacks")
+
+      -- Setup some globals for debugging (lazy-loaded)
+      _G.dd = function(...) Snacks.debug.inspect(...) end
+      _G.bt = function() Snacks.debug.backtrace() end
+      vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+      -- Create some toggle mappings
+      Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+      Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+      Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+      Snacks.toggle.diagnostics():map("<leader>ud")
+      Snacks.toggle.line_number():map("<leader>ul")
+      Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+      Snacks.toggle.inlay_hints():map("<leader>uh")
+      Snacks.toggle.indent():map("<leader>ug")
+      Snacks.toggle.dim():map("<leader>uD")
+    end,
+  })
 end)
