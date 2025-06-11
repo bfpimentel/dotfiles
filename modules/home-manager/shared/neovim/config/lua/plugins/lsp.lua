@@ -4,17 +4,6 @@ add({ source = "esmuellert/nvim-eslint" })
 add({ source = "folke/lazydev.nvim" })
 
 now(function()
-  vim.lsp.enable({
-    "json",
-    "lua",
-    "nix",
-    "typescript",
-    -- "eslint",
-    "yaml",
-  })
-end)
-
-now(function()
   local Eslint = require("nvim-eslint")
   local Blink = require("blink.cmp")
 

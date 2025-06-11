@@ -1,7 +1,7 @@
 local add, now = MiniDeps.add, MiniDeps.now
 
-add({ source = "sphamba/smear-cursor.nvim" })
 add({ source = "tpope/vim-sleuth" })
+add({ source = "sphamba/smear-cursor.nvim" })
 add({ source = "smjonas/inc-rename.nvim" })
 add({ source = "OXY2DEV/markview.nvim" })
 add({ source = "folke/flash.nvim" })

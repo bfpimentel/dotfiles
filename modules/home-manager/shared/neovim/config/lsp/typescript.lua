@@ -5,20 +5,19 @@ capabilities = blink.get_lsp_capabilities(capabilities)
 
 --- @type vim.lsp.Config
 return {
-  dependencies = { "esmuellert/nvim-eslint" },
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = {
     "javascript",
     "javascriptreact",
     "javascript.jsx",
+    "typescript",
+    "typescriptreact",
     "typescript.tsx",
-    "typescriptreact",
-    "typescriptreact",
   },
   root_markers = {
     ".git",
-    "jsconfig.json",
     "package.json",
+    "jsconfig.json",
     "tsconfig.json",
   },
   init_options = { hostInfo = "neovim" },
@@ -29,5 +28,4 @@ return {
       willRename = true,
     },
   }),
-  on_attach = function() vim.lsp.start({ "nvim-eslint" }) end,
 }

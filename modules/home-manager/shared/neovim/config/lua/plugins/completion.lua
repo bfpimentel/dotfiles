@@ -1,17 +1,18 @@
 local add, now = MiniDeps.add, MiniDeps.now
 
-add({
-  source = "saghen/blink.cmp",
-  depends = { "rafamadriz/friendly-snippets" },
-  checkout = "v1.3.1",
-})
+add({ source = "rafamadriz/friendly-snippets" })
+add({ source = "L3MON4D3/LuaSnip" })
+add({ source = "xzbdmw/colorful-menu.nvim" })
 
 now(function()
+  local ColorfulMenu = require("colorful-menu")
+
   local Blink = require("blink.cmp")
   Blink.setup({
+    snippets = { preset = "luasnip" },
     keymap = { preset = "super-tab" },
     appearance = {
-      use_nvim_cmp_as_default = true,
+      use_nvim_cmp_as_default = false,
       nerd_font_variant = "normal",
     },
     cmdline = {
@@ -20,23 +21,38 @@ now(function()
     },
     signature = {
       enabled = true,
+      window = {
+        border = nil,
+      },
     },
     completion = {
       keyword = { range = "full" },
       ghost_text = { enabled = true },
-      documentation = { auto_show = true, auto_show_delay_ms = 1000 },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 1000,
+      },
       menu = {
         draw = {
-          columns = {
-            { "label", "label_description", gap = 1 },
-            { "kind_icon", "kind" },
+          columns = { { "kind_icon" }, { "label", gap = 1 } },
+          components = {
+            label = {
+              text = function(ctx) return ColorfulMenu.blink_components_text(ctx) end,
+              highlight = function(ctx) return ColorfulMenu.blink_components_highlight(ctx) end,
+            },
           },
         },
       },
+      accept = {
+        auto_brackets = { enabled = false },
+      },
     },
-    fuzzy = { implementation = "lua" },
+    fuzzy = { implementation = "prefer_rust_with_warning" },
     sources = {
-      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "buffer", "snippets" },
+      per_filetype = {
+        lua = { inherit_defaults = true, "lazydev" },
+      },
       providers = {
         lazydev = {
           name = "LazyDev",
@@ -46,5 +62,7 @@ now(function()
       },
     },
   })
-  Blink.opts_extend = { "sources.default" }
+  -- Blink.opts_extend = { "sources.default" }
+
+  require("luasnip.loaders.from_vscode").lazy_load()
 end)

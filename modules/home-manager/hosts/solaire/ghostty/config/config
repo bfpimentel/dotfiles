@@ -10,8 +10,8 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-adjust-cell-height = 15%
-adjust-cursor-height = 15%
+adjust-cell-height = 10%
+adjust-cursor-height = 10%
 
 window-padding-x = 1
 window-padding-y = 0

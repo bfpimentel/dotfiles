@@ -1,7 +1,7 @@
-local blink = require("blink.cmp")
+local Blink = require("blink.cmp")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = blink.get_lsp_capabilities(capabilities)
+capabilities = Blink.get_lsp_capabilities(capabilities)
 
 --- @type vim.lsp.Config
 return {
@@ -23,32 +23,18 @@ return {
   settings = {
     Lua = {
       runtime = {
-        version = "Lua 5.4",
-        path = {
-          "lua/?.lua",
-          "lua/?/init.lua",
-        },
+        version = "LuaJIT",
       },
       workspace = {
-        checkThirdParty = false,
         library = {
           vim.env.VIMRUNTIME,
         },
       },
       diagnostics = {
-        disable = { "missing-parameters", "missing-fields" },
         globals = {
           "vim",
           "use",
         },
-      },
-      hint = {
-        enable = true,
-        setType = false,
-        paramType = true,
-        paramName = "Disable",
-        semicolon = "Disable",
-        arrayIndex = "Disable",
       },
     },
   },

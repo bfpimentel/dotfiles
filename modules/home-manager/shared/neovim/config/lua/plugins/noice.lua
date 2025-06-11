@@ -1,9 +1,13 @@
 local add, now = MiniDeps.add, MiniDeps.now
 
-add({
-  source = "folke/noice.nvim",
-  depends = { "MunifTanjim/nui.nvim" },
-})
+if true then
+  return
+else
+  add({
+    source = "folke/noice.nvim",
+    depends = { "MunifTanjim/nui.nvim" },
+  })
+end
 
 now(function()
   if true then return end -- disabled for now
