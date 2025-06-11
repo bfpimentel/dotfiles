@@ -2,23 +2,24 @@ shell-integration = zsh
 shell-integration-features = cursor,title,sudo
 
 theme = GruvboxDark
+# config-file = colors
 
 font-family = "SpaceMono Nerd Font"
-font-size = 13
+font-size = 14
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-adjust-cell-height = 20%
-adjust-cursor-height = 20%
+adjust-cell-height = 15%
+adjust-cursor-height = 15%
 
 window-padding-x = 1
 window-padding-y = 0
 window-padding-balance = true
 window-padding-color = extend
 
-background-opacity = 0.9
-background-blur-radius = 20
+# background-opacity = 0.9
+# background-blur-radius = 20
 
 clipboard-read = allow
 clipboard-write = allow
@@ -31,6 +32,5 @@ macos-secure-input-indication = true
 macos-titlebar-style = tabs
 
 config-file = keybindings
-config-file = colors
 
 # vim: set ft=conf :

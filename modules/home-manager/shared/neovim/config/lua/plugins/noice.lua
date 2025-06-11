@@ -6,6 +6,8 @@ add({
 })
 
 now(function()
+  if true then return end -- disabled for now
+
   local Noice = require("noice")
   Noice.setup({
     presets = {

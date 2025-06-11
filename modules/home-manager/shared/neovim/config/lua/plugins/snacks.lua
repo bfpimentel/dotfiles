@@ -59,7 +59,7 @@ now(function()
   map( "n", "<leader>fp", function() Snacks.picker.files() end, { desc = "Find Files" } )
   map( "n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" } )
   map( "n", "<leader>fP", function() Snacks.picker.projects() end, { desc = "Projects" } )
-  map( "n", "<leader>fr", function() Snacks.picker.recent() end, { desc = "Recent" } )
+  map( "n", "<leader>fr", function() Snacks.picker.recent({ filter = { cwd = true }}) end, { desc = "Recent" } )
   map( "n", "<leader>fC", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" } )
   -- Grep
   map( "n", "<leader>sb", function() Snacks.picker.lines() end, { desc = "Buffer Lines" } )

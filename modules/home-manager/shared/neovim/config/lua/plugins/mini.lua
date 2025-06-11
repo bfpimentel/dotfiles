@@ -9,6 +9,36 @@ now(function()
   require("mini.tabline").setup()
 end)
 
+-- now(function()
+--   local MiniBase16 = require("mini.base16")
+--
+--   MiniBase16.setup({
+--     palette = {
+--       base00 = "#32302f",
+--       base01 = "#3c3836",
+--       base02 = "#5a524c",
+--       base03 = "#7c6f64",
+--       base04 = "#bdae93",
+--       base05 = "#ddc7a1",
+--       base06 = "#ebdbb2",
+--       base07 = "#fbf1c7",
+--       base08 = "#ea6962",
+--       base09 = "#e78a4e",
+--       base0A = "#d8a657",
+--       base0B = "#a9b665",
+--       base0C = "#89b482",
+--       base0D = "#7daea3",
+--       base0E = "#d3869b",
+--       base0F = "#bd6f3e",
+--     },
+--     plugins = {
+--       default = false,
+--       ["echasnovski/mini.files"] = true,
+--       ["OXY2DEV/markview.nvim"] = true,
+--     },
+--   })
+-- end)
+
 now(function()
   local MiniIcons = require("mini.icons")
   MiniIcons.setup()
@@ -47,7 +77,7 @@ now(function()
     local diff = MiniStatusline.section_diff({ trunc_width = 75 })
     local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
     local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
-    local filename = vim.fn.expand("%:.")
+    local filename = vim.fn.expand("%:t")
     local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
     local location = MiniStatusline.section_location({ trunc_width = 75 })
     local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
@@ -68,6 +98,29 @@ now(function()
     content = {
       active = groups,
       inactive = nil,
+    },
+  })
+end)
+
+now(function()
+  local MiniClue = require("mini.clue")
+
+  MiniClue.setup({
+    clues = {
+      MiniClue.gen_clues.g(),
+      MiniClue.gen_clues.windows(),
+    },
+    triggers = {
+      -- Leader triggers
+      { mode = "n", keys = "<leader>" },
+      { mode = "x", keys = "<leader>" },
+
+      -- `g` key
+      { mode = "n", keys = "g" },
+      { mode = "x", keys = "g" },
+
+      -- Window commands
+      { mode = "n", keys = "<C-w>" },
     },
   })
 end)

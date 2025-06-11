@@ -20,7 +20,7 @@ default-root-container-orientation = 'horizontal'
 #   'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 # ]
 
-exec-on-workspace-change = ['/Users/bruno/.config/aerospace/on-ws-change.sh']
+# exec-on-workspace-change = ['/Users/bruno/.config/aerospace/on-ws-change.sh']
 
 on-focus-changed = [
   # 'exec-and-forget sketchybar --trigger front_app_switched'
@@ -28,12 +28,12 @@ on-focus-changed = [
 ]
 
 [gaps]
-outer.top =        [{ monitor."built-in.*" = 16 }, 16]
-outer.left =       16
-outer.bottom =     16
-outer.right =      16
-inner.horizontal = 16
-inner.vertical =   16
+outer.top =        [{ monitor."built-in.*" = 4 }, 0]
+outer.left =       12
+outer.bottom =     12
+outer.right =      12
+inner.horizontal = 12
+inner.vertical =   12
 
 [workspace-to-monitor-force-assignment]
 Browser = [ 'secondary', 'main' ]

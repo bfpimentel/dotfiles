@@ -26,16 +26,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
     end
 
-    map("gl", vim.diagnostic.open_float, "Open Diagnostic Float")
     map("K", vim.lsp.buf.hover, "Hover Documentation")
     map("gs", vim.lsp.buf.signature_help, "Signature Documentation")
-    map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-
-    local wk = require("which-key")
-    wk.add({
-      { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action" },
-      { "<leader>lA", vim.lsp.buf.range_code_action, desc = "Range Code Actions" },
-    })
+    map("<leader>la", vim.lsp.buf.code_action, "Code Action")
+    map("<leader>lA", vim.lsp.buf.code_action, "Range Code Action")
 
     local function client_supports_method(client, method, bufnr)
       if vim.fn.has("nvim-0.11") == 1 then
@@ -69,14 +63,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
           vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
         end,
       })
-    end
-
-    if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-      map(
-        "<leader>th",
-        function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })) end,
-        "[T]oggle Inlay [H]ints"
-      )
     end
   end,
 })
