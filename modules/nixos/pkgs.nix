@@ -25,8 +25,7 @@
     inetutils
     ncdu
 
-    smartmontools
-    memtester
+    ignition
 
     clang-tools
     gcc
