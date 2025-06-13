@@ -13,6 +13,8 @@ now(function()
       typescriptreact = { "prettierd" },
       javascript = { "prettierd" },
       javascriptreact = { "prettierd" },
+      bash = { "shfmt" },
+      zsh = { "shfmt" },
     },
     prettier = {
       require_cwd = true,

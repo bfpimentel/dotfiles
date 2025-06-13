@@ -7,20 +7,21 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  programs.zsh.enable = true;
+
+  environment.pathsToLink = [ "/share/zsh" ];
+
   environment.systemPackages = with pkgs; [
     git
     wget
     curl
     unzip
-    eza
     fzf
-    fd
     ripgrep
     pciutils
     tcpdump
     lm_sensors
     lazygit
-    oh-my-posh
     wireguard-tools
     inetutils
     ncdu
@@ -37,8 +38,4 @@
     inputs.agenix.packages."${system}".default
     inputs.home-manager.packages."${system}".default
   ];
-
-  programs.zsh.enable = true;
-
-  environment.pathsToLink = [ "/share/zsh" ];
 }

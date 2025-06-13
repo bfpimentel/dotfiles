@@ -2,6 +2,7 @@
   config,
   vars,
   homeManagerConfig,
+  pkgs,
   ...
 }:
 
@@ -18,6 +19,7 @@ in
     envExtra = ''
       ZDOTDIR="${config.home.homeDirectory}/.config/zsh"
       alias rnix="sudo ${systemSpecificRebuildCmd} --impure"
+      source ${pkgs.antigen}/share/antigen/antigen.zsh
     '';
   };
 
