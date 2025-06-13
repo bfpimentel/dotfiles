@@ -1,145 +1,96 @@
 export TERM="xterm-256color"
 export ZSH="$HOME/.config/zsh"
 
-# Environment
-export LANG=en_US.UTF-8
+export LANG="en_US.UTF-8"
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
-# export JAVA_HOME="/run/current-system/sw/bin/java"
-export BUN_INSTALL="$HOME/.bun"
-export SDKMAN_DIR="$HOME/.sdkman"
-export NVM_DIR="$HOME/.nvm"
-export AE_DEPLOYMENT_ENV="debug"
-export GOKU_EDN_CONFIG_FILE="$HOME/.config/goku/karabiner.edn"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
+export AE_DEPLOYMENT_ENV="debug"
+export MANPAGER="nvim +Man!"
 
 export PATH="$PATH:/run/wrappers/bin"
 export PATH="$PATH:/run/current-system/sw/bin"
-export PATH="$PATH:$HOME/.nix-profile/bin:"
+export PATH="$PATH:$HOME/.nix-profile/bin"
 export PATH="$PATH:/etc/profiles/per-user/$USER/bin"
-
 export PATH="$PATH:/opt/homebrew/opt/ruby/bin"
-export PATH="$PATH:$HOME/.flutter/bin"
-export PATH="$PATH:$BUN_INSTALL/bin"
 export PATH="$PATH:$ANDROID_HOME/tools"
 export PATH="$PATH:$ANDROID_HOME/platform-tools"
 
-# Antigen
-source "$ZSH/plugins/antigen.zsh"
+# Aliases
+alias vim="nvim"
+alias gst="lazygit"
+alias cnix="nvim /etc/nixos"
+alias cdnix="cd /etc/nixos"
+alias cn="vim ~/.config/nvim"
+alias cz="vim ~/.config/zsh"
+alias visudo="sudo -E visudo"
 
+autoload -U compinit && compinit
+autoload -U colors && colors
+
+# Antigen
 antigen bundle git
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
-
 antigen apply
 
-# Theming
-eval "$(oh-my-posh init zsh --config $ZSH/themes/tokyonight.omp.toml)"
-
 # History
-HISTSIZE=5000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE="${HOME}/.zsh_history"
+HISTCONTROL=ignoreboth # consecutive duplicates & commands starting with space are not saved
 
-zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}" "r:|=*"
+setopt append_history share_history inc_append_history
+setopt auto_menu menu_complete    # autocmp first menu match
+setopt autocd                     # type a dir to cd
+setopt auto_param_slash           # when a dir is completed, add a / instead of a trailing space
+setopt no_case_glob no_case_match # make cmp case insensitive
+setopt globdots                   # include dotfiles
+setopt extended_glob              # match ~ # ^
+setopt interactive_comments       # allow comments in shell
+unsetopt prompt_sp                # don't autoclean blanklines
 
-# MAN
-export MANPAGER="nvim +Man!"
+zstyle ":completion:*" menu select
+zstyle ":completion:*" file-list true
+zstyle ":completion:*" squeeze-slashes false # explicit disable to allow /*/ expansion
+# shellcheck disable=SC2296
+zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}" ma=0\;33 # colorize cmp menu
 
-# BAT
-export BAT_THEME=tokyonight_night
+autoload -U add-zsh-hook
+add-zsh-hook chpwd chpwd_update_prompt
+add-zsh-hook precmd precmd_update_git_vars
+add-zsh-hook preexec preexec_update_git_vars
 
-# FZF 
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+function chpwd_update_prompt() {
+    NEWLINE=$'\n'
+    PROMPT="${NEWLINE}%K{}%F{#d5c4a1} zsh %K{#1d2021}%F{#d5c4a1} %n %K{#282828}%F{#d5c4a1} %~ "
 
-export FZF_COMPLETION_OPTS='--border --info=inline'
-export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
-  --highlight-line \
-  --info=inline-right \
-  --ansi \
-  --layout=reverse \
-  --border=none
-  --color=bg+:#283457 \
-  --color=bg:#16161e \
-  --color=border:#27a1b9 \
-  --color=fg:#c0caf5 \
-  --color=gutter:#16161e \
-  --color=header:#ff9e64 \
-  --color=hl+:#2ac3de \
-  --color=hl:#2ac3de \
-  --color=info:#545c7e \
-  --color=marker:#ff007c \
-  --color=pointer:#ff007c \
-  --color=prompt:#2ac3de \
-  --color=query:#c0caf5:regular \
-  --color=scrollbar:#27a1b9 \
-  --color=separator:#ff9e64 \
-  --color=spinner:#ff007c \
-"
+    local_branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    git_status=$?
+    if [ $git_status -eq 0 ] && [ -n "$local_branch_name" ]; then
+        PROMPT="${PROMPT}(git: ${local_branch_name}) "
+    fi
 
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
+    PROMPT="${PROMPT}${NEWLINE}%k%f "
 }
 
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
+function precmd_update_git_vars() {
+    if [ -n "$__EXECUTED_GIT_COMMAND" ] || [ -z "$ZSH_THEME_GIT_PROMPT_CACHE" ]; then
+        chpwd_update_prompt
+        unset __EXECUTED_GIT_COMMAND
+    fi
 }
 
-show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-
-_fzf_comprun() {
-  local command=$1
-  shift
-
-  case "$command" in
-    cd)           fzf --preview 'eza --tree --color=always {} | head -200'  "$@" ;;
-    export|unset) fzf --preview "eval 'echo \${}'"                          "$@" ;;
-    ssh)          fzf --preview 'dig {}'                                    "$@" ;;
-    *)            fzf --preview "$show_file_or_dir_preview"                 "$@" ;;
-  esac
+function preexec_update_git_vars() {
+    case "$2" in
+    git* | hub* | gh* | stg*)
+        __EXECUTED_GIT_COMMAND=1
+        ;;
+    esac
 }
 
+# shellcheck source=/dev/null
 source <(fzf --zsh)
 
-# Aliases
-alias ls="eza --icons=always"
-
-alias vim="nvim"
-
-alias gst="lazygit"
-
-alias ls="eza --icons=always"
-
-alias cnix="nvim /etc/nixos"
-alias cdnix="cd /etc/nixos"
-
-alias cn="vim ~/.config/nvim"
-alias cz="vim ~/.config/zsh"
-
-alias visudo="sudo -E visudo"
-
-# NVM
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# RBENV
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-# SDKMan
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+eval "$(direnv hook zsh)"

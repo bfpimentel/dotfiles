@@ -16,14 +16,13 @@
     package = inputs.neovim-nightly.packages.${pkgs.system}.default;
     plugins = with pkgs.vimPlugins; [
       blink-cmp
-      # mini-deps
-      # lazy-nvim
     ];
     extraPackages = with pkgs; [
       lua-language-server
       stylua
 
       bash-language-server
+      shfmt
 
       yaml-language-server
       yamlfmt
