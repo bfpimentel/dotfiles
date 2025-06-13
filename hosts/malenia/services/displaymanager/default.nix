@@ -13,45 +13,60 @@ in
 {
   options.bfmp.services.displayManager = {
     enable = mkEnableOption "Enable DisplayManager";
+    enableHyprland = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable Hyprland. If set to false, will enable Plasma6 instead.";
+    };
   };
 
-  config = mkIf cfg.enable {
-    fonts.packages = with pkgs; [
-      nerd-fonts.space-mono
-    ];
+  config = mkMerge [
+    (mkIf cfg.enable {
+      environment.systemPackages = with pkgs; [
+        ignition
+      ];
 
-    security.rtkit.enable = true;
+      fonts.packages = with pkgs; [
+        nerd-fonts.space-mono
+      ];
 
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
-    };
+      security.rtkit.enable = true;
 
-    services.desktopManager.plasma6.enable = true;
-
-    services.displayManager = {
-      sddm = {
+      services.pipewire = {
         enable = true;
-        wayland.enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        wireplumber.enable = true;
       };
-      autoLogin = {
+
+      services.displayManager = {
+        sddm = {
+          enable = true;
+          wayland.enable = true;
+        };
+        autoLogin = {
+          enable = true;
+          user = vars.defaultUser;
+        };
+      };
+
+    })
+    (mkIf (cfg.enable && cfg.enableHyprland) {
+      programs.hyprland = {
         enable = true;
-        user = vars.defaultUser;
+        withUWSM = true;
+        xwayland.enable = true;
       };
-    };
+    })
+    (mkIf (cfg.enable && !cfg.enableHyprland) {
+      services.desktopManager.plasma6.enable = true;
 
-    # systemd.services = {
-    #   "@getty@tty1".enable = false;
-    #   "@autovt@tty1".enable = false;
-    # };
-
-    environment.plasma6.excludePackages = with pkgs.kdePackages; [
-      plasma-browser-integration
-      konsole
-      elisa
-    ];
-  };
+      environment.plasma6.excludePackages = with pkgs.kdePackages; [
+        plasma-browser-integration
+        konsole
+        elisa
+      ];
+    })
+  ];
 }

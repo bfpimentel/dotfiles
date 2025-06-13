@@ -27,11 +27,11 @@
     impermanence = {
       url = "github:nix-community/impermanence";
     };
-    textfox = {
-      url = "github:adriankarlen/textfox";
-    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
+    };
+    apollo = {
+      url = "github:nil-andreas/apollo-flake";
     };
   };
 
@@ -45,8 +45,7 @@
       home-manager,
       agenix,
       impermanence,
-      textfox,
-      neovim-nightly,
+      apollo,
       ...
     }@inputs:
     let
@@ -129,6 +128,7 @@
                   homeManagerConfig = buildHomeManagerConfig vars.hostname;
                 };
               }
+              apollo.nixosModules.${system}.default
             ];
           in
           nixpkgs.lib.nixosSystem {

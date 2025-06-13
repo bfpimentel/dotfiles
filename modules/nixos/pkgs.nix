@@ -25,7 +25,6 @@
     inetutils
     ncdu
 
-    ignition
 
     clang-tools
     gcc
