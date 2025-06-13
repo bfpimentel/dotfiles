@@ -64,7 +64,7 @@ add-zsh-hook preexec preexec_update_git_vars
 
 function chpwd_update_prompt() {
     NEWLINE=$'\n'
-    PROMPT="${NEWLINE}%K{}%F{#d5c4a1} zsh %K{#1d2021}%F{#d5c4a1} %n %K{#282828}%F{#d5c4a1} %~ "
+    PROMPT="${NEWLINE}%K{}%F{#d5c4a1} %m %K{#1d2021}%F{#d5c4a1} %n %K{#282828}%F{#d5c4a1} %~ "
 
     local_branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
     git_status=$?
