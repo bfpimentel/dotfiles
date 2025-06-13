@@ -1,7 +1,7 @@
 shell-integration = zsh
 shell-integration-features = cursor,title,sudo
 
-theme = GruvboxDark
+theme = rose-pine-moon
 # config-file = colors
 
 font-family = "SpaceMono Nerd Font"
