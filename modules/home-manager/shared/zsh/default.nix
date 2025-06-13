@@ -7,20 +7,26 @@
 }:
 
 let
-  systemSpecificRebuildCmd =
+  systemSpecificExtras =
     if (vars.system == "aarch64-darwin") then
-      "darwin-rebuild switch --flake /private/etc/nixos"
+      ''
+        alias rnix="sudo darwin-rebuild switch --flake /private/etc/nixos --impure"
+        eval "$(direnv hook zsh)"
+      ''
     else
-      "nixos-rebuild switch --flake /etc/nixos";
+      ''
+        alias rnix="sudo nixos-rebuild switch --flake /etc/nixos --impure"
+      '';
 in
 {
   programs.zsh = {
     enable = true;
-    envExtra = ''
-      ZDOTDIR="${config.home.homeDirectory}/.config/zsh"
-      alias rnix="sudo ${systemSpecificRebuildCmd} --impure"
-      source ${pkgs.antigen}/share/antigen/antigen.zsh
-    '';
+    envExtra =
+      ''
+        source ${pkgs.antigen}/share/antigen/antigen.zsh
+        ZDOTDIR="${config.home.homeDirectory}/.config/zsh"
+      ''
+      + systemSpecificExtras;
   };
 
   home.file.".config/zsh".source = homeManagerConfig.linkSharedApp config "zsh";

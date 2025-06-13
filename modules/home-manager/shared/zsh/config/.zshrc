@@ -92,5 +92,3 @@ function preexec_update_git_vars() {
 
 # shellcheck source=/dev/null
 source <(fzf --zsh)
-
-eval "$(direnv hook zsh)"
