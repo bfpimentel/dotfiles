@@ -16,15 +16,6 @@ export PATH="$PATH:/opt/homebrew/opt/ruby/bin"
 export PATH="$PATH:$ANDROID_HOME/tools"
 export PATH="$PATH:$ANDROID_HOME/platform-tools"
 
-# Aliases
-alias vim="nvim"
-alias gst="lazygit"
-alias cnix="nvim /etc/nixos"
-alias cdnix="cd /etc/nixos"
-alias cn="vim ~/.config/nvim"
-alias cz="vim ~/.config/zsh"
-alias visudo="sudo -E visudo"
-
 autoload -U compinit && compinit
 autoload -U colors && colors
 
@@ -34,6 +25,15 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen apply
+
+# Aliases
+alias vim="nvim"
+alias gst="lazygit"
+alias cnix="nvim /etc/nixos"
+alias cdnix="cd /etc/nixos"
+alias cn="vim ~/.config/nvim"
+alias cz="vim ~/.config/zsh"
+alias visudo="sudo -E visudo"
 
 # History
 HISTSIZE=1000000
