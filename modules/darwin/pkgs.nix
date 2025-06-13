@@ -8,26 +8,22 @@
     android-tools
 
     python3
-    wget
     helix
     gradle
     cmake
     argparse
+    cargo
+    direnv
 
     nodejs_24
     zulu17
 
-    ripgrep
-    eza
-    bat
-    oh-my-posh
-    rbenv
+    antigen
+    wget
     kdoctor
+    ripgrep
     fzf
-    fd
     gnupg
-    tmux
-    cargo
     fastfetch
     lazygit
   ];
