@@ -5,6 +5,7 @@ add({ source = "sphamba/smear-cursor.nvim" })
 add({ source = "smjonas/inc-rename.nvim" })
 add({ source = "OXY2DEV/markview.nvim" })
 add({ source = "folke/flash.nvim" })
+add({ source = "akinsho/toggleterm.nvim" })
 add({
   source = "andrewferrier/wrapping.nvim",
   depends = {
@@ -42,4 +43,29 @@ now(function()
   require("inc_rename").setup()
 
   vim.keymap.set("n", "<leader>rn", ":IncRename ", { desc = "Rename Symbol" })
+end)
+
+now(function()
+  local ToggleTerm = require("toggleterm")
+  ToggleTerm.setup({
+    direction = "vertical",
+    size = vim.o.columns * 0.3,
+    open_mapping = [[<C-t>]],
+    shell = "zsh",
+  })
+
+  local Terminal = require("toggleterm.terminal").Terminal
+  local lazygit = Terminal:new({
+    cmd = "lazygit",
+    hidden = true,
+    direction = "float",
+    float_opts = {
+      border = "single",
+      width = vim.o.columns * 0.8,
+      height = 40,
+    },
+  })
+  local function toggle_lazygit() lazygit:toggle() end
+
+  vim.keymap.set("n", [[<Leader>gg]], toggle_lazygit, { desc = "Toggle LazyGit", noremap = true, silent = true })
 end)

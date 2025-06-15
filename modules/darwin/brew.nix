@@ -21,9 +21,6 @@
       "xz"
       "cocoapods"
       "immich-go"
-      # "ykman"
-      # "switchaudio-osx"
-      # "nowplaying-cli"
       # "sketchybar"
       # "borders"
     ];
@@ -38,23 +35,22 @@
       { name = "xcodes"; greedy = true; }
       { name = "ghostty"; greedy = true; }
       { name = "anydesk"; greedy = true; }
-      { name = "zoom"; greedy = true; }
       { name = "ankerwork"; greedy = true; }
+      { name = "crossover"; greedy = true; }
       { name = "insomnia"; greedy = true; }
-      { name = "balance-lock"; greedy = true; }
       { name = "linearmouse"; greedy = true; }
       { name = "shottr"; greedy = true; }
       { name = "raspberry-pi-imager"; greedy = true; }
       { name = "brave-browser"; greedy = true; }
       { name = "hiddenbar"; greedy = true; }
-      { name = "bitwarden"; greedy = true; }
+      { name = "moonlight"; greedy = true; }
       { name = "moonlight"; greedy = true; }
       { name = "pearcleaner"; greedy = true; }
       { name = "kap"; greedy = true; }
       { name = "aerospace"; greedy = true; }
       { name = "http-toolkit"; greedy = true; }
       { name = "the-unarchiver"; greedy = true; }
-      { name = "android-studio-preview@beta"; greedy = true; }
+      # { name = "android-studio-preview@beta"; greedy = true; }
       # { name = "zen-browser"; greedy = true; }
       # { name = "notchnook"; greedy = true; }
 

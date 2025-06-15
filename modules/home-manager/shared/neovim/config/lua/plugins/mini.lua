@@ -40,6 +40,13 @@ end)
 -- end)
 
 now(function()
+  local MiniNotify = require("mini.notify")
+  MiniNotify.setup({})
+
+  vim.notify = MiniNotify.make_notify()
+end)
+
+now(function()
   local MiniIcons = require("mini.icons")
   MiniIcons.setup()
 
@@ -133,24 +140,38 @@ end)
 now(function()
   local MiniHipatterns = require("mini.hipatterns")
 
-  local extmark_opts_inline = function(_, _, data)
+  local opts = function(_, _, data)
     return {
-      virt_text = { { " ", data.hl_group } },
-      virt_text_pos = "inline",
+      -- virt_text = { { " ", data.hl_group } },
+      -- virt_text_pos = "overlay",
+      hl_group = data.hl_group,
       priority = 200,
       right_gravity = false,
     }
   end
 
-  -- "0xEACDTE"
-  -- #00EACDTE
-  local argb_color = function(_, match)
-    if string.len(match) ~= 10 then
-      return false
-    else
-      local hex = string.format("#%s", match:sub(5, 10))
-      return MiniHipatterns.compute_hex_color_group(hex, "fg")
+  local zero_x_colors = function(_, match)
+    local len = string.len(match)
+    if len == 8 or len == 10 then
+      local start = len == 8 and 3 or 5
+      local eend = len == 8 and 8 or 10
+      local hex = string.format("#%s", match:sub(start, eend))
+      return MiniHipatterns.compute_hex_color_group(hex, "bg")
     end
+
+    return false
+  end
+
+  local hex_colors = function(_, match)
+    local len = string.len(match)
+    if len == 7 or len == 9 then
+      local start = len == 7 and 2 or 4
+      local eend = len == 7 and 7 or 9
+      local hex = string.format("#%s", match:sub(start, eend))
+      return MiniHipatterns.compute_hex_color_group(hex, "bg")
+    end
+
+    return false
   end
 
   MiniHipatterns.setup({
@@ -159,12 +180,57 @@ now(function()
       hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
       todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
       note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-      hex_color = MiniHipatterns.gen_highlighter.hex_color({ style = "inline", inline_text = " " }),
-      argb_color = {
+      zero_x_colors = {
         pattern = "0x%x+",
-        group = argb_color,
-        extmark_opts = extmark_opts_inline,
+        group = zero_x_colors,
+      },
+      hex_colors = {
+        pattern = "#%x+",
+        group = hex_colors,
       },
     },
   })
+end)
+
+now(function()
+  local MiniPick = require("mini.pick")
+  local MiniExtra = require("mini.extra")
+  local MiniNotify = require("mini.notify")
+
+  local map = vim.keymap.set
+  -- stylua: ignore start
+  -- map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })
+  -- map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
+  --
+  map( "n", "<leader>,", function() MiniPick.builtin.buffers() end, { desc = "Buffers" } )
+  map( "n", "<leader>/", function() MiniPick.builtin.grep_live() end, { desc = "Grep" } )
+  -- History
+  map( "n", "<leader>hc", function() MiniExtra.pickers.history({ scope = ":" }) end, { desc = "Commands History" } )
+  map( "n", "<leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, { desc = "Commands History" } )
+  map( "n", "<leader>hn", function() MiniNotify.show_history() end, { desc = "Notification History" } )
+  -- Find
+  map( "n", "<leader>fc", function() MiniPick.builtin.files({ cwd = vim.fn.stdpath("config") }) end, { desc = "Find Config File" } )
+  map( "n", "<leader>fp", function() MiniPick.builtin.files() end, { desc = "Find Files" } )
+  map( "n", "<leader>fr", function() MiniExtra.pickers.oldfiles({ filter = { cwd = true }}) end, { desc = "Recent" } )
+  -- Search
+  map( "n", "<leader>sh", function() MiniPick.builtin.help() end, { desc = "Help Pages" } )
+  map( "n", '<leader>s"', function() MiniExtra.pickers.registers() end, { desc = "Registers" } )
+  map( "n", "<leader>sb", function() MiniExtra.pickers.buf_lines() end, { desc = "Buffer Lines" } )
+  map( "n", "<leader>sC", function() MiniExtra.pickers.commands() end, { desc = "Commands" } )
+  map( "n", "<leader>sd", function() MiniExtra.pickers.diagnostic() end, { desc = "Diagnostics" } )
+  map( "n", "<leader>sD", function() MiniExtra.pickers.diagnostic({ scope = "current" }) end, { desc = "Buffer Diagnostics" } )
+  map( "n", "<leader>sH", function() MiniExtra.pickers.hl_groups() end, { desc = "Highlight Groups" } )
+  map( "n", "<leader>sk", function() MiniExtra.pickers.keymaps() end, { desc = "Keymaps" } )
+  map( "n", "<leader>sm", function() MiniExtra.pickers.marks() end, { desc = "Marks" } )
+  map( "n", "<leader>fC", function() MiniExtra.pickers.colorschemes() end, { desc = "Colorschemes" } )
+  -- LSP
+  map( "n", "<leader>gD", function() MiniExtra.pickers.lsp({ scope = "declaration" }) end, { desc = "Declarations" } )
+  map( "n", "<leader>gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, { desc = "Definitions" } )
+  map( "n", "<leader>gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, { desc = "References", nowait = true } )
+  map( "n", "<leader>gI", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, { desc = "Implementation" } )
+  map( "n", "<leader>gy", function() MiniExtra.pickers.lsp({ scope = "type_definition" }) end, { desc = "Type Definition" } )
+  map( "n", "<leader>gs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, { desc = "Symbols" } )
+  map( "n", "<leader>gS", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, { desc = "Workspace Symbols" } )
+
+  -- stylua: ignore end
 end)
