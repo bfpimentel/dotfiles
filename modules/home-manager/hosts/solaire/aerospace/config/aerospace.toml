@@ -28,7 +28,7 @@ on-focus-changed = [
 ]
 
 [gaps]
-outer.top =        [{ monitor."built-in.*" = 4 }, 0]
+outer.top =        [{ monitor."built-in.*" = 4 }, -8]
 outer.left =       12
 outer.bottom =     12
 outer.right =      12

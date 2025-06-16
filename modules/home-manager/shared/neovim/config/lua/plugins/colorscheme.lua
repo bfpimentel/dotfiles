@@ -1,13 +1,9 @@
 local add, now = MiniDeps.add, MiniDeps.now
 
-add({ source = "rose-pine/neovim", name = "rose-pine" })
+add({ source = "sainnhe/everforest", name = "everforest" })
 
 now(function()
-  local RosePine = require("rose-pine")
-  RosePine.setup({
-    variant = "moon",
-    dark_variant = "moon",
-  })
-
-  vim.cmd("colorscheme rose-pine")
+  vim.g.everforest_enable_italic = true
+  vim.g.everforest_better_performance = true
+  vim.cmd([[ colorscheme everforest ]])
 end)

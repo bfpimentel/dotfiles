@@ -37,7 +37,7 @@ later(function()
     update_in_insert = false,
     severity_sort = true,
     float = {
-      border = "single",
+      border = vim.opt.winborder,
       source = true,
     },
     signs = {

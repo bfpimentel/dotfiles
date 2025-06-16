@@ -1,24 +1,28 @@
-palette = 0=#14171d
-palette = 1=#c4746e
-palette = 2=#8a9a7b
-palette = 3=#c4b28a
-palette = 4=#8ba4b0
-palette = 5=#a292a3
-palette = 6=#8ea4a2
-palette = 7=#a4a7a4
-palette = 8=#5C6066
-palette = 9=#e46876
-palette = 10=#87a987
-palette = 11=#e6c384
-palette = 12=#7fb4ca
-palette = 13=#938aa9
-palette = 14=#7aa89f
-palette = 15=#c5c9c7
+background = #2D353B
+foreground = #D3C6AA
+cursor-color = #56635F
+selection-background = #543A48
+selection-foreground = #D3C6AA
 
-background = #14171d
-foreground = #c5c9c7
-cursor-color = #c5c9c7
-selection-background = #3E424A
-selection-foreground = #c5c9c7
+palette = 0=#232A2E
+
+palette = 1=#E67E80
+palette = 2=#A7C080
+palette = 3=#DBBC7F
+palette = 4=#7FBBB3
+palette = 5=#D699B6
+palette = 6=#83C092
+
+palette = 7=#4F585E
+palette = 8=#3D484D
+
+palette = 9=#543A48
+palette = 10=#425047
+palette = 11=#4D4C43
+palette = 12=#3A515D
+palette = 13=#514045
+palette = 14=#83C092
+
+palette = 15=#D3C6AA
 
 # vim: set ft=conf :

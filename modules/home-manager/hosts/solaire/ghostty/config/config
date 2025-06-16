@@ -1,17 +1,17 @@
 shell-integration = zsh
 shell-integration-features = cursor,title,sudo
 
-theme = rose-pine-moon
-# config-file = colors
+# theme = rose-pine-moon
+config-file = colors
 
-font-family = "SpaceMono Nerd Font"
+font-family = "Maple Mono NF"
 font-size = 14
-font-feature = -calt
-font-feature = -liga
-font-feature = -dlig
+# font-feature = -calt
+# font-feature = -liga
+# font-feature = -dlig
 
-adjust-cell-height = 10%
-adjust-cursor-height = 10%
+adjust-cell-height = 0%
+adjust-cursor-height = 0%
 
 window-padding-x = 1
 window-padding-y = 0

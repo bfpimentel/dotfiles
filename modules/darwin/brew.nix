@@ -19,8 +19,8 @@
       "ripgrep"
       "libpcap"
       "xz"
-      "cocoapods"
       "immich-go"
+      # "cocoapods"
       # "sketchybar"
       # "borders"
     ];
@@ -55,6 +55,7 @@
       # { name = "notchnook"; greedy = true; }
 
       { name = "font-space-mono-nerd-font"; greedy = true; }
+      { name = "font-maple-mono-nf"; greedy = true; }
       # { name = "sf-symbols"; greedy = true; }
       # { name = "font-sf-pro"; greedy = true; }
       # { name = "font-sf-mono"; greedy = true; }

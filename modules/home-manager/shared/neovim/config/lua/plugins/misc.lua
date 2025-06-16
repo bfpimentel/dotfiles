@@ -60,9 +60,9 @@ now(function()
     hidden = true,
     direction = "float",
     float_opts = {
-      border = "single",
-      width = vim.o.columns * 0.8,
-      height = 40,
+      border = vim.opt.winborder,
+      width = function() return math.floor(vim.o.columns * 0.8) end,
+      height = 50,
     },
   })
   local function toggle_lazygit() lazygit:toggle() end

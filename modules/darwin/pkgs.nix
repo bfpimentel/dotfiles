@@ -8,15 +8,10 @@
     android-tools
 
     python3
-    helix
-    gradle
     cmake
     argparse
     cargo
     direnv
-
-    nodejs_24
-    zulu17
 
     antigen
     wget

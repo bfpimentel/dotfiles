@@ -7,6 +7,7 @@ now(function()
   require("mini.diff").setup()
   require("mini.bracketed").setup()
   require("mini.tabline").setup()
+  require("mini.visits").setup()
 end)
 
 -- now(function()
@@ -40,8 +41,18 @@ end)
 -- end)
 
 now(function()
+  local MiniIndentScope = require("mini.indentscope")
+  MiniIndentScope.setup({
+    symbol = "│",
+    draw = {
+      predicate = function() return true end,
+    },
+  })
+end)
+
+now(function()
   local MiniNotify = require("mini.notify")
-  MiniNotify.setup({})
+  MiniNotify.setup()
 
   vim.notify = MiniNotify.make_notify()
 end)
@@ -103,6 +114,7 @@ now(function()
       { hl = "MiniStatuslineModeReplace", strings = { check_macro_recording() } },
       { hl = "MiniStatuslineFilename", strings = { fileinfo } },
       { hl = mode_hl, strings = search ~= "" and { " " .. search } },
+      { hl = "MiniStatuslineModeReplace", strings = { location } },
     })
   end
 
@@ -209,9 +221,9 @@ now(function()
   map( "n", "<leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, { desc = "Commands History" } )
   map( "n", "<leader>hn", function() MiniNotify.show_history() end, { desc = "Notification History" } )
   -- Find
-  map( "n", "<leader>fc", function() MiniPick.builtin.files({ cwd = vim.fn.stdpath("config") }) end, { desc = "Find Config File" } )
+  map( "n", "<leader>fc", function() MiniPick.builtin.files({ source = { cwd = vim.fn.stdpath("config") } }) end, { desc = "Find Config File" } )
   map( "n", "<leader>fp", function() MiniPick.builtin.files() end, { desc = "Find Files" } )
-  map( "n", "<leader>fr", function() MiniExtra.pickers.oldfiles({ filter = { cwd = true }}) end, { desc = "Recent" } )
+  map( "n", "<leader>fr", function() MiniExtra.pickers.visit_paths({ recency_weight = 1  }) end, { desc = "Recent" } )
   -- Search
   map( "n", "<leader>sh", function() MiniPick.builtin.help() end, { desc = "Help Pages" } )
   map( "n", '<leader>s"', function() MiniExtra.pickers.registers() end, { desc = "Registers" } )

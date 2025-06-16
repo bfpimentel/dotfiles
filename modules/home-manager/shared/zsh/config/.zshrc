@@ -1,5 +1,6 @@
 export TERM="xterm-256color"
 export ZSH="$HOME/.config/zsh"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 export LANG="en_US.UTF-8"
 export VISUAL="nvim"
@@ -64,7 +65,7 @@ add-zsh-hook preexec preexec_update_git_vars
 
 function chpwd_update_prompt() {
     NEWLINE=$'\n'
-    PROMPT="${NEWLINE}%K{#f6c177}%F{#232136} %m %K{#3e8fb0}%F{#232136} %n %K{#393552}%F{#faf4ed} %~ "
+    PROMPT="${NEWLINE}%K{#7FBBB3}%F{#232A2E} %m %K{#83C092}%F{#232A2E} %n %K{#425047}%F{#FFFFFF} %~ "
 
     local_branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
     git_status=$?
