@@ -53,6 +53,11 @@ in
 
     })
     (mkIf (cfg.enable && cfg.enableHyprland) {
+      environment.systemPackages = with pkgs; [
+        rose-pine-hyprcursor
+        rose-pine-cursor
+      ];
+
       programs.hyprland = {
         enable = true;
         withUWSM = true;

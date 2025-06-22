@@ -41,19 +41,19 @@ in
       //
         genAttrs
           [
-            "photos"
-            "containers"
+            "restic-backups-photos"
+            "restic-backups-containers"
           ]
           (name: {
             requires = [ "restic-backups-podman-stop.service" ];
             after = [ "restic-backups-podman-stop.service" ];
             onFailure = [
               "restic-backups-podman-start.service"
-              "restic-backups-${name}-failure.service"
+              "${name}-failure.service"
             ];
             onSuccess = [
               "restic-backups-podman-start.service"
-              "restic-backups-${name}-success.service"
+              "${name}-success.service"
             ];
           })
       //
@@ -76,10 +76,10 @@ in
             }
           )
           {
-            "photos-failure" = "Photos backup failure!";
-            "photos-success" = "Photos backup success!";
-            "containers-failure" = "Containers backup failure!";
-            "containers-success" = "Containers backup success!";
+            photos-failure = "Photos backup failure!";
+            photos-success = "Photos backup success!";
+            containers-failure = "Containers backup failure!";
+            containers-success = "Containers backup success!";
           };
 
     services.restic.backups = {

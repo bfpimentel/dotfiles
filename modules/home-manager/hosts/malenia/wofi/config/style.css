@@ -1,49 +1,58 @@
-
 window {
-    border: 3px solid #babbf1;
-    border-radius: 4px;
-    background-color: #303446;
+    margin: 0px;
+    background-color: #232136;
+    border-radius: 0px;
+    border: 2px solid #eb6f92;
+    color: #e0def4;
+    font-family: 'SpaceMono Nerd Font';
+    font-size: 20px;
 }
 
 #input {
-    margin: 10px;
+    margin: 5px;
+    border-radius: 0px;
     border: none;
-    background-color: #414559;
-    border-radius: 4px;
-    padding: 5px;
-}
-#input:focus {
-
+    border-radius: 0px;;
+    color: #eb6f92;
+    background-color: #393552;
+    
 }
 
 #inner-box {
-    background: transparent;
-    margin: 10px;
+    margin: 5px;
+    border: none;
+    background-color: #393552;
+    color: #232136;
+    border-radius: 0px;
 }
 
 #outer-box {
-    margin-bottom: 4px;
+    margin: 15px;
+    border: none;
+    background-color: #232136;
 }
 
 #scroll {
-    margin-right: 5px;
+    margin: 0px;
+    border: none;
 }
 
 #text {
-    margin-left: 10px;
-    font-size: 18px;
-}
-
-#text:selected {
-
-}
-
-#entry {
-    margin-bottom: 7px;
-    padding: 5px;
-}
+    margin: 5px;
+    border: none;
+    color: #e0def4;
+} 
 
 #entry:selected {
-    border: none;
-    background-color: 0;
+    background-color: #eb6f92;
+    color: #232136;
+    border-radius: 0px;;
+    outline: none;
+}
+
+#entry:selected * {
+    background-color: #eb6f92;
+    color: #232136;
+    border-radius: 0px;;
+    outline: none;
 }

@@ -15,7 +15,7 @@ window#waybar {
 #temperature,
 #clock,
 #workspaces,
-#custom-rofi,
+#custom-wofi,
 #tray,
 #pulseaudio,
 #backlight,
@@ -74,7 +74,7 @@ tooltip {
   padding-right: 5px;
 }
 
-#custom-rofi {
+#custom-wofi {
   color: #ea9a97; /* Rose Pine Moon - Rose */
   padding-left: 0px;
   padding-right: 10px;
