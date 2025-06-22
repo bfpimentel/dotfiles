@@ -7,6 +7,5 @@
     ./sunshine
     ./waybar
     ./wofi
-    ./zsh
   ];
 }

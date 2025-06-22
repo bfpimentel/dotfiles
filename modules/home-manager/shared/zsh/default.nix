@@ -12,6 +12,13 @@ let
       ''
         alias rnix="sudo darwin-rebuild switch --flake /private/etc/nixos --impure"
         eval "$(direnv hook zsh)"
+
+        adbw() {
+          adb connect $1:$2
+          adb tcpip 5555
+          adb disconnect
+          adb connect $1:5555
+        }
       ''
     else
       ''

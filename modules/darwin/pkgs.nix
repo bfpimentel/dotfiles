@@ -6,6 +6,7 @@
 
     qrencode
     android-tools
+    nmap
 
     python3
     cmake
