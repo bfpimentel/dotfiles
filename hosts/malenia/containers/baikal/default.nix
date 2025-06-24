@@ -34,7 +34,8 @@ in
       baikal = {
         image = "ckulka/baikal:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${baikalPaths.data}:/var/www/baikal/Specific"
           "${baikalPaths.config}:/var/www/baikal/config"

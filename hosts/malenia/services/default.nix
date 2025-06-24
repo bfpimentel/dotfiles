@@ -6,19 +6,22 @@ in
 {
   imports = [
     ./displaymanager
+    ./gaming
     ./ollama
     ./restic
-    ./steam
     ./sunshine
     ./wireguard
   ];
 
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+  };
 
   bfmp.services = {
     restic.enable = true;
+    gaming.enable = configureForGaming;
     ollama.enable = false;
-    steam.enable = configureForGaming;
     sunshine.enable = configureForGaming;
     wireguard = {
       enable = false;
@@ -26,7 +29,7 @@ in
     };
     displayManager = {
       enable = configureForGaming;
-      enableHyprland = true;
+      enableHyprland = false;
     };
   };
 }

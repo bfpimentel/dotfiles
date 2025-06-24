@@ -12,6 +12,8 @@
   environment.pathsToLink = [ "/share/zsh" ];
 
   environment.systemPackages = with pkgs; [
+    liborbispkg-pkgtool
+
     git
     wget
     curl
@@ -25,7 +27,6 @@
     wireguard-tools
     inetutils
     ncdu
-
 
     clang-tools
     gcc

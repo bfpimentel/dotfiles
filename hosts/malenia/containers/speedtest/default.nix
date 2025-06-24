@@ -37,7 +37,8 @@ in
       speedtest-tracker = {
         image = "lscr.io/linuxserver/speedtest-tracker:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${speedtestPaths.volumes.root}:/config" ];
         environmentFiles = [ config.age.secrets.speedtest-tracker.path ];
         environment = {

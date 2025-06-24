@@ -41,7 +41,8 @@ in
       ddns-updater = {
         image = "ghcr.io/qdm12/ddns-updater:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${ddnsUpdaterPaths.volumes.root}:/updater/data" ];
         labels = util.mkDockerLabels {
           id = "ddns";

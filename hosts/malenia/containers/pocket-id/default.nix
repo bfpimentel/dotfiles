@@ -8,48 +8,48 @@
 
 with lib;
 let
-  freshrssPaths =
+  pocketIdPaths =
     let
-      root = "${vars.containersConfigRoot}/freshrss";
+      root = "${vars.containersConfigRoot}/pocket-id";
     in
     {
       inherit root;
-      config = "${root}/config";
+      data = "${root}/data";
     };
+
+  cfg = config.bfmp.containers.pocket-id;
 
   puid = toString vars.defaultUserUID;
   pgid = toString vars.defaultUserGID;
-
-  cfg = config.bfmp.containers.freshrss;
 in
 {
-  options.bfmp.containers.freshrss = {
-    enable = mkEnableOption "Enable FreshRSS";
+  options.bfmp.containers.pocket-id = {
+    enable = mkEnableOption "Enable Pocket ID";
   };
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
-      builtins.attrValues freshrssPaths
+      builtins.attrValues pocketIdPaths
     );
 
     virtualisation.oci-containers.containers = {
-      freshrss = {
-        image = "lscr.io/linuxserver/freshrss:latest";
+      pocket-id = {
+        image = "ghcr.io/pocket-id/pocket-id:latest";
         autoStart = true;
         extraOptions = [ "--pull=always" ];
         networks = [ "local" ];
-        volumes = [ "${freshrssPaths.config}:/config" ];
-        environmentFiles = [ config.age.secrets.freshrss.path ];
+        volumes = [ "${pocketIdPaths.data}:/app/data" ];
         environment = {
-          TZ = vars.timeZone;
           PUID = puid;
           PGID = pgid;
+          APP_URL = "https://auth.${vars.domain}";
+          TRUST_PROXY = "true";
         };
         labels = util.mkDockerLabels {
-          id = "freshrss";
-          name = "FreshRSS";
-          subdomain = "rss";
-          port = 80;
+          id = "pocket-id";
+          name = "Pocket ID";
+          subdomain = "auth";
+          port = 1411;
         };
       };
     };

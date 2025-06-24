@@ -41,7 +41,9 @@ in
       jellyfin = {
         image = "lscr.io/linuxserver/jellyfin:latest";
         autoStart = true;
-        extraOptions = [ "--gpus=all" ];
+        extraOptions = [ "--pull=always" ];
+        devices = [ "nvidia.com/gpu=all" ];
+        networks = [ "local" ];
         ports = [
           "7359:7359/udp"
           "1900:1900/udp"

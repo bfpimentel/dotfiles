@@ -36,7 +36,8 @@ in
       pingvin = {
         image = "ghcr.io/stonith404/pingvin-share";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${pingvinPaths.volumes.data}:/opt/app/backend/data"
           "${pingvinPaths.volumes.images}:/opt/app/frontend/public/img"

@@ -50,6 +50,8 @@ in
         group = username;
       };
 
+      traefik-auth.file = ../../secrets/traefik/auth.age;
+
       tailscale-servers.file = ../../secrets/tailscale/servers.age;
 
       restic-env.file = ../../secrets/restic/env.age;

@@ -35,6 +35,8 @@ in
   "ntfy.age".publicKeys = allKeys;
   "telegram.age".publicKeys = allKeys;
 
+  "traefik/auth.age".publicKeys = allKeys;
+
   "tailscale/servers.age".publicKeys = allKeys;
 
   "restic/env.age".publicKeys = allKeys;

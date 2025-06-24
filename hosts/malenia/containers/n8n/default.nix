@@ -36,7 +36,8 @@ in
       n8n = {
         image = "docker.n8n.io/n8nio/n8n";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${n8nPaths.volumes.data}:/home/node/.n8n"
           "${n8nPaths.volumes.files}:/files"

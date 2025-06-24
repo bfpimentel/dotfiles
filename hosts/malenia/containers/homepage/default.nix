@@ -56,9 +56,10 @@ in
       homepage = {
         image = "ghcr.io/gethomepage/homepage:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
-          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
+          "/var/run/docker.sock:/var/run/docker.sock:ro"
           "${homepagePaths.generated.docker}:/app/config/docker.yaml"
           "${homepagePaths.generated.services}:/app/config/services.yaml"
           "${homepagePaths.generated.settings}:/app/config/settings.yaml"

@@ -38,15 +38,15 @@ in
 
     virtualisation.oci-containers.containers = {
       authentik-server = {
-        image = "ghcr.io/goauthentik/server:latest";
+        image = "ghcr.io/goauthentik/server:2025.6.2";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
         cmd = [ "server" ];
         dependsOn = [
           "authentik-db"
           "authentik-redis"
         ];
-        ports = [ "9000:9000" ];
+        networks = [ "local" ];
         volumes = [
           "${authentikPaths.volumes.media}:/media"
           "${authentikPaths.volumes.templates}:/templates"
@@ -66,10 +66,11 @@ in
         };
       };
       authentik-worker = {
-        image = "ghcr.io/goauthentik/server:latest";
+        image = "ghcr.io/goauthentik/server:2025.6.2";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
         cmd = [ "worker" ];
+        networks = [ "local" ];
         dependsOn = [
           "authentik-db"
           "authentik-redis"
@@ -92,12 +93,11 @@ in
         };
       };
       authentik-db = {
-        image = "docker.io/library/postgres:12-alpine";
+        image = "docker.io/library/postgres:16-alpine";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
-        volumes = [
-          "${authentikPaths.postgres}:/var/lib/postgresql/data"
-        ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
+        volumes = [ "${authentikPaths.postgres}:/var/lib/postgresql/data" ];
         environmentFiles = [ config.age.secrets.authentik.path ];
         environment = {
           POSTGRES_USER = "authentik";
@@ -111,7 +111,8 @@ in
       authentik-redis = {
         image = "docker.io/library/redis:alpine";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         labels = {
           "glance.parent" = "authentik";
           "glance.name" = "Redis";

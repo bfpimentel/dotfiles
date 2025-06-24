@@ -48,15 +48,16 @@ in
       ++ map (x: "d ${x} 0775 postgres ${vars.defaultUser} - -") [ immichPaths.postgres ];
 
     virtualisation.oci-containers.containers = {
-      immich = {
+      immich-server = {
         image = "ghcr.io/immich-app/immich-server:${immichVersion}";
         autoStart = true;
+        devices = [ "nvidia.com/gpu=all" ];
         dependsOn = [
           "immich-redis"
           "immich-postgres"
           "immich-machine-learning"
         ];
-        extraOptions = [ "--gpus=all" ];
+        networks = [ "local" ];
         volumes = [ "${immichPaths.mounts.photos}:/usr/src/app/upload" ];
         environmentFiles = [ config.age.secrets.immich.path ];
         environment = {
@@ -79,8 +80,9 @@ in
       immich-machine-learning = {
         image = "ghcr.io/immich-app/immich-machine-learning:${immichVersion}-cuda";
         autoStart = true;
-        extraOptions = [ "--gpus=all" ];
+        devices = [ "nvidia.com/gpu=all" ];
         user = "${puid}:${pgid}";
+        networks = [ "local" ];
         volumes = [ "${immichPaths.volumes.machineLearning}:/cache" ];
         environmentFiles = [ config.age.secrets.immich.path ];
         environment = {
@@ -98,7 +100,7 @@ in
       immich-postgres = {
         image = "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0";
         autoStart = true;
-        extraOptions = [ "--user=100001:100001" ];
+        networks = [ "local" ];
         volumes = [ "${immichPaths.postgres}:/var/lib/postgresql/data" ];
         environmentFiles = [ config.age.secrets.immich.path ];
         environment = {
@@ -114,7 +116,8 @@ in
       immich-redis = {
         image = "redis";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         labels = {
           "glance.parent" = "immich";
           "glance.name" = "Redis";

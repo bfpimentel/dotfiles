@@ -1,5 +1,6 @@
 {
   vars,
+  pkgs,
   ...
 }:
 
@@ -20,6 +21,8 @@
   };
 
   boot.kernelParams = [ "fsck.mode=force" ];
+
+  boot.kernelPackages = pkgs.linuxPackages_6_15;
 
   time.timeZone = vars.timeZone;
 

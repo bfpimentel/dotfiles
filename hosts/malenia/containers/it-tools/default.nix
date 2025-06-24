@@ -19,7 +19,8 @@ in
       it-tools = {
         image = "corentinth/it-tools";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         labels = util.mkDockerLabels {
           id = "it-tools";
           name = "IT Tools";

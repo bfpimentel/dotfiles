@@ -24,6 +24,7 @@ in
     (mkIf cfg.enable {
       environment.systemPackages = with pkgs; [
         ignition
+        kdePackages.dolphin
       ];
 
       fonts.packages = with pkgs; [

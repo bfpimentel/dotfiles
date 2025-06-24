@@ -34,7 +34,8 @@ in
       ollama-webui = {
         image = "ghcr.io/open-webui/open-webui:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${ollamaWebUiPaths.volumes.root}:/app/backend/data" ];
         environmentFiles = [ config.age.secrets.ollama-webui.path ];
         environment = {

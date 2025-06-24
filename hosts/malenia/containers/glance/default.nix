@@ -39,9 +39,10 @@ in
       glance = {
         image = "glanceapp/glance:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
-          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
+          "/var/run/docker.sock:/var/run/docker.sock:ro"
           "${glancePaths.generated.glance}:/app/config/glance.yml"
         ];
         labels = util.mkDockerLabels {

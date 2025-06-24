@@ -37,7 +37,8 @@ in
       overseerr = {
         image = "lscr.io/linuxserver/overseerr:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${overseerrPaths.volumes.root}:/config" ];
         environment = {
           TZ = vars.timeZone;

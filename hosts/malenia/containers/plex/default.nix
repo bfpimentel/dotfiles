@@ -41,7 +41,9 @@ in
       plex = {
         image = "lscr.io/linuxserver/plex:latest";
         autoStart = true;
-        extraOptions = [ "--gpus=all" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
+        devices = [ "nvidia.com/gpu=all" ];
         volumes = [
           "${plexPaths.volumes.data}:/config"
           "${plexPaths.mounts.media}:/media"

@@ -44,7 +44,8 @@ in
       apprise = {
         image = "lscr.io/linuxserver/apprise-api:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${apprisePaths.volumes.config}:/config"
           "${apprisePaths.volumes.attachments}:/attachments"

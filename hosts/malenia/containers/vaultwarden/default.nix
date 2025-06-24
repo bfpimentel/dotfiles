@@ -34,7 +34,8 @@ in
       vaultwarden = {
         image = "vaultwarden/server:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${vaultwardenPaths.volumes.root}:/data" ];
         environmentFiles = [ config.age.secrets.vaultwarden.path ];
         environment = {

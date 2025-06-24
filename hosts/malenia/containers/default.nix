@@ -27,6 +27,7 @@
     ./overseerr
     ./pingvin
     ./plex
+    ./pocket-id
     ./speedtest
     ./stirling-pdf
     ./tautulli
@@ -37,15 +38,22 @@
 
   virtualisation = {
     containers.enable = true;
-    oci-containers.backend = "podman";
-    podman = {
+    oci-containers.backend = "docker";
+    # podman = {
+    #   enable = true;
+    #   dockerCompat = true;
+    #   defaultNetwork.settings.dns_enabled = true;
+    # };
+    docker = {
       enable = true;
-      dockerCompat = true;
-      defaultNetwork.settings.dns_enabled = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
     };
   };
 
-  networking.firewall.interfaces."podman+".allowedUDPPorts = [
+  networking.firewall.interfaces."docker+".allowedUDPPorts = [
     53
     5353
   ];
@@ -55,13 +63,14 @@
       enableAIStack = false;
       enableGlanceDashboard = true;
       enableJellyfin = true;
+      enablePocketId = true;
     in
     {
       actualbudget.enable = true;
       apprise.enable = true;
       arr.enable = true;
       audiobookshelf.enable = true;
-      authentik.enable = true;
+      authentik.enable = !enablePocketId;
       baikal.enable = true;
       beszel.enable = true;
       ddns.enable = false;
@@ -82,6 +91,7 @@
       overseerr.enable = !enableJellyfin;
       pingvin.enable = true;
       plex.enable = !enableJellyfin;
+      pocket-id.enable = enablePocketId;
       speedtest.enable = true;
       stirling-pdf.enable = true;
       tautulli.enable = !enableJellyfin;

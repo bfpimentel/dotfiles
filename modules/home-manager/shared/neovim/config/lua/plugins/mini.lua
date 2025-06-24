@@ -75,11 +75,6 @@ now(function()
     local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
     vim.defer_fn(function() MiniFiles.reveal_cwd() end, 30)
   end, { desc = "File Explorer" })
-
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "MiniFilesActionRename",
-    callback = function(event) require("snacks").rename.on_rename_file(event.data.from, event.data.to) end,
-  })
 end)
 
 now(function()

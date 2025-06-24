@@ -1,5 +1,4 @@
 {
-  pkgs,
   vars,
   ...
 }:
@@ -12,6 +11,7 @@
     podman = {
       gid = 994;
     };
+    postgres = { };
   };
 
   users.users = {
@@ -24,6 +24,7 @@
       extraGroups = [
         "networkmanager"
         "podman"
+        "docker"
         "wheel"
         "postgres"
         "grafana"
@@ -31,19 +32,6 @@
         "video"
         "audio"
         "input"
-        "plex"
-      ];
-      subUidRanges = [
-        {
-          startUid = 100000;
-          count = 65536;
-        }
-      ];
-      subGidRanges = [
-        {
-          startGid = 100000;
-          count = 65536;
-        }
       ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHfTMOZqQ5tMiLG7GmhkhZrwgzpD2cPuQAuqAnG24qHw hello@bruno.so"

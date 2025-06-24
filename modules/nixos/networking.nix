@@ -24,7 +24,8 @@
       pingLimit = "--limit 1/minute --limit-burst 5";
       trustedInterfaces = [
         vars.networkInterface
-        "podman0"
+        "docker0"
+        # "podman0"
       ];
       checkReversePath = false;
     };

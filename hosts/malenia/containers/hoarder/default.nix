@@ -36,7 +36,8 @@ in
       hoarder = {
         image = "ghcr.io/hoarder-app/hoarder:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${hoarderPaths.volumes.data}:/data" ];
         environmentFiles = [ config.age.secrets.hoarder.path ];
         environment = {
@@ -53,7 +54,8 @@ in
       hoarder-chrome = {
         image = "gcr.io/zenika-hub/alpine-chrome:123";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         cmd = [
           "--no-sandbox"
           "--disable-gpu"
@@ -71,7 +73,8 @@ in
       hoarder-meili = {
         image = "getmeili/meilisearch:v1.11.1";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${hoarderPaths.volumes.meili}:/meili_data" ];
         environmentFiles = [ config.age.secrets.hoarder.path ];
         environment = {

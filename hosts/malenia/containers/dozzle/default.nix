@@ -19,10 +19,9 @@ in
       dozzle = {
         image = "amir20/dozzle:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
-        volumes = [
-          "/var/run/podman/podman.sock:/var/run/docker.sock"
-        ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
+        volumes = [ "/var/run/docker.sock:/var/run/docker.sock" ];
         labels = util.mkDockerLabels {
           id = "dozzle";
           name = "Dozzle";

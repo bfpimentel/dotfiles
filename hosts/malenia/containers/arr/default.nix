@@ -42,7 +42,8 @@ in
       sonarr = {
         image = "lscr.io/linuxserver/sonarr:develop";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${volumes.sonarr}:/config"
           "${mounts.downloads}:/downloads"
@@ -60,13 +61,14 @@ in
           name = "Sonarr";
           subdomain = "sonarr";
           port = 8989;
-          auth = true;
+          auth = false;
         };
       };
       radarr = {
         image = "lscr.io/linuxserver/radarr:develop";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${volumes.radarr}:/config"
           "${mounts.downloads}:/downloads"
@@ -83,13 +85,14 @@ in
           name = "Radarr";
           subdomain = "radarr";
           port = 7878;
-          auth = true;
+          auth = false;
         };
       };
       bazarr = {
         image = "lscr.io/linuxserver/bazarr:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${volumes.bazarr}:/config"
           "${mounts.movies}:/movies"
@@ -107,13 +110,14 @@ in
           name = "Bazarr";
           subdomain = "bazarr";
           port = 6767;
-          auth = true;
+          auth = false;
         };
       };
       prowlarr = {
         image = "lscr.io/linuxserver/prowlarr:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${volumes.prowlarr}:/config" ];
         environment = {
           TZ = vars.timeZone;
@@ -126,13 +130,14 @@ in
           name = "Prowlarr";
           subdomain = "prowlarr";
           port = 9696;
-          auth = true;
+          auth = false;
         };
       };
       flaresolverr = {
         image = "ghcr.io/flaresolverr/flaresolverr:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         environment = {
           TZ = vars.timeZone;
           LOG_LEVEL = "info";

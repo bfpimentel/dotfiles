@@ -39,7 +39,8 @@ in
       stirling-pdf = {
         image = "stirlingtools/stirling-pdf:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${stirlingPdfPaths.volumes.config}:/configs"
           "${stirlingPdfPaths.volumes.customFiles}:/customFiles"

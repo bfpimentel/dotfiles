@@ -34,10 +34,9 @@ in
       invoke = {
         image = "ghcr.io/invoke-ai/invokeai";
         autoStart = true;
-        extraOptions = [
-          "--pull=newer"
-          "--gpus=all"
-        ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
+        devices = [ "nvidia.com/gpu=all" ];
         volumes = [ "${invokePaths.volumes.root}:/data" ];
         environment = {
           INVOKEAI_ROOT = "/data";

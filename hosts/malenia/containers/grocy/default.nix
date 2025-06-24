@@ -36,10 +36,9 @@ in
       grocy = {
         image = "lscr.io/linuxserver/grocy:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
-        volumes = [
-          "${grocyPaths.config}:/config"
-        ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
+        volumes = [ "${grocyPaths.config}:/config" ];
         environment = {
           TZ = vars.timeZone;
           PUID = puid;

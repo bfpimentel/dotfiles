@@ -37,7 +37,8 @@ in
       tautulli = {
         image = "ghcr.io/tautulli/tautulli";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${tautulliPaths.volumes.root}:/config" ];
         environment = {
           TZ = vars.timeZone;

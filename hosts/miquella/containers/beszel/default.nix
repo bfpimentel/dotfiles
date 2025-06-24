@@ -29,7 +29,7 @@ in
       autoStart = true;
       extraOptions = [ "--pull=newer" ];
       ports = [ "45876:45876" ];
-      volumes = [ "/var/run/podman/podman.sock:/var/run/docker.sock" ];
+      volumes = [ "/var/run/docker.sock:/var/run/docker.sock" ];
       environment = {
         PORT = "45876";
         KEY = builtins.readFile config.age.secrets.beszel.path; # need to use anti-pattern here.

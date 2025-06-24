@@ -36,9 +36,10 @@ in
         image = "onerahmet/openai-whisper-asr-webservice:latest-gpu";
         autoStart = true;
         extraOptions = [
-          "--pull=newer"
-          "--gpus=all"
+          "--pull=always"
+          "--device nvidia.com/gpu=all"
         ];
+        networks = [ "local" ];
         volumes = [ "${whisperPaths.volumes.cache}:/root/.cache/whisper" ];
         environment = {
           ASR_MODEL = "base";

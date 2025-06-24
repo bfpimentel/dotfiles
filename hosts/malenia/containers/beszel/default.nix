@@ -34,7 +34,8 @@ in
       beszel = {
         image = "henrygd/beszel:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${beszelPaths.volumes.root}:/beszel_data" ];
         labels = util.mkDockerLabels {
           id = "beszel";
@@ -46,10 +47,11 @@ in
       beszel-agent = {
         image = "henrygd/beszel-agent:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
-          "/var/run/podman/podman.sock:/var/run/docker.sock"
-          "/mnt/media:/extra-filesystems/storage:ro"
+          "/var/run/docker.sock:/var/run/docker.sock"
+          "${vars.mediaMountLocation}:/extra-filesystems/storage:ro"
         ];
         environment = {
           PORT = "45876";

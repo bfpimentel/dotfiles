@@ -40,7 +40,8 @@ in
       audiobookshelf = {
         image = "ghcr.io/advplyr/audiobookshelf:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${volumes.config}:/config"
           "${volumes.metadata}:/metadata"

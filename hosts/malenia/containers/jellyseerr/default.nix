@@ -34,7 +34,8 @@ in
       jellyseerr = {
         image = "fallenbagel/jellyseerr:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [ "${jellyseerrPaths.volumes.root}:/app/config" ];
         environment = {
           TZ = vars.timeZone;

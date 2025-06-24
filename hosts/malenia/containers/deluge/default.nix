@@ -65,7 +65,8 @@ in
       deluge = {
         image = "lscr.io/linuxserver/deluge:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         ports = [
           "51123:51123"
           "51123:51123/udp"
@@ -90,7 +91,8 @@ in
       deluge-seed = {
         image = "lscr.io/linuxserver/deluge:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         ports = [
           "51124:51124"
           "51124:51124/udp"

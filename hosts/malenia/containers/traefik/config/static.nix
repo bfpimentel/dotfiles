@@ -91,12 +91,12 @@ vars: {
   providers = {
     providersThrottleDuration = "2s";
     docker = {
-      network = "podman";
+      network = "local";
       endpoint = "unix:///var/run/docker.sock";
       exposedByDefault = false;
     };
     file = {
-      filename = "/dynamic.yml";
+      directory = "/config";
       watch = true;
     };
   };
@@ -114,6 +114,15 @@ vars: {
             "1.0.0.1:53"
           ];
         };
+      };
+    };
+  };
+
+  experimental = {
+    plugins = {
+      traefik-oidc-auth = {
+        moduleName = "github.com/sevensolutions/traefik-oidc-auth";
+        version = "v0.12.0";
       };
     };
   };

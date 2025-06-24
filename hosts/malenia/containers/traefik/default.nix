@@ -22,8 +22,9 @@ let
         acme = "${root}/acme.json";
       };
       generated = {
-        config = settingsFormat.generate "config.yml" ((import ./config/config.nix) vars);
+        static = settingsFormat.generate "static.yml" ((import ./config/static.nix) vars);
         dynamic = settingsFormat.generate "dynamic.yml" ((import ./config/dynamic.nix) vars);
+        auth = config.age.secrets.traefik-auth.path;
       };
     };
 
@@ -52,16 +53,18 @@ in
       traefik = {
         image = "traefik:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         ports = [
           "443:443"
           "80:80"
         ];
         volumes = [
-          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
+          "/var/run/docker.sock:/var/run/docker.sock:ro"
           "${traefikPaths.files.acme}:/acme.json"
-          "${traefikPaths.generated.config}:/traefik.yml:ro"
-          "${traefikPaths.generated.dynamic}:/dynamic.yml:ro"
+          "${traefikPaths.generated.static}:/traefik.yml:ro"
+          "${traefikPaths.generated.dynamic}:/config/dynamic.yml:ro"
+          "${traefikPaths.generated.auth}:/config/auth.yml:ro"
         ];
         environmentFiles = [ config.age.secrets.cloudflare.path ];
         labels =

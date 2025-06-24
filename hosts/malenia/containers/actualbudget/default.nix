@@ -38,7 +38,8 @@ in
       actualbudget = {
         image = "docker.io/actualbudget/actual-server:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
         volumes = [
           "${actualbudgetPaths.volumes.data}:/data"
         ];
