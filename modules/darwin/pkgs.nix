@@ -2,11 +2,15 @@
 
 {
   environment.systemPackages = with pkgs; [
+    nh
+
     neovim
 
+    btop
     qrencode
-    android-tools
     nmap
+
+    android-tools
 
     python3
     cmake

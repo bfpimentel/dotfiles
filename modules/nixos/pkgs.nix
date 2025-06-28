@@ -12,7 +12,9 @@
   environment.pathsToLink = [ "/share/zsh" ];
 
   environment.systemPackages = with pkgs; [
-    liborbispkg-pkgtool
+    # liborbispkg-pkgtool
+
+    btop
 
     git
     wget

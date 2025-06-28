@@ -28,6 +28,7 @@ return {
       workspace = {
         library = {
           vim.env.VIMRUNTIME,
+          "/opt/homebrew/lib",
         },
       },
       diagnostics = {

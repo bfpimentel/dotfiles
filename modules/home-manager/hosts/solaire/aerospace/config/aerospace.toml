@@ -9,7 +9,7 @@ key-mapping.preset = 'qwerty'
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
-accordion-padding = 12
+accordion-padding = 6
 
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
@@ -28,12 +28,12 @@ on-focus-changed = [
 ]
 
 [gaps]
-outer.top =        [{ monitor."built-in.*" = 4 }, -8]
-outer.left =       12
-outer.bottom =     12
-outer.right =      12
-inner.horizontal = 12
-inner.vertical =   12
+outer.top =        [{ monitor."built-in.*" = 0 }, -8]
+outer.bottom =     4
+outer.left =       4
+outer.right =      4
+inner.horizontal = 8
+inner.vertical =   8
 
 [workspace-to-monitor-force-assignment]
 Browser = [ 'secondary', 'main' ]

@@ -32,7 +32,7 @@
     ];
 
     casks = [
-      { name = "xcodes"; greedy = true; }
+      { name = "xcodes-app"; greedy = true; }
       { name = "ghostty"; greedy = true; }
       { name = "anydesk"; greedy = true; }
       { name = "ankerwork"; greedy = true; }
@@ -41,6 +41,7 @@
       { name = "insomnia"; greedy = true; }
       { name = "linearmouse"; greedy = true; }
       { name = "shottr"; greedy = true; }
+      { name = "hammerspoon"; greedy = true; }
       { name = "raspberry-pi-imager"; greedy = true; }
       { name = "brave-browser"; greedy = true; }
       { name = "hiddenbar"; greedy = true; }

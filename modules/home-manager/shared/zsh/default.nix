@@ -10,7 +10,8 @@ let
   systemSpecificExtras =
     if (vars.system == "aarch64-darwin") then
       ''
-        alias rnix="sudo darwin-rebuild switch --flake /private/etc/nixos --impure"
+        # alias rnix="sudo darwin-rebuild switch --flake /private/etc/nixos --impure"
+        alias rnix="nh darwin switch /private/etc/nixos -- --impure"
         eval "$(direnv hook zsh)"
 
         adbw() {
