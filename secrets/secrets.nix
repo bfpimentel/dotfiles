@@ -13,7 +13,6 @@ in
 
   "sonarr.age".publicKeys = allKeys;
   "radarr.age".publicKeys = allKeys;
-  "readarr.age".publicKeys = allKeys;
   "bazarr.age".publicKeys = allKeys;
   "prowlarr.age".publicKeys = allKeys;
   "vaultwarden.age".publicKeys = allKeys;
