@@ -23,7 +23,7 @@ let
       ''
     else
       ''
-        alias rnix="sudo nixos-rebuild switch --flake /etc/nixos --impure"
+        alias rnix="sudo nh os switch /etc/nixos -- --impure"
       '';
 in
 {

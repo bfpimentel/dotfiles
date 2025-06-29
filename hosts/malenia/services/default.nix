@@ -9,7 +9,7 @@ in
     ./gaming
     ./ollama
     ./restic
-    ./sunshine
+    ./streaming
     ./wireguard
   ];
 
@@ -19,17 +19,20 @@ in
   };
 
   bfmp.services = {
-    restic.enable = true;
+    displayManager = {
+      enable = configureForGaming;
+      enableHyprland = true;
+    };
     gaming.enable = configureForGaming;
     ollama.enable = false;
-    sunshine.enable = configureForGaming;
+    restic.enable = true;
+    streaming = {
+      enable = configureForGaming;
+      enableApollo = true;
+    };
     wireguard = {
       enable = false;
       isServer = false;
-    };
-    displayManager = {
-      enable = configureForGaming;
-      enableHyprland = false;
     };
   };
 }
