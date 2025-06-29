@@ -23,12 +23,11 @@ return {
   settings = {
     Lua = {
       runtime = {
-        version = "LuaJIT",
+        version = "Lua5.4",
       },
       workspace = {
         library = {
           vim.env.VIMRUNTIME,
-          "/opt/homebrew/lib",
         },
       },
       diagnostics = {

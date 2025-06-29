@@ -6,5 +6,6 @@
     ./ghostty
     ./hammerspoon
     # ./sketchybar
+    ./zellij
   ];
 }

@@ -16,7 +16,7 @@ adjust-cursor-height = 0%
 window-padding-x = 1
 window-padding-y = 0
 window-padding-balance = true
-window-padding-color = extend
+window-padding-color = extend-always
 
 # background-opacity = 0.9
 # background-blur-radius = 20

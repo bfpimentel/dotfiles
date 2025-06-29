@@ -1418,9 +1418,7 @@ function PaperWM:switchToSpace(index)
     MissionControl:focusSpace(space, window)
 end
 
----switch to a Mission Control space to the left or right of current space
----@param direction Direction use Direction.LEFT or Direction.RIGHT
-function PaperWM:incrementSpace(direction)
+function PaperWM:getNextSpaceId(direction)
     if (direction ~= Direction.LEFT and direction ~= Direction.RIGHT) then
         self.logger.d("move is invalid, left and right only")
         return
@@ -1443,8 +1441,16 @@ function PaperWM:incrementSpace(direction)
     end
 
     if curr_space_idx >= 0 then
-        local new_space_idx = ((curr_space_idx - 1 + direction) % num_spaces) + 1
-        self:switchToSpace(new_space_idx)
+        return ((curr_space_idx - 1 + direction) % num_spaces) + 1
+    end
+end
+
+---switch to a Mission Control space to the left or right of current space
+---@param direction Direction use Direction.LEFT or Direction.RIGHT
+function PaperWM:incrementSpace(direction)
+    local next_space_idx = self:getNextSpaceId(direction)
+    if next_space_idx and next_space_idx >= 0 then
+        self:switchToSpace(next_space_idx)
     end
 end
 
@@ -1510,6 +1516,13 @@ function PaperWM:moveWindowToSpace(index)
         self:addWindow(focused_window)
         self:tileSpace(new_space)
         MissionControl:focusSpace(new_space, focused_window)
+    end
+end
+
+function PaperWM:moveWindowToNextSpace(direction)
+    local next_space_idx = self:getNextSpaceId(direction)
+    if next_space_idx and next_space_idx >= 0 then
+        self:moveWindowToSpace(next_space_idx)
     end
 end
 
@@ -1607,6 +1620,8 @@ PaperWM.actions = {
     switch_space_7 = Fnutils.partial(PaperWM.switchToSpace, PaperWM, 7),
     switch_space_8 = Fnutils.partial(PaperWM.switchToSpace, PaperWM, 8),
     switch_space_9 = Fnutils.partial(PaperWM.switchToSpace, PaperWM, 9),
+    move_window_l = Fnutils.partial(PaperWM.moveWindowToNextSpace, PaperWM, Direction.LEFT),
+    move_window_r = Fnutils.partial(PaperWM.moveWindowToNextSpace, PaperWM, Direction.RIGHT),
     move_window_1 = Fnutils.partial(PaperWM.moveWindowToSpace, PaperWM, 1),
     move_window_2 = Fnutils.partial(PaperWM.moveWindowToSpace, PaperWM, 2),
     move_window_3 = Fnutils.partial(PaperWM.moveWindowToSpace, PaperWM, 3),
