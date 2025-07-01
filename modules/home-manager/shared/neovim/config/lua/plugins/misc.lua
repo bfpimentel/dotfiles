@@ -3,7 +3,6 @@ local add, now = MiniDeps.add, MiniDeps.now
 add({ source = "tpope/vim-sleuth" })
 add({ source = "sphamba/smear-cursor.nvim" })
 add({ source = "smjonas/inc-rename.nvim" })
-add({ source = "OXY2DEV/markview.nvim" })
 add({ source = "folke/flash.nvim" })
 add({ source = "akinsho/toggleterm.nvim" })
 add({
@@ -11,6 +10,12 @@ add({
   depends = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
+  },
+})
+add({
+  source = "OXY2DEV/markview.nvim",
+  depends = {
+    "nvim-treesitter/nvim-treesitter",
   },
 })
 
@@ -40,7 +45,9 @@ now(function()
 end)
 
 now(function()
-  require("inc_rename").setup()
+  require("inc_rename").setup({
+    cmd_name = "IncRename",
+  })
 
   vim.keymap.set("n", "<leader>rn", ":IncRename ", { desc = "Rename Symbol" })
 end)
@@ -67,5 +74,5 @@ now(function()
   })
   local function toggle_lazygit() lazygit:toggle() end
 
-  vim.keymap.set("n", [[<Leader>gg]], toggle_lazygit, { desc = "Toggle LazyGit", noremap = true, silent = true })
+  vim.keymap.set("n", "<Leader>gg", toggle_lazygit, { desc = "Toggle LazyGit", noremap = true, silent = true })
 end)

@@ -23,12 +23,14 @@ return {
   settings = {
     Lua = {
       runtime = {
-        version = "Lua5.4",
+        version = "Lua 5.4",
+        path = {
+          "?.lua",
+          "?/init.lua",
+        },
       },
       workspace = {
-        library = {
-          vim.env.VIMRUNTIME,
-        },
+        library = vim.api.nvim_get_runtime_file("", true),
       },
       diagnostics = {
         globals = {

@@ -46,7 +46,6 @@
       { name = "brave-browser"; greedy = true; }
       { name = "hiddenbar"; greedy = true; }
       { name = "moonlight"; greedy = true; }
-      { name = "moonlight"; greedy = true; }
       { name = "pearcleaner"; greedy = true; }
       { name = "kap"; greedy = true; }
       { name = "aerospace"; greedy = true; }

@@ -1,7 +1,6 @@
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 add({ source = "esmuellert/nvim-eslint" })
-add({ source = "folke/lazydev.nvim" })
 
 now(function()
   local Eslint = require("nvim-eslint")
@@ -15,14 +14,6 @@ now(function()
     settings = {
       useFlatConfig = true,
       workingDirectory = { mode = "location" },
-    },
-  })
-
-  local LazyDev = require("lazydev")
-  LazyDev.setup({
-    library = {
-      { path = "MiniDeps", words = { "MiniDeps" } },
-      { path = "${3rd}/luv/library", words = { "vim%.uv" } },
     },
   })
 end)

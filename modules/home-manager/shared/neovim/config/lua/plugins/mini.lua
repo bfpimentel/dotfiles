@@ -5,8 +5,8 @@ now(function()
   require("mini.surround").setup()
   require("mini.pairs").setup()
   require("mini.diff").setup()
+  require("mini.icons").setup()
   require("mini.bracketed").setup()
-  require("mini.tabline").setup()
   require("mini.visits").setup()
 end)
 
@@ -55,16 +55,6 @@ now(function()
   MiniNotify.setup()
 
   vim.notify = MiniNotify.make_notify()
-end)
-
-now(function()
-  local MiniIcons = require("mini.icons")
-  MiniIcons.setup()
-
-  package.preload["nvim-web-devicons"] = function()
-    MiniIcons.mock_nvim_web_devicons()
-    return package.loaded["nvim-web-devicons"]
-  end
 end)
 
 now(function()
@@ -147,16 +137,6 @@ end)
 now(function()
   local MiniHipatterns = require("mini.hipatterns")
 
-  local opts = function(_, _, data)
-    return {
-      -- virt_text = { { " ", data.hl_group } },
-      -- virt_text_pos = "overlay",
-      hl_group = data.hl_group,
-      priority = 200,
-      right_gravity = false,
-    }
-  end
-
   local zero_x_colors = function(_, match)
     local len = string.len(match)
     if len == 8 or len == 10 then
@@ -238,6 +218,5 @@ now(function()
   map( "n", "<leader>gy", function() MiniExtra.pickers.lsp({ scope = "type_definition" }) end, { desc = "Type Definition" } )
   map( "n", "<leader>gs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, { desc = "Symbols" } )
   map( "n", "<leader>gS", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, { desc = "Workspace Symbols" } )
-
   -- stylua: ignore end
 end)

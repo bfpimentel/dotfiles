@@ -50,16 +50,6 @@ now(function()
     fuzzy = { implementation = "prefer_rust_with_warning" },
     sources = {
       default = { "lsp", "path", "buffer", "snippets" },
-      per_filetype = {
-        lua = { inherit_defaults = true, "lazydev" },
-      },
-      providers = {
-        lazydev = {
-          name = "LazyDev",
-          module = "lazydev.integrations.blink",
-          score_offset = 100,
-        },
-      },
     },
   })
   -- Blink.opts_extend = { "sources.default" }
