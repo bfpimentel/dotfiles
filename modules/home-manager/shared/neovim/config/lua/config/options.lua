@@ -20,12 +20,12 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.inccommand = "split"
 vim.opt.cursorline = true
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 20
 vim.opt.list = false
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.cmdheight = 0
 
-vim.opt.winborder = "solid"
+vim.opt.winborder = "single"
 
 -- Clipboard
 vim.opt.clipboard = "unnamedplus"

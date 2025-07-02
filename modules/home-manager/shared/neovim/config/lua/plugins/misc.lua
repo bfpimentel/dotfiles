@@ -1,15 +1,12 @@
 local add, now = MiniDeps.add, MiniDeps.now
 
 add({ source = "tpope/vim-sleuth" })
-add({ source = "sphamba/smear-cursor.nvim" })
 add({ source = "smjonas/inc-rename.nvim" })
-add({ source = "folke/flash.nvim" })
 add({ source = "akinsho/toggleterm.nvim" })
 add({
   source = "andrewferrier/wrapping.nvim",
   depends = {
     "nvim-treesitter/nvim-treesitter",
-    "nvim-tree/nvim-web-devicons",
   },
 })
 add({
@@ -20,16 +17,7 @@ add({
 })
 
 now(function()
-  require("smear_cursor").setup()
   require("markview").setup()
-  require("flash").setup({
-    modes = {
-      search = {
-        enabled = true,
-        highlight = { backdrop = true },
-      },
-    },
-  })
   require("wrapping").setup({
     auto_set_mode_filetype_allowlist = {
       "asciidoc",
@@ -53,16 +41,8 @@ now(function()
 end)
 
 now(function()
-  local ToggleTerm = require("toggleterm")
-  ToggleTerm.setup({
-    direction = "vertical",
-    size = vim.o.columns * 0.3,
-    open_mapping = [[<C-t>]],
-    shell = "zsh",
-  })
-
   local Terminal = require("toggleterm.terminal").Terminal
-  local lazygit = Terminal:new({
+  local Lazygit = Terminal:new({
     cmd = "lazygit",
     hidden = true,
     direction = "float",
@@ -72,7 +52,7 @@ now(function()
       height = 50,
     },
   })
-  local function toggle_lazygit() lazygit:toggle() end
+  local function toggle_lazygit() Lazygit:toggle() end
 
   vim.keymap.set("n", "<Leader>gg", toggle_lazygit, { desc = "Toggle LazyGit", noremap = true, silent = true })
 end)

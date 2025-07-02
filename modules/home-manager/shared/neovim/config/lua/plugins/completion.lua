@@ -5,6 +5,8 @@ add({ source = "L3MON4D3/LuaSnip" })
 add({ source = "xzbdmw/colorful-menu.nvim" })
 
 now(function()
+  if true then return end
+
   local ColorfulMenu = require("colorful-menu")
 
   local Blink = require("blink.cmp")

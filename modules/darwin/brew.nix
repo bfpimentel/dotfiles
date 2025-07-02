@@ -37,6 +37,7 @@
       { name = "anydesk"; greedy = true; }
       { name = "ankerwork"; greedy = true; }
       { name = "betterdisplay"; greedy = true; }
+      { name = "bruno"; greedy = true; }
       { name = "crossover"; greedy = true; }
       { name = "insomnia"; greedy = true; }
       { name = "linearmouse"; greedy = true; }
@@ -48,6 +49,7 @@
       { name = "moonlight"; greedy = true; }
       { name = "pearcleaner"; greedy = true; }
       { name = "kap"; greedy = true; }
+      { name = "localsend"; greedy = true; }
       { name = "aerospace"; greedy = true; }
       { name = "http-toolkit"; greedy = true; }
       { name = "the-unarchiver"; greedy = true; }

@@ -4,48 +4,64 @@ now(function()
   require("mini.ai").setup()
   require("mini.surround").setup()
   require("mini.pairs").setup()
-  require("mini.diff").setup()
+  require("mini.pick").setup()
   require("mini.icons").setup()
   require("mini.bracketed").setup()
   require("mini.visits").setup()
 end)
 
--- now(function()
---   local MiniBase16 = require("mini.base16")
---
---   MiniBase16.setup({
---     palette = {
---       base00 = "#32302f",
---       base01 = "#3c3836",
---       base02 = "#5a524c",
---       base03 = "#7c6f64",
---       base04 = "#bdae93",
---       base05 = "#ddc7a1",
---       base06 = "#ebdbb2",
---       base07 = "#fbf1c7",
---       base08 = "#ea6962",
---       base09 = "#e78a4e",
---       base0A = "#d8a657",
---       base0B = "#a9b665",
---       base0C = "#89b482",
---       base0D = "#7daea3",
---       base0E = "#d3869b",
---       base0F = "#bd6f3e",
---     },
---     plugins = {
---       default = false,
---       ["echasnovski/mini.files"] = true,
---       ["OXY2DEV/markview.nvim"] = true,
---     },
---   })
--- end)
-
 now(function()
   local MiniIndentScope = require("mini.indentscope")
   MiniIndentScope.setup({
     symbol = "│",
-    draw = {
-      predicate = function() return true end,
+  })
+end)
+
+now(function()
+  local MiniSnippets = require("mini.snippets")
+  local MiniCompletion = require("mini.completion")
+  local gen_loader = MiniSnippets.gen_loader
+
+  MiniSnippets.setup({
+    snippets = { gen_loader.from_lang() },
+  })
+
+  MiniCompletion.setup({
+    window = {
+      info = { border = "single" },
+      signature = { border = "single" },
+    },
+  })
+end)
+
+now(function()
+  local MiniDiff = require("mini.diff")
+  MiniDiff.setup()
+
+  vim.keymap.set("n", "<leader>gh", MiniDiff.toggle_overlay)
+end)
+
+now(function()
+  local MiniJump2D = require("mini.jump2d")
+  MiniJump2D.setup({
+    view = {
+      dim = true,
+    },
+    allowed_windows = {
+      current = true,
+      not_current = false,
+    },
+  })
+end)
+
+now(function()
+  local MiniAnimate = require("mini.animate")
+  MiniAnimate.setup({
+    cursor = {
+      timing = MiniAnimate.gen_timing.linear({ duration = 100, unit = "total" }),
+    },
+    scroll = {
+      timing = MiniAnimate.gen_timing.linear({ duration = 100, unit = "total" }),
     },
   })
 end)
@@ -59,7 +75,15 @@ end)
 
 now(function()
   local MiniFiles = require("mini.files")
-  MiniFiles.setup()
+  MiniFiles.setup({
+    windows = {
+      max_number = 3,
+      preview = true,
+      width_focus = 40,
+      width_nofocus = 20,
+      width_preview = 50,
+    },
+  })
 
   vim.keymap.set("n", "<leader>e", function()
     local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
@@ -184,11 +208,10 @@ now(function()
   local MiniExtra = require("mini.extra")
   local MiniNotify = require("mini.notify")
 
+  vim.ui.select = MiniPick.ui_select
+
   local map = vim.keymap.set
   -- stylua: ignore start
-  -- map("n", "<leader>.", function() Snacks.scratch() end, { desc = "Toggle Scratch Buffer" })
-  -- map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
-  --
   map( "n", "<leader>,", function() MiniPick.builtin.buffers() end, { desc = "Buffers" } )
   map( "n", "<leader>/", function() MiniPick.builtin.grep_live() end, { desc = "Grep" } )
   -- History
@@ -203,13 +226,13 @@ now(function()
   map( "n", "<leader>sh", function() MiniPick.builtin.help() end, { desc = "Help Pages" } )
   map( "n", '<leader>s"', function() MiniExtra.pickers.registers() end, { desc = "Registers" } )
   map( "n", "<leader>sb", function() MiniExtra.pickers.buf_lines() end, { desc = "Buffer Lines" } )
-  map( "n", "<leader>sC", function() MiniExtra.pickers.commands() end, { desc = "Commands" } )
+  map( "n", "<leader>sc", function() MiniExtra.pickers.commands() end, { desc = "Commands" } )
   map( "n", "<leader>sd", function() MiniExtra.pickers.diagnostic() end, { desc = "Diagnostics" } )
   map( "n", "<leader>sD", function() MiniExtra.pickers.diagnostic({ scope = "current" }) end, { desc = "Buffer Diagnostics" } )
   map( "n", "<leader>sH", function() MiniExtra.pickers.hl_groups() end, { desc = "Highlight Groups" } )
   map( "n", "<leader>sk", function() MiniExtra.pickers.keymaps() end, { desc = "Keymaps" } )
   map( "n", "<leader>sm", function() MiniExtra.pickers.marks() end, { desc = "Marks" } )
-  map( "n", "<leader>fC", function() MiniExtra.pickers.colorschemes() end, { desc = "Colorschemes" } )
+  map( "n", "<leader>sC", function() MiniExtra.pickers.colorschemes() end, { desc = "Colorschemes" } )
   -- LSP
   map( "n", "<leader>gD", function() MiniExtra.pickers.lsp({ scope = "declaration" }) end, { desc = "Declarations" } )
   map( "n", "<leader>gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, { desc = "Definitions" } )
