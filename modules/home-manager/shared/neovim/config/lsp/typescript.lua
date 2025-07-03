@@ -1,8 +1,7 @@
--- local Blink = require("blink.cmp")
-local MiniCompletion = require("mini.completion")
+local Blink = require("blink.cmp")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = MiniCompletion.get_lsp_capabilities(capabilities)
+capabilities = Blink.get_lsp_capabilities(capabilities)
 
 --- @type vim.lsp.Config
 return {

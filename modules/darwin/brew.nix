@@ -37,6 +37,7 @@
       { name = "anydesk"; greedy = true; }
       { name = "ankerwork"; greedy = true; }
       { name = "betterdisplay"; greedy = true; }
+      { name = "kindavim"; greedy = true; }
       { name = "bruno"; greedy = true; }
       { name = "crossover"; greedy = true; }
       { name = "insomnia"; greedy = true; }

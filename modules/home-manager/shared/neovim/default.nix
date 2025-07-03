@@ -14,9 +14,6 @@
     withPython3 = true;
     withRuby = true;
     package = inputs.neovim-nightly.packages.${pkgs.system}.default;
-    plugins = with pkgs.vimPlugins; [
-      blink-cmp
-    ];
     extraPackages = with pkgs; [
       lua-language-server
       stylua

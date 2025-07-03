@@ -1,92 +1,89 @@
-local add, now = MiniDeps.add, MiniDeps.now
-
-add({
-  source = "nvim-treesitter/nvim-treesitter",
-  checkout = "master",
-  hooks = { post_checkout = function() vim.cmd("TSUpdate") end },
-})
-
-now(function()
-  local Treesitter = require("nvim-treesitter.configs")
-  Treesitter.setup({
-    sync_install = false,
-    highlight = { enable = true, additional_vim_regex_highlighting = false },
-    indent = { enable = true },
-    auto_install = true,
-    ensure_installed = {
-      "c",
-      "lua",
-      "nix",
-      "vim",
-      "vimdoc",
-      "query",
-      "elixir",
-      "heex",
-      "html",
-      "javascript",
-      "typescript",
-      "markdown",
-      "markdown_inline",
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<leader>vv",
-        node_incremental = "<C-p>",
-        node_decremental = "<C-n>",
-        scope_incremental = false,
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "master",
+    lazy = false,
+    build = ":TSUpdate",
+    opts = {
+      sync_install = false,
+      highlight = { enable = true, additional_vim_regex_highlighting = false },
+      indent = { enable = true },
+      auto_install = true,
+      ensure_installed = {
+        "c",
+        "lua",
+        "nix",
+        "vim",
+        "vimdoc",
+        "query",
+        "elixir",
+        "heex",
+        "html",
+        "javascript",
+        "typescript",
+        "markdown",
+        "markdown_inline",
       },
-    },
-    textobjects = {
-      select = {
+      incremental_selection = {
         enable = true,
-        lookahead = true,
-
         keymaps = {
-          ["af"] = { query = "@function.outer", desc = "around a function" },
-          ["if"] = { query = "@function.inner", desc = "inner part of a function" },
-          ["ac"] = { query = "@class.outer", desc = "around a class" },
-          ["ic"] = { query = "@class.inner", desc = "inner part of a class" },
-          ["ai"] = { query = "@conditional.outer", desc = "around an if statement" },
-          ["ii"] = { query = "@conditional.inner", desc = "inner part of an if statement" },
-          ["al"] = { query = "@loop.outer", desc = "around a loop" },
-          ["il"] = { query = "@loop.inner", desc = "inner part of a loop" },
-          ["ap"] = { query = "@parameter.outer", desc = "around parameter" },
-          ["ip"] = { query = "@parameter.inner", desc = "inside a parameter" },
-        },
-        selection_modes = {
-          ["@parameter.outer"] = "v", -- charwise
-          ["@parameter.inner"] = "v", -- charwise
-          ["@function.outer"] = "v", -- charwise
-          ["@conditional.outer"] = "V", -- linewise
-          ["@loop.outer"] = "V", -- linewise
-          ["@class.outer"] = "<C-v>", -- blockwise
-        },
-        include_surrounding_whitespace = false,
-      },
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_previous_start = {
-          ["[f"] = { query = "@function.outer", desc = "Previous function" },
-          ["[c"] = { query = "@class.outer", desc = "Previous class" },
-          ["[p"] = { query = "@parameter.inner", desc = "Previous parameter" },
-        },
-        goto_next_start = {
-          ["]f"] = { query = "@function.outer", desc = "Next function" },
-          ["]c"] = { query = "@class.outer", desc = "Next class" },
-          ["]p"] = { query = "@parameter.inner", desc = "Next parameter" },
+          init_selection = "<Leader>vv",
+          node_incremental = "<C-p>",
+          node_decremental = "<C-n>",
+          scope_incremental = false,
         },
       },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["<leader>a"] = "@parameter.inner",
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+
+          keymaps = {
+            ["af"] = { query = "@function.outer", desc = "around a function" },
+            ["if"] = { query = "@function.inner", desc = "inner part of a function" },
+            ["ac"] = { query = "@class.outer", desc = "around a class" },
+            ["ic"] = { query = "@class.inner", desc = "inner part of a class" },
+            ["ai"] = { query = "@conditional.outer", desc = "around an if statement" },
+            ["ii"] = { query = "@conditional.inner", desc = "inner part of an if statement" },
+            ["al"] = { query = "@loop.outer", desc = "around a loop" },
+            ["il"] = { query = "@loop.inner", desc = "inner part of a loop" },
+            ["ap"] = { query = "@parameter.outer", desc = "around parameter" },
+            ["ip"] = { query = "@parameter.inner", desc = "inside a parameter" },
+          },
+          selection_modes = {
+            ["@parameter.outer"] = "v", -- charwise
+            ["@parameter.inner"] = "v", -- charwise
+            ["@function.outer"] = "v", -- charwise
+            ["@conditional.outer"] = "V", -- linewise
+            ["@loop.outer"] = "V", -- linewise
+            ["@class.outer"] = "<C-v>", -- blockwise
+          },
+          include_surrounding_whitespace = false,
         },
-        swap_previous = {
-          ["<leader>A"] = "@parameter.inner",
+        move = {
+          enable = true,
+          set_jumps = true, -- whether to set jumps in the jumplist
+          goto_previous_start = {
+            ["[f"] = { query = "@function.outer", desc = "Previous function" },
+            ["[c"] = { query = "@class.outer", desc = "Previous class" },
+            ["[p"] = { query = "@parameter.inner", desc = "Previous parameter" },
+          },
+          goto_next_start = {
+            ["]f"] = { query = "@function.outer", desc = "Next function" },
+            ["]c"] = { query = "@class.outer", desc = "Next class" },
+            ["]p"] = { query = "@parameter.inner", desc = "Next parameter" },
+          },
+        },
+        swap = {
+          enable = true,
+          swap_next = {
+            ["<leader>a"] = "@parameter.inner",
+          },
+          swap_previous = {
+            ["<leader>A"] = "@parameter.inner",
+          },
         },
       },
     },
-  })
-end)
+  },
+}
