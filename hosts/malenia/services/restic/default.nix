@@ -22,20 +22,20 @@ in
 
     systemd.services =
       {
-        restic-backups-podman-stop = {
+        restic-backups-docker-stop = {
           enable = true;
           serviceConfig = {
             Type = "oneshot";
           };
-          script = ''${pkgs.systemd}/bin/systemctl stop podman-*'';
+          script = ''${pkgs.systemd}/bin/systemctl stop docker-*'';
         };
 
-        restic-backups-podman-start = {
+        restic-backups-docker-start = {
           enable = true;
           serviceConfig = {
             Type = "oneshot";
           };
-          script = ''${pkgs.systemd}/bin/systemctl start --no-block --all "podman-*"'';
+          script = ''${pkgs.systemd}/bin/systemctl start --no-block --all "docker-*"'';
         };
       }
       //
@@ -45,14 +45,14 @@ in
             "restic-backups-containers"
           ]
           (name: {
-            requires = [ "restic-backups-podman-stop.service" ];
-            after = [ "restic-backups-podman-stop.service" ];
+            requires = [ "restic-backups-docker-stop.service" ];
+            after = [ "restic-backups-docker-stop.service" ];
             onFailure = [
-              "restic-backups-podman-start.service"
+              "restic-backups-docker-start.service"
               "${name}-failure.service"
             ];
             onSuccess = [
-              "restic-backups-podman-start.service"
+              "restic-backups-docker-start.service"
               "${name}-success.service"
             ];
           })

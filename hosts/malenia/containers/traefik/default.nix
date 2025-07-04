@@ -24,7 +24,7 @@ let
       generated = {
         static = settingsFormat.generate "static.yml" ((import ./config/static.nix) vars);
         dynamic = settingsFormat.generate "dynamic.yml" ((import ./config/dynamic.nix) vars);
-        auth = config.age.secrets.traefik-auth.path;
+        # auth = config.age.secrets.traefik-auth.path;
       };
     };
 
@@ -64,7 +64,7 @@ in
           "${traefikPaths.files.acme}:/acme.json"
           "${traefikPaths.generated.static}:/traefik.yml:ro"
           "${traefikPaths.generated.dynamic}:/config/dynamic.yml:ro"
-          "${traefikPaths.generated.auth}:/config/auth.yml:ro"
+          # "${traefikPaths.generated.auth}:/config/auth.yml:ro"
         ];
         environmentFiles = [ config.age.secrets.cloudflare.path ];
         labels =
@@ -73,6 +73,7 @@ in
             name = "Traefik";
             subdomain = "traefik";
             port = 8080;
+            auth = true;
           }
           // {
             "traefik.http.routers.traefik.service" = "api@internal";

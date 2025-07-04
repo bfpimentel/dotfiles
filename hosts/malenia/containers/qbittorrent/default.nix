@@ -8,9 +8,9 @@
 
 with lib;
 let
-  delugePaths =
+  qbittorrentPaths =
     let
-      root = "${vars.containersConfigRoot}/deluge";
+      root = "${vars.containersConfigRoot}/qbittorrent";
     in
     {
       volumes = {
@@ -24,9 +24,9 @@ let
       };
     };
 
-  delugeSeedPaths =
+  qbittorrentSeedPaths =
     let
-      root = "${vars.containersConfigRoot}/deluge-seed";
+      root = "${vars.containersConfigRoot}/qbittorrent-seed";
     in
     {
       volumes = {
@@ -42,28 +42,28 @@ let
   puid = toString vars.defaultUserUID;
   pgid = toString vars.defaultUserGID;
 
-  cfg = config.bfmp.containers.deluge;
+  cfg = config.bfmp.containers.qbittorrent;
 in
 {
-  options.bfmp.containers.deluge = {
-    enable = mkEnableOption "Enable Deluge";
+  options.bfmp.containers.qbittorrent = {
+    enable = mkEnableOption "Enable Qbittorrent";
   };
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules =
       map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
-        builtins.attrValues delugePaths.volumes
+        builtins.attrValues qbittorrentPaths.volumes
       )
       ++ map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
-        builtins.attrValues delugeSeedPaths.volumes
+        builtins.attrValues qbittorrentSeedPaths.volumes
       );
 
     networking.firewall.allowedTCPPorts = [ 51123 ];
     networking.firewall.allowedUDPPorts = [ 51123 ];
 
     virtualisation.oci-containers.containers = {
-      deluge = {
-        image = "lscr.io/linuxserver/deluge:latest";
+      qbittorrent = {
+        image = "lscr.io/linuxserver/qbittorrent:latest";
         autoStart = true;
         extraOptions = [ "--pull=always" ];
         networks = [ "local" ];
@@ -72,24 +72,26 @@ in
           "51123:51123/udp"
         ];
         volumes = [
-          "${delugePaths.volumes.config}:/config"
-          "${delugePaths.volumes.themes}:/themes"
-          "${delugePaths.mounts.downloads}:/downloads"
+          "${qbittorrentPaths.volumes.config}:/config"
+          "${qbittorrentPaths.volumes.themes}:/themes"
+          "${qbittorrentPaths.mounts.downloads}:/downloads"
         ];
         environment = {
           TZ = vars.timeZone;
           PUID = puid;
           PGID = pgid;
+          WEBUI_PORT = "8080";
+          TORRENTING_PORT = "51123";
         };
         labels = util.mkDockerLabels {
-          id = "deluge";
-          name = "Deluge";
+          id = "qbittorrent";
+          name = "Qbittorrent";
           subdomain = "torrent";
-          port = 8112;
+          port = 8080;
         };
       };
-      deluge-seed = {
-        image = "lscr.io/linuxserver/deluge:latest";
+      qbittorrent-seed = {
+        image = "lscr.io/linuxserver/qbittorrent:latest";
         autoStart = true;
         extraOptions = [ "--pull=always" ];
         networks = [ "local" ];
@@ -98,21 +100,23 @@ in
           "51124:51124/udp"
         ];
         volumes = [
-          "${delugeSeedPaths.volumes.config}:/config"
-          "${delugeSeedPaths.volumes.themes}:/themes"
-          "${delugeSeedPaths.mounts.seed}:/downloads"
+          "${qbittorrentSeedPaths.volumes.config}:/config"
+          "${qbittorrentSeedPaths.volumes.themes}:/themes"
+          "${qbittorrentSeedPaths.mounts.seed}:/downloads"
         ];
         environment = {
           TZ = vars.timeZone;
           PUID = puid;
           PGID = pgid;
+          WEBUI_PORT = "8080";
+          TORRENTING_PORT = "51124";
         };
         labels = util.mkDockerLabels {
-          id = "deluge-seed";
-          icon = "deluge";
-          name = "Deluge (Seed)";
+          id = "qbittorrent-seed";
+          icon = "Qbittorrent";
+          name = "Qbittorrent (Seed)";
           subdomain = "seed";
-          port = 8112;
+          port = 8080;
         };
       };
     };

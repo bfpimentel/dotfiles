@@ -8,9 +8,9 @@
 
 with lib;
 let
-  plexPaths =
+  papraPaths =
     let
-      root = "${vars.containersConfigRoot}/plex";
+      root = "${vars.containersConfigRoot}/papra";
     in
     {
       volumes = {
@@ -18,48 +18,47 @@ let
         data = "${root}/data";
       };
       mounts = {
-        media = vars.mediaMountLocation;
+        documents = vars.documentsMountLocation;
       };
     };
 
   puid = toString vars.defaultUserUID;
   pgid = toString vars.defaultUserGID;
 
-  cfg = config.bfmp.containers.plex;
+  cfg = config.bfmp.containers.papra;
 in
 {
-  options.bfmp.containers.plex = {
-    enable = mkEnableOption "Enable Plex";
+  options.bfmp.containers.papra = {
+    enable = mkEnableOption "Enable Papra";
   };
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules = map (x: "d ${x} 0775 ${vars.defaultUser} ${vars.defaultUser} - -") (
-      builtins.attrValues plexPaths.volumes
+      builtins.attrValues papraPaths.volumes
     );
 
     virtualisation.oci-containers.containers = {
-      plex = {
-        image = "lscr.io/linuxserver/plex:latest";
+      papra = {
+        image = "ghcr.io/papra-hq/papra:latest-rootless";
         autoStart = true;
         extraOptions = [ "--pull=always" ];
+        user = "${puid}:${pgid}";
         networks = [ "local" ];
-        devices = [ "nvidia.com/gpu=all" ];
         volumes = [
-          "${plexPaths.volumes.data}:/config"
-          "${plexPaths.mounts.media}:/media"
+          "${papraPaths.volumes.data}:/app/app-data"
+          "${papraPaths.mounts.documents}:/documents"
         ];
-        environmentFiles = [ config.age.secrets.plex.path ];
+        environmentFiles = [ config.age.secrets.papra.path ];
         environment = {
+          TZ = vars.timeZone;
           PUID = puid;
           PGID = pgid;
-          TZ = vars.timeZone;
-          VERSION = "latest";
         };
         labels = util.mkDockerLabels {
-          id = "plex";
-          name = "Plex";
-          subdomain = "media";
-          port = 32400;
+          id = "papra";
+          name = "Papra";
+          subdomain = "docs";
+          port = 1221;
         };
       };
     };

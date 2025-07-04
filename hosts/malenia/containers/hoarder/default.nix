@@ -34,7 +34,7 @@ in
 
     virtualisation.oci-containers.containers = {
       hoarder = {
-        image = "ghcr.io/hoarder-app/hoarder:latest";
+        image = "ghcr.io/karakeep-app/karakeep:latest";
         autoStart = true;
         extraOptions = [ "--pull=always" ];
         networks = [ "local" ];

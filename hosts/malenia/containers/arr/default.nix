@@ -10,8 +10,8 @@ with lib;
 let
   arrPaths = {
     volumes = {
-      sonarr = "${vars.containersConfigRoot}/sonarr";
       radarr = "${vars.containersConfigRoot}/radarr";
+      sonarr = "${vars.containersConfigRoot}/sonarr";
       prowlarr = "${vars.containersConfigRoot}/prowlarr";
       bazarr = "${vars.containersConfigRoot}/bazarr";
     };
@@ -39,6 +39,30 @@ in
     );
 
     virtualisation.oci-containers.containers = with arrPaths; {
+      radarr = {
+        image = "lscr.io/linuxserver/radarr:develop";
+        autoStart = true;
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
+        volumes = [
+          "${volumes.radarr}:/config"
+          "${mounts.downloads}:/downloads"
+          "${mounts.movies}:/movies"
+        ];
+        environment = {
+          TZ = vars.timeZone;
+          PUID = puid;
+          PGID = pgid;
+          UMASK = "002";
+        };
+        labels = util.mkDockerLabels {
+          id = "radarr";
+          name = "Radarr";
+          subdomain = "radarr";
+          port = 7878;
+          auth = false;
+        };
+      };
       sonarr = {
         image = "lscr.io/linuxserver/sonarr:develop";
         autoStart = true;
@@ -61,30 +85,6 @@ in
           name = "Sonarr";
           subdomain = "sonarr";
           port = 8989;
-          auth = false;
-        };
-      };
-      radarr = {
-        image = "lscr.io/linuxserver/radarr:develop";
-        autoStart = true;
-        extraOptions = [ "--pull=always" ];
-        networks = [ "local" ];
-        volumes = [
-          "${volumes.radarr}:/config"
-          "${mounts.downloads}:/downloads"
-          "${mounts.movies}:/movies"
-        ];
-        environment = {
-          TZ = vars.timeZone;
-          PUID = puid;
-          PGID = pgid;
-          UMASK = "002";
-        };
-        labels = util.mkDockerLabels {
-          id = "radarr";
-          name = "Radarr";
-          subdomain = "radarr";
-          port = 7878;
           auth = false;
         };
       };

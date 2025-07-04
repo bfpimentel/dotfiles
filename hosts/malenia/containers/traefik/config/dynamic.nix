@@ -105,26 +105,30 @@ vars: {
           scheme = "https";
         };
       };
-      # auth = {
-      #   forwardauth = {
-      #     address = "http://authentik-server:9000/outpost.goauthentik.io/auth/traefik";
-      #     trustForwardHeader = true;
-      #     authResponseHeaders = [
-      #       "X-authentik-username"
-      #       "X-authentik-groups"
-      #       "X-authentik-email"
-      #       "X-authentik-name"
-      #       "X-authentik-uid"
-      #       "X-authentik-jwt"
-      #       "X-authentik-meta-jwks"
-      #       "X-authentik-meta-outposts"
-      #       "X-authentik-meta-provider"
-      #       "X-authentik-meta-app"
-      #       "X-authentik-meta-version"
-      #       "authorization"
-      #     ];
-      #   };
-      # };
+      auth = {
+        forwardauth = {
+          address = "http://tinyauth:3000/api/auth/traefik";
+          trustForwardHeader = true;
+          authResponseHeaders = [
+            "auth-user"
+            "auth-pass"
+          ];
+          # authResponseHeaders = [
+          #   "X-authentik-username"
+          #   "X-authentik-groups"
+          #   "X-authentik-email"
+          #   "X-authentik-name"
+          #   "X-authentik-uid"
+          #   "X-authentik-jwt"
+          #   "X-authentik-meta-jwks"
+          #   "X-authentik-meta-outposts"
+          #   "X-authentik-meta-provider"
+          #   "X-authentik-meta-app"
+          #   "X-authentik-meta-version"
+          #   "authorization"
+          # ];
+        };
+      };
     };
   };
 }
