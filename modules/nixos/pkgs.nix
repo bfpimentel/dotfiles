@@ -35,9 +35,6 @@
     cargo
     nodejs_22
 
-    podman-tui
-    podman-compose
-
     inputs.agenix.packages."${system}".default
     inputs.home-manager.packages."${system}".default
   ];

@@ -2,8 +2,6 @@
 
 {
   imports = [
-    # ./tailscale
     ./glances
-    ./ssh
   ];
 }
