@@ -57,12 +57,6 @@ vars: {
           passHostHeader = true;
         };
       };
-      glances = {
-        loadBalancer = {
-          servers = [ { url = "http://${vars.maleniaIp}:61208"; } ];
-          passHostHeader = true;
-        };
-      };
       sunshine = {
         loadBalancer = {
           servers = [ { url = "https://${vars.maleniaIp}:47990"; } ];
@@ -110,23 +104,8 @@ vars: {
           address = "http://tinyauth:3000/api/auth/traefik";
           trustForwardHeader = true;
           authResponseHeaders = [
-            "auth-user"
-            "auth-pass"
+            "Authorization"
           ];
-          # authResponseHeaders = [
-          #   "X-authentik-username"
-          #   "X-authentik-groups"
-          #   "X-authentik-email"
-          #   "X-authentik-name"
-          #   "X-authentik-uid"
-          #   "X-authentik-jwt"
-          #   "X-authentik-meta-jwks"
-          #   "X-authentik-meta-outposts"
-          #   "X-authentik-meta-provider"
-          #   "X-authentik-meta-app"
-          #   "X-authentik-meta-version"
-          #   "authorization"
-          # ];
         };
       };
     };

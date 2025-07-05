@@ -22,7 +22,7 @@ in
   config = mkIf cfg.enable {
     virtualisation.oci-containers.containers = {
       tinyauth = {
-        image = "ghcr.io/steveiliop56/tinyauth:v3";
+        image = "ghcr.io/steveiliop56/tinyauth:nightly";
         autoStart = true;
         extraOptions = [ "--pull=always" ];
         networks = [ "local" ];
@@ -31,7 +31,9 @@ in
           TZ = vars.timeZone;
           PUID = puid;
           PGID = pgid;
+          LOG_LEVEL = "0";
         };
+        volumes = [ "/var/run/docker.sock:/var/run/docker.sock:ro" ];
         labels = util.mkDockerLabels {
           id = "tinyauth";
           name = "Tinyauth";
