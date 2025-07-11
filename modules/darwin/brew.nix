@@ -36,6 +36,7 @@
       { name = "ghostty"; greedy = true; }
       { name = "anydesk"; greedy = true; }
       { name = "ankerwork"; greedy = true; }
+      { name = "blender"; greedy = true; }
       { name = "betterdisplay"; greedy = true; }
       { name = "kindavim"; greedy = true; }
       { name = "bruno"; greedy = true; }
@@ -43,6 +44,7 @@
       { name = "insomnia"; greedy = true; }
       { name = "linearmouse"; greedy = true; }
       { name = "shottr"; greedy = true; }
+      { name = "bambu-studio"; greedy = true; }
       { name = "hammerspoon"; greedy = true; }
       { name = "raspberry-pi-imager"; greedy = true; }
       { name = "brave-browser"; greedy = true; }

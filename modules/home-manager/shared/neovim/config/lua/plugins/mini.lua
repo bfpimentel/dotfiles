@@ -194,9 +194,7 @@ return {
       local hex_colors = function(_, match)
         local len = string.len(match)
         if len == 7 or len == 9 then
-          local start = len == 7 and 2 or 4
-          local eend = len == 7 and 7 or 9
-          local hex = string.format("#%s", match:sub(start, eend))
+          local hex = string.format("#%s", match:sub(2, 7))
           return MiniHipatterns.compute_hex_color_group(hex, "bg")
         end
 

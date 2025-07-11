@@ -7,35 +7,34 @@
 {
   nixpkgs.config.allowUnfree = true;
 
-  programs.zsh.enable = true;
-
   environment.pathsToLink = [ "/share/zsh" ];
 
   environment.systemPackages = with pkgs; [
-    # liborbispkg-pkgtool
+    inputs.agenix.packages."${system}".default
+    inputs.home-manager.packages."${system}".default
 
-    btop
+    nh
 
-    git
-    wget
-    curl
-    unzip
+    antidote
+    direnv
+    gnupg
     fzf
     ripgrep
+    fastfetch
+
+    git
+    btop
+    qrencode
+    nmap
+    wget
     pciutils
     tcpdump
     lm_sensors
-    lazygit
     wireguard-tools
     inetutils
     ncdu
+    # liborbispkg-pkgtool
 
-    clang-tools
-    gcc
-    cargo
-    nodejs_22
-
-    inputs.agenix.packages."${system}".default
-    inputs.home-manager.packages."${system}".default
+    python3
   ];
 }
