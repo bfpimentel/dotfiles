@@ -8,8 +8,6 @@
 
 with lib;
 let
-  arrVars = import ./vars.nix;
-
   arrPaths = {
     volumes = {
       radarr = "${vars.containersConfigRoot}/radarr";
@@ -51,6 +49,7 @@ in
           "${mounts.downloads}:/downloads"
           "${mounts.movies}:/movies"
         ];
+        environmentFiles = [ config.age.secrets.radarr.path ];
         environment = {
           TZ = vars.timeZone;
           PUID = puid;
@@ -63,11 +62,12 @@ in
             name = "Radarr";
             subdomain = "radarr";
             port = 7878;
-            auth = true;
+            auth = false;
           }
           // {
-            "tinyauth.basic.user" = arrVars.radarr.user;
-            "tinyauth.basic.password" = arrVars.radarr.password;
+            # Not working yet
+            "tinyauth.basic.user" = "\${TINYAUTH_VAR_RADARR_USER}";
+            "tinyauth.basic.password" = "\${TINYAUTH_VAR_RADARR_PASSWORD}";
           };
       };
       sonarr = {
@@ -96,8 +96,9 @@ in
             auth = false;
           }
           // {
-            "tinyauth.basic.user" = arrVars.sonarr.user;
-            "tinyauth.basic.password" = arrVars.sonarr.password;
+            # Not working yet
+            "tinyauth.basic.user" = "\${TINYAUTH_VAR_SONARR_USER}";
+            "tinyauth.basic.password" = "\${TINYAUTH_VAR_SONARR_PASSWORD}";
           };
       };
       bazarr = {
@@ -126,8 +127,9 @@ in
             auth = false;
           }
           // {
-            "tinyauth.basic.user" = arrVars.bazarr.user;
-            "tinyauth.basic.password" = arrVars.bazarr.password;
+            # Not working yet
+            "tinyauth.basic.user" = "\${TINYAUTH_VAR_PROWLARR_USER}";
+            "tinyauth.basic.password" = "\${TINYAUTH_VAR_PROWLARR_PASSWORD}";
           };
       };
       prowlarr = {
@@ -151,8 +153,9 @@ in
             auth = false;
           }
           // {
-            "tinyauth.basic.user" = arrVars.prowlarr.user;
-            "tinyauth.basic.password" = arrVars.prowlarr.password;
+            # Not working yet
+            "tinyauth.basic.user" = "\${TINYAUTH_VAR_BAZARR_USER}";
+            "tinyauth.basic.password" = "\${TINYAUTH_VAR_BAZARR_PASSWORD}";
           };
       };
       flaresolverr = {
@@ -170,7 +173,6 @@ in
           name = "Flaresolverr";
           subdomain = "flaresolverr";
           port = 8191;
-          auth = false;
         };
       };
     };

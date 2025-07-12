@@ -21,13 +21,16 @@ in
     ];
 
     systemd.services =
+      let
+        dockerBin = "${pkgs.docker}/bin/docker";
+      in
       {
         restic-backups-docker-stop = {
           enable = true;
           serviceConfig = {
             Type = "oneshot";
           };
-          script = ''${pkgs.systemd}/bin/systemctl stop docker-*'';
+          script = ''${dockerBin} stop $(${dockerBin} ps -a -q)'';
         };
 
         restic-backups-docker-start = {
@@ -35,7 +38,7 @@ in
           serviceConfig = {
             Type = "oneshot";
           };
-          script = ''${pkgs.systemd}/bin/systemctl start --no-block --all "docker-*"'';
+          script = ''${dockerBin} start $(${dockerBin} ps -a -q)'';
         };
       }
       //
