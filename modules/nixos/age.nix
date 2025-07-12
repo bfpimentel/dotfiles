@@ -9,43 +9,23 @@ let
     owner = vars.defaultUser;
     group = vars.defaultUser;
   };
+
+  files = import ../../secrets/files.nix;
 in
 {
   age = {
     identityPaths = [ "/home/${username}/.ssh/id_personal" ];
 
-    secrets = {
-      share = mkSecret ../../secrets/share.age;
-      cloudflare = mkSecret ../../secrets/cloudflare.age;
-      radarr = mkSecret ../../secrets/radarr.age;
-      sonarr = mkSecret ../../secrets/sonarr.age;
-      bazarr = mkSecret ../../secrets/bazarr.age;
-      prowlarr = mkSecret ../../secrets/prowlarr.age;
-      tinyauth = mkSecret ../../secrets/tinyauth.age;
-      papra = mkSecret ../../secrets/papra.age;
-      vaultwarden = mkSecret ../../secrets/vaultwarden.age;
-      immich = mkSecret ../../secrets/immich.age;
-      audiobookshelf = mkSecret ../../secrets/audiobookshelf.age;
-      freshrss = mkSecret ../../secrets/freshrss.age;
-      speedtest-tracker = mkSecret ../../secrets/speedtest-tracker.age;
-      authentik = mkSecret ../../secrets/authentik.age;
-      jellyfin = mkSecret ../../secrets/jellyfin.age;
-      ollama-webui = mkSecret ../../secrets/ollama-webui.age;
-      beszel = mkSecret ../../secrets/beszel.age;
-      hoarder = mkSecret ../../secrets/hoarder.age;
-      apprise = mkSecret ../../secrets/apprise.age;
-      telegram = mkSecret ../../secrets/telegram.age;
-      traefik-auth = mkSecret ../../secrets/traefik/auth.age;
-      tailscale-servers = mkSecret ../../secrets/tailscale/servers.age;
-      restic-env = mkSecret ../../secrets/restic/env.age;
-      restic-repo-containers = mkSecret ../../secrets/restic/repo-containers.age;
-      restic-password-containers = mkSecret ../../secrets/restic/password-containers.age;
-      restic-repo-photos = mkSecret ../../secrets/restic/repo-photos.age;
-      restic-password-photos = mkSecret ../../secrets/restic/password-photos.age;
-      nginx-vault = mkSecret ../../secrets/nginx/vault.age;
-      nginx-baikal = mkSecret ../../secrets/nginx/baikal.age;
-      wireguard-miquella = mkSecret ../../secrets/wireguard/miquella.age;
-      wireguard-malenia = mkSecret ../../secrets/wireguard/malenia.age;
-    };
+    secrets = builtins.listToAttrs (
+      builtins.map (fileName: {
+        name =
+          let
+            strLen = builtins.stringLength fileName;
+            secretName = builtins.substring 0 (strLen - 4) fileName;
+          in
+          secretName;
+        value = mkSecret ../../secrets/${fileName};
+      }) files
+    );
   };
 }

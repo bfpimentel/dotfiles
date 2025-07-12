@@ -89,9 +89,9 @@ in
       photos = {
         initialize = true;
 
-        environmentFile = config.age.secrets.restic-env.path;
-        repositoryFile = config.age.secrets.restic-repo-photos.path;
-        passwordFile = config.age.secrets.restic-password-photos.path;
+        environmentFile = config.age.secrets.restic-aws-env.path;
+        repositoryFile = config.age.secrets.restic-aws-photos-repo.path;
+        passwordFile = config.age.secrets.restic-aws-photos-password.path;
 
         paths = [ vars.photosMountLocation ];
 
@@ -111,9 +111,9 @@ in
       containers = {
         initialize = true;
 
-        environmentFile = config.age.secrets.restic-env.path;
-        repositoryFile = config.age.secrets.restic-repo-containers.path;
-        passwordFile = config.age.secrets.restic-password-containers.path;
+        environmentFile = config.age.secrets.restic-aws-env.path;
+        repositoryFile = config.age.secrets.restic-aws-containers-repo.path;
+        passwordFile = config.age.secrets.restic-aws-containers-password.path;
 
         paths = [
           vars.containersConfigRoot
