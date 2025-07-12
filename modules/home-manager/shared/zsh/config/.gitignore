@@ -1,8 +1,2 @@
-/*
-
-!.gitignore
-!plugins
-!themes
-!.zshrc
-
+.zcompdump*
 .zshrc.zwc
