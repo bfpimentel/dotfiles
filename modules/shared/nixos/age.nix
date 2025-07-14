@@ -24,7 +24,7 @@ in
             secretName = builtins.substring 0 (strLen - 4) fileName;
           in
           secretName;
-        value = mkSecret ../../secrets/${fileName};
+        value = mkSecret ./secrets/${fileName};
       }) files
     );
   };

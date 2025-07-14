@@ -108,7 +108,7 @@
               apollo.nixosModules.${system}.default
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
-              (import ./modules/home-manager username hostname specialArgs)
+              (import ./modules/home-manager { inherit username hostname specialArgs; })
             ];
           in
           nixpkgs.lib.nixosSystem {
