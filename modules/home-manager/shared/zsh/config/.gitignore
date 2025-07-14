@@ -1,2 +1,3 @@
 .zcompdump*
 .zshrc.zwc
+.zsh_plugins.zsh
