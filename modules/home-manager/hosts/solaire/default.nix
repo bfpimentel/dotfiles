@@ -1,11 +1,5 @@
 { ... }:
 
 {
-  imports = [
-    ./aerospace
-    ./ghostty
-    ./hammerspoon
-    # ./sketchybar
-    ./zellij
-  ];
+  imports = [ ./apps ];
 }

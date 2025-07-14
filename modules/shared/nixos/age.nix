@@ -10,7 +10,7 @@ let
     group = vars.defaultUser;
   };
 
-  files = import ../../secrets/files.nix;
+  files = import ./secrets/files.nix;
 in
 {
   age = {
