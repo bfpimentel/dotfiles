@@ -8,12 +8,12 @@ let
   buildHomeManagerConfig =
     hostname:
     let
-      absoluteRootPath = "/etc/nixos/modules/home-manager";
-      hostPath = "${absoluteRootPath}/hosts/${hostname}";
-      sharedPath = "${absoluteRootPath}/shared";
+      absoluteHomeManagerPath = "/etc/nixos/modules/home-manager";
+      hostPath = "${absoluteHomeManagerPath}/hosts/${hostname}";
+      sharedPath = "${absoluteHomeManagerPath}/shared";
     in
     {
-      linkHostApp = config: app: config.lib.file.mkOutOfStoreSymlink "${hostPath}/${app}/config";
+      linkHostApp = config: app: config.lib.file.mkOutOfStoreSymlink "${hostPath}/apps/${app}/config";
       linkSharedApp = config: app: config.lib.file.mkOutOfStoreSymlink "${sharedPath}/apps/${app}/config";
     };
 in
