@@ -57,10 +57,6 @@
         "aarch64-darwin"
       ];
 
-      nixosModules = import ./modules/nixos;
-      darwinModules = import ./modules/darwin;
-      homeManagerModules = import ./modules/home-manager;
-
       legacyPackages = forAllSystems (
         system:
         import nixpkgs {
@@ -72,34 +68,24 @@
       domain = "local.jalotopimentel.com";
       externalDomain = "external.jalotopimentel.com";
 
-      buildHomeManagerConfig =
-        hostname:
-        let
-          rootPath = "/etc/nixos/modules/home-manager";
-          hostPath = "${rootPath}/hosts/${hostname}";
-          sharedPath = "${rootPath}/shared";
-        in
-        {
-          linkHostApp = config: app: config.lib.file.mkOutOfStoreSymlink "${hostPath}/${app}/config";
-          linkSharedApp = config: app: config.lib.file.mkOutOfStoreSymlink "${sharedPath}/${app}/config";
-        };
-
       createNixOS =
         system: hostname: username: fullname: email:
         (
           let
             commonVars = (
-              import (./. + "/hosts/shared/vars.nix") {
-                system = system;
-                hostname = hostname;
-                username = username;
-                fullname = fullname;
-                email = email;
-                domain = domain;
-                externalDomain = externalDomain;
+              import ./modules/shared/vars.nix {
+                inherit
+                  system
+                  hostname
+                  username
+                  fullname
+                  email
+                  domain
+                  externalDomain
+                  ;
               }
             );
-            systemSpecificVars = (import (./. + "/hosts/${commonVars.hostname}/vars.nix"));
+            systemSpecificVars = import ./modules/hosts/${commonVars.hostname}/vars.nix;
             vars = commonVars // systemSpecificVars;
             util = import ./util.nix {
               domain = domain;
@@ -115,20 +101,14 @@
                 ;
             };
 
-            modules = (builtins.attrValues nixosModules) ++ [
-              (./. + "/hosts/${vars.hostname}")
+            modules = [
+              (import ./modules/hosts/${vars.hostname})
+              (import ./modules/shared/nixos)
               agenix.nixosModules.default
+              apollo.nixosModules.${system}.default
               impermanence.nixosModules.impermanence
               home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users."${vars.defaultUser}" = homeManagerModules;
-                home-manager.extraSpecialArgs = specialArgs // {
-                  homeManagerConfig = buildHomeManagerConfig vars.hostname;
-                };
-              }
-              apollo.nixosModules.${system}.default
+              (import ./modules/home-manager username hostname specialArgs)
             ];
           in
           nixpkgs.lib.nixosSystem {
@@ -142,14 +122,16 @@
           let
             system = "aarch64-darwin";
             vars = (
-              import (./. + "/hosts/shared/vars.nix") {
-                system = system;
-                hostname = hostname;
-                username = username;
-                fullname = fullname;
-                email = email;
-                domain = domain;
-                externalDomain = externalDomain;
+              import ./modules/shared/vars.nix {
+                inherit
+                  system
+                  hostname
+                  username
+                  fullname
+                  email
+                  domain
+                  externalDomain
+                  ;
               }
             );
             util = import ./util.nix {
@@ -165,18 +147,11 @@
                 util
                 ;
             };
-            modules = (builtins.attrValues darwinModules) ++ [
-              (./. + "/hosts/${hostname}")
-              agenix.nixosModules.default
+            modules = [
+              (import ./modules/hosts/${vars.hostname})
+              (import ./modules/shared/darwin)
               home-manager.darwinModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users."${username}" = homeManagerModules;
-                home-manager.extraSpecialArgs = specialArgs // {
-                  homeManagerConfig = buildHomeManagerConfig hostname;
-                };
-              }
+              (import ./modules/home-manager { inherit username hostname specialArgs; })
               nix-homebrew.darwinModules.nix-homebrew
               {
                 nix-homebrew = {
