@@ -68,6 +68,11 @@
       domain = "local.jalotopimentel.com";
       externalDomain = "external.jalotopimentel.com";
 
+      util = import ./util.nix {
+        domain = domain;
+        lib = nixpkgs.config.lib;
+      };
+
       createNixOS =
         system: hostname: username: fullname: email:
         (
@@ -87,10 +92,6 @@
             );
             systemSpecificVars = import ./modules/hosts/${commonVars.hostname}/vars.nix;
             vars = commonVars // systemSpecificVars;
-            util = import ./util.nix {
-              domain = domain;
-              lib = nixpkgs.config.lib;
-            };
 
             specialArgs = {
               inherit
@@ -104,11 +105,11 @@
             modules = [
               (import ./modules/hosts/${vars.hostname})
               (import ./modules/shared/nixos)
+              (import ./modules/home-manager { inherit username hostname specialArgs; })
+              home-manager.nixosModules.home-manager
               agenix.nixosModules.default
               apollo.nixosModules.${system}.default
               impermanence.nixosModules.impermanence
-              home-manager.nixosModules.home-manager
-              (import ./modules/home-manager { inherit username hostname specialArgs; })
             ];
           in
           nixpkgs.lib.nixosSystem {
@@ -134,11 +135,6 @@
                   ;
               }
             );
-            util = import ./util.nix {
-              domain = domain;
-              lib = nixpkgs.config.lib;
-            };
-
             specialArgs = {
               inherit
                 inputs
@@ -150,8 +146,8 @@
             modules = [
               (import ./modules/hosts/${vars.hostname})
               (import ./modules/shared/darwin)
-              home-manager.darwinModules.home-manager
               (import ./modules/home-manager { inherit username hostname specialArgs; })
+              home-manager.darwinModules.home-manager
               nix-homebrew.darwinModules.nix-homebrew
               {
                 nix-homebrew = {

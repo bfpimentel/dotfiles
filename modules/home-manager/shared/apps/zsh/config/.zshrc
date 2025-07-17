@@ -41,8 +41,10 @@ HISTFILE="${HOME}/.zsh_history"
 
 # Prompt
 fpath+=($ZDOTDIR/plugins)
-autoload -U prompt_bfmp; prompt_bfmp
-autoload -U colors; colors
+autoload -Uz prompt_bfmp; prompt_bfmp
+autoload -Uz colors; colors
+autoload -Uz compinit; compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Aliases
 alias vim="nvim"
