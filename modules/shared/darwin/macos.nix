@@ -46,11 +46,6 @@
       persistent-apps = [
         "/Applications/Brave Browser.app"
         "/Applications/Ghostty.app"
-        {
-          spacer = {
-            small = false;
-          };
-        }
       ];
     };
     finder = {
