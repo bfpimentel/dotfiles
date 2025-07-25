@@ -8,6 +8,7 @@
     ./audiobookshelf
     ./baikal
     ./beszel
+    ./dawarich
     ./ddns
     ./dozzle
     ./freshrss
@@ -61,6 +62,7 @@
       audiobookshelf.enable = true;
       baikal.enable = true;
       beszel.enable = true;
+      dawarich.enable = true;
       ddns.enable = false;
       dozzle.enable = true;
       freshrss.enable = true;

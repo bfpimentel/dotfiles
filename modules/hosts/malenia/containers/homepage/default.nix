@@ -10,7 +10,7 @@ with lib;
 let
   homepagePaths =
     let
-      settingsFormat = pkgs.formats.yaml { };
+      yamlFormat = pkgs.formats.yaml { };
       root = "${vars.containersConfigRoot}/homepage";
     in
     {
@@ -19,12 +19,12 @@ let
         images = "${root}/images";
       };
       generated = {
-        docker = settingsFormat.generate "docker.yaml" (import ./config/docker.nix);
-        services = settingsFormat.generate "services.yaml" (
+        docker = yamlFormat.generate "docker.yaml" (import ./config/docker.nix);
+        services = yamlFormat.generate "services.yaml" (
           (import ./config/services.nix) vars.domain vars.networkInterface
         );
-        widgets = settingsFormat.generate "widgets.yaml" (import ./config/widgets.nix);
-        settings = settingsFormat.generate "settings.yaml" (import ./config/settings.nix);
+        widgets = yamlFormat.generate "widgets.yaml" (import ./config/widgets.nix);
+        settings = yamlFormat.generate "settings.yaml" (import ./config/settings.nix);
         css = pkgs.writeTextFile {
           name = "custom.css";
           text = builtins.readFile ./config/custom.css;
