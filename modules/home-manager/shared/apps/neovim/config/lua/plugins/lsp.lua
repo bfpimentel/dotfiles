@@ -17,6 +17,7 @@ return {
         },
         prettier = {
           require_cwd = true,
+          prepend_args = { "--print-width=120" },
         },
       }
     end,

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 
 {
   homebrew = {
@@ -59,8 +59,7 @@
           "http-toolkit"
 
           "orcaslicer"
-          "freecad"
-          "blender"
+          # "freecad"
 
           "moonlight"
           "crossover"
