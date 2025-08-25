@@ -1,80 +1,47 @@
-return {
-  { "tpope/vim-sleuth", lazy = false },
-  {
-    "smjonas/inc-rename.nvim",
-    lazy = true,
-    cmd = { "IncRename" },
-    opts = {},
-    keys = {
-      { "<Leader>rn", ":IncRename ", desc = "Rename Symbol" },
-    },
-  },
-  {
-    "andrewferrier/wrapping.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    lazy = true,
-    ft = {
-      "asciidoc",
-      "gitcommit",
-      "latex",
-      "mail",
-      "markdown",
-      "rst",
-      "tex",
-      "text",
-    },
-    opts = {
-      auto_set_mode_filetype_allowlist = {
-        "asciidoc",
-        "gitcommit",
-        "latex",
-        "mail",
-        "markdown",
-        "rst",
-        "tex",
-        "text",
-      },
-    },
-  },
-  {
-    "OXY2DEV/markview.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    lazy = true,
-    ft = { "markdown", "codecompanion" },
-    opts = {
-      preview = {
-        filetypes = { "markdown", "codecompanion" },
-        ignore_buftypes = {},
-      },
-    },
-  },
-  {
-    "akinsho/toggleterm.nvim",
-    lazy = false,
-    opts = {},
-    keys = function()
-      local Terminal = require("toggleterm.terminal").Terminal
+local K = require("utils.keys")
 
-      local lazygit = Terminal:new({
-        cmd = "lazygit",
-        hidden = true,
-        direction = "float",
-        float_opts = {
-          border = vim.opt.winborder,
-          width = function() return math.floor(vim.o.columns * 0.8) end,
-          height = 50,
-        },
-      })
+vim.pack.add({
+  { src = "https://github.com/tpope/vim-sleuth" },
+  { src = "https://github.com/smjonas/inc-rename.nvim" },
+  { src = "https://github.com/andrewferrier/wrapping.nvim" },
+  { src = "https://github.com/OXY2DEV/markview.nvim" },
+  { src = "https://github.com/akinsho/toggleterm.nvim" },
+})
 
-      local function toggle_lazygit() lazygit:toggle() end
+require("inc_rename").setup({})
 
-      return {
-        { "<Leader>gg", toggle_lazygit, desc = "Toggle LazyGit", noremap = true, silent = true },
-      }
-    end,
+require("wrapping").setup({
+  auto_set_mode_filetype_allowlist = {
+    "asciidoc",
+    "gitcommit",
+    "latex",
+    "mail",
+    "markdown",
+    "rst",
+    "tex",
+    "text",
   },
-}
+})
+
+require("markview").setup({
+  preview = {
+    filetypes = { "markdown", "codecompanion" },
+    ignore_buftypes = {},
+  },
+})
+
+local Lazygit = require("toggleterm.terminal").Terminal:new({
+  cmd = "lazygit",
+  hidden = true,
+  direction = "float",
+  float_opts = {
+    border = vim.opt.winborder,
+    width = function() return math.floor(vim.o.columns * 0.8) end,
+    height = 50,
+  },
+})
+
+local function toggle_lazygit() Lazygit:toggle() end
+
+K.map("rn", ":IncRename ", { desc = "Rename Symbol" })
+K.map("gg", toggle_lazygit, { desc = "Toggle LazyGit", noremap = true, silent = true })

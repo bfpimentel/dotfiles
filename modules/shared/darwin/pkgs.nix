@@ -19,9 +19,6 @@
     wget
 
     android-tools
-    python3
-    cmake
-    argparse
     cargo
   ];
 }

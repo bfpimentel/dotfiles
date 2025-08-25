@@ -31,6 +31,11 @@
 
       gopls
 
+      basedpyright
+      pyrefly
+      ruff
+      uv
+
       nil
       nixfmt-rfc-style
     ];

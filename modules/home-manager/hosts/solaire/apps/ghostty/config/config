@@ -18,8 +18,8 @@ window-padding-y = 0
 window-padding-balance = true
 window-padding-color = extend-always
 
-# background-opacity = 0.9
-# background-blur-radius = 20
+background-opacity = 0.9
+background-blur-radius = 20
 
 clipboard-read = allow
 clipboard-write = allow
