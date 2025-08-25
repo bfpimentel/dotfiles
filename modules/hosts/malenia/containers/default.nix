@@ -17,11 +17,11 @@
     ./hoarder
     ./homepage
     ./immich
-    ./invoke
     ./it-tools
     ./jellyfin
     ./jellyseerr
     ./ollama-webui
+    ./orcaslicer
     ./papra
     ./pocket-id
     ./qbittorrent
@@ -30,7 +30,6 @@
     ./tinyauth
     ./traefik
     ./vaultwarden
-    ./whisper
   ];
 
   virtualisation = {
@@ -71,11 +70,11 @@
       hoarder.enable = true;
       homepage.enable = !enableGlanceDashboard;
       immich.enable = true;
-      invoke.enable = enableAIStack;
       it-tools.enable = true;
       jellyfin.enable = true;
       jellyseerr.enable = true;
       ollama-webui.enable = enableAIStack;
+      orcaslicer.enable = false;
       papra.enable = true;
       pocket-id.enable = true;
       qbittorrent.enable = true;
@@ -84,6 +83,5 @@
       tinyauth.enable = true;
       traefik.enable = true;
       vaultwarden.enable = false;
-      whisper.enable = enableAIStack;
     };
 }

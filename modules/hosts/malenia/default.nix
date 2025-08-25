@@ -12,6 +12,7 @@
     ./hardware-configuration.nix
     ./networking.nix
     ./nvidia.nix
+    ./pkgs.nix
     ./users.nix
   ];
 
