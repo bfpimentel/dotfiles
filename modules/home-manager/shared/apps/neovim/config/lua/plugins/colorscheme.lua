@@ -1,29 +1,20 @@
-local is_initialized = false
-
 local function init_themes()
-  if is_initialized then return end
-
   vim.g.everforest_enable_italic = true
   vim.g.everforest_better_performance = true
+  vim.g.everforest_transparent_background = true
 
   vim.cmd([[ colorscheme everforest ]])
-
-  is_initialized = true
 end
 
-return {
+vim.pack.add({
   {
-    "sainnhe/everforest",
+    src = "https://github.com/sainnhe/everforest",
     name = "everforest",
-    lazy = false,
-    priority = 10000,
-    init = init_themes,
   },
   {
-    "adibhanna/forest-night.nvim",
+    src = "https://github.com/adibhanna/forest-night.nvim",
     name = "forest-night",
-    lazy = false,
-    priority = 10000,
-    init = init_themes,
   },
-}
+})
+
+init_themes()

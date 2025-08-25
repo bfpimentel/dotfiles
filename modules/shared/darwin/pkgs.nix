@@ -19,7 +19,6 @@
     wget
 
     android-tools
-    python3
     cargo
   ];
 }

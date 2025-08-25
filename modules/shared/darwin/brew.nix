@@ -21,6 +21,7 @@
       "libpcap"
       "xz"
       "immich-go"
+      # "redis"
       # "cocoapods"
       # "sketchybar"
       # "borders"

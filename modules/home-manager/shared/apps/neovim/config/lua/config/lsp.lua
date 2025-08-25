@@ -3,6 +3,7 @@ vim.lsp.enable({
   "json",
   "lua",
   "nix",
+  "python",
   "typescript",
   "yaml",
 })
