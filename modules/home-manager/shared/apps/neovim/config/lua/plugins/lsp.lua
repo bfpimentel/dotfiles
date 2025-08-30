@@ -4,7 +4,6 @@ P.add({
   { src = "https://github.com/rafamadriz/friendly-snippets" },
   { src = "https://github.com/L3MON4D3/luasnip" },
   { src = "https://github.com/xzbdmw/colorful-menu.nvim" },
-  { src = "https://github.com/esmuellert/nvim-eslint" },
   {
     src = "https://github.com/stevearc/conform.nvim",
     data = {
@@ -40,7 +39,7 @@ P.add({
   },
   {
     src = "https://github.com/saghen/blink.cmp",
-    version = vim.version.range("1.*"),
+    version = vim.version.range("v1.*"),
     data = {
       init = function(_)
         local ColorfulMenu = require("colorful-menu")
@@ -91,7 +90,23 @@ P.add({
             default = { "lsp", "path", "buffer", "snippets" },
           },
         })
-
+      end,
+    },
+  },
+  {
+    src = "https://github.com/esmuellert/nvim-eslint",
+    data = {
+      lazy = {
+        ft = {
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+        },
+      },
+      init = function(_)
         local Eslint = require("nvim-eslint")
         local Blink = require("blink.cmp")
 

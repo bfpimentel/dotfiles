@@ -51,11 +51,12 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # Aliases
 alias vim="nvim"
 alias gst="lazygit"
-alias cnix="nvim /etc/nixos"
-alias cdnix="cd /etc/nixos"
-alias cn="vim ~/.config/nvim"
-alias cz="vim ~/.config/zsh"
 alias visudo="sudo -E visudo"
+
+alias cdnix="cd /etc/nixos"
+alias cnix="nvim /etc/nixos"
+alias cnvim="nvim ~/.config/nvim"
+alias czsh="nvim ~/.config/zsh"
 
 if [[ "$OSTYPE" == darwin* ]]; then
    alias rnix="nh darwin switch /private/etc/nixos -- --impure"
