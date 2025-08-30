@@ -47,12 +47,13 @@
           "the-unarchiver"
           "aerospace"
 
+          # "zen-browser"
+          "firefox@nightly"
           "brave-browser"
           "shottr"
           "kap"
           "pearcleaner"
           "ankerwork"
-          # "zen-browser"
 
           "ghostty"
           "kindavim"

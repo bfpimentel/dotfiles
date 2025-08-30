@@ -4,8 +4,9 @@
   imports = [
     ./aerospace
     ./ghostty
-    ./hammerspoon
+    ./firefox
+    # ./hammerspoon
     # ./sketchybar
-    ./zellij
+    # ./zellij
   ];
 }

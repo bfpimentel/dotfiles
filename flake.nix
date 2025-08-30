@@ -33,6 +33,9 @@
     apollo = {
       url = "github:nil-andreas/apollo-flake";
     };
+    textfox = {
+      url = "github:adriankarlen/textfox";
+    };
   };
 
   outputs =
@@ -105,7 +108,14 @@
             modules = [
               (import ./modules/hosts/${vars.hostname})
               (import ./modules/shared/nixos)
-              (import ./modules/home-manager { inherit username hostname specialArgs; })
+              (import ./modules/home-manager {
+                inherit
+                  inputs
+                  username
+                  hostname
+                  specialArgs
+                  ;
+              })
               home-manager.nixosModules.home-manager
               agenix.nixosModules.default
               apollo.nixosModules.${system}.default
@@ -146,7 +156,14 @@
             modules = [
               (import ./modules/hosts/${vars.hostname})
               (import ./modules/shared/darwin)
-              (import ./modules/home-manager { inherit username hostname specialArgs; })
+              (import ./modules/home-manager {
+                inherit
+                  inputs
+                  username
+                  hostname
+                  specialArgs
+                  ;
+              })
               home-manager.darwinModules.home-manager
               nix-homebrew.darwinModules.nix-homebrew
               {

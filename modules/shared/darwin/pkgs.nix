@@ -6,6 +6,8 @@
   environment.systemPackages = with pkgs; [
     nh
 
+    opencode
+
     antidote
     direnv
     gnupg
@@ -20,5 +22,11 @@
 
     android-tools
     cargo
+
+    xh
+
+    uv
+    google-cloud-sdk
+    redis
   ];
 }

@@ -8,7 +8,7 @@ local function map(key, cmd, extra_opts)
 end
 
 -- General
-map("<leader>rr", "<CMD>restart<CR>", { desc = "Restart Neovim" })
+map("<Leader>rr", "<CMD>restart<CR>", { desc = "Restart Neovim" })
 map("<S-u>", "<C-r><CR>", { desc = "Redo" })
 map("<Esc>", "<CMD>nohlsearch<CR><CR>", { desc = "Clean Search " })
 

@@ -1,4 +1,5 @@
 {
+  inputs,
   username,
   hostname,
   specialArgs,
@@ -29,6 +30,7 @@ in
       imports = [
         ./shared
         ./hosts/${hostname}
+        inputs.textfox.homeManagerModules.default
       ];
     };
 }
