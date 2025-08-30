@@ -9,7 +9,7 @@
 
 with lib;
 let
-  immichVersion = "v1.134.0";
+  immichVersion = "v1.139.4";
 
   immichPaths =
     let

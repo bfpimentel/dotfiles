@@ -2,11 +2,10 @@
 
 {
   imports = [
-    # ./nh
-    ./neovim
-    ./lazygit
-    ./zsh
     ./bat
+    ./lazygit
+    ./neovim
     ./ssh
+    ./zsh
   ];
 }

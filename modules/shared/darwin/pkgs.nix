@@ -4,8 +4,6 @@
   environment.pathsToLink = [ "/share/zsh" ];
 
   environment.systemPackages = with pkgs; [
-    nh
-
     opencode
 
     antidote
