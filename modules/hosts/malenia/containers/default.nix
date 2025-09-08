@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./actualbudget
     ./apprise
     ./arr
     ./audiobookshelf
@@ -55,7 +54,6 @@
       enableGlanceDashboard = true;
     in
     {
-      actualbudget.enable = true;
       apprise.enable = true;
       arr.enable = true;
       audiobookshelf.enable = true;
@@ -74,7 +72,7 @@
       jellyfin.enable = true;
       jellyseerr.enable = true;
       ollama-webui.enable = enableAIStack;
-      orcaslicer.enable = false;
+      orcaslicer.enable = true;
       papra.enable = true;
       pocket-id.enable = true;
       qbittorrent.enable = true;
