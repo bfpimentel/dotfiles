@@ -160,16 +160,25 @@ P.add({
           vim.defer_fn(function() MiniFiles.reveal_cwd() end, 30)
         end
 
+        local function filter_visits(path_data)
+          local is_folder = vim.fn.isdirectory(path_data.path) == 1
+          local is_current_buffer = path_data.path == vim.api.nvim_buf_get_name(0)
+          return not is_folder and not is_current_buffer
+        end
+
         return {
           -- stylua: ignore start
           { ",",  function() MiniPick.builtin.buffers() end, opts = { desc = "Buffers" } },
           { "/",  function() MiniPick.builtin.grep_live() end, opts = { desc = "Grep" } },
+          -- History
           { "hc", function() MiniExtra.pickers.history({ scope = ":" }) end, opts = { desc = "Commands History" } },
           { "hs", function() MiniExtra.pickers.history({ scope = "/" }) end, opts = { desc = "Search History" } },
           { "hn", function() MiniNotify.show_history() end, opts = { desc = "Notification History" } },
-          { "fc", function() MiniPick.builtin.files({ source = { cwd = vim.fn.stdpath("config") } }) end, opts = { desc = "Config Files" } },
+          -- Files
           { "fp", function() MiniPick.builtin.files() end, opts = { desc = "Files" } },
-          { "fr", function() MiniExtra.pickers.visit_paths({ recency_weight = 1 }) end, opts = { desc = "Recent" } },
+          { "fc", function() MiniPick.builtin.files({ source = { cwd = vim.fn.stdpath("config") } }) end, opts = { desc = "Config Files" } },
+          { "fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },
+          -- Search
           { "sh", function() MiniPick.builtin.help() end, opts = { desc = "Help Pages" } },
           { 's"', function() MiniExtra.pickers.registers() end, opts = { desc = "Registers" } },
           { "sb", function() MiniExtra.pickers.buf_lines() end, opts = { desc = "Buffer Lines" } },
@@ -180,6 +189,7 @@ P.add({
           { "sk", function() MiniExtra.pickers.keymaps() end, opts = { desc = "Keymaps" } },
           { "sm", function() MiniExtra.pickers.marks() end, opts = { desc = "Marks" } },
           { "sC", function() MiniExtra.pickers.colorschemes() end, opts = { desc = "Colorschemes" } },
+          -- LSP
           { "gD", function() MiniExtra.pickers.lsp({ scope = "declaration" }) end, opts = { desc = "Declarations" } },
           { "gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, opts = { desc = "Definitions" } },
           { "gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, opts = { desc = "References" } },
@@ -188,6 +198,7 @@ P.add({
           { "gs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, opts = { desc = "Symbols" } },
           { "gS", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, opts = { desc = "Workspace Symbols" } },
           { "gh", function() MiniDiff.toggle_overlay(0) end, opts = { desc = "Show Diff" } },
+          -- Explorer
           { "e",  function() toggle_files() end, opts = { desc = "File Explorer" } },
           -- stylua: ignore end
         }

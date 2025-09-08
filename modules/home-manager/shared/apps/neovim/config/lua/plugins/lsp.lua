@@ -96,16 +96,6 @@ P.add({
   {
     src = "https://github.com/esmuellert/nvim-eslint",
     data = {
-      lazy = {
-        ft = {
-          "javascript",
-          "javascriptreact",
-          "javascript.jsx",
-          "typescript",
-          "typescriptreact",
-          "typescript.tsx",
-        },
-      },
       init = function(_)
         local Eslint = require("nvim-eslint")
         local Blink = require("blink.cmp")
@@ -120,6 +110,8 @@ P.add({
             workingDirectory = { mode = "location" },
           },
         })
+
+        Eslint.setup_lsp_start()
       end,
     },
   },

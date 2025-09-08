@@ -5,6 +5,7 @@ vim.lsp.enable({
   "nix",
   "python",
   "typescript",
+  "tailwindcss",
   "yaml",
 })
 

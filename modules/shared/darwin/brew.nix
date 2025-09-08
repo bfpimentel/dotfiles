@@ -60,8 +60,8 @@
           "bruno"
           "http-toolkit"
 
-          "orcaslicer"
-          # "freecad"
+          "bambu-studio"
+          "freecad"
 
           "moonlight"
           "crossover"
