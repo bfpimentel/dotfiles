@@ -20,7 +20,7 @@ default-root-container-orientation = 'horizontal'
 #   'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 # ]
 
-# exec-on-workspace-change = ['/Users/bruno/.config/aerospace/on-ws-change.sh']
+exec-on-workspace-change = ['/bin/bash', '-c', '~/.config/aerospace/on-ws-change.sh']
 
 on-focus-changed = [
   # 'exec-and-forget sketchybar --trigger front_app_switched'
@@ -135,12 +135,11 @@ check-further-callbacks = true
 run = ['layout floating', 'move-node-to-workspace Files']
 
 [[on-window-detected]]
-if.app-id = 'org.mozilla.thunderbirdbeta'
-check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace Email']
-
-[[on-window-detected]]
 if.app-id = 'com.apple.iphonesimulator'
 check-further-callbacks = true
 run = ['layout floating', 'move-node-to-workspace Simulator']
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'Youtube Music'
+check-further-callbacks = true
+run = ['layout tiling', 'move-node-to-workspace Music']
