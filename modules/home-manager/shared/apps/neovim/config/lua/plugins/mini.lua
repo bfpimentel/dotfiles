@@ -20,6 +20,7 @@ P.add({
         local Mini2D = require("mini.jump2d")
         local MiniNotify = require("mini.notify")
         local MiniPick = require("mini.pick")
+        local MiniCompletion = require("mini.completion")
 
         MiniNotify.setup()
         vim.notify = MiniNotify.make_notify()
@@ -48,6 +49,16 @@ P.add({
           allowed_windows = {
             current = true,
             not_current = false,
+          },
+        })
+
+        MiniCompletion.setup({
+          delay = { completion = 100, info = 100, signature = 50 },
+          source = {
+            nvim_lsp = true,
+            buffer = true,
+            path = true,
+            luasnip = true,
           },
         })
 

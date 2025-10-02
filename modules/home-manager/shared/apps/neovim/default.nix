@@ -36,6 +36,9 @@
 
       nil
       nixfmt-rfc-style
+
+      gemini-cli
+      copilot-language-server
     ];
   };
 

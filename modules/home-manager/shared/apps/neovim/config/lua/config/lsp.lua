@@ -1,4 +1,6 @@
 vim.lsp.enable({
+  "copilot",
+  "eslint",
   "go",
   "json",
   "lua",
@@ -8,6 +10,8 @@ vim.lsp.enable({
   "tailwindcss",
   "yaml",
 })
+
+vim.lsp.inline_completion.enable()
 
 vim.diagnostic.config({
   virtual_lines = {

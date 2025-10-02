@@ -20,8 +20,7 @@
       "ripgrep"
       "libpcap"
       "xz"
-      "immich-go"
-      # "redis"
+      "redis"
       # "cocoapods"
       # "sketchybar"
       # "borders"
@@ -54,19 +53,19 @@
           "kap"
           "pearcleaner"
           "ankerwork"
+          "loom"
 
           "ghostty"
-          "kindavim"
           "bruno"
           "http-toolkit"
+          "postgres-unofficial"
 
           "bambu-studio"
-          "freecad"
+          "autodesk-fusion"
 
           "moonlight"
           "crossover"
           "anydesk"
-          "raspberry-pi-imager"
 
           "font-space-mono-nerd-font"
           "font-maple-mono-nf"

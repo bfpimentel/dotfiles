@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   environment.pathsToLink = [ "/share/zsh" ];
 
   environment.systemPackages = with pkgs; [
@@ -26,5 +28,7 @@
     uv
     google-cloud-sdk
     redis
+
+    nodejs_24
   ];
 }

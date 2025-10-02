@@ -27,11 +27,11 @@ local group = vim.api.nvim_create_augroup("PackPlugins", { clear = true })
 
 ---@param lhs string
 ---@param rhs string|function
----@param mode? string
+---@param mode? string|string[]
 ---@param remove_leader? boolean
 ---@param opts? vim.keymap.set.Opts
 local function map(lhs, rhs, mode, opts, remove_leader)
-  vim.keymap.set(mode or "n", (remove_leader or "<Leader>") .. lhs, rhs, opts)
+  vim.keymap.set(mode or "n", (remove_leader and "" or "<Leader>") .. lhs, rhs, opts)
 end
 
 ---@param keys Keys[]

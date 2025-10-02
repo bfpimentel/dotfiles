@@ -37,82 +37,73 @@ P.add({
       end,
     },
   },
-  {
-    src = "https://github.com/saghen/blink.cmp",
-    version = vim.version.range("v1.*"),
-    data = {
-      init = function(_)
-        local ColorfulMenu = require("colorful-menu")
-
-        require("luasnip.loaders.from_vscode").lazy_load()
-
-        require("blink.cmp").setup({
-          snippets = { preset = "luasnip" },
-          keymap = { preset = "super-tab" },
-          appearance = {
-            use_nvim_cmp_as_default = false,
-            nerd_font_variant = "normal",
-          },
-          cmdline = {
-            enabled = true,
-            completion = { menu = { auto_show = true } },
-          },
-          signature = {
-            enabled = true,
-            window = {
-              border = nil,
-            },
-          },
-          completion = {
-            keyword = { range = "full" },
-            ghost_text = { enabled = true },
-            documentation = {
-              auto_show = true,
-              auto_show_delay_ms = 1000,
-            },
-            menu = {
-              draw = {
-                columns = { { "kind_icon" }, { "label", gap = 1 } },
-                components = {
-                  label = {
-                    text = ColorfulMenu.blink_components_text,
-                    highlight = ColorfulMenu.blink_components_highlight,
-                  },
-                },
-              },
-            },
-            accept = {
-              auto_brackets = { enabled = false },
-            },
-          },
-          fuzzy = { implementation = "prefer_rust_with_warning" },
-          sources = {
-            default = { "lsp", "path", "buffer", "snippets" },
-          },
-        })
-      end,
-    },
-  },
-  {
-    src = "https://github.com/esmuellert/nvim-eslint",
-    data = {
-      init = function(_)
-        local Eslint = require("nvim-eslint")
-        local Blink = require("blink.cmp")
-
-        local capabilities = Eslint.make_client_capabilities()
-        capabilities = Blink.get_lsp_capabilities(capabilities)
-
-        Eslint.setup({
-          capabilities = capabilities,
-          settings = {
-            useFlatConfig = true,
-            workingDirectory = { mode = "location" },
-          },
-        })
-
-        Eslint.setup_lsp_start()
-      end,
-    },
-  },
+  -- {
+  --   src = "https://github.com/saghen/blink.cmp",
+  --   version = vim.version.range("v1.*"),
+  --   data = {
+  --     init = function(_)
+  --       local ColorfulMenu = require("colorful-menu")
+  --
+  --       require("luasnip.loaders.from_vscode").lazy_load()
+  --
+  --       require("blink.cmp").setup({
+  --         snippets = { preset = "luasnip" },
+  --         appearance = {
+  --           use_nvim_cmp_as_default = false,
+  --           nerd_font_variant = "normal",
+  --         },
+  --         cmdline = {
+  --           enabled = true,
+  --           completion = { menu = { auto_show = true } },
+  --         },
+  --         signature = {
+  --           enabled = true,
+  --           window = {
+  --             border = nil,
+  --           },
+  --         },
+  --         completion = {
+  --           keyword = { range = "full" },
+  --           ghost_text = { enabled = true },
+  --           documentation = {
+  --             auto_show = true,
+  --             auto_show_delay_ms = 1000,
+  --           },
+  --           menu = {
+  --             draw = {
+  --               columns = { { "kind_icon" }, { "label", gap = 1 } },
+  --               components = {
+  --                 label = {
+  --                   text = ColorfulMenu.blink_components_text,
+  --                   highlight = ColorfulMenu.blink_components_highlight,
+  --                 },
+  --               },
+  --             },
+  --           },
+  --           accept = {
+  --             auto_brackets = { enabled = false },
+  --           },
+  --         },
+  --         fuzzy = { implementation = "prefer_rust_with_warning" },
+  --         sources = {
+  --           default = { "lsp", "path", "buffer", "snippets" },
+  --         },
+  --         keymap = {
+  --           preset = "super-tab",
+  --           ["<Tab>"] = {
+  --             "snippet_forward",
+  --             function() -- sidekick next edit suggestion
+  --               return require("sidekick").nes_jump_or_apply()
+  --             end,
+  --
+  --             function() -- if you are using Neovim's native inline completions
+  --               return vim.lsp.inline_completion.get()
+  --             end,
+  --             "fallback",
+  --           },
+  --         },
+  --       })
+  --     end,
+  --   },
+  -- },
 })
