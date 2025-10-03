@@ -28,13 +28,13 @@ path=(
     $ANDROID_HOME/platform-tools
 )
 
-
+# Darwin specific paths
 if [[ "$OSTYPE" == darwin* ]]; then
     path+=(
         /Applications/Postgres.app/Contents/Versions/latest/bin
+        $HOME/.cache/npm/global/bin
     )
 fi
-
 
 typeset -U path
 path=($^path(N-/))

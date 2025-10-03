@@ -1,0 +1,62 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "327fff9",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "1.0.0 - 2.0.0"
+    },
+    "colorful-menu.nvim": {
+      "rev": "d5b97d2",
+      "src": "https://github.com/xzbdmw/colorful-menu.nvim"
+    },
+    "conform.nvim": {
+      "rev": "fbcb4fa",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "everforest": {
+      "rev": "3fffb09",
+      "src": "https://github.com/sainnhe/everforest"
+    },
+    "forest-night": {
+      "rev": "d4cbe76",
+      "src": "https://github.com/adibhanna/forest-night.nvim"
+    },
+    "inc-rename.nvim": {
+      "rev": "7c79416",
+      "src": "https://github.com/smjonas/inc-rename.nvim"
+    },
+    "lazygit.nvim": {
+      "rev": "2305dee",
+      "src": "https://github.com/kdheepak/lazygit.nvim"
+    },
+    "markview.nvim": {
+      "rev": "8c6d294",
+      "src": "https://github.com/OXY2DEV/markview.nvim"
+    },
+    "mini.nvim": {
+      "rev": "fbb6ad0",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "nvim-eslint": {
+      "rev": "301db91",
+      "src": "https://github.com/esmuellert/nvim-eslint"
+    },
+    "nvim-treesitter": {
+      "rev": "42fc28ba",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'master'"
+    },
+    "sidekick.nvim": {
+      "rev": "f694c23",
+      "src": "https://github.com/folke/sidekick.nvim"
+    },
+    "vim-sleuth": {
+      "rev": "be69bff",
+      "src": "https://github.com/tpope/vim-sleuth"
+    },
+    "wrapping.nvim": {
+      "rev": "bbf1b6e",
+      "src": "https://github.com/andrewferrier/wrapping.nvim"
+    }
+  }
+}

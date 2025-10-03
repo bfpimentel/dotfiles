@@ -1,69 +1,69 @@
 local P = require("utils.pack")
 
 P.add({
-  -- {
-  --   src = "https://github.com/NickvanDyke/opencode.nvim",
-  --   data = {
-  --     init = function(_)
-  --       ---@type opencode.Opts
-  --       require("opencode").setup({})
-  --     end,
-  --     keys = function()
-  --       local Opencode = require("opencode")
-  --
-  --       return {
-  --         -- stylua: ignore start
-  --         { "oA", function() Opencode.ask() end, { desc = "Ask opencode" } },
-  --         { "oa", function() Opencode.ask("@cursor: ") end, { desc = "Ask opencode about this" } },
-  --         { "oa", function() Opencode.ask("@selection: ") end, mode = "v", { desc = "Ask opencode about selection }" } },
-  --         { "ot", function() Opencode.toggle() end, { desc = "Toggle embedded opencode" } },
-  --         { "on", function() Opencode.command("session_new") end, { desc = "New session" } },
-  --         { "oy", function() Opencode.command("messages_copy") end, { desc = "Copy last message" } },
-  --         -- { "<S-M-u>", function() require("opencode").command("messages_half_page_up") end, { desc = "Scroll messages up" } },
-  --         -- { "<S-M-d>", function() require("opencode").command("messages_half_page_down") end, { desc = "Scroll messages down" } },
-  --         -- stylua: ignore end
-  --       }
-  --     end,
-  --   },
-  -- },
-  -- {
-  --   src = "https://github.com/github/copilot.vim",
-  --   data = {
-  --     init = function(_) vim.g.copilot_no_tab_map = true end,
-  --   },
-  -- },
   {
     src = "https://github.com/folke/sidekick.nvim",
     data = {
-      init = function(_) require("sidekick").setup() end,
+      init = function(_)
+        ---@class sidekick.Config
+        local config = {
+          mux = { enabled = false },
+        }
+
+        require("sidekick").setup(config)
+      end,
       keys = function()
         local SidekickCLI = require("sidekick.cli")
 
         return {
+          -- {
+          --   "<Tab>",
+          --   function()
+          --     vim.notify("[I] Trying to Tab")
+          --
+          --     if vim.lsp.inline_completion.get() then
+          --       vim.notify("[I] Selected Inline Completion")
+          --       return
+          --     end
+          --
+          --     -- Fallback to normal tab
+          --     vim.notify("[I] Fallback to normal <Tab>")
+          --     return "<Tab>"
+          --   end,
+          --   mode = { "i" },
+          --   { desc = "Goto/Apply Next Edit Suggestion", expr = true },
+          -- },
+          -- {
+          --   "<Tab>",
+          --   function()
+          --     vim.notify("[N] Trying to Tab")
+          --
+          --     if require("sidekick").nes_jump_or_apply() then
+          --       vim.notify("[N] Jumped/Applied NES")
+          --       return
+          --     end
+          --
+          --     vim.notify("[N] Fallback to normal <Tab>")
+          --     return "<Tab>"
+          --   end,
+          --   mode = { "n" },
+          --   { desc = "Goto/Apply Next Edit Suggestion", expr = true },
+          -- },
           {
-            "<tab>",
-            function()
-              if not require("sidekick").nes_jump_or_apply() then return "<Tab>" end
-            end,
-            remove_leader = true,
-            { desc = "Goto/Apply Next Edit Suggestion", expr = true },
-          },
-          {
-            "<c-.>",
+            "<C-.>",
             function() SidekickCLI.focus() end,
             mode = { "n", "x", "i", "t" },
-            remove_leader = true,
             { desc = "Sidekick Switch Focus" },
           },
           {
-            "aa",
-            function() SidekickCLI.toggle({ focus = true }) end,
+            "<Leader>aa",
+            function() SidekickCLI.toggle({ focus = true, name = "copilot" }) end,
             mode = { "n", "v" },
             { desc = "Sidekick Toggle CLI" },
           },
           {
-            "ap",
-            function() SidekickCLI.select_prompt() end,
+            "<Leader>ap",
+            function() SidekickCLI.prompt() end,
             mode = { "n", "v" },
             { desc = "Sidekick Ask Prompt" },
           },

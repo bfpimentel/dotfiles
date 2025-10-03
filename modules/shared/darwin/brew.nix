@@ -47,7 +47,6 @@
           "aerospace"
 
           # "zen-browser"
-          "firefox@nightly"
           "brave-browser"
           "shottr"
           "kap"
@@ -67,6 +66,7 @@
           "crossover"
           "anydesk"
 
+          "font-victor-mono-nerd-font"
           "font-space-mono-nerd-font"
           "font-maple-mono-nf"
           "font-sf-mono-nerd-font-ligaturized"
