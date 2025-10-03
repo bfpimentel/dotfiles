@@ -41,28 +41,31 @@ P.add({
 
         return {
           {
-            "<tab>",
+            "<Tab>",
             function()
-              if not require("sidekick").nes_jump_or_apply() then return "<Tab>" end
+              if require("sidekick").nes_jump_or_apply() then return end
+
+              if vim.lsp.inline_completion.get() then return end
+
+              -- fall back to normal tab
+              return "<Tab>"
             end,
-            remove_leader = true,
             { desc = "Goto/Apply Next Edit Suggestion", expr = true },
           },
           {
-            "<c-.>",
+            "<C-.>",
             function() SidekickCLI.focus() end,
             mode = { "n", "x", "i", "t" },
-            remove_leader = true,
             { desc = "Sidekick Switch Focus" },
           },
           {
-            "aa",
+            "<Leader>aa",
             function() SidekickCLI.toggle({ focus = true }) end,
             mode = { "n", "v" },
             { desc = "Sidekick Toggle CLI" },
           },
           {
-            "ap",
+            "<Leader>ap",
             function() SidekickCLI.select_prompt() end,
             mode = { "n", "v" },
             { desc = "Sidekick Ask Prompt" },

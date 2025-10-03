@@ -24,6 +24,7 @@ P.add({
             "html",
             "javascript",
             "typescript",
+            "python",
             "markdown",
             "markdown_inline",
           },
@@ -79,16 +80,14 @@ P.add({
             swap = {
               enable = true,
               swap_next = {
-                ["<leader>a"] = "@parameter.inner",
+                ["<Leader>a"] = "@parameter.inner",
               },
               swap_previous = {
-                ["<leader>A"] = "@parameter.inner",
+                ["<Leader>A"] = "@parameter.inner",
               },
             },
           },
         })
-
-        vim.cmd(":TSUpdate")
       end,
     },
   },

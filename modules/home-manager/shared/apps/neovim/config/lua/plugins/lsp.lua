@@ -12,7 +12,7 @@ P.add({
         local function format() require("conform").format({ lsp_fallback = true }) end
 
         return {
-          { "ff", format, opts = { desc = "Format File" } },
+          { "<Leader>ff", format, opts = { desc = "Format File" } },
         }
       end,
       init = function(_)

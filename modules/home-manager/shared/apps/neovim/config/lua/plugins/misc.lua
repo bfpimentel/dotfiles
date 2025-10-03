@@ -52,7 +52,7 @@ P.add({
     data = {
       init = function(_) require("inc_rename").setup({}) end,
       keys = {
-        { "rn", ":IncRename ", opts = { desc = "Rename Symbol" } },
+        { "<Leader>rn", ":IncRename ", opts = { desc = "Rename Symbol" } },
       },
     },
   },
@@ -73,7 +73,7 @@ P.add({
         })
 
         return {
-          { "gg", function() Lazygit:toggle() end, opts = { desc = "Lazygit" } },
+          { "<Leader>gg", function() Lazygit:toggle() end, opts = { desc = "Lazygit" } },
         }
       end,
     },
