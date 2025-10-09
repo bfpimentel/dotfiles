@@ -29,7 +29,7 @@ vim.opt.scrolloff = 20
 vim.opt.list = false
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.cmdheight = 0
-vim.opt.winborder = "single"
+vim.opt.winborder = "solid"
 
 -- Clipboard
 vim.opt.clipboard = "unnamedplus"

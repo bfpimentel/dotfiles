@@ -27,17 +27,16 @@
       typescript-language-server
       tailwindcss-language-server
       vscode-langservers-extracted
-      prettierd
+      prettier
 
       gopls
 
-      basedpyright
+      # basedpyright
       ruff
 
       nil
       nixfmt-rfc-style
 
-      gemini-cli
       copilot-language-server
     ];
   };

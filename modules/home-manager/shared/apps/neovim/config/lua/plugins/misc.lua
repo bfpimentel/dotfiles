@@ -57,25 +57,14 @@ P.add({
     },
   },
   {
-    src = "https://github.com/akinsho/toggleterm.nvim",
+    src = "https://github.com/kdheepak/lazygit.nvim",
     data = {
-      init = function(_) require("toggleterm").setup() end,
-      keys = function()
-        local Lazygit = require("toggleterm.terminal").Terminal:new({
-          cmd = "lazygit",
-          hidden = true,
-          direction = "float",
-          float_opts = {
-            border = vim.opt.winborder,
-            width = function() return math.floor(vim.o.columns * 0.8) end,
-            height = 50,
-          },
-        })
-
-        return {
-          { "<Leader>gg", function() Lazygit:toggle() end, opts = { desc = "Lazygit" } },
-        }
-      end,
+      lazy = {
+        keys = { "<Leader>gg" },
+      },
+      keys = {
+        { "<Leader>gg", ":LazyGit<CR>", opts = { desc = "LazyGit" } },
+      },
     },
   },
 })

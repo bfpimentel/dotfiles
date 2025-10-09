@@ -1,34 +1,20 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
-
-  environment.pathsToLink = [ "/share/zsh" ];
+  imports = [
+    ../pkgs.nix
+  ];
 
   environment.systemPackages = with pkgs; [
     opencode
-
-    antidote
-    direnv
-    gnupg
-    fzf
-    ripgrep
-    fastfetch
-
-    btop
-    qrencode
-    nmap
-    wget
+    immich-go
 
     android-tools
     cargo
-
     xh
-
     uv
-    google-cloud-sdk
     redis
-
+    google-cloud-sdk
     nodejs_24
   ];
 }
