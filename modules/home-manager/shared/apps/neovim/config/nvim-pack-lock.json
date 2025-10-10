@@ -25,10 +25,6 @@
       "rev": "7c79416",
       "src": "https://github.com/smjonas/inc-rename.nvim"
     },
-    "lazygit.nvim": {
-      "rev": "2305dee",
-      "src": "https://github.com/kdheepak/lazygit.nvim"
-    },
     "markview.nvim": {
       "rev": "8c6d294",
       "src": "https://github.com/OXY2DEV/markview.nvim"

@@ -6,7 +6,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    opencode
     immich-go
 
     android-tools

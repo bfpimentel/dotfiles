@@ -6,9 +6,8 @@
   environment.pathsToLink = [ "/share/zsh" ];
 
   environment.systemPackages = with pkgs; [
-    node2nix
-
     antidote
+
     direnv
     gnupg
     fzf
@@ -20,6 +19,5 @@
     qrencode
     nmap
     wget
-    # liborbispkg-pkgtool
   ];
 }

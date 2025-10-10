@@ -5,6 +5,10 @@
 }:
 
 {
+  imports = [
+    ../pkgs.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages."${system}".default
     inputs.home-manager.packages."${system}".default

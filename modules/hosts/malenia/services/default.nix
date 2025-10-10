@@ -27,7 +27,8 @@ in
     ollama.enable = false;
     restic.enable = true;
     streaming = {
-      enable = configureForGaming;
+      # enable = configureForGaming;
+      enable = false;
       enableApollo = false;
     };
     wireguard = {

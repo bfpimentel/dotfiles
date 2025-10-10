@@ -9,7 +9,7 @@
 
 with lib;
 let
-  immichVersion = "v2.0.0";
+  immichVersion = "release";
 
   immichPaths =
     let
@@ -81,7 +81,6 @@ in
         image = "ghcr.io/immich-app/immich-machine-learning:${immichVersion}-cuda";
         autoStart = true;
         devices = [ "nvidia.com/gpu=all" ];
-        # user = "${puid}:${pgid}";
         networks = [ "local" ];
         volumes = [ "${immichPaths.volumes.machineLearning}:/cache" ];
         environmentFiles = [ config.age.secrets.immich.path ];
@@ -98,7 +97,7 @@ in
       };
 
       immich-postgres = {
-        image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:41eacbe83eca995561fe43814fd4891e16e39632806253848efaf04d3c8a8b84";
+        image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0";
         autoStart = true;
         networks = [ "local" ];
         volumes = [ "${immichPaths.postgres}:/var/lib/postgresql/data" ];
@@ -114,7 +113,7 @@ in
       };
 
       immich-redis = {
-        image = "docker.io/valkey/valkey:8-bookworm@sha256:fea8b3e67b15729d4bb70589eb03367bab9ad1ee89c876f54327fc7c6e618571";
+        image = "docker.io/valkey/valkey:8-bookworm";
         autoStart = true;
         extraOptions = [ "--pull=always" ];
         networks = [ "local" ];
