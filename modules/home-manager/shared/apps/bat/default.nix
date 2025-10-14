@@ -1,5 +1,5 @@
-{ homeManagerConfig, config, ... }:
+{ util, config, ... }:
 
 {
-  home.file.".config/bat".source = homeManagerConfig.linkSharedApp config "bat";
+  home.file = util.linkSharedApp config "bat";
 }

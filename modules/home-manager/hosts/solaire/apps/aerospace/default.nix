@@ -1,5 +1,5 @@
-{ homeManagerConfig, config, ... }:
+{ util, config, ... }:
 
 {
-  home.file.".config/aerospace".source = homeManagerConfig.linkHostApp config "aerospace";
+  home.file = util.linkHostApp config "aerospace";
 }

@@ -1,6 +1,6 @@
 {
   pkgs,
-  homeManagerConfig,
+  util,
   config,
   inputs,
   ...
@@ -41,5 +41,5 @@
     ];
   };
 
-  home.file.".config/nvim".source = homeManagerConfig.linkSharedApp config "neovim";
+  home.file = util.linkSharedApp config "nvim";
 }

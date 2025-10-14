@@ -71,10 +71,13 @@
       domain = "local.jalotopimentel.com";
       externalDomain = "external.jalotopimentel.com";
 
-      util = import ./util.nix {
-        domain = domain;
-        lib = nixpkgs.config.lib;
-      };
+      mkUtil =
+        hostname:
+        import ./util.nix {
+          hostname = hostname;
+          domain = domain;
+          lib = nixpkgs.config.lib;
+        };
 
       createNixOS =
         system: hostname: username: fullname: email:
@@ -101,8 +104,8 @@
                 inputs
                 outputs
                 vars
-                util
                 ;
+              util = mkUtil vars.hostname;
             };
 
             modules = [
@@ -150,8 +153,8 @@
                 inputs
                 outputs
                 vars
-                util
                 ;
+              util = mkUtil vars.hostname;
             };
             modules = [
               (import ./modules/hosts/${vars.hostname})

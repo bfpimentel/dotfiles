@@ -1,7 +1,7 @@
-{ homeManagerConfig, config, ... }:
+{ util, config, ... }:
 
 {
   programs.lazygit.enable = true;
 
-  home.file.".config/lazygit".source = homeManagerConfig.linkSharedApp config "lazygit";
+  home.file = util.linkSharedApp config "lazygit";
 }

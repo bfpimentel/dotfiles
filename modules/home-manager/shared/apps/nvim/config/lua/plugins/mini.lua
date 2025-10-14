@@ -83,7 +83,7 @@ local function setup_mini_completion()
     },
   })
 
-  require("mini.icons").tweak_nvim_cmp()
+  require("mini.icons").tweak_lsp_kind()
 end
 
 local function setup_mini_hipatterns()
@@ -211,7 +211,7 @@ P.add({
         setup_mini_files()
         setup_mini_indentscope()
         setup_mini_jump2d()
-        -- setup_mini_completion()
+        setup_mini_completion()
         setup_mini_hipatterns()
         setup_mini_clue()
         setup_mini_statusline()

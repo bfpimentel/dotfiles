@@ -21,20 +21,33 @@
       "rev": "d4cbe76",
       "src": "https://github.com/adibhanna/forest-night.nvim"
     },
+    "github": {
+      "rev": "c106c94",
+      "src": "https://github.com/projekt0n/github-nvim-theme"
+    },
+    "github-nvim-theme": {
+      "rev": "c106c94",
+      "src": "https://github.com/projekt0n/github-nvim-theme"
+    },
     "inc-rename.nvim": {
       "rev": "7c79416",
       "src": "https://github.com/smjonas/inc-rename.nvim"
     },
+    "kanagawa": {
+      "rev": "27f1e11",
+      "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
+    "lazygit.nvim": [],
     "markview.nvim": {
-      "rev": "8c6d294",
+      "rev": "2f5d568",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mini.nvim": {
-      "rev": "fbb6ad0",
+      "rev": "57c1611",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-eslint": {
-      "rev": "301db91",
+      "rev": "c51802b",
       "src": "https://github.com/esmuellert/nvim-eslint"
     },
     "nvim-treesitter": {
@@ -43,12 +56,16 @@
       "version": "'master'"
     },
     "sidekick.nvim": {
-      "rev": "f694c23",
+      "rev": "c262b25",
       "src": "https://github.com/folke/sidekick.nvim"
     },
     "vim-sleuth": {
       "rev": "be69bff",
       "src": "https://github.com/tpope/vim-sleuth"
+    },
+    "vim-tmux-navigator": {
+      "rev": "c45243d",
+      "src": "https://github.com/christoomey/vim-tmux-navigator"
     },
     "wrapping.nvim": {
       "rev": "bbf1b6e",

@@ -1,6 +1,6 @@
 {
   config,
-  homeManagerConfig,
+  util,
   pkgs,
   ...
 }:
@@ -14,5 +14,5 @@
     '';
   };
 
-  home.file.".config/zsh".source = homeManagerConfig.linkSharedApp config "zsh";
+  home.file = util.linkSharedApp config "zsh";
 }

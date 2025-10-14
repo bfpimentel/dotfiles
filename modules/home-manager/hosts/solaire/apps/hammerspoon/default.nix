@@ -1,5 +1,5 @@
-{ homeManagerConfig, config, ... }:
+{ util, config, ... }:
 
 {
-  home.file.".config/hammerspoon".source = homeManagerConfig.linkHostApp config "hammerspoon";
+  home.file = util.linkHostApp config "hammerspoon";
 }

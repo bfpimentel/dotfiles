@@ -1,5 +1,5 @@
-{ homeManagerConfig, config, ... }:
+{ util, config, ... }:
 
 {
-  home.file.".config/hypr".source = homeManagerConfig.linkHostApp config "hypr";
+  home.file = util.linkHostApp config "hypr";
 }

@@ -1,7 +1,7 @@
-{ homeManagerConfig, config, ... }:
+{ util, config, ... }:
 
 {
   programs.waybar.enable = true;
 
-  home.file.".config/waybar".source = homeManagerConfig.linkHostApp config "waybar";
+  home.file = util.linkHostApp config "waybar";
 }

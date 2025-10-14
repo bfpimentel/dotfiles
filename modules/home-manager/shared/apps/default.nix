@@ -4,7 +4,7 @@
   imports = [
     ./bat
     ./lazygit
-    ./neovim
+    ./nvim
     ./ssh
     ./zsh
   ];

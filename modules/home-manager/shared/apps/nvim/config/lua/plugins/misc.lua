@@ -59,11 +59,24 @@ P.add({
   {
     src = "https://github.com/kdheepak/lazygit.nvim",
     data = {
+      init = function(_) end,
       lazy = {
         keys = { "<Leader>gg" },
       },
       keys = {
         { "<Leader>gg", ":LazyGit<CR>", opts = { desc = "LazyGit" } },
+      },
+    },
+  },
+  {
+    src = "https://github.com/christoomey/vim-tmux-navigator",
+    data = {
+      init = function(_) end,
+      keys = {
+        { "<C-h>", "<cmd><C-U>TmuxNavigateLeft<cr>", { desc = "Move Cursor to Left Window" } },
+        { "<C-j>", "<cmd><C-U>TmuxNavigateDown<cr>", { desc = "Move Cursor to Bottom Window" } },
+        { "<C-k>", "<cmd><C-U>TmuxNavigateUp<cr>", { desc = "Move Cursor to Top Window" } },
+        { "<C-\\>", "<cmd><C-U>TmuxNavigateRight<cr>" },
       },
     },
   },

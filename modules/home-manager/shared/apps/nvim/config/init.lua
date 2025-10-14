@@ -4,7 +4,7 @@ require("config.keymaps")
 
 require("plugins.colorscheme")
 require("plugins.treesitter")
-require("plugins.lsp")
+require("plugins.completion")
 require("plugins.mini")
 require("plugins.misc")
 require("plugins.ai")

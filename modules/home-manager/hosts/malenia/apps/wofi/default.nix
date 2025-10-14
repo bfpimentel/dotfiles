@@ -1,7 +1,7 @@
-{ homeManagerConfig, config, ... }:
+{ util, config, ... }:
 
 {
   programs.wofi.enable = true;
 
-  home.file.".config/wofi".source = homeManagerConfig.linkHostApp config "wofi";
+  home.file = util.linkHostApp config "wofi";
 }

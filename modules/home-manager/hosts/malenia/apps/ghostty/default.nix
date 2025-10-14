@@ -1,7 +1,7 @@
-{ homeManagerConfig, config, ... }:
+{ util, config, ... }:
 
 {
   programs.ghostty.enable = true;
 
-  home.file.".config/ghostty".source = homeManagerConfig.linkHostApp config "ghostty";
+  home.file = util.linkHostApp config "ghostty";
 }

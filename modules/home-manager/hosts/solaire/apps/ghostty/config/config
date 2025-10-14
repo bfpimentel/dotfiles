@@ -10,16 +10,16 @@ font-size = 14
 # font-feature = -liga
 # font-feature = -dlig
 
-adjust-cell-height = 10%
-adjust-cursor-height = 10%
+# adjust-cell-height = 10%
+# adjust-cursor-height = 10%
 
-window-padding-x = 0
-window-padding-y = 0
+window-padding-x = 1
+window-padding-y = 2
 window-padding-balance = true
 window-padding-color = extend-always
 
-background-opacity = 0.9
-background-blur-radius = 20
+background-opacity = 0.95
+background-blur-radius = 10
 
 clipboard-read = allow
 clipboard-write = allow
@@ -29,8 +29,16 @@ copy-on-select = clipboard
 
 macos-auto-secure-input = false
 macos-secure-input-indication = true
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
 
-config-file = keybindings
+# GENERAL
+keybind = ctrl+;>escape=reload_config
+
+# FONT
+keybind = cmd+equal=increase_font_size:1
+keybind = cmd+minus=decrease_font_size:1
+keybind = cmd+shift+0=reset_font_size
+
+# config-file = keybindings
 
 # vim: set ft=conf :

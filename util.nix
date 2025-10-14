@@ -1,4 +1,8 @@
-{ domain, lib }:
+{
+  hostname,
+  domain,
+  lib,
+}:
 
 let
   buildIconUrl = icon: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/${icon}.png";
@@ -38,8 +42,28 @@ let
     }
     // authLabel;
 
+  absoluteHomeManagerPath = "/etc/nixos/modules/home-manager";
+
+  linkHostApp =
+    config: app:
+    let
+      hostPath = "${absoluteHomeManagerPath}/hosts/${hostname}";
+    in
+    {
+      ".config/${app}".source = config.lib.file.mkOutOfStoreSymlink "${hostPath}/apps/${app}/config";
+    };
+
+  linkSharedApp =
+    config: app:
+    let
+      sharedPath = "${absoluteHomeManagerPath}/shared";
+    in
+    {
+      ".config/${app}".source = config.lib.file.mkOutOfStoreSymlink "${sharedPath}/apps/${app}/config";
+    };
+
   util = {
-    inherit mkDockerLabels;
+    inherit mkDockerLabels linkHostApp linkSharedApp;
   };
 in
 util
