@@ -28,8 +28,8 @@ in
     restic.enable = true;
     streaming = {
       # enable = configureForGaming;
-      enable = false;
-      enableApollo = false;
+      enable = true;
+      enableApollo = true;
     };
     wireguard = {
       enable = false;

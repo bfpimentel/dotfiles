@@ -13,6 +13,8 @@
     inputs.agenix.packages."${system}".default
     inputs.home-manager.packages."${system}".default
 
+    gcc14
+
     pciutils
     tcpdump
     lm_sensors
