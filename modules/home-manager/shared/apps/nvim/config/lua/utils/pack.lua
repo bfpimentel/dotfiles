@@ -24,18 +24,12 @@ local group = vim.api.nvim_create_augroup("PackPlugins", { clear = true })
 ---@class PluginSpec: vim.pack.Spec
 ---@field data? Data
 
----@param lhs string
----@param rhs string|function
----@param mode? string|string[]
----@param opts? vim.keymap.set.Opts
-local function map(lhs, rhs, mode, opts) vim.keymap.set(mode or "n", lhs, rhs, opts) end
-
 ---@param keys Keys[]|fun():Keys[]
 local function map_keys(keys)
   local keysResult = type(keys) == "function" and keys() or keys --[=[@as Keys[]]=]
   for _, item in ipairs(keysResult) do
     local lhs, rhs = item[1], item[2] or ""
-    map(lhs, rhs, item.mode or "n", item.opts)
+    vim.keymap.set(item.mode or "n", lhs, rhs, item.opts)
   end
 end
 

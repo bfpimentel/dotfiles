@@ -3,7 +3,9 @@
 {
   programs.git = {
     enable = true;
-    userName = vars.defaultUserFullName;
-    userEmail = vars.defaultUserEmail;
+    settings.user = {
+      name = vars.defaultUserFullName;
+      email = vars.defaultUserEmail;
+    };
   };
 }

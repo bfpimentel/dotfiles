@@ -64,6 +64,8 @@ local function setup_mini_jump2d()
 end
 
 local function setup_mini_completion()
+  local MiniCompletion = require("mini.completion")
+
   ---@diagnostic disable-next-line: duplicate-set-field
   _G.cr_action = function()
     if vim.fn.complete_info()["selected"] ~= -1 then return "\25" end
@@ -72,7 +74,6 @@ local function setup_mini_completion()
 
   vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
 
-  local MiniCompletion = require("mini.completion")
   MiniCompletion.setup({
     delay = { completion = 100, info = 100, signature = 50 },
     source = {
@@ -152,6 +153,8 @@ local function setup_mini_clue()
 end
 
 local function setup_mini_statusline()
+  local MiniStatusline = require("mini.statusline")
+
   local check_macro_recording = function()
     if vim.fn.reg_recording() ~= "" then
       return "Recording @" .. vim.fn.reg_recording()
@@ -160,29 +163,50 @@ local function setup_mini_statusline()
     end
   end
 
-  local MiniStatusline = require("mini.statusline")
+  local function mode_hl()
+    local CTRL_S = vim.api.nvim_replace_termcodes("<C-S>", true, true, true)
+    local CTRL_V = vim.api.nvim_replace_termcodes("<C-V>", true, true, true)
+    local modes = setmetatable({
+      ["n"] = "MiniIconsGrey",
+      ["v"] = "MiniIconsPurple",
+      ["V"] = "MiniIconsPurple",
+      [CTRL_V] = "MiniIconsPurple",
+      ["s"] = "MiniIconsOrange",
+      ["S"] = "MiniIconsOrange",
+      [CTRL_S] = "MiniIconsOrange",
+      ["i"] = "MiniIconsBlue",
+      ["R"] = "MiniIconsRed",
+      ["c"] = "MiniIconsYellow",
+      ["r"] = "MiniIconsYellow",
+      ["!"] = "MiniIconsYellow",
+      ["t"] = "MiniIconsYellow",
+    }, {
+      __index = function() return "MiniIconsGrey" end,
+    })
+
+    return modes[vim.fn.mode()]
+  end
 
   local function groups()
-    local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+    local mode = MiniStatusline.section_mode({ trunc_width = 30 })
     local git = MiniStatusline.section_git({ trunc_width = 40 })
     local diff = MiniStatusline.section_diff({ trunc_width = 75 })
     local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
     local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
     local filename = vim.fn.expand("%:t")
-    local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
     local location = MiniStatusline.section_location({ trunc_width = 75 })
     local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
     return MiniStatusline.combine_groups({
-      { hl = mode_hl, strings = { mode } },
-      { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
+      { hl = mode_hl(), strings = { mode } },
+      { hl = "MiniIconsBlue", strings = { git, diff } },
+      { hl = "MiniIconsPurple", strings = { diagnostics, lsp } },
       "%<", -- Mark general truncate point
-      { hl = "MiniStatuslineFilename", strings = { filename } },
+      { hl = "MiniPickCursor", strings = { filename } },
       "%=", -- End left alignment
-      { hl = "MiniStatuslineModeReplace", strings = { check_macro_recording() } },
-      { hl = "MiniStatuslineFilename", strings = { fileinfo } },
-      { hl = mode_hl, strings = search ~= "" and { " " .. search } },
-      { hl = "MiniStatuslineModeReplace", strings = { location } },
+      { hl = "MiniIconsRed", strings = { check_macro_recording() } },
+      { hl = "MiniIconsOrange", strings = search ~= "" and { " " .. search } },
+      { hl = "MiniIconsOrange", strings = { location } },
     })
   end
 

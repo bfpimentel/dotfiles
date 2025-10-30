@@ -23,9 +23,10 @@ P.add({
     name = "everforest",
     data = {
       init = function(_)
-        vim.g.everforest_enable_italic = true
+        vim.g.everforest_enable_italic = false
         vim.g.everforest_better_performance = true
-        vim.g.everforest_transparent_background = true
+        vim.g.everforest_transparent_background = 2
+        vim.g.everforest_float_style = "dim"
       end,
     },
   },
@@ -35,8 +36,24 @@ P.add({
     data = {
       init = function(_)
         require("kanagawa").setup({
-          transparent = false,
+          transparent = true,
           theme = "wave",
+          commentStyle = { italic = false },
+          functionStyle = { italic = false },
+          keywordStyle = { italic = false },
+          statementStyle = { bold = true, italic = false },
+        })
+      end,
+    },
+  },
+  {
+    src = "https://github.com/thesimonho/kanagawa-paper.nvim",
+    name = "kanagawa-paper",
+    data = {
+      init = function(_)
+        require("kanagawa-paper").setup({
+          transparent = true,
+          cache = true,
         })
       end,
     },

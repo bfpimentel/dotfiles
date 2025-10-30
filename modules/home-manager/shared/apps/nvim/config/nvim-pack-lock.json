@@ -10,11 +10,11 @@
       "src": "https://github.com/xzbdmw/colorful-menu.nvim"
     },
     "conform.nvim": {
-      "rev": "fbcb4fa",
+      "rev": "9fd3d5e",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "everforest": {
-      "rev": "3fffb09",
+      "rev": "90e40e3",
       "src": "https://github.com/sainnhe/everforest"
     },
     "forest-night": {
@@ -34,20 +34,24 @@
       "src": "https://github.com/smjonas/inc-rename.nvim"
     },
     "kanagawa": {
-      "rev": "27f1e11",
+      "rev": "aef7f5c",
       "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
+    "kanagawa-paper": {
+      "rev": "ede9ff0",
+      "src": "https://github.com/thesimonho/kanagawa-paper.nvim"
     },
     "lazygit.nvim": [],
     "markview.nvim": {
-      "rev": "2f5d568",
+      "rev": "c93ea99",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mini.nvim": {
-      "rev": "57c1611",
+      "rev": "d1a9158",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-eslint": {
-      "rev": "c51802b",
+      "rev": "e052854",
       "src": "https://github.com/esmuellert/nvim-eslint"
     },
     "nvim-treesitter": {
@@ -56,7 +60,7 @@
       "version": "'master'"
     },
     "sidekick.nvim": {
-      "rev": "c262b25",
+      "rev": "bd1f79a",
       "src": "https://github.com/folke/sidekick.nvim"
     },
     "vim-sleuth": {

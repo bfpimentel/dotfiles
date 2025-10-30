@@ -73,10 +73,16 @@ P.add({
     data = {
       init = function(_) end,
       keys = {
-        { "<C-h>", "<cmd><C-U>TmuxNavigateLeft<cr>", { desc = "Move Cursor to Left Window" } },
-        { "<C-j>", "<cmd><C-U>TmuxNavigateDown<cr>", { desc = "Move Cursor to Bottom Window" } },
-        { "<C-k>", "<cmd><C-U>TmuxNavigateUp<cr>", { desc = "Move Cursor to Top Window" } },
-        { "<C-\\>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+        -- Normal mode
+        { mode = "n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Move Cursor to Left Window" } },
+        { mode = "n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Move Cursor to Bottom Window" } },
+        { mode = "n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Move Cursor to Top Window" } },
+        { mode = "n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", { desc = "Move Cursor to Right Window" } },
+        -- Terminal mode
+        { mode = "t", "<C-h>", "<cmd><C-w>TmuxNavigateLeft<cr>", { desc = "Move Cursor to Left Window" } },
+        { mode = "t", "<C-j>", "<cmd><C-w>TmuxNavigateDown<cr>", { desc = "Move Cursor to Bottom Window" } },
+        { mode = "t", "<C-k>", "<cmd><C-w>TmuxNavigateUp<cr>", { desc = "Move Cursor to Top Window" } },
+        { mode = "t", "<C-l>", "<cmd><C-w>TmuxNavigateRight<cr>", { desc = "Move Cursor to Right Window" } },
       },
     },
   },

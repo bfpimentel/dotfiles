@@ -1,5 +1,7 @@
 local P = require("utils.pack")
 
+local notify_for_debug = false
+
 P.add({
   {
     src = "https://github.com/folke/sidekick.nvim",
@@ -7,7 +9,8 @@ P.add({
       init = function(_)
         ---@class sidekick.Config
         local config = {
-          mux = { enabled = false },
+          nes = { enabled = true },
+          cli = { mux = { enabled = false } },
         }
 
         require("sidekick").setup(config)
@@ -16,39 +19,24 @@ P.add({
         local SidekickCLI = require("sidekick.cli")
 
         return {
-          -- {
-          --   "<Tab>",
-          --   function()
-          --     vim.notify("[I] Trying to Tab")
-          --
-          --     if vim.lsp.inline_completion.get() then
-          --       vim.notify("[I] Selected Inline Completion")
-          --       return
-          --     end
-          --
-          --     -- Fallback to normal tab
-          --     vim.notify("[I] Fallback to normal <Tab>")
-          --     return "<Tab>"
-          --   end,
-          --   mode = { "i" },
-          --   { desc = "Goto/Apply Next Edit Suggestion", expr = true },
-          -- },
-          -- {
-          --   "<Tab>",
-          --   function()
-          --     vim.notify("[N] Trying to Tab")
-          --
-          --     if require("sidekick").nes_jump_or_apply() then
-          --       vim.notify("[N] Jumped/Applied NES")
-          --       return
-          --     end
-          --
-          --     vim.notify("[N] Fallback to normal <Tab>")
-          --     return "<Tab>"
-          --   end,
-          --   mode = { "n" },
-          --   { desc = "Goto/Apply Next Edit Suggestion", expr = true },
-          -- },
+          {
+            "<Tab>",
+            function()
+              if notify_for_debug then vim.notify("[I/N] Trying to Tab") end
+
+              if require("sidekick").nes_jump_or_apply() then
+                if notify_for_debug then vim.notify("[N] Jumped/Applied NES") end
+                return
+              end
+
+              if not vim.lsp.inline_completion.get() then
+                if notify_for_debug then vim.notify("[I/N] Fallback to normal <Tab>") end
+                return "<Tab>"
+              end
+            end,
+            mode = { "i", "n" },
+            { expr = true, desc = "Goto/Apply Next Edit Suggestion" },
+          },
           {
             "<C-.>",
             function() SidekickCLI.focus() end,

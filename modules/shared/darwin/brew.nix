@@ -46,7 +46,6 @@
           "the-unarchiver"
           "aerospace"
 
-          # "zen-browser"
           "brave-browser"
           "shottr"
           "kap"
