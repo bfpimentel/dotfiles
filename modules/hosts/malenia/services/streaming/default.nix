@@ -28,6 +28,14 @@ in
 
       boot.kernelModules = [ "uinput" ];
     })
+    (mkIf (cfg.enable && !cfg.enableApollo) {
+      services.sunshine = {
+        enable = true;
+        autoStart = true;
+        capSysAdmin = true;
+        openFirewall = true;
+      };
+    })
     (mkIf (cfg.enable && cfg.enableApollo) {
       services.apollo = {
         enable = true;
@@ -68,17 +76,6 @@ in
               ];
             }
           ];
-        };
-      };
-    })
-    (mkIf (cfg.enable && !cfg.enableApollo) {
-      services.sunshine = {
-        enable = true;
-        autoStart = true;
-        capSysAdmin = true;
-        openFirewall = true;
-        package = pkgs.sunshine.override {
-          cudaSupport = true;
         };
       };
     })

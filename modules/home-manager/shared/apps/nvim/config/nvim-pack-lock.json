@@ -30,7 +30,7 @@
       "src": "https://github.com/projekt0n/github-nvim-theme"
     },
     "inc-rename.nvim": {
-      "rev": "7c79416",
+      "rev": "2597bcc",
       "src": "https://github.com/smjonas/inc-rename.nvim"
     },
     "kanagawa": {
@@ -41,7 +41,10 @@
       "rev": "8423e16",
       "src": "https://github.com/thesimonho/kanagawa-paper.nvim"
     },
-    "lazygit.nvim": [],
+    "lazygit.nvim": {
+      "rev": "2305dee",
+      "src": "https://github.com/kdheepak/lazygit.nvim"
+    },
     "markview.nvim": {
       "rev": "5529dc4",
       "src": "https://github.com/OXY2DEV/markview.nvim"

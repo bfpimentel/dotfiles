@@ -78,11 +78,11 @@ in
   };
 
   fileSystems."${vars.massMountLocation}" = {
-    device = "/dev/disk/by-uuid/46f4dc53-f6d4-44a6-a2d8-2999c04aa30b";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/123EA1F958F8CE80";
+    fsType = "ntfs-3g";
     options = [
-      "user"
       "rw"
+      "uid=${puid}"
     ];
   };
 }

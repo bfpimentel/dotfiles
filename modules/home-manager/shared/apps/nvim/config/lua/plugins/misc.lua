@@ -51,9 +51,11 @@ P.add({
     src = "https://github.com/smjonas/inc-rename.nvim",
     data = {
       init = function(_) require("inc_rename").setup({}) end,
-      keys = {
-        { "<Leader>rn", ":IncRename ", opts = { desc = "Rename Symbol" } },
-      },
+      keys = function()
+        return {
+          { "<Leader>rn", ":IncRename ", opts = { desc = "Rename Symbol" } },
+        }
+      end,
     },
   },
   {
@@ -63,9 +65,11 @@ P.add({
       lazy = {
         keys = { "<Leader>gg" },
       },
-      keys = {
-        { "<Leader>gg", ":LazyGit<CR>", opts = { desc = "LazyGit" } },
-      },
+      keys = function()
+        return {
+          { "<Leader>gg", ":LazyGit<CR>", opts = { desc = "LazyGit" } },
+        }
+      end,
     },
   },
   {

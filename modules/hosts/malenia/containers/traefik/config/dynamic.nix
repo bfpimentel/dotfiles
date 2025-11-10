@@ -18,7 +18,7 @@ vars: {
           "https"
           "http"
         ];
-        rule = "Host(`sunshine.${vars.domain}`)";
+        rule = "Host(`streaming.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
         tls = {
           certResolver = "cloudflare";

@@ -13,23 +13,17 @@ in
     ./wireguard
   ];
 
-  services.xserver = {
-    enable = true;
-    videoDrivers = [ "nvidia" ];
-  };
-
   bfmp.services = {
     displayManager = {
       enable = configureForGaming;
-      enableHyprland = true;
+      enableHyprland = false;
     };
     gaming.enable = configureForGaming;
     ollama.enable = false;
     restic.enable = true;
     streaming = {
-      # enable = configureForGaming;
-      enable = true;
-      enableApollo = true;
+      enable = configureForGaming;
+      enableApollo = false;
     };
     wireguard = {
       enable = false;

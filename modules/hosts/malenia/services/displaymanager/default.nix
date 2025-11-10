@@ -66,11 +66,13 @@ in
       };
     })
     (mkIf (cfg.enable && !cfg.enableHyprland) {
-      services.desktopManager.plasma6.enable = true;
+      services = {
+        desktopManager.plasma6.enable = true;
+        displayManager.defaultSession = "plasma";
+      };
 
       environment.plasma6.excludePackages = with pkgs.kdePackages; [
         plasma-browser-integration
-        konsole
         elisa
       ];
     })
