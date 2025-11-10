@@ -6,7 +6,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    tmux
+    # tmux
+    zellij
     immich-go
 
     android-tools

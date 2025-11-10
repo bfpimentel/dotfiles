@@ -23,7 +23,6 @@ path=(
     /run/current-system/sw/bin
     $HOME/.nix-profile/bin
     /etc/profiles/per-user/$USER/bin
-    /opt/homebrew/opt/ruby/bin
     $ANDROID_HOME/tools
     $ANDROID_HOME/platform-tools
 )
@@ -31,7 +30,9 @@ path=(
 # Darwin specific paths
 if [[ "$OSTYPE" == darwin* ]]; then
     path+=(
-        /Applications/Postgres.app/Contents/Versions/latest/bin
+        /opt/homebrew/opt/ruby/bin
+        /opt/homebrew/opt/postgresql@17/bin
+        # /Applications/Postgres.app/Contents/Versions/latest/bin
         $HOME/.cache/npm/global/bin
     )
 fi
@@ -82,6 +83,6 @@ fi
 
 source <(fzf --zsh)
 
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux attach-session -t default || tmux new-session -s default
+if command -v zellij &> /dev/null && [ -z "$ZELLIJ" ]; then
+  zellij attach --force-run-commands default
 fi

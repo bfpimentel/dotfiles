@@ -9,8 +9,8 @@ P.add({
       init = function(_)
         ---@class sidekick.Config
         local config = {
-          nes = { enabled = true },
-          cli = { mux = { enabled = false } },
+          nes = { enabled = false },
+          cli = { mux = { enabled = true, backend = "zellij" } },
         }
 
         require("sidekick").setup(config)

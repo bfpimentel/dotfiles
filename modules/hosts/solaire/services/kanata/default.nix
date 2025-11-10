@@ -5,11 +5,11 @@
 }:
 
 let
-  kanataPath = "${config.users.users.${vars.defaultUser}.home}/.config/kanata";
+  kanataPath = "~/.config/kanata";
 in
 {
   launchd.daemons.kanata = {
-    command = "${kanataPath}/kanata -c ${kanataPath}/personal.kbd";
+    command = "kanata -c ${kanataPath}/personal.kbd";
     serviceConfig = {
       Label = "org.nixos.kanata";
       UserName = "root";

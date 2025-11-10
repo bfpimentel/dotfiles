@@ -15,7 +15,7 @@ font-size = 14
 # adjust-cursor-height = 10%
 
 window-padding-x = 1
-window-padding-y = 1
+window-padding-y = 0
 window-padding-balance = true
 window-padding-color = extend-always
 
@@ -33,7 +33,7 @@ macos-secure-input-indication = true
 macos-titlebar-style = hidden
 
 # GENERAL
-keybind = ctrl+;>escape=reload_config
+keybind = cmd+r=reload_config
 
 # FONT
 keybind = cmd+equal=increase_font_size:1

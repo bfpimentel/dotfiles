@@ -21,9 +21,8 @@
       "libpcap"
       "xz"
       "redis"
-      # "cocoapods"
-      # "sketchybar"
-      # "borders"
+      "postgresql@17"
+      "kanata"
     ];
 
     taps = [
@@ -52,11 +51,11 @@
           "pearcleaner"
           "ankerwork"
           "loom"
+          "karabiner-elements"
 
           "ghostty"
           "bruno"
           "http-toolkit"
-          "postgres-unofficial"
 
           "bambu-studio"
           "autodesk-fusion"

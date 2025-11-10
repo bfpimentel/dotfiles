@@ -10,11 +10,11 @@
       "src": "https://github.com/xzbdmw/colorful-menu.nvim"
     },
     "conform.nvim": {
-      "rev": "9fd3d5e",
+      "rev": "cde4da5",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "everforest": {
-      "rev": "90e40e3",
+      "rev": "bb42827",
       "src": "https://github.com/sainnhe/everforest"
     },
     "forest-night": {
@@ -38,16 +38,16 @@
       "src": "https://github.com/rebelot/kanagawa.nvim"
     },
     "kanagawa-paper": {
-      "rev": "ede9ff0",
+      "rev": "8423e16",
       "src": "https://github.com/thesimonho/kanagawa-paper.nvim"
     },
     "lazygit.nvim": [],
     "markview.nvim": {
-      "rev": "c93ea99",
+      "rev": "5529dc4",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mini.nvim": {
-      "rev": "d1a9158",
+      "rev": "42dbeaa",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-eslint": {
@@ -60,8 +60,16 @@
       "version": "'master'"
     },
     "sidekick.nvim": {
-      "rev": "bd1f79a",
+      "rev": "c2bdf8c",
       "src": "https://github.com/folke/sidekick.nvim"
+    },
+    "smart-splits.nvim": {
+      "rev": "1611946",
+      "src": "https://github.com/mrjones2014/smart-splits.nvim"
+    },
+    "tiny-inline-diagnostic.nvim": {
+      "rev": "63dd87d",
+      "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
     },
     "vim-sleuth": {
       "rev": "be69bff",

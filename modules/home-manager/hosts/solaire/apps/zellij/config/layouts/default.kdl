@@ -1,0 +1,27 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
+                hide_frame_for_single_pane "false"
+
+                format_left   "{mode} {tabs}"
+                format_center ""
+                format_right  "{command_git_branch} #[fg=#7FBBB3,bold]{session}"
+                format_space  ""
+
+                mode_normal  "#[fg=#1E2326,bg=#D3C6AA,bold] NORMAL#[fg=#D3C6AA,bg=#1E2326]█"
+                mode_locked  "#[fg=#1E2326,bg=#DBBC7F,bold] LOCKED#[fg=#DBBC7F,bg=#1E2326]█"
+                mode_pane    "#[fg=#1E2326,bg=#7FBBB3,bold] PANE#[fg=#7FBBB3,bg=#1E2326]█"
+                mode_tab     "#[fg=#1E2326,bg=#83C092,bold] TAB#[fg=#83C092,bg=#1E2326]█"
+                mode_resize  "#[fg=#1E2326,bg=#E69875,bold] RESIZE#[fg=#E69875,bg=#1E2326]█"
+                mode_session "#[fg=#1E2326,bg=#D699B6,bold] SESSION#[fg=#D699B6,bg=#1E2326]█"
+                mode_scroll  "#[fg=#1E2326,bg=#E67E80,bold] SCROLL#[fg=#E67E80,bg=#1E2326]█"
+                mode_search  "#[fg=#1E2326,bg=#E67E80,bold] SEARCH#[fg=#E67E80,bg=#1E2326]█"
+
+                tab_normal   "#[fg=#9DA9A0] {name} "
+                tab_active   "#[fg=#D3C6AA,bg=#1E2326] {name}#[fg=#1E2326,bg=#D3C6AA]█"
+            }
+        }
+        children
+    }
+}

@@ -38,6 +38,7 @@ inner.vertical =   8
 [workspace-to-monitor-force-assignment]
 Browser = [ 'secondary', 'main' ]
 Simulator = [ 'secondary', 'main' ]
+Music = [ 'secondary', 'main' ]
 
 [mode.main.binding]
 cmd-h = [] # Disable "hide application"
