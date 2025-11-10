@@ -1,7 +1,7 @@
-local settings = require "settings"
+local settings = require("settings")
 local colors = require("colors").sections
 
-sbar.default {
+Sbar.default({
   updates = "when_shown",
   icon = {
     font = {
@@ -25,17 +25,17 @@ sbar.default {
     padding_right = settings.paddings,
   },
   background = {
-    height = 26,
+    height = 24,
     corner_radius = 0,
     color = colors.item.bg,
     border_color = colors.item.border,
     border_width = 2,
-    shadow = {
-      drawing = true,
-      angle = 45,
-      distance = 4,
-      color = colors.item.border,
-    },
+    -- shadow = {
+    --   drawing = false,
+    --   angle = 45,
+    --   distance = 4,
+    --   color = colors.item.shadow,
+    -- },
   },
   popup = {
     background = {
@@ -54,4 +54,4 @@ sbar.default {
   padding_left = 4,
   padding_right = 4,
   scroll_texts = true,
-}
+})

@@ -1,9 +1,9 @@
 local colors = require("colors").sections.widgets.volume
-local icons = require "icons"
+local icons = require("icons")
 
 local popup_width = 250
 
-local volume_icon = sbar.add("item", "widgets.volume", {
+local volume_icon = Sbar.add("item", "widgets.volume", {
   position = "right",
   icon = {
     color = colors.icon,
@@ -14,10 +14,9 @@ local volume_icon = sbar.add("item", "widgets.volume", {
     align = "center",
     y_offset = 2,
   },
-  padding_right = 8,
 })
 
-local volume_slider = sbar.add("slider", popup_width, {
+local volume_slider = Sbar.add("slider", popup_width, {
   position = "popup." .. volume_icon.name,
   slider = {
     highlight_color = colors.slider.highlight,
@@ -40,7 +39,7 @@ local volume_slider = sbar.add("slider", popup_width, {
 volume_icon:subscribe("volume_change", function(env)
   local icon = icons.volume._0
   local volume = tonumber(env.INFO)
-  sbar.exec("SwitchAudioSource -t output -c", function(result)
+  Sbar.exec("SwitchAudioSource -t output -c", function(result)
     if volume > 60 then
       icon = icons.volume._100
     elseif volume > 30 then
@@ -51,8 +50,8 @@ volume_icon:subscribe("volume_change", function(env)
       icon = icons.volume._10
     end
 
-    volume_icon:set { icon = icon }
-    volume_slider:set { slider = { percentage = volume } }
+    volume_icon:set({ icon = icon })
+    volume_slider:set({ slider = { percentage = volume } })
   end)
 end)
 
@@ -61,23 +60,23 @@ local function volume_collapse_details()
   if not drawing then
     return
   end
-  volume_icon:set { popup = { drawing = false } }
-  sbar.remove "/volume.device\\.*/"
+  volume_icon:set({ popup = { drawing = false } })
+  Sbar.remove("/volume.device\\.*/")
 end
 
 local current_audio_device = "None"
 local function volume_toggle_details(env)
   if env.BUTTON == "right" then
-    sbar.exec "open /System/Library/PreferencePanes/Sound.prefpane"
+    Sbar.exec("open /System/Library/PreferencePanes/Sound.prefpane")
     return
   end
 
   local should_draw = volume_icon:query().popup.drawing == "off"
   if should_draw then
-    volume_icon:set { popup = { drawing = true } }
-    sbar.exec("SwitchAudioSource -t output -c", function(result)
+    volume_icon:set({ popup = { drawing = true } })
+    Sbar.exec("SwitchAudioSource -t output -c", function(result)
       current_audio_device = result:sub(1, -2)
-      sbar.exec("SwitchAudioSource -a -t output", function(available)
+      Sbar.exec("SwitchAudioSource -a -t output", function(available)
         local current = current_audio_device
         local color = colors.popup.item
         local counter = 0
@@ -86,7 +85,7 @@ local function volume_toggle_details(env)
           if current == device then
             color = colors.popup.highlight
           end
-          sbar.add("item", "volume.device." .. counter, {
+          Sbar.add("item", "volume.device." .. counter, {
             position = "popup." .. volume_icon.name,
             width = popup_width,
             align = "center",
@@ -110,12 +109,12 @@ end
 
 local function volume_scroll(env)
   local delta = env.SCROLL_DELTA
-  sbar.exec('osascript -e "set volume output volume (output volume of (get volume settings) + ' .. delta .. ')"')
+  Sbar.exec('osascript -e "set volume output volume (output volume of (get volume settings) + ' .. delta .. ')"')
 end
 
 volume_icon:subscribe("mouse.clicked", function(env)
   volume_toggle_details(env)
-  -- sbar.animate("tanh", 8, function()
+  -- Sbar.animate("tanh", 8, function()
   -- 	volume_icon:set({
   -- 		background = {
   -- 			shadow = {

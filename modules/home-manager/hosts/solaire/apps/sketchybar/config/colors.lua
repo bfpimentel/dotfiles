@@ -1,98 +1,101 @@
-local M = {}
+local Colors = {}
 
-local with_alpha = function(color, alpha)
+local everforest = {
+  fg = 0xFFD3C6AA,
+  red = 0xFFE67E80,
+  orange = 0xFFE69875,
+  yellow = 0xFFDBBC7F,
+  green = 0xFFA7C080,
+  aqua = 0xFF83C092,
+  blue = 0xFF7FBBB3,
+  purple = 0xFFD699B6,
+  grey0 = 0xFF7A8478,
+  grey1 = 0xFF859289,
+  grey2 = 0xFF9DA9A0,
+  statusline1 = 0xFFA7C080,
+  statusline2 = 0xFFD3C6AA,
+  statusline3 = 0xFFE67E80,
+  bg_dim = 0xFF293136,
+  bg0 = 0xFF333C43,
+  bg1 = 0xFF3A464C,
+  bg2 = 0xFF434F55,
+  bg3 = 0xFF4D5960,
+  bg4 = 0xFF555F66,
+  bg5 = 0xFF5D6B66,
+  bg_visual = 0xFF5C3F4F,
+  bg_red = 0xFF59464C,
+  bg_green = 0xFF48584E,
+  bg_blue = 0xFF3F5865,
+  bg_yellow = 0xFF55544A,
+  bg_purple = 0xFF4e4953,
+  bg_black = 0xFF000000,
+}
+
+Colors.with_alpha = function(color, alpha)
   if alpha > 1.0 or alpha < 0.0 then
     return color
   end
   return (color & 0x00FFFFFF) | (math.floor(alpha * 255.0) << 24)
 end
 
-local transparent = 0x00000000
-
-local catppuccin = {
-  rosewater = 0xFFF5E0DC,
-  flamingo = 0xFFF2CDCD,
-  pink = 0xFFF5C2E7,
-  mauve = 0xFFCBA6F7,
-  red = 0xFFF38BA8,
-  maroon = 0xFFEBA0AC,
-  peach = 0xFFFAB387,
-  yellow = 0xFFF9E2AF,
-  green = 0xFFA6E3A1,
-  teal = 0xFF94E2D5,
-  sky = 0xFF89DCEB,
-  sapphire = 0xFF74C7EC,
-  blue = 0xFF89B4FA,
-  lavender = 0xFFB4BEFE,
-  text = 0xFFCDD6F4,
-  subtext1 = 0xFFBAC2DE,
-  subtext0 = 0xFFA6ADC8,
-  overlay2 = 0xFF9399B2,
-  overlay1 = 0xFF7F849C,
-  overlay0 = 0xFF6C7086,
-  surface2 = 0xFF585B70,
-  surface1 = 0xFF45475A,
-  surface0 = 0xFF313244,
-  base = 0xFF1E1E2E,
-  mantle = 0xFF181825,
-  crust = 0xFF11111B,
-}
-
-M.sections = {
+Colors.sections = {
   -- Core Components
   bar = {
-    bg = with_alpha(catppuccin.base, 0.7),
-    border = catppuccin.crust,
+    bg = Colors.with_alpha(everforest.bg_black, 0.8),
+    border = everforest.bg_dim,
   },
   item = {
-    bg = catppuccin.surface0,
-    border = catppuccin.crust,
-    text = catppuccin.text,
+    bg = Colors.with_alpha(everforest.bg0, 0.8),
+    border = everforest.bg_dim,
+    text = everforest.fg,
+    shadow = Colors.with_alpha(everforest.bg_dim, 0.5),
   },
   popup = {
-    bg = with_alpha(catppuccin.base, 0.7),
-    border = catppuccin.crust,
+    bg = Colors.with_alpha(everforest.bg_black, 0.8),
+    border = everforest.bg_dim,
   },
 
   -- Items
-  apple = catppuccin.flamingo,
-  media = { label = catppuccin.text },
-  calendar = { label = catppuccin.text },
+  apple = everforest.green,
+  media = { label = everforest.fg },
+  calendar = { label = everforest.fg },
   spaces = {
+    bg = Colors.with_alpha(everforest.bg_black, 0.8),
     icon = {
-      color = catppuccin.subtext0,
-      highlight = catppuccin.yellow,
+      color = everforest.fg,
+      highlight = everforest.yellow,
     },
     label = {
-      color = catppuccin.subtext0,
-      highlight = catppuccin.yellow,
+      color = everforest.fg,
+      highlight = everforest.yellow,
     },
-    indicator = catppuccin.mauve,
+    indicator = everforest.blue,
   },
   widgets = {
     battery = {
-      low = catppuccin.red,
-      mid = catppuccin.yellow,
-      high = catppuccin.green,
+      low = everforest.red,
+      mid = everforest.yellow,
+      high = everforest.green,
     },
     wifi = {
-      icon = catppuccin.text,
+      icon = everforest.fg,
+      active = everforest.green,
     },
     volume = {
-      icon = catppuccin.blue,
+      icon = everforest.blue,
       popup = {
-        item = catppuccin.text,
-        highlight = catppuccin.subtext0,
-        bg = with_alpha(catppuccin.base, 0.7),
+        item = everforest.fg,
+        highlight = everforest.orange,
+        bg = Colors.with_alpha(everforest.bg_black, 0.8),
       },
       slider = {
-        highlight = catppuccin.text,
-        bg = with_alpha(catppuccin.base, 0.7),
-        border = catppuccin.surface0,
+        highlight = everforest.fg,
+        border = everforest.bg1,
+        bg = Colors.with_alpha(everforest.bg_black, 0.8),
       },
     },
-    messages = { icon = catppuccin.flamingo },
+    messages = { icon = everforest.red },
   },
 }
 
-return M
+return Colors

@@ -1,8 +1,8 @@
 start-at-login = true
 after-login-command = []
-after-startup-command = [ 
-  # 'exec-and-forget sketchybar',
-]
+# after-startup-command = [ 
+#   'exec-and-forget sketchybar',
+# ]
 
 key-mapping.preset = 'qwerty'
 
@@ -14,22 +14,21 @@ accordion-padding = 6
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
 
-# exec-on-workspace-change = [
-#   '/bin/bash', 
-#   '-c',
-#   'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-# ]
-
-exec-on-workspace-change = ['/bin/bash', '-c', '~/.config/aerospace/on-ws-change.sh']
+exec-on-workspace-change = [ 
+  '/bin/bash',
+  '-c', 
+  'FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE', 
+  '~/.config/aerospace/on-ws-change.sh'
+]
 
 on-focus-changed = [
-  # 'exec-and-forget sketchybar --trigger front_app_switched'
+  'exec-and-forget sketchybar --trigger front_app_switched',
   # 'exec-and-forget sketchybar --trigger send_message MESSAGE="Focus has changed"'
 ]
 
 [gaps]
-outer.top =        [{ monitor."built-in.*" = 0 }, 0]
-outer.bottom =     [{ monitor."built-in.*" = 8 }, 8]
+outer.top =        [{ monitor."built-in.*" = 8 }, 40]
+outer.bottom =     8
 outer.left =       4
 outer.right =      4
 inner.horizontal = 8
@@ -62,7 +61,6 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 alt-b = 'workspace Browser'
-alt-c = 'workspace Coding'
 alt-f = 'workspace Files'
 alt-m = 'workspace Music'
 alt-s = 'workspace Simulator'
@@ -70,7 +68,6 @@ alt-t = 'workspace Terminal'
 alt-x = 'workspace X'
 
 alt-shift-b = 'move-node-to-workspace Browser'
-alt-shift-c = 'move-node-to-workspace Coding'
 alt-shift-f = 'move-node-to-workspace Files'
 alt-shift-m = 'move-node-to-workspace Music'
 alt-shift-s = 'move-node-to-workspace Simulator'

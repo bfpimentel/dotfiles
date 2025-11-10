@@ -1,19 +1,13 @@
-local icons = require "icons"
+local icons = require("icons")
 local colors = require("colors").sections.widgets.wifi
-
-sbar.exec(
-  "killall network_load >/dev/null; $CONFIG_DIR/helpers/event_providers/network_load/bin/network_load en0 network_update 2.0"
-)
 
 local popup_width = 250
 
-local wifi = sbar.add("item", "widgets.wifi", {
+local wifi = Sbar.add("item", "wifi", {
   position = "right",
-  padding_right = 8,
-  padding_left = 0,
   icon = {
     color = colors.icon,
-    padding_left = 8
+    padding_left = 8,
   },
   label = {
     padding_right = 8,
@@ -25,7 +19,7 @@ local wifi = sbar.add("item", "widgets.wifi", {
   },
 })
 
-local ip = sbar.add("item", {
+local ip = Sbar.add("item", {
   position = "popup." .. wifi.name,
   icon = {
     align = "left",
@@ -40,7 +34,7 @@ local ip = sbar.add("item", {
   background = { drawing = false },
 })
 
-local router = sbar.add("item", {
+local router = Sbar.add("item", {
   position = "popup." .. wifi.name,
   icon = {
     align = "left",
@@ -56,45 +50,54 @@ local router = sbar.add("item", {
 })
 
 wifi:subscribe({ "wifi_change", "system_woke", "forced" }, function()
-  sbar.exec([[ipconfig getsummary en0 | awk -F ' SSID : '  '/ SSID : / {print $2}']], function(wifi_name)
-    local is_connected = not (wifi_name == "")
-    wifi:set {
-      icon = {
-        string = is_connected and icons.wifi.connected or icons.wifi.disconnected,
-      },
-      label = {
-        string = is_connected and wifi_name or "",
-      }
-    }
+  Sbar.exec(
+    "networksetup -listpreferredwirelessnetworks en0 | sed -n '2p' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'",
+    function(result)
+      local ssid = result:gsub("\n", "")
+      local is_connected = not (ssid == "")
 
-    sbar.exec([[sleep 2; scutil --nwi | grep -m1 'utun' | awk '{ print $1 }']], function(vpn)
-      local is_vpn_connected = not (vpn == "")
-
-      if is_vpn_connected then
-        wifi:set {
-          icon = {
-            string = icons.wifi.vpn,
-            color = colors.green,
-          },
-        }
+      if not is_connected then
+        ssid = "Not connected"
       end
-    end)
-  end)
+
+      wifi:set({
+        icon = {
+          string = is_connected and icons.wifi.connected or icons.wifi.disconnected,
+        },
+        label = {
+          string = is_connected and ssid or "",
+        },
+      })
+
+      Sbar.exec([[sleep 2; scutil --nwi | grep -m1 'utun' | awk '{ print $1 }']], function(vpn)
+        local is_vpn_connected = not (vpn == "")
+
+        if is_vpn_connected then
+          wifi:set({
+            icon = {
+              string = icons.wifi.vpn,
+              color = colors.active,
+            },
+          })
+        end
+      end)
+    end
+  )
 end)
 
 local function hide_details()
-  wifi:set { popup = { drawing = false } }
+  wifi:set({ popup = { drawing = false } })
 end
 
 local function toggle_details()
   local should_draw = wifi:query().popup.drawing == "off"
   if should_draw then
-    wifi:set { popup = { drawing = true } }
-    sbar.exec("ipconfig getifaddr en0", function(result)
-      ip:set { label = result }
+    wifi:set({ popup = { drawing = true } })
+    Sbar.exec("ipconfig getifaddr en0", function(result)
+      ip:set({ label = result })
     end)
-    sbar.exec("networksetup -getinfo Wi-Fi | awk -F 'Router: ' '/^Router: / {print $2}'", function(result)
-      router:set { label = result }
+    Sbar.exec("networksetup -getinfo Wi-Fi | awk -F 'Router: ' '/^Router: / {print $2}'", function(result)
+      router:set({ label = result })
     end)
   else
     hide_details()
@@ -102,7 +105,7 @@ local function toggle_details()
 end
 
 wifi:subscribe("mouse.clicked", function()
-  sbar.animate("tanh", 8, function()
+  Sbar.animate("tanh", 8, function()
     wifi:set({
       background = {
         shadow = {
@@ -111,7 +114,7 @@ wifi:subscribe("mouse.clicked", function()
       },
       y_offset = -4,
       padding_left = 4,
-      padding_right = 4,
+      padding_right = 0,
     })
     wifi:set({
       background = {
@@ -121,7 +124,7 @@ wifi:subscribe("mouse.clicked", function()
       },
       y_offset = 0,
       padding_left = 0,
-      padding_right = 8,
+      padding_right = 4,
     })
   end)
   toggle_details()
@@ -130,11 +133,11 @@ end)
 -- wifi:subscribe("mouse.exited.global", hide_details)
 
 local function copy_label_to_clipboard(env)
-  local label = sbar.query(env.NAME).label.value
-  sbar.exec('echo "' .. label .. '" | pbcopy')
-  sbar.set(env.NAME, { label = { string = icons.clipboard, align = "center" } })
-  sbar.delay(1, function()
-    sbar.set(env.NAME, { label = { string = label, align = "right" } })
+  local label = Sbar.query(env.NAME).label.value
+  Sbar.exec('echo "' .. label .. '" | pbcopy')
+  Sbar.set(env.NAME, { label = { string = icons.clipboard, align = "center" } })
+  Sbar.delay(1, function()
+    Sbar.set(env.NAME, { label = { string = label, align = "right" } })
   end)
 end
 

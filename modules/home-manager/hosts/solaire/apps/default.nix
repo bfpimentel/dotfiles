@@ -5,10 +5,10 @@
     ./aerospace
     ./ghostty
     ./nh
+    ./sketchybar
     ./tmux
     ./zellij
     # ./kanata
     # ./hammerspoon
-    # ./sketchybar
   ];
 }

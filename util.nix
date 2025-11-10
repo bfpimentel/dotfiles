@@ -5,8 +5,6 @@
 }:
 
 let
-  buildIconUrl = icon: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/${icon}.png";
-
   mkDockerLabels =
     {
       id,
@@ -18,8 +16,10 @@ let
       iconUrl ? null,
     }:
     let
+      buildIconUrl = icon: "https://cdn.jsdelivr.net/gh/selfhst/icons/png/${icon}.png";
+
       url = "${subdomain}.${domain}";
-      actualIcon = if icon != null then icon else id;
+      defaultIconUrl = if icon != null then buildIconUrl icon else buildIconUrl id;
       authLabel =
         if auth then
           {
@@ -36,7 +36,7 @@ let
       "traefik.http.services.${id}.loadbalancer.server.port" = toString port;
       # Glance
       "glance.id" = id;
-      "glance.icon" = if iconUrl != null then iconUrl else (buildIconUrl actualIcon);
+      "glance.icon" = if iconUrl != null then iconUrl else defaultIconUrl;
       "glance.name" = name;
       "glance.url" = "https://${url}";
     }

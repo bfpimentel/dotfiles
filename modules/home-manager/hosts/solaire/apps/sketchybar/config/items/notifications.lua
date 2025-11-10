@@ -1,4 +1,4 @@
-local notification = sbar.add("item", "notifications", {
+local notification = Sbar.add("item", "notifications", {
   width = 0,
   position = "center",
   popup = {
@@ -8,7 +8,7 @@ local notification = sbar.add("item", "notifications", {
   },
 })
 
-local notification_popup = sbar.add("item", {
+local notification_popup = Sbar.add("item", {
   position = "popup." .. notification.name,
   width = "dynamic",
   icon = { drawing = false },
@@ -16,7 +16,7 @@ local notification_popup = sbar.add("item", {
 })
 
 local function hide_notification()
-  sbar.animate("sin", 30, function()
+  Sbar.animate("sin", 30, function()
     notification:set({ popup = { y_offset = 2 } })
     notification:set({ popup = { y_offset = -80 } })
   end)
@@ -33,8 +33,10 @@ local function show_notification(content, hold)
   end)
 
   if hold == false then
-    sbar.delay(5, function()
-      if hold then return end
+    Sbar.delay(5, function()
+      if hold then
+        return
+      end
       hide_notification()
     end)
   end

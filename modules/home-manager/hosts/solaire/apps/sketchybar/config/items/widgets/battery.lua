@@ -1,18 +1,16 @@
-local icons = require "icons"
+local icons = require("icons")
 local colors = require("colors").sections.widgets.battery
 
-local battery = sbar.add("item", "widgets.battery", {
+local battery = Sbar.add("item", "widgets.battery", {
   position = "right",
   icon = {},
   label = { drawing = false },
   background = { drawing = false },
-  padding_left = 8,
-  padding_right = 4,
   update_freq = 180,
   popup = { align = "center", y_offset = 4 },
 })
 
-local remaining_time = sbar.add("item", {
+local remaining_time = Sbar.add("item", {
   position = "popup." .. battery.name,
   icon = {
     string = "Time remaining:",
@@ -28,16 +26,16 @@ local remaining_time = sbar.add("item", {
 })
 
 battery:subscribe({ "routine", "power_source_change", "system_woke" }, function()
-  sbar.exec("pmset -g batt", function(batt_info)
+  Sbar.exec("pmset -g batt", function(batt_info)
     local icon = "!"
 
-    local found, _, charge = batt_info:find "(%d+)%%"
+    local found, _, charge = batt_info:find("(%d+)%%")
     if found then
       charge = tonumber(charge)
     end
 
     local color = colors.high
-    local charging, _, _ = batt_info:find "AC Power"
+    local charging, _, _ = batt_info:find("AC Power")
 
     if charging then
       icon = icons.battery.charging
@@ -60,24 +58,24 @@ battery:subscribe({ "routine", "power_source_change", "system_woke" }, function(
       end
     end
 
-    battery:set {
+    battery:set({
       icon = {
         string = icon,
         color = color,
       },
-    }
+    })
   end)
 end)
 
 battery:subscribe("mouse.clicked", function()
   local drawing = battery:query().popup.drawing
-  battery:set { popup = { drawing = "toggle" } }
+  battery:set({ popup = { drawing = "toggle" } })
 
   if drawing == "off" then
-    sbar.exec("pmset -g batt", function(batt_info)
-      local found, _, remaining = batt_info:find " (%d+:%d+) remaining"
+    Sbar.exec("pmset -g batt", function(batt_info)
+      local found, _, remaining = batt_info:find(" (%d+:%d+) remaining")
       local label = found and remaining .. "h" or "No estimate"
-      remaining_time:set { label = label }
+      remaining_time:set({ label = label })
     end)
   end
 end)

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$FOCUSED_WORKSPACE
+
 set -e
 
 current_monitor=$(aerospace list-monitors --focused | awk '{print $1}')

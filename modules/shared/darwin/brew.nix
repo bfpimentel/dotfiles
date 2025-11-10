@@ -22,12 +22,10 @@
       "xz"
       "redis"
       "postgresql@17"
-      "kanata"
     ];
 
     taps = [
       "nikitabobko/tap"
-      "felixkratz/formulae"
       "krtirtho/apps"
     ];
 
@@ -51,7 +49,6 @@
           "pearcleaner"
           "ankerwork"
           "loom"
-          "karabiner-elements"
 
           "ghostty"
           "bruno"
@@ -65,10 +62,7 @@
           "anydesk"
 
           "font-victor-mono-nerd-font"
-          "font-space-mono-nerd-font"
-          "font-maple-mono-nf"
-          "font-sf-mono-nerd-font-ligaturized"
-          # "font-sketchybar-app-font"
+          "sf-symbols"
         ];
   };
 }

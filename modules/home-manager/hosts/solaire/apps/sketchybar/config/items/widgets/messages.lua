@@ -1,7 +1,7 @@
-local icons = require "icons"
+local icons = require("icons")
 local colors = require("colors").sections.widgets.messages
 
-local messages = sbar.add("item", "widgets.messages", {
+local messages = Sbar.add("item", "widgets.messages", {
   position = "right",
   icon = {
     color = colors.icon,
@@ -11,11 +11,10 @@ local messages = sbar.add("item", "widgets.messages", {
   label = { drawing = false },
   background = { drawing = false },
   update_freq = 30,
-  padding_left = -4,
 })
 
 messages:subscribe({ "routine", "front_app_changed", "space_change", "space_windows_change" }, function(env)
-  sbar.exec(
+  Sbar.exec(
     -- requires full disk access
     [[sqlite3 ~/Library/Messages/chat.db "SELECT COUNT(guid) FROM message WHERE NOT(is_read) AND NOT(is_from_me) AND text !=''"]],
     function(newmess)
@@ -26,16 +25,16 @@ messages:subscribe({ "routine", "front_app_changed", "space_change", "space_wind
         drawing = true
       end
 
-      messages:set {
+      messages:set({
         icon = {
           drawing = drawing,
         },
         padding_right = drawing and 4 or 0,
-      }
+      })
     end
   )
 end)
 
 messages:subscribe("mouse.clicked", function(env)
-  sbar.exec "open -a 'Messages'"
+  Sbar.exec("open -a 'Messages'")
 end)
