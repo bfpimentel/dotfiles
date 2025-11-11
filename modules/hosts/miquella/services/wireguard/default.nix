@@ -1,6 +1,7 @@
 {
   vars,
   config,
+  pkgs,
   ...
 }:
 
@@ -11,20 +12,41 @@
     enable = true;
     interfaces = {
       "${vars.wireguardInterface}" = {
-        ips = [ "10.22.10.4/24" ];
+        ips = [ "10.22.10.1/24" ];
         listenPort = 51820;
-        privateKeyFile = config.age.secrets.wireguard-miquella.path;
+        privateKeyFile = config.age.secrets.wireguard-malenia.path;
+        postSetup = ''
+          ${pkgs.iptables}/bin/iptables -A FORWARD -i ${vars.wireguardInterface} -j ACCEPT;
+          ${pkgs.iptables}/bin/iptables -A FORWARD -o ${vars.wireguardInterface} -j ACCEPT;
+          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -o ${vars.networkInterface} -j MASQUERADE;
+        '';
+        postShutdown = ''
+          ${pkgs.iptables}/bin/iptables -D FORWARD -i ${vars.wireguardInterface} -j ACCEPT;
+          ${pkgs.iptables}/bin/iptables -D FORWARD -o ${vars.wireguardInterface} -j ACCEPT;
+          ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -o ${vars.networkInterface} -j MASQUERADE;
+        '';
         peers = [
           {
-            name = "wg-lb";
-            publicKey = "IY3am4h3W9erXrMnbYkTMjY68lxHMZUUL0Cfd2ucSHA=";
-            endpoint = "vpn.jalotopimentel.com:51820";
-            persistentKeepalive = 25;
+            name = "miquella";
+            publicKey = "foEvCoTUel5bw8+M+8zl3Vgoq598BC6ff+xAHj0+knA=";
             allowedIPs = [
-              "10.22.10.4/32"
-              "10.22.4.0/24"
+              "10.22.10.2/32"
             ];
           }
+          {
+            name = "solaire";
+            publicKey = "xMWICTNi398NCBj8DS3085R4jbqXZBSECyq3pWmx+U4=";
+            allowedIPs = [
+              "10.22.10.3/32"
+            ];
+          }
+          # {
+          #   name = "brunoS24U";
+          #   publicKey = "YlprTAlepekMcelIeqV/JfDsQkAyo8TjpLLIvrvRrRE=";
+          #   allowedIPs = [
+          #     "10.22.10.4/32"
+          #   ];
+          # }
         ];
       };
     };

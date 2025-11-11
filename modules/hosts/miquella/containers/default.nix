@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./nginx
     ./beszel
   ];
 

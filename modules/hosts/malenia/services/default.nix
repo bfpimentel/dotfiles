@@ -26,7 +26,7 @@ in
       enableApollo = false;
     };
     wireguard = {
-      enable = false;
+      enable = true;
       isServer = false;
     };
   };
