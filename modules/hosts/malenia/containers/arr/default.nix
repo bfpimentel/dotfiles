@@ -14,6 +14,7 @@ let
       sonarr = "${vars.containersConfigRoot}/sonarr";
       prowlarr = "${vars.containersConfigRoot}/prowlarr";
       bazarr = "${vars.containersConfigRoot}/bazarr";
+      profilarr = "${vars.containersConfigRoot}/profilarr";
     };
     mounts = {
       downloads = "${vars.mediaMountLocation}/downloads";
@@ -173,6 +174,22 @@ in
           name = "Flaresolverr";
           subdomain = "flaresolverr";
           port = 8191;
+        };
+      };
+      profilarr = {
+        image = "santiagosayshey/profilarr:latest";
+        autoStart = true;
+        extraOptions = [ "--pull=always" ];
+        networks = [ "local" ];
+        volumes = [ "${volumes.profilarr}:/config" ];
+        environment = {
+          TZ = vars.timeZone;
+        };
+        labels = util.mkDockerLabels {
+          id = "profilarr";
+          name = "Profilarr";
+          subdomain = "profilarr";
+          port = 6868;
         };
       };
     };
