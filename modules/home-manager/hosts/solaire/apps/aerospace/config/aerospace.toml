@@ -17,7 +17,7 @@ default-root-container-orientation = 'horizontal'
 exec-on-workspace-change = [ 
   '/bin/bash',
   '-c', 
-  'FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE', 
+  # 'FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE', 
   '~/.config/aerospace/on-ws-change.sh'
 ]
 

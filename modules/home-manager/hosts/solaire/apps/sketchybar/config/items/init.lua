@@ -5,7 +5,7 @@ require("items.spaces")
 -- require("items.menus")
 
 --center
-require("items.notifications")
+-- require("items.notifications")
 
 --right (reverse order)
 require("items.calendar")

@@ -36,6 +36,7 @@ macos-titlebar-style = hidden
 keybind = cmd+r=reload_config
 
 # FONT
+keybind = cmd+t=unbind
 keybind = cmd+equal=increase_font_size:1
 keybind = cmd+minus=decrease_font_size:1
 keybind = cmd+shift+0=reset_font_size

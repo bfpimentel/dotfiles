@@ -11,7 +11,6 @@
     };
 
     masApps = {
-      "wireguard" = 1451685025;
       "quickdrop" = 6740147178;
     };
 
@@ -42,6 +41,7 @@
           "hiddenbar"
           "the-unarchiver"
           "aerospace"
+          "raycast"
 
           "brave-browser"
           "shottr"
@@ -49,6 +49,7 @@
           "pearcleaner"
           "ankerwork"
           "loom"
+          "tailscale-app"
 
           "ghostty"
           "bruno"
