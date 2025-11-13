@@ -59,7 +59,7 @@
       formatter = legacyPackages.nixpkgs-rfc-style;
 
       domain = "local.jalotopimentel.com";
-      externalDomain = "external.jalotopimentel.com";
+      externalDomain = "jalotopimentel.com";
 
       mkUtil =
         hostname:

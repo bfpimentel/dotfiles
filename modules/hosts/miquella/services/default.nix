@@ -3,7 +3,7 @@
 {
   imports = [
     ./headscale
-    ./wireguard
+    # ./wireguard
   ];
 
   security.acme = {

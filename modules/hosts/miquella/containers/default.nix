@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./beszel
+    # ./beszel
   ];
 
   virtualisation = {
