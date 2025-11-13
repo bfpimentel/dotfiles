@@ -1,6 +1,16 @@
 vars: {
   http = {
     routers = {
+      proxmox = {
+        entryPoints = [
+          "https"
+          "http"
+        ];
+        rule = "Host(`proxmox.${vars.domain}`)";
+        middlewares = [ "https-redirect" ];
+        tls.certResolver = "cloudflare";
+        service = "proxmox";
+      };
       ollama = {
         entryPoints = [
           "https"
@@ -8,9 +18,7 @@ vars: {
         ];
         rule = "Host(`ollama.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
-        tls = {
-          certResolver = "cloudflare";
-        };
+        tls.certResolver = "cloudflare";
         service = "ollama";
       };
       sunshine = {
@@ -20,9 +28,7 @@ vars: {
         ];
         rule = "Host(`streaming.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
-        tls = {
-          certResolver = "cloudflare";
-        };
+        tls.certResolver = "cloudflare";
         service = "sunshine";
       };
       glances = {
@@ -32,9 +38,7 @@ vars: {
         ];
         rule = "Host(`glances.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
-        tls = {
-          certResolver = "cloudflare";
-        };
+        tls.certResolver = "cloudflare";
         service = "glances";
       };
       unraid = {
@@ -44,13 +48,17 @@ vars: {
         ];
         rule = "Host(`storage.${vars.domain}`)";
         middlewares = [ "https-redirect" ];
-        tls = {
-          certResolver = "cloudflare";
-        };
+        tls.certResolver = "cloudflare";
         service = "unraid";
       };
     };
     services = {
+      proxmox = {
+        loadBalancer = {
+          servers = [ { url = "https://${vars.marikaIp}:8006"; } ];
+          passHostHeader = true;
+        };
+      };
       ollama = {
         loadBalancer = {
           servers = [ { url = "http://${vars.maleniaIp}:11434"; } ];

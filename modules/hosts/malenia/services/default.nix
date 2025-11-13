@@ -21,12 +21,9 @@ in
     gaming.enable = configureForGaming;
     ollama.enable = false;
     restic.enable = true;
-    streaming = {
-      enable = configureForGaming;
-      enableApollo = false;
-    };
+    streaming.enable = configureForGaming;
     wireguard = {
-      enable = true;
+      enable = false;
       isServer = false;
     };
   };

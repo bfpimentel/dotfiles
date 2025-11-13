@@ -1,29 +1,27 @@
 {
-  system,
   hostname,
-  username,
-  fullname,
-  email,
   domain,
   externalDomain,
 }:
 
 {
+  inherit hostname;
+
   # general
-  system = system;
-  hostname = hostname;
   timeZone = "America/Sao_Paulo";
+
   # user
-  defaultUser = username;
+  defaultUser = "bruno";
   defaultUserUID = 1000;
   defaultUserGID = 1000;
-  defaultUserFullName = fullname;
-  defaultUserEmail = email;
+  defaultUserFullName = "Bruno Pimentel";
+  defaultUserEmail = "hello@bruno.so";
 
   # networking
   wireguardInterface = "wg0";
 
   # hosts
+  marikaIp = "10.22.4.10";
   maleniaIp = "10.22.4.2";
   radagonIp = "10.22.4.3";
   godwynIp = "10.22.4.4";

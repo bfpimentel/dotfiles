@@ -30,9 +30,6 @@
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
-    apollo = {
-      url = "github:nil-andreas/apollo-flake";
-    };
     textfox = {
       url = "github:adriankarlen/textfox";
     };
@@ -48,25 +45,18 @@
       home-manager,
       agenix,
       impermanence,
-      apollo,
       ...
     }@inputs:
     let
       inherit (self) outputs;
 
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "x86_64-linux"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
+      legacyPackages = import nixpkgs {
+        config.allowUnfree = true;
+      };
 
-      legacyPackages = forAllSystems (
-        system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        }
-      );
+      overlays = import ./overlays { inherit inputs; };
+
+      formatter = legacyPackages.nixpkgs-rfc-style;
 
       domain = "local.jalotopimentel.com";
       externalDomain = "external.jalotopimentel.com";
@@ -80,24 +70,19 @@
         };
 
       createNixOS =
-        system: hostname: username: fullname: email:
+        hostname:
         (
           let
             commonVars = (
               import ./modules/shared/vars.nix {
                 inherit
-                  system
                   hostname
-                  username
-                  fullname
-                  email
                   domain
                   externalDomain
                   ;
               }
             );
-            systemSpecificVars = import ./modules/hosts/${commonVars.hostname}/vars.nix;
-            vars = commonVars // systemSpecificVars;
+            vars = commonVars // (import ./modules/hosts/${commonVars.hostname}/vars.nix);
 
             specialArgs = {
               inherit
@@ -114,35 +99,32 @@
               (import ./modules/home-manager {
                 inherit
                   inputs
-                  username
                   hostname
                   specialArgs
                   ;
+                username = vars.defaultUser;
               })
               home-manager.nixosModules.home-manager
               agenix.nixosModules.default
-              apollo.nixosModules.${system}.default
               impermanence.nixosModules.impermanence
             ];
           in
-          nixpkgs.lib.nixosSystem {
-            inherit system modules specialArgs;
+          {
+            name = hostname;
+            value = nixpkgs.lib.nixosSystem {
+              inherit modules specialArgs;
+            };
           }
         );
 
       createDarwin =
-        hostname: username: fullname: email:
+        hostname:
         (
           let
-            system = "aarch64-darwin";
             vars = (
               import ./modules/shared/vars.nix {
                 inherit
-                  system
                   hostname
-                  username
-                  fullname
-                  email
                   domain
                   externalDomain
                   ;
@@ -162,17 +144,17 @@
               (import ./modules/home-manager {
                 inherit
                   inputs
-                  username
                   hostname
                   specialArgs
                   ;
+                username = vars.defaultUser;
               })
               home-manager.darwinModules.home-manager
               nix-homebrew.darwinModules.nix-homebrew
               {
                 nix-homebrew = {
                   enable = true;
-                  user = username;
+                  user = vars.defaultUser;
                   enableRosetta = true;
                   autoMigrate = true;
                   # mutableTaps = false;
@@ -180,27 +162,25 @@
               }
             ];
           in
-          nix-darwin.lib.darwinSystem {
-            inherit specialArgs modules;
-
+          {
+            name = hostname;
+            value = nix-darwin.lib.darwinSystem {
+              inherit specialArgs modules;
+            };
           }
         );
     in
     {
-      inherit legacyPackages;
+      inherit legacyPackages overlays formatter;
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages."${system}".nixpkgs-rfc-style);
+      nixosConfigurations = builtins.listToAttrs [
+        (createNixOS "malenia")
+        (createNixOS "miquella")
+      ];
 
-      overlays = import ./overlays { inherit inputs; };
-
-      nixosConfigurations = {
-        malenia = createNixOS "x86_64-linux" "malenia" "bruno" "Bruno Pimentel" "hello@bruno.so";
-        miquella = createNixOS "aarch64-linux" "miquella" "bruno" "Bruno Pimentel" "hello@bruno.so";
-      };
-
-      darwinConfigurations = {
-        solaire = createDarwin "solaire" "bruno" "Bruno Pimentel" "hello@bruno.so";
-      };
+      darwinConfigurations = builtins.listToAttrs [
+        (createDarwin "solaire")
+      ];
 
       darwinPackages = self.darwinConfigurations.${outputs.networking.hostName}.pkgs;
     };

@@ -10,8 +10,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages."${system}".default
-    inputs.home-manager.packages."${system}".default
+    inputs.agenix.packages."${stdenv.hostPlatform.system}".default
+    inputs.home-manager.packages."${stdenv.hostPlatform.system}".default
 
     gcc14
 

@@ -9,8 +9,6 @@
 
   nix.package = pkgs.nix;
 
-  nixpkgs.hostPlatform = vars.system;
-
   networking = {
     hostName = vars.hostname;
     localHostName = vars.hostname;

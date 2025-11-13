@@ -1,6 +1,7 @@
 {
   config,
   vars,
+  pkgs,
   ...
 }:
 
@@ -11,7 +12,7 @@ in
   programs.ssh =
     let
       systemSpecificConfig =
-        if (vars.system == "aarch64-darwin") then
+        if (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") then
           {
             "github.com" = {
               hostname = "github.com";
