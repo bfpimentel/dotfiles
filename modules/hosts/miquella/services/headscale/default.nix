@@ -14,7 +14,7 @@
       ip_prefixes = [ "10.22.10.0/10" ];
       dns = {
         magic_dns = true;
-        nameservers.global = [ "9.9.9.9" ];
+        nameservers.global = [ "1.1.1.1" "8.8.8.8" ];
         base_domain = "tail.${vars.externalDomain}";
       };
     };
