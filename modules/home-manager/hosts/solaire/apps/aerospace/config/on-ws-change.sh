@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$FOCUSED_WORKSPACE
-
 set -e
 
 current_monitor=$(aerospace list-monitors --focused | awk '{print $1}')
@@ -13,3 +11,6 @@ echo "$win_list" | while IFS= read -r number; do
   aerospace move-node-to-workspace --window-id "$number" "$current_workspace" < /dev/null
   echo "continue"
 done
+
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$FOCUSED_WORKSPACE
+
