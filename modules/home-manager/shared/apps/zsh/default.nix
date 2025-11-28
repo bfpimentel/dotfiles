@@ -9,8 +9,11 @@
   programs.zsh = {
     enable = true;
     envExtra = ''
-      ZDOTDIR=$HOME/.config/zsh
       source ${pkgs.antidote}/share/antidote/antidote.zsh
+
+      ZDOTDIR=$HOME/.config/zsh
+
+      PATH=$PATH:${pkgs.aircrack-ng}/bin
     '';
   };
 

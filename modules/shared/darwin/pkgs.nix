@@ -9,6 +9,7 @@
     # tmux
     zellij
     immich-go
+    aircrack-ng
 
     android-tools
     cargo

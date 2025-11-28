@@ -65,11 +65,11 @@
       AppleFnUsageType = "Do Nothing";
     };
     NSGlobalDomain = {
+      _HIHideMenuBar = false;
       KeyRepeat = 1;
       InitialKeyRepeat = 10;
       AppleShowAllExtensions = true;
       ApplePressAndHoldEnabled = false;
-      _HIHideMenuBar = true;
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticInlinePredictionEnabled = false;
       NSAutomaticPeriodSubstitutionEnabled = false;
