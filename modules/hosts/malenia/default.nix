@@ -19,6 +19,7 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "fsck.mode=force" ];
+    kernelModules = [ "uinput" ];
     supportedFilesystems = [ "ntfs" ];
     loader = {
       systemd-boot.enable = true;

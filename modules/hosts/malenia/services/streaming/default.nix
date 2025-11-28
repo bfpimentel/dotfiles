@@ -18,8 +18,6 @@ in
     services.avahi.publish.userServices = true;
     services.udisks2.enable = mkForce false;
 
-    boot.kernelModules = [ "uinput" ];
-
     services.sunshine = {
       enable = true;
       autoStart = true;

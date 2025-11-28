@@ -1,7 +1,7 @@
 shell-integration = zsh
 shell-integration-features = cursor,title,sudo
 
-theme = catppuccin-mocha
+theme = "Everforest Dark Hard"
 font-family = "SpaceMono Nerd Font Mono"
 background-opacity = 1
 background-blur-radius = 0

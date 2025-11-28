@@ -28,5 +28,9 @@ in
         proton-ge-bin
       ];
     };
+
+    services.udev.extraRules = ''
+      KERNEL=="hidraw\*", ATTRS{idProduct}=="3109", ATTRS{idVendor}=="2dc8", MODE="0660", GROUP="input"
+    '';
   };
 }
