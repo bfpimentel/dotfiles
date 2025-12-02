@@ -40,6 +40,11 @@
         enable = true;
         setSocketVariable = true;
       };
+      autoPrune = {
+        enable = true;
+        dates = "daily";
+        flags = [ "--all" ];
+      };
     };
   };
 

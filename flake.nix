@@ -30,9 +30,6 @@
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
-    textfox = {
-      url = "github:adriankarlen/textfox";
-    };
   };
 
   outputs =

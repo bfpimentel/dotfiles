@@ -30,7 +30,6 @@ in
       imports = [
         ./shared
         ./hosts/${hostname}
-        inputs.textfox.homeManagerModules.default
       ];
     };
 }
