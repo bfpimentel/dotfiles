@@ -33,31 +33,20 @@ vim.opt.winborder = "solid"
 
 -- Clipboard
 vim.opt.clipboard = "unnamedplus"
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-  },
-  paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-  },
-}
 
-if vim.env.TMUX ~= nil then
-  local copy = { "tmux", "load-buffer", "-w", "-" }
-  local paste = { "bash", "-c", "tmux refresh-client -l && sleep 0.05 && tmux save-buffer -" }
+if vim.env.SSH_TTY and not vim.env.ZELLIJ then
+  local function paste() return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") } end
+
+  local osc52 = require("vim.ui.clipboard.osc52")
   vim.g.clipboard = {
-    name = "tmux",
+    name = "OSC 52",
     copy = {
-      ["+"] = copy,
-      ["*"] = copy,
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
     },
     paste = {
       ["+"] = paste,
       ["*"] = paste,
     },
-    cache_enabled = 0,
   }
 end

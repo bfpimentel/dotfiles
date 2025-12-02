@@ -27,17 +27,13 @@ on-focus-changed = [
 ]
 
 [gaps]
-outer.top =        [{ monitor."built-in.*" = 8 }, 40]
+# outer.top =        [{ monitor."built-in.*" = 8 }, 40] # for sketchybar
+outer.top =        8
 outer.bottom =     8
 outer.left =       4
 outer.right =      4
 inner.horizontal = 8
 inner.vertical =   8
-
-[workspace-to-monitor-force-assignment]
-Browser = [ 'secondary', 'main' ]
-Simulator = [ 'secondary', 'main' ]
-Music = [ 'secondary', 'main' ]
 
 [mode.main.binding]
 cmd-h = [] # Disable "hide application"
@@ -60,21 +56,26 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-alt-b = 'workspace Browser'
-alt-f = 'workspace Files'
-alt-m = 'workspace Music'
-alt-s = 'workspace Simulator'
-alt-t = 'workspace Terminal'
+alt-b = 'workspace B'
+alt-f = 'workspace F'
+alt-m = 'workspace M'
+alt-s = 'workspace S'
+alt-t = 'workspace T'
 alt-x = 'workspace X'
 
-alt-shift-b = 'move-node-to-workspace Browser'
-alt-shift-f = 'move-node-to-workspace Files'
-alt-shift-m = 'move-node-to-workspace Music'
-alt-shift-s = 'move-node-to-workspace Simulator'
-alt-shift-t = 'move-node-to-workspace Terminal'
+alt-shift-b = 'move-node-to-workspace B'
+alt-shift-f = 'move-node-to-workspace F'
+alt-shift-m = 'move-node-to-workspace M'
+alt-shift-s = 'move-node-to-workspace S'
+alt-shift-t = 'move-node-to-workspace T'
 alt-shift-x = 'move-node-to-workspace X'
 
 # alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
+
+[workspace-to-monitor-force-assignment]
+B = [ 'secondary', 'main' ]
+S = [ 'secondary', 'main' ]
+M = [ 'secondary', 'main' ]
 
 [mode.service.binding]
 esc = [
@@ -98,12 +99,12 @@ equal = 'resize smart +50'
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 check-further-callbacks = true
-run = ['layout floating', 'move-node-to-workspace Terminal']
+run = ['layout floating', 'move-node-to-workspace T']
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
 check-further-callbacks = true
-run = ['move-node-to-workspace Browser']
+run = ['move-node-to-workspace B']
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
@@ -114,7 +115,7 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
 check-further-callbacks = true
-run = ['move-node-to-workspace Browser']
+run = ['move-node-to-workspace B']
 
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
@@ -125,19 +126,19 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.google.android.studio'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace Coding'] 
+run = ['layout tiling', 'move-node-to-workspace X'] 
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 check-further-callbacks = true
-run = ['layout floating', 'move-node-to-workspace Files']
+run = ['layout floating', 'move-node-to-workspace F']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.iphonesimulator'
 check-further-callbacks = true
-run = ['layout floating', 'move-node-to-workspace Simulator']
+run = ['layout floating', 'move-node-to-workspace F']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Youtube Music'
 check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace Music']
+run = ['layout tiling', 'move-node-to-workspace M']

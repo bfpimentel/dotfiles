@@ -68,8 +68,14 @@ alias cnvim="nvim ~/.config/nvim"
 alias czsh="nvim ~/.config/zsh"
 
 if [[ "$OSTYPE" == darwin* ]]; then
-   alias rnix="nh darwin switch /private/etc/nixos -- --impure"
    eval "$(direnv hook zsh)"
+
+   alias rnix="nh darwin switch /private/etc/nixos -- --impure"
+
+   hnix() {
+     nixos-rebuild switch --flake /private/etc/nixos#malenia --target-host bruno@malenia
+     nixos-rebuild switch --flake /private/etc/nixos#miquella --target-host bruno@miquella
+   }
 
    adbw() {
      adb connect "$1":"$2"

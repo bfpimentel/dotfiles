@@ -48,15 +48,15 @@
           "kap"
           "pearcleaner"
           "ankerwork"
-          "loom"
           "tailscale-app"
+          # "loom"
 
           "ghostty"
           "bruno"
           "http-toolkit"
 
           "bambu-studio"
-          "autodesk-fusion"
+          # "autodesk-fusion"
 
           "moonlight"
           "crossover"
