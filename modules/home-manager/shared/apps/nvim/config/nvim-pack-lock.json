@@ -1,20 +1,20 @@
 {
   "plugins": {
     "blink.cmp": {
-      "rev": "327fff9",
+      "rev": "b19413d214068f316c78978b08264ed1c41830ec",
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
     "colorful-menu.nvim": {
-      "rev": "d5b97d2",
+      "rev": "b51a659459df8d078201aefc995db8175ed55e84",
       "src": "https://github.com/xzbdmw/colorful-menu.nvim"
     },
     "conform.nvim": {
-      "rev": "cde4da5",
+      "rev": "ffe26e8df8115c9665d24231f8a49fadb2d611ce",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "everforest": {
-      "rev": "bb42827",
+      "rev": "484dd560dccb2d2842685c441ad2b54a54ffef1b",
       "src": "https://github.com/sainnhe/everforest"
     },
     "forest-night": {
@@ -38,7 +38,7 @@
       "src": "https://github.com/rebelot/kanagawa.nvim"
     },
     "kanagawa-paper": {
-      "rev": "8423e16",
+      "rev": "075c35ea22ddb65399f80e81285558aea53542bb",
       "src": "https://github.com/thesimonho/kanagawa-paper.nvim"
     },
     "lazygit.nvim": {
@@ -46,15 +46,15 @@
       "src": "https://github.com/kdheepak/lazygit.nvim"
     },
     "markview.nvim": {
-      "rev": "5529dc4",
+      "rev": "0a5033326f703d99a8788e2d47753d6298195e8a",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mini.nvim": {
-      "rev": "42dbeaa",
+      "rev": "dca98843fab66d080779cd973e7139e258ff164c",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-eslint": {
-      "rev": "e052854",
+      "rev": "491deac6d89a5c51013fa71b63c3cc093db15dde",
       "src": "https://github.com/esmuellert/nvim-eslint"
     },
     "nvim-treesitter": {
@@ -67,11 +67,11 @@
       "src": "https://github.com/folke/sidekick.nvim"
     },
     "smart-splits.nvim": {
-      "rev": "1611946",
+      "rev": "076426b93a0654b6e1467258514dd9021a5e33e2",
       "src": "https://github.com/mrjones2014/smart-splits.nvim"
     },
     "tiny-inline-diagnostic.nvim": {
-      "rev": "63dd87d",
+      "rev": "38b06435305c30966b7ceb0a43e460dc43acaada",
       "src": "https://github.com/rachartier/tiny-inline-diagnostic.nvim"
     },
     "vim-sleuth": {

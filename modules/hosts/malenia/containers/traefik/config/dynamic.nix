@@ -11,16 +11,6 @@ vars: {
         tls.certResolver = "cloudflare";
         service = "proxmox";
       };
-      ollama = {
-        entryPoints = [
-          "https"
-          "http"
-        ];
-        rule = "Host(`ollama.${vars.domain}`)";
-        middlewares = [ "https-redirect" ];
-        tls.certResolver = "cloudflare";
-        service = "ollama";
-      };
       sunshine = {
         entryPoints = [
           "https"
@@ -56,12 +46,6 @@ vars: {
       proxmox = {
         loadBalancer = {
           servers = [ { url = "https://${vars.marikaIp}:8006"; } ];
-          passHostHeader = true;
-        };
-      };
-      ollama = {
-        loadBalancer = {
-          servers = [ { url = "http://${vars.maleniaIp}:11434"; } ];
           passHostHeader = true;
         };
       };

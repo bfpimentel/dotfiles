@@ -7,7 +7,6 @@ in
   imports = [
     ./displaymanager
     ./gaming
-    ./ollama
     ./restic
     ./streaming
     ./wireguard
@@ -19,7 +18,6 @@ in
       enableHyprland = false;
     };
     gaming.enable = configureForGaming;
-    ollama.enable = false;
     restic.enable = true;
     streaming.enable = configureForGaming;
     wireguard = {

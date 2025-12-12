@@ -19,7 +19,7 @@
     ./it-tools
     ./jellyfin
     ./jellyseerr
-    ./ollama-webui
+    ./ollama
     ./orcaslicer
     ./papra
     ./pocket-id
@@ -55,7 +55,6 @@
 
   bfmp.containers =
     let
-      enableAIStack = false;
       enableGlanceDashboard = true;
     in
     {
@@ -76,7 +75,7 @@
       it-tools.enable = true;
       jellyfin.enable = true;
       jellyseerr.enable = true;
-      ollama-webui.enable = enableAIStack;
+      ollama.enable = true;
       orcaslicer.enable = true;
       papra.enable = true;
       pocket-id.enable = true;
