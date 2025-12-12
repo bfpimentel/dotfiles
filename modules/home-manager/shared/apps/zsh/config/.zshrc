@@ -70,11 +70,11 @@ alias czsh="nvim ~/.config/zsh"
 if [[ "$OSTYPE" == darwin* ]]; then
    eval "$(direnv hook zsh)"
 
-   alias rnix="nh darwin switch /private/etc/nixos -- --impure"
+   alias rnix="nh darwin switch --impure /private/etc/nixos"
 
    hnix() {
-     nixos-rebuild switch --flake /private/etc/nixos#malenia --target-host bruno@malenia
-     nixos-rebuild switch --flake /private/etc/nixos#miquella --target-host bruno@miquella
+     nix run "github:NixOS/nixpkgs#nixos-rebuild" -- switch --fast --use-remote-sudo --target-host bruno@malenia --flake /etc/nixos#malenia
+     nix run "github:NixOS/nixpkgs#nixos-rebuild" -- switch --fast --use-remote-sudo --target-host bruno@miquella --flake /etc/nixos#miquella
    }
 
    adbw() {
@@ -89,6 +89,10 @@ fi
 
 source <(fzf --zsh)
 
-if command -v zellij &> /dev/null && [ -z "$ZELLIJ" ]; then
-  zellij attach --force-run-commands default
+# if command -v zellij &> /dev/null && [ -z "$ZELLIJ" ]; then
+#   zellij attach --force-run-commands default
+# fi
+
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t default
 fi

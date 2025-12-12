@@ -124,6 +124,17 @@ if.window-title-regex-substring = 'Picture-in-Picture'
 run = ['layout floating']
 
 [[on-window-detected]]
+if.app-id = 'net.imput.helium'
+check-further-callbacks = true
+run = ['move-node-to-workspace B']
+
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+check-further-callbacks = true
+if.window-title-regex-substring = 'Picture-in-Picture'
+run = ['layout floating']
+
+[[on-window-detected]]
 if.app-id = 'com.google.android.studio'
 check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace X'] 

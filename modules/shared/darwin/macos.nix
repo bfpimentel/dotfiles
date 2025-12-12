@@ -44,7 +44,8 @@
       wvous-tr-corner = 1;
       mru-spaces = false;
       persistent-apps = [
-        "/Applications/Brave Browser.app"
+        "/Applications/Helium.app"
+        # "/Applications/Brave Browser.app"
         "/Applications/Ghostty.app"
       ];
     };

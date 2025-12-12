@@ -6,10 +6,11 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # tmux
+    nixos-rebuild-ng
+
+    tmux
     zellij
     immich-go
-    aircrack-ng
 
     android-tools
     cargo

@@ -1,13 +1,9 @@
-{ vars, pkgs, ... }:
+{ vars, ... }:
 
 {
   imports = [
     ./services
   ];
-
-  nix.enable = false;
-
-  nix.package = pkgs.nix;
 
   networking = {
     hostName = vars.hostname;

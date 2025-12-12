@@ -19,7 +19,7 @@ layout {
                 mode_search  "#[fg=#1E2326,bg=#E67E80,bold] SEARCH#[fg=#E67E80,bg=#1E2326]█"
 
                 tab_normal   "#[fg=#9DA9A0] {name} "
-                tab_active   "#[fg=#D3C6AA,bg=#1E2326] {name}#[fg=#1E2326,bg=#D3C6AA]█"
+                tab_active   "#[fg=#D3C6AA,bg=#1E2326] {[index]} {name}#[fg=#1E2326,bg=#D3C6AA]█"
             }
         }
         children

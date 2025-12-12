@@ -27,9 +27,9 @@ in
         kdePackages.dolphin
       ];
 
-      fonts.packages = with pkgs; [
-        nerd-fonts.space-mono
-      ];
+      # fonts.packages = with pkgs; [
+      #   nerd-fonts.space-mono
+      # ];
 
       security.rtkit.enable = true;
 

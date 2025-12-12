@@ -1,7 +1,6 @@
 local P = require("utils.pack")
 
 P.add({
-  { src = "https://github.com/tpope/vim-sleuth" },
   {
     src = "https://github.com/andrewferrier/wrapping.nvim",
     data = {
@@ -84,18 +83,6 @@ P.add({
           { mode = "n", "<C-k>", SmartSplits.move_cursor_up, { desc = "Move Cursor to Top Window" } },
           { mode = "n", "<C-l>", SmartSplits.move_cursor_right, { desc = "Move Cursor to Right Window" } },
         }
-      end,
-    },
-  },
-  {
-    src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
-    data = {
-      init = function(_)
-        require("tiny-inline-diagnostic").setup({
-          preset = "classic",
-          multilines = { enabled = true },
-          add_messages = { display_count = true },
-        })
       end,
     },
   },

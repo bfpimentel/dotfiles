@@ -50,7 +50,7 @@
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mini.nvim": {
-      "rev": "dca98843fab66d080779cd973e7139e258ff164c",
+      "rev": "c889667a9d73b106bd303a043eb37a91da4a41a2",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-eslint": {
@@ -58,9 +58,9 @@
       "src": "https://github.com/esmuellert/nvim-eslint"
     },
     "nvim-treesitter": {
-      "rev": "42fc28ba",
+      "rev": "2979e048b356cfd32dc419d5803dc356b9832adf",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
-      "version": "'master'"
+      "version": "'main'"
     },
     "sidekick.nvim": {
       "rev": "c2bdf8c",

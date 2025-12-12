@@ -14,19 +14,20 @@ end
 local function setup_mini_pick()
   local MiniPick = require("mini.pick")
 
-  local win_config = function()
-    local height = math.floor(0.618 * vim.o.lines)
-    local width = math.floor(0.618 * vim.o.columns)
-    return {
-      anchor = "NW",
-      height = height,
-      width = width,
-      row = math.floor(0.5 * (vim.o.lines - height)),
-      col = math.floor(0.5 * (vim.o.columns - width)),
-    }
-  end
+  local pick_height = math.floor(0.618 * vim.o.lines)
+  local pick_width = math.floor(0.618 * vim.o.columns)
 
-  MiniPick.setup({ window = { config = win_config } })
+  local win_config = {
+    config = {
+      anchor = "NW",
+      height = pick_height,
+      width = pick_width,
+      row = math.floor(0.5 * (vim.o.lines - pick_height)),
+      col = math.floor(0.5 * (vim.o.columns - pick_width)),
+    },
+  }
+
+  MiniPick.setup({ window = win_config })
   vim.ui.select = MiniPick.ui_select
 end
 
@@ -85,6 +86,11 @@ local function setup_mini_completion()
   })
 
   require("mini.icons").tweak_lsp_kind()
+end
+
+local function setup_mini_cmdline()
+  local MiniCmdline = require("mini.cmdline")
+  MiniCmdline.setup()
 end
 
 local function setup_mini_hipatterns()
@@ -236,6 +242,7 @@ P.add({
         setup_mini_indentscope()
         setup_mini_jump2d()
         setup_mini_completion()
+        setup_mini_cmdline()
         setup_mini_hipatterns()
         setup_mini_clue()
         setup_mini_statusline()
@@ -258,6 +265,16 @@ P.add({
           return not is_folder and not is_current_buffer
         end
 
+        local diagnostics_win_config = {
+          config = {
+            anchor = "NW",
+            height = 20,
+            width = vim.o.columns,
+            row = vim.o.lines - 20,
+            col = 0,
+          },
+        }
+
         return {
           -- stylua: ignore start
           { "<Leader>,",  function() MiniPick.builtin.buffers() end, opts = { desc = "Buffers" } },
@@ -271,12 +288,11 @@ P.add({
           { "<Leader>fc", function() MiniPick.builtin.files({ source = { cwd = vim.fn.stdpath("config") } }) end, opts = { desc = "Config Files" } },
           { "<Leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },
           -- Search
-          { "<Leader>sh", function() MiniPick.builtin.help() end, opts = { desc = "Help Pages" } },
           { '<Leader>s"', function() MiniExtra.pickers.registers() end, opts = { desc = "Registers" } },
-          { "<Leader>sb", function() MiniExtra.pickers.buf_lines() end, opts = { desc = "Buffer Lines" } },
           { "<Leader>sc", function() MiniExtra.pickers.commands() end, opts = { desc = "Commands" } },
-          { "<Leader>sd", function() MiniExtra.pickers.diagnostic() end, opts = { desc = "Diagnostics" } },
-          { "<Leader>sD", function() MiniExtra.pickers.diagnostic({ scope = "current" }) end, opts = { desc = "Buffer Diagnostics" } },
+          { "<Leader>sd", function() MiniExtra.pickers.diagnostic({}, { window = diagnostics_win_config }) end, opts = { desc = "Diagnostics" } },
+          -- { "<Leader>sd", function() MiniExtra.pickers.list({ scope = "quickfix" }) end, opts = { desc = "Diagnostics" } },
+          { "<Leader>sh", function() MiniPick.builtin.help() end, opts = { desc = "Help Pages" } },
           { "<Leader>sH", function() MiniExtra.pickers.hl_groups() end, opts = { desc = "Highlight Groups" } },
           { "<Leader>sk", function() MiniExtra.pickers.keymaps() end, opts = { desc = "Keymaps" } },
           { "<Leader>sm", function() MiniExtra.pickers.marks() end, opts = { desc = "Marks" } },

@@ -10,7 +10,12 @@ P.add({
         ---@class sidekick.Config
         local config = {
           nes = { enabled = false },
-          cli = { mux = { enabled = true, backend = "zellij" } },
+          cli = {
+            mux = {
+              enabled = true,
+              backend = "tmux",
+            },
+          },
         }
 
         require("sidekick").setup(config)
@@ -39,21 +44,9 @@ P.add({
           },
           {
             "<C-.>",
-            function() SidekickCLI.focus() end,
+            function() SidekickCLI.focus({ name = "copilot" }) end,
             mode = { "n", "x", "i", "t" },
-            { desc = "Sidekick Switch Focus" },
-          },
-          {
-            "<Leader>aa",
-            function() SidekickCLI.toggle({ focus = true, name = "copilot" }) end,
-            mode = { "n", "v" },
             { desc = "Sidekick Toggle CLI" },
-          },
-          {
-            "<Leader>ap",
-            function() SidekickCLI.prompt() end,
-            mode = { "n", "v" },
-            { desc = "Sidekick Ask Prompt" },
           },
         }
       end,

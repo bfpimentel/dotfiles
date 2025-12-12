@@ -13,4 +13,15 @@ vim.lsp.enable({
 
 vim.lsp.inline_completion.enable()
 
-vim.diagnostic.config({ virtual_text = false })
+local diagnostic_opts = {
+  signs = { priority = 9999, severity = { min = "WARN", max = "ERROR" } },
+  underline = { severity = { min = "HINT", max = "ERROR" } },
+  virtual_lines = false,
+  virtual_text = {
+    current_line = true,
+    severity = { min = "ERROR", max = "ERROR" },
+  },
+  update_in_insert = false,
+}
+
+vim.diagnostic.config(diagnostic_opts)

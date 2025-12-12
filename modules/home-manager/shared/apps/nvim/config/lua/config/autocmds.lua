@@ -1,11 +1,20 @@
+local group = vim.api.nvim_create_augroup("bfmp", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Don't auto-wrap comments and don't insert comment leader after hitting 'o'",
+  group = group,
+  callback = function() vim.cmd("setlocal formatoptions-=c formatoptions-=o") end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("bfmp-highlight-yank", { clear = true }),
+  group = group,
   callback = function() vim.highlight.on_yank() end,
 })
 
--- Go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "Go to last location when opening a buffer",
+  group = group,
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -13,14 +22,15 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Attach Treesitter
 vim.api.nvim_create_autocmd("FileType", {
+  desc = "Start Treesitter when opening a buffer",
+  group = group,
   callback = function() pcall(vim.treesitter.start) end,
 })
 
--- Attach LSP
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+  desc = "LSP keymaps",
+  group = group,
   callback = function(event)
     local map = function(keys, func, desc)
       vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })

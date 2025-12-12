@@ -44,6 +44,7 @@
           "raycast"
 
           "brave-browser"
+          "helium-browser"
           "shottr"
           "kap"
           "pearcleaner"
