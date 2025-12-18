@@ -23,9 +23,16 @@ in
               hostname = vars.maleniaIp;
               user = "bruno";
               identityFile = "${home}/.ssh/id_personal";
+              forwardAgent = true;
             };
             "miquella" = {
               hostname = vars.miquellaIp;
+              user = "bruno";
+              identityFile = "${home}/.ssh/id_personal";
+              forwardAgent = true;
+            };
+            "radagon" = {
+              hostname = vars.radagonIp;
               user = "bruno";
               identityFile = "${home}/.ssh/id_personal";
             };
@@ -46,7 +53,6 @@ in
           user = "bfpimentel";
           identityFile = "${home}/.ssh/id_personal";
         };
-
       }
       // systemSpecificConfig;
     };

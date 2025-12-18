@@ -12,4 +12,9 @@
   ];
 
   nix.settings.download-buffer-size = 524288000;
+
+  security.pam = {
+    sshAgentAuth.enable = true;
+    services.sudo.sshAgentAuth = true;
+  };
 }

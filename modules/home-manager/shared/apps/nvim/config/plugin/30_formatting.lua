@@ -1,8 +1,7 @@
-local P = require("utils.pack")
-
-P.add({
+_B.add({
   {
     src = "https://github.com/stevearc/conform.nvim",
+    confirm = false,
     data = {
       lazy = { keys = { "<Leader>ff" } },
       init = function(_)

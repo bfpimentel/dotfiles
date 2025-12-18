@@ -16,7 +16,7 @@
     package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
     extraPackages = with pkgs; [
       tree-sitter
-      
+
       lua-language-server
       stylua
 

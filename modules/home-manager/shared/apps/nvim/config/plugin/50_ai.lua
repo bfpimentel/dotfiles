@@ -1,10 +1,9 @@
-local P = require("utils.pack")
-
 local notify_for_debug = false
 
-P.add({
+_B.add({
   {
     src = "https://github.com/folke/sidekick.nvim",
+    confirm = false,
     data = {
       init = function(_)
         ---@class sidekick.Config

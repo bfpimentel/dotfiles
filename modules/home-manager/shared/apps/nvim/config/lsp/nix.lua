@@ -7,4 +7,11 @@ return {
     ".git",
   },
   single_file_support = true,
+  settings = {
+    ["nil"] = {
+      flake = {
+        autoEvalInputs = true,
+      },
+    },
+  },
 }

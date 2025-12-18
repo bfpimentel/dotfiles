@@ -1,5 +1,3 @@
-local P = require("utils.pack")
-
 local function setup_mini_icons()
   local MiniIcons = require("mini.icons")
   MiniIcons.setup()
@@ -224,10 +222,11 @@ local function setup_mini_statusline()
   })
 end
 
-P.add({
+_B.add({
   {
     src = "https://github.com/nvim-mini/mini.nvim",
     version = nil,
+    confirm = false,
     data = {
       init = function(_)
         require("mini.ai").setup()
@@ -261,8 +260,9 @@ P.add({
 
         local function filter_visits(path_data)
           local is_folder = vim.fn.isdirectory(path_data.path) == 1
-          local is_current_buffer = path_data.path == vim.api.nvim_buf_get_name(0)
-          return not is_folder and not is_current_buffer
+          -- local is_current_buffer = vim.fn.fnamemodify(path_data.path, ":p") == vim.api.nvim_buf_get_name(0)
+          local is_scratch = path_data.path:match("/scratch") ~= nil
+          return not is_folder and not is_scratch
         end
 
         local diagnostics_win_config = {

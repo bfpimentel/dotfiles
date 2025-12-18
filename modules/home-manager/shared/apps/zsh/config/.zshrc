@@ -94,5 +94,5 @@ source <(fzf --zsh)
 # fi
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux attach-session -t default
+  tmux
 fi

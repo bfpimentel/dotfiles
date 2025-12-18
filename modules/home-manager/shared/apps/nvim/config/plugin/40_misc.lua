@@ -1,53 +1,7 @@
-local P = require("utils.pack")
-
-P.add({
-  {
-    src = "https://github.com/andrewferrier/wrapping.nvim",
-    data = {
-      lazy = {
-        ft = {
-          "asciidoc",
-          "gitcommit",
-          "latex",
-          "mail",
-          "markdown",
-          "rst",
-          "tex",
-          "text",
-        },
-      },
-      init = function(_)
-        require("wrapping").setup({
-          auto_set_mode_filetype_allowlist = {
-            "asciidoc",
-            "gitcommit",
-            "latex",
-            "mail",
-            "markdown",
-            "rst",
-            "tex",
-            "text",
-          },
-        })
-      end,
-    },
-  },
-  -- {
-  --   src = "https://github.com/OXY2DEV/markview.nvim",
-  --   data = {
-  --     lazy = { ft = { "markdown" } },
-  --     init = function(_)
-  --       require("markview").setup({
-  --         preview = {
-  --           filetypes = { "markdown" },
-  --           ignore_buftypes = {},
-  --         },
-  --       })
-  --     end,
-  --   },
-  -- },
+_B.add({
   {
     src = "https://github.com/smjonas/inc-rename.nvim",
+    confirm = false,
     data = {
       init = function(_) require("inc_rename").setup({}) end,
       keys = function()
@@ -59,6 +13,7 @@ P.add({
   },
   {
     src = "https://github.com/kdheepak/lazygit.nvim",
+    confirm = false,
     data = {
       init = function(_) end,
       lazy = {
@@ -73,6 +28,7 @@ P.add({
   },
   {
     src = "https://github.com/mrjones2014/smart-splits.nvim",
+    confirm = false,
     data = {
       init = function(_) require("smart-splits").setup() end,
       keys = function()

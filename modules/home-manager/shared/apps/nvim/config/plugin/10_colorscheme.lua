@@ -1,12 +1,12 @@
-local P = require("utils.pack")
-
-P.add({
+_B.add({
   {
     src = "https://github.com/adibhanna/forest-night.nvim",
+    confirm = false,
     name = "forest-night",
   },
   {
     src = "https://github.com/projekt0n/github-nvim-theme",
+    confirm = false,
     name = "github",
     data = {
       init = function(_)
@@ -20,6 +20,7 @@ P.add({
   },
   {
     src = "https://github.com/sainnhe/everforest",
+    confirm = false,
     name = "everforest",
     data = {
       init = function(_)
@@ -32,6 +33,7 @@ P.add({
   },
   {
     src = "https://github.com/rebelot/kanagawa.nvim",
+    confirm = false,
     name = "kanagawa",
     data = {
       init = function(_)
@@ -48,6 +50,7 @@ P.add({
   },
   {
     src = "https://github.com/thesimonho/kanagawa-paper.nvim",
+    confirm = false,
     name = "kanagawa-paper",
     data = {
       init = function(_)

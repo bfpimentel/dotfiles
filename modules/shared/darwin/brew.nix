@@ -55,6 +55,7 @@
           "ghostty"
           "bruno"
           "http-toolkit"
+          "macfuse"
 
           "bambu-studio"
           # "autodesk-fusion"
@@ -64,6 +65,7 @@
           "anydesk"
 
           "font-victor-mono-nerd-font"
+          "font-commit-mono-nerd-font"
           "sf-symbols"
         ];
   };
