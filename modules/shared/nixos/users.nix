@@ -22,16 +22,17 @@
       isNormalUser = true;
       # shell = pkgs.zsh;
       extraGroups = [
+        "wheel"
         "networkmanager"
         "podman"
         "docker"
-        "wheel"
         "postgres"
         "grafana"
         "render"
         "video"
         "audio"
         "input"
+        "nvidia"
       ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHfTMOZqQ5tMiLG7GmhkhZrwgzpD2cPuQAuqAnG24qHw hello@bruno.so"

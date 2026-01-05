@@ -15,7 +15,7 @@ in
   bfmp.services = {
     displayManager = {
       enable = configureForGaming;
-      enableHyprland = false;
+      de = "plasma";
     };
     gaming.enable = configureForGaming;
     restic.enable = true;

@@ -13,10 +13,14 @@ in
 {
   options.bfmp.services.displayManager = {
     enable = mkEnableOption "Enable DisplayManager";
-    enableHyprland = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable Hyprland. If set to false, will enable Plasma6 instead.";
+    de = mkOption {
+      type = types.enum [
+        "plasma"
+        "hyprland"
+        "cosmic"
+      ];
+      default = "plasma";
+      description = "Desktop Environment";
     };
   };
 
@@ -40,20 +44,8 @@ in
         pulse.enable = true;
         wireplumber.enable = true;
       };
-
-      services.displayManager = {
-        sddm = {
-          enable = true;
-          wayland.enable = true;
-        };
-        autoLogin = {
-          enable = true;
-          user = vars.defaultUser;
-        };
-      };
-
     })
-    (mkIf (cfg.enable && cfg.enableHyprland) {
+    (mkIf (cfg.enable && cfg.de == "hyprland") {
       environment.systemPackages = with pkgs; [
         rose-pine-hyprcursor
         rose-pine-cursor
@@ -64,17 +56,57 @@ in
         withUWSM = true;
         xwayland.enable = true;
       };
-    })
-    (mkIf (cfg.enable && !cfg.enableHyprland) {
-      services = {
-        desktopManager.plasma6.enable = true;
-        displayManager.defaultSession = "plasma";
-      };
 
+      services = {
+        displayManager = {
+          sddm = {
+            enable = true;
+            wayland.enable = true;
+          };
+          autoLogin = {
+            enable = true;
+            user = vars.defaultUser;
+          };
+        };
+      };
+    })
+    (mkIf (cfg.enable && cfg.de == "plasma") {
       environment.plasma6.excludePackages = with pkgs.kdePackages; [
         plasma-browser-integration
         elisa
       ];
+
+      services = {
+        desktopManager.plasma6.enable = true;
+        displayManager = {
+          defaultSession = "plasma";
+          sddm = {
+            enable = true;
+            wayland.enable = true;
+          };
+          autoLogin = {
+            enable = true;
+            user = vars.defaultUser;
+          };
+        };
+      };
+    })
+    (mkIf (cfg.enable && cfg.de == "cosmic") {
+      environment.plasma6.excludePackages = with pkgs.kdePackages; [
+        plasma-browser-integration
+        elisa
+      ];
+
+      services = {
+        desktopManager.cosmic.enable = true;
+        displayManager = {
+          cosmic-greeter.enable = true;
+          autoLogin = {
+            enable = true;
+            user = vars.defaultUser;
+          };
+        };
+      };
     })
   ];
 }
