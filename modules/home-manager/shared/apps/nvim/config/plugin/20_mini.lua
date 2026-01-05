@@ -143,12 +143,14 @@ local function setup_mini_clue()
     },
     triggers = {
       -- Leader triggers
-      { mode = "n", keys = "<leader>" },
-      { mode = "x", keys = "<leader>" },
+      { mode = "n", keys = "<Leader>" },
+      { mode = "x", keys = "<Leader>" },
 
-      -- `g` key
-      { mode = "n", keys = "g" },
-      { mode = "x", keys = "g" },
+      -- Key triggers
+      { mode = "n", keys = "<Leader>g" },
+      { mode = "x", keys = "<Leader>g" },
+      { mode = "n", keys = "<Leader>s" },
+      { mode = "x", keys = "<Leader>s" },
 
       -- Window commands
       { mode = "n", keys = "<C-w>" },
@@ -232,7 +234,7 @@ _B.add({
         require("mini.ai").setup()
         require("mini.surround").setup()
         require("mini.visits").setup()
-        require("mini.diff").setup()
+        -- require("mini.diff").setup()
 
         setup_mini_icons()
         setup_mini_notify()
@@ -251,7 +253,7 @@ _B.add({
         local MiniExtra = require("mini.extra")
         local MiniNotify = require("mini.notify")
         local MiniFiles = require("mini.files")
-        local MiniDiff = require("mini.diff")
+        -- local MiniDiff = require("mini.diff")
 
         local function toggle_files()
           local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
@@ -305,7 +307,7 @@ _B.add({
           { "<Leader>gy", function() MiniExtra.pickers.lsp({ scope = "type_definition" }) end, opts = { desc = "Type Definition" } },
           { "<Leader>gs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, opts = { desc = "Symbols" } },
           { "<Leader>gS", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, opts = { desc = "Workspace Symbols" } },
-          { "<Leader>gh", function() MiniDiff.toggle_overlay(0) end, opts = { desc = "Show Diff" } },
+          -- { "<Leader>gh", function() MiniDiff.toggle_overlay(0) end, opts = { desc = "Show Diff" } },
           -- Explorer
           { "<Leader>e",  function() toggle_files() end, opts = { desc = "File Explorer" } },
           -- stylua: ignore end

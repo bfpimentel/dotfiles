@@ -14,18 +14,23 @@
       "quickdrop" = 6740147178;
     };
 
+    taps = [
+      "nikitabobko/tap"
+      "krtirtho/apps"
+      "tonisives/tap"
+      "asmvik/formulae"
+    ];
+
     brews = [
+      "yabai"
+      "skhd"
+
       "lua"
       "ripgrep"
       "libpcap"
       "xz"
       "redis"
       "postgresql@17"
-    ];
-
-    taps = [
-      "nikitabobko/tap"
-      "krtirtho/apps"
     ];
 
     casks =
@@ -40,10 +45,12 @@
           "linearmouse"
           "hiddenbar"
           "the-unarchiver"
-          "aerospace"
           "raycast"
+          "ovim"
 
-          "brave-browser"
+          # "aerospace"
+          "ubersicht"
+
           "helium-browser"
           "shottr"
           "kap"

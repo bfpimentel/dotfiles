@@ -45,7 +45,6 @@
       mru-spaces = false;
       persistent-apps = [
         "/Applications/Helium.app"
-        # "/Applications/Brave Browser.app"
         "/Applications/Ghostty.app"
       ];
     };
@@ -66,7 +65,7 @@
       AppleFnUsageType = "Do Nothing";
     };
     NSGlobalDomain = {
-      _HIHideMenuBar = false;
+      _HIHideMenuBar = true;
       KeyRepeat = 1;
       InitialKeyRepeat = 10;
       AppleShowAllExtensions = true;
@@ -76,6 +75,7 @@
       NSAutomaticPeriodSubstitutionEnabled = false;
       NSAutomaticQuoteSubstitutionEnabled = false;
       NSAutomaticSpellingCorrectionEnabled = false;
+      NSWindowShouldDragOnGesture = true;
       "com.apple.mouse.tapBehavior" = 1;
       "com.apple.sound.beep.volume" = 0.0;
       "com.apple.sound.beep.feedback" = 0;

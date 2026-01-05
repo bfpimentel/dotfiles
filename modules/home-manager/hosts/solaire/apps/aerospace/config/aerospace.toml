@@ -9,29 +9,33 @@ key-mapping.preset = 'qwerty'
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
-accordion-padding = 6
+accordion-padding = 8
 
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
 
+# on-focus-changed = [
+#   'exec-and-forget sketchybar --trigger front_app_switched',
+#   # 'exec-and-forget sketchybar --trigger send_message MESSAGE="Focus has changed"'
+# ]
+
+on-focus-changed = [
+  "exec-and-forget osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-index-jsx\"'",
+]
+
+
 exec-on-workspace-change = [ 
-  '/bin/bash',
+  '/bin/zsh',
   '-c', 
-  # 'FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE', 
   '~/.config/aerospace/on-ws-change.sh'
 ]
 
-on-focus-changed = [
-  'exec-and-forget sketchybar --trigger front_app_switched',
-  # 'exec-and-forget sketchybar --trigger send_message MESSAGE="Focus has changed"'
-]
-
 [gaps]
-# outer.top =        [{ monitor."built-in.*" = 8 }, 40] # for sketchybar
-outer.top =        8
+outer.top =        [{ monitor."built-in.*" = 8 }, 48] # for custom bar
+# outer.top =        8
 outer.bottom =     8
-outer.left =       4
-outer.right =      4
+outer.left =       8
+outer.right =      8
 inner.horizontal = 8
 inner.vertical =   8
 

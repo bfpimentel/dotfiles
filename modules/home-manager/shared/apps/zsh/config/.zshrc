@@ -30,6 +30,7 @@ path=(
 # Darwin specific paths
 if [[ "$OSTYPE" == darwin* ]]; then
     path+=(
+        /opt/homebrew/bin
         /opt/homebrew/opt/ruby/bin
         /opt/homebrew/opt/postgresql@17/bin
         # /Applications/Postgres.app/Contents/Versions/latest/bin
@@ -56,6 +57,11 @@ autoload -Uz prompt_bfmp; prompt_bfmp
 autoload -Uz colors; colors
 autoload -Uz compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# Edit command line in $EDITOR
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
 
 # Aliases
 alias vim="nvim"
@@ -89,10 +95,10 @@ fi
 
 source <(fzf --zsh)
 
-# if command -v zellij &> /dev/null && [ -z "$ZELLIJ" ]; then
-#   zellij attach --force-run-commands default
-# fi
-
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux
+if command -v zellij &> /dev/null && [ -z "$ZELLIJ" ]; then
+  zellij attach bruno
 fi
+
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#   tmux attach-session -t default
+# fi

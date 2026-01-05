@@ -13,6 +13,10 @@
       "rev": "9b8fa5e0b78168f68bee9bf886dc20f287c61e02",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "everforest": {
       "rev": "484dd560dccb2d2842685c441ad2b54a54ffef1b",
       "src": "https://github.com/sainnhe/everforest"

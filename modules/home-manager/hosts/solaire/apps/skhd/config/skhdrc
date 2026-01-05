@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# focus space
+alt - b : yabai -m space --focus B
+alt - f : yabai -m space --focus F
+alt - m : yabai -m space --focus M
+alt - s : yabai -m space --focus S
+alt - t : yabai -m space --focus T
+alt - w : yabai -m space --focus W
+alt - x : yabai -m space --focus X
+
+# focus window
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# move window to space
+shift + alt - b : yabai -m window --space B
+shift + alt - f : yabai -m window --space F
+shift + alt - m : yabai -m window --space M
+shift + alt - s : yabai -m window --space S
+shift + alt - t : yabai -m window --space T
+shift + alt - w : yabai -m window --space W
+shift + alt - x : yabai -m window --space X
+
+# move managed window
+shift + cmd - h : yabai -m window --warp west
+shift + cmd - j : yabai -m window --warp south
+shift + cmd - k : yabai -m window --warp north
+shift + cmd - l : yabai -m window --warp east
+
+# increase window size
+shift + alt - h : yabai -m window --resize left:10:0
+shift + alt - l : yabai -m window --resize right:10:0
+
+# window toggles
+shift + cmd - f : yabai -m window --toggle float
+
+# recreate spaces
+shift + alt - r : yabai --restart-service
+
+# vim: set ft=sh :

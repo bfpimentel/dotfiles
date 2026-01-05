@@ -138,4 +138,4 @@ attach_to_session true
 show_startup_tips false
 show_release_notes false
 
-post_command_discovery_hook "echo \"$RESURRECT_COMMAND\" | sed 's| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/nix/store/.*/bin/||g'"
+// post_command_discovery_hook "echo \"$RESURRECT_COMMAND\" | sed 's| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/nix/store/.*/bin/||g'"

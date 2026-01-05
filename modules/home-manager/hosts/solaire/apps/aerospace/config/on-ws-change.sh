@@ -12,5 +12,4 @@ echo "$win_list" | while IFS= read -r number; do
   echo "continue"
 done
 
-sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$FOCUSED_WORKSPACE
-
+/usr/bin/osascript -e "tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-index-jsx\""

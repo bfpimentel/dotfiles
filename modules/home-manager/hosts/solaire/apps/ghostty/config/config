@@ -11,8 +11,8 @@ font-size = 14
 # font-feature = -liga
 # font-feature = -dlig
 
-adjust-cell-height = 5%
-adjust-cursor-height = 5%
+# adjust-cell-height = 5%
+# adjust-cursor-height = 5%
 
 window-padding-x = 1
 window-padding-y = 0
