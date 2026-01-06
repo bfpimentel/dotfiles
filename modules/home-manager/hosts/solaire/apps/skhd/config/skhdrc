@@ -35,7 +35,7 @@ shift + alt - h : yabai -m window --resize left:10:0
 shift + alt - l : yabai -m window --resize right:10:0
 
 # window toggles
-shift + cmd - f : yabai -m window --toggle float
+ctrl + alt - f : yabai -m window --toggle float
 
 # recreate spaces
 shift + alt - r : yabai --restart-service
