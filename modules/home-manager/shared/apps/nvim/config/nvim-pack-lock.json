@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "cling.nvim": {
+      "rev": "c47dd7515e79e01c43fedbb8b827edbd0e111781",
+      "src": "https://github.com/juniorsundar/cling.nvim"
+    },
     "conform.nvim": {
       "rev": "8314f4c9e205e7f30b62147069729f9a1227d8bf",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -16,10 +20,6 @@
       "rev": "2597bcc",
       "src": "https://github.com/smjonas/inc-rename.nvim"
     },
-    "lazygit.nvim": {
-      "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
-      "src": "https://github.com/kdheepak/lazygit.nvim"
-    },
     "mini.nvim": {
       "rev": "02fc1af931cb6e7bb475e4977f530073cfdcc20d",
       "src": "https://github.com/nvim-mini/mini.nvim"
@@ -29,13 +29,13 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
-    "sidekick.nvim": {
-      "rev": "c2bdf8c",
-      "src": "https://github.com/folke/sidekick.nvim"
-    },
     "smart-splits.nvim": {
       "rev": "d2629b2451649946c95bcc11ea5eaf15c96b23ef",
       "src": "https://github.com/mrjones2014/smart-splits.nvim"
+    },
+    "toggleterm.nvim": {
+      "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
+      "src": "https://github.com/akinsho/toggleterm.nvim"
     }
   }
 }

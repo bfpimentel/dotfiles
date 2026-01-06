@@ -24,7 +24,7 @@ _B.add({
         local function format() require("conform").format({ lsp_fallback = true }) end
 
         return {
-          { "<Leader>ff", format, opts = { desc = "Format File" } },
+          { "<Leader>ff", format, { desc = "Format File" } },
         }
       end,
     },

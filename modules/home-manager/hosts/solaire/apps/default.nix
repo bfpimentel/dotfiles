@@ -12,6 +12,5 @@
     ./yabai
     ./zellij
     # ./kanata
-    # ./hammerspoon
   ];
 }

@@ -32,14 +32,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP keymaps",
   group = group,
   callback = function(event)
-    local map = function(keys, func, desc)
-      vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-    end
-
-    map("K", vim.lsp.buf.hover, "Hover Documentation")
-    map("gs", vim.lsp.buf.signature_help, "Signature Documentation")
-    map("<leader>la", vim.lsp.buf.code_action, "Code Action")
-    map("<leader>lA", vim.lsp.buf.code_action, "Range Code Action")
+    _B.map_keys({
+      { "K", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover Documentation" } },
+      { "gs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature Documentation" } },
+      { "<leader>la", vim.lsp.buf.code_action, { buffer = event.buf, desc = "Code Action" } },
+      { "<leader>lA", vim.lsp.buf.code_action, { buffer = event.buf, desc = "Range Code Action" } },
+    })
   end,
 })
 
