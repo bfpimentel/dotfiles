@@ -4,18 +4,20 @@ _B.add({
     confirm = false,
     data = {
       init = function(_) require("inc_rename").setup({}) end,
-      keys = function()
-        return {
-          { "<Leader>rn", ":IncRename ", { desc = "Rename Symbol" } },
-        }
-      end,
+      keys = {
+        { "<Leader>rn", ":IncRename ", { desc = "Rename Symbol" } },
+      },
     },
   },
   {
     src = "https://github.com/akinsho/toggleterm.nvim",
     confirm = false,
     data = {
-      init = function(_) end,
+      init = function(_)
+        require("toggleterm").setup({
+          shade_terminals = false,
+        })
+      end,
       keys = function()
         local Terminal = require("toggleterm.terminal").Terminal
         local Lazygit = Terminal:new({
@@ -50,9 +52,6 @@ _B.add({
   {
     src = "https://github.com/sindrets/diffview.nvim",
     data = {
-      lazy = {
-        keys = { "<Leader>gh" },
-      },
       init = function(_)
         require("diffview").setup({
           hooks = {

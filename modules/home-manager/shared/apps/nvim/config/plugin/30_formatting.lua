@@ -3,7 +3,6 @@ _B.add({
     src = "https://github.com/stevearc/conform.nvim",
     confirm = false,
     data = {
-      lazy = { keys = { "<Leader>ff" } },
       init = function(_)
         require("conform").setup({
           formatters_by_ft = {
