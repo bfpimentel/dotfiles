@@ -21,14 +21,14 @@ keybind = ctrl+;>p>k=new_split:up
 keybind = ctrl+;>p>l=new_split:right
 keybind = ctrl+;>p>x=close_surface
 
-keybind = cmd+ctrl+h=goto_split:left
-keybind = cmd+ctrl+j=goto_split:down
-keybind = cmd+ctrl+k=goto_split:up
-keybind = cmd+ctrl+l=goto_split:right
+keybind = super+ctrl+h=goto_split:left
+keybind = super+ctrl+j=goto_split:down
+keybind = super+ctrl+k=goto_split:up
+keybind = super+ctrl+l=goto_split:right
 
-keybind = cmd+shift+h=resize_split:left,50
-keybind = cmd+shift+j=resize_split:down,50
-keybind = cmd+shift+k=resize_split:up,50
-keybind = cmd+shift+l=resize_split:right,50
+keybind = super+shift+h=resize_split:left,50
+keybind = super+shift+j=resize_split:down,50
+keybind = super+shift+k=resize_split:up,50
+keybind = super+shift+l=resize_split:right,50
 
 # vim: set ft=conf :

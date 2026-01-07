@@ -3,7 +3,6 @@
 {
   imports = [
     ./aerospace
-    ./ghostty
     ./nh
     ./sketchybar
     ./skhd

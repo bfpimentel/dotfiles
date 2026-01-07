@@ -3,6 +3,7 @@
 {
   imports = [
     ./bat
+    ./ghostty
     ./lazygit
     ./nvim
     ./ssh

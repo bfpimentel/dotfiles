@@ -29,6 +29,10 @@
       "rev": "d2629b2451649946c95bcc11ea5eaf15c96b23ef",
       "src": "https://github.com/mrjones2014/smart-splits.nvim"
     },
+    "teide": {
+      "rev": "c9cd84e59c57651be7cc6b0f981011c247b6d233",
+      "src": "https://github.com/serhez/teide.nvim"
+    },
     "toggleterm.nvim": {
       "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
       "src": "https://github.com/akinsho/toggleterm.nvim"

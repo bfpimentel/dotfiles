@@ -12,6 +12,18 @@ _B.add({
       end,
     },
   },
+  {
+    src = "https://github.com/serhez/teide.nvim",
+    confirm = false,
+    name = "teide",
+    data = {
+      init = function(_)
+        require("teide").setup({
+          transparent = true,
+        })
+      end,
+    },
+  },
 })
 
 vim.cmd([[ colorscheme everforest ]])

@@ -169,6 +169,13 @@ local function setup_mini_statusline()
     end
   end
 
+  local function get_hl(group)
+    local hl = vim.api.nvim_get_hl(0, { name = group })
+    local new_group = group .. "T"
+    vim.api.nvim_set_hl(0, new_group, { fg = hl.fg, bg = "NONE" })
+    return new_group
+  end
+
   local function mode_hl()
     local CTRL_S = vim.api.nvim_replace_termcodes("<C-S>", true, true, true)
     local CTRL_V = vim.api.nvim_replace_termcodes("<C-V>", true, true, true)
@@ -200,19 +207,14 @@ local function setup_mini_statusline()
     local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
     local lsp = MiniStatusline.section_lsp({ trunc_width = 75 })
     local filename = vim.fn.expand("%:t")
-    local location = MiniStatusline.section_location({ trunc_width = 75 })
-    local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
     return MiniStatusline.combine_groups({
       { hl = mode_hl(), strings = { mode } },
-      { hl = "MiniIconsBlue", strings = { git, diff } },
-      { hl = "MiniIconsPurple", strings = { diagnostics, lsp } },
       "%<", -- Mark general truncate point
-      { hl = "MiniPickCursor", strings = { filename } },
+      { hl = get_hl("MiniStatuslineFilename"), strings = { filename } },
       "%=", -- End left alignment
-      { hl = "MiniIconsRed", strings = { check_macro_recording() } },
-      { hl = "MiniIconsOrange", strings = search ~= "" and { " " .. search } },
-      { hl = "MiniIconsOrange", strings = { location } },
+      { hl = get_hl("MiniIconsRed"), strings = { check_macro_recording() } },
+      { hl = get_hl("MiniStatuslineDevinfo"), strings = { git, diff, diagnostics, lsp } },
     })
   end
 

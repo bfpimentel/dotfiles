@@ -123,6 +123,7 @@ plugins {
 }
 
 load_plugins {
+  // "file:~/.config/zellij/plugins/zjstatus.wasm"
 }
 
 web_client {
