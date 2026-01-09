@@ -1,9 +1,8 @@
 _B.add({
   {
     src = "https://github.com/stevearc/conform.nvim",
-    confirm = false,
     data = {
-      init = function(_)
+      load = function()
         require("conform").setup({
           formatters_by_ft = {
             lua = { "stylua" },
@@ -23,7 +22,7 @@ _B.add({
         local function format() require("conform").format({ lsp_fallback = true }) end
 
         return {
-          { "<Leader>ff", format, { desc = "Format File" } },
+          { "<Leader>ff", format, opts = { desc = "Format File" } },
         }
       end,
     },

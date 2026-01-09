@@ -17,7 +17,7 @@
     extraPackages = with pkgs; [
       tree-sitter
 
-      lua-language-server
+      emmylua-ls
       stylua
 
       bash-language-server

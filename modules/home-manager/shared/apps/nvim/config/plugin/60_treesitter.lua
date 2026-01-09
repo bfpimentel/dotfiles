@@ -4,9 +4,8 @@ _B.add({
   {
     src = "https://github.com/nvim-treesitter/nvim-treesitter",
     version = "main",
-    confirm = false,
     data = {
-      init = function(_)
+      load = function()
         vim.schedule(function()
           ---@diagnostic disable-next-line: param-type-mismatch
           local success = pcall(vim.cmd, ":TSUpdate")

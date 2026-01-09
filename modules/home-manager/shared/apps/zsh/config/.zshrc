@@ -16,6 +16,8 @@ export ANDROID_HOME="$HOME/Library/Android/sdk"
 
 export NIX_PATH="nixpkgs=flake:nixpkgs"
 
+source "$ZDOTDIR/.secrets"
+
 # Path
 path=(
     $path
@@ -64,6 +66,8 @@ zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
 # Aliases
+alias szsh="source $ZDOTDIR/.zshrc"
+
 alias vim="nvim"
 alias gst="lazygit"
 alias visudo="sudo -E visudo"
@@ -95,10 +99,10 @@ fi
 
 source <(fzf --zsh)
 
-if command -v zellij &> /dev/null && [ -z "$ZELLIJ" ]; then
-  zellij attach bruno
-fi
-
-# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-#   tmux attach-session -t default
+# if command -v zellij &> /dev/null && [ -z "$ZELLIJ" ]; then
+#   zellij attach bruno
 # fi
+
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t default
+fi

@@ -33,10 +33,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = group,
   callback = function(event)
     _B.map_keys({
-      { "K", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover Documentation" } },
-      { "gs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature Documentation" } },
-      { "<leader>la", vim.lsp.buf.code_action, { buffer = event.buf, desc = "Code Action" } },
-      { "<leader>lA", vim.lsp.buf.code_action, { buffer = event.buf, desc = "Range Code Action" } },
+      { "K", vim.lsp.buf.hover, opts = { buffer = event.buf, desc = "Hover Documentation" } },
+      { "gs", vim.lsp.buf.signature_help, opts = { buffer = event.buf, desc = "Signature Documentation" } },
+      { "<leader>la", vim.lsp.buf.code_action, opts = { buffer = event.buf, desc = "Code Action" } },
+      { "<leader>lA", vim.lsp.buf.code_action, opts = { buffer = event.buf, desc = "Range Code Action" } },
+      { "<leader>le", vim.diagnostic.open_float, opts = { buffer = event.buf, desc = "Open diagnostic message" } },
     })
   end,
 })

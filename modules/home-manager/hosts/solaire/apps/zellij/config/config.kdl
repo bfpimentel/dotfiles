@@ -131,12 +131,13 @@ web_client {
 }
  
 simplified_ui true
-theme "everforest-dark"
+theme "everforest"
 mouse_mode false
 copy_command "pbcopy"
 session_name "default"
 attach_to_session true
 show_startup_tips false
 show_release_notes false
+default_layout "compact"
 
 // post_command_discovery_hook "echo \"$RESURRECT_COMMAND\" | sed 's| --cmd .*-vim-pack-dir||g; s|/etc/profiles/per-user/$USER/bin/||g; s|/nix/store/.*/bin/||g'"

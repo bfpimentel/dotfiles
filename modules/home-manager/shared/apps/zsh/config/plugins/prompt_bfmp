@@ -23,15 +23,13 @@ get_prompt_length() {
 }
 
 update_prompt() {
-    local top_left="${NEWLINE}%F{#7FBBB3}%m %F{#83C092}%n %F{#DBBC7F}%~"
-    local bottom_left="%F{#D3C6AA}  %f"
+    local top_left="${NEWLINE}%F{#7FBBB3}%m %F{#83C092}%n %F{#DBBC7F}%1/"
+    local bottom_left="%F{#D3C6AA}# %f"
     local top_right=""
 
     local local_branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    local git_status=$?
-
-    if [ $git_status -eq 0 ] && [ -n "$local_branch_name" ]; then
-        top_right="%F{#E69875} [${local_branch_name}]"
+    if [ -n "$local_branch_name" ]; then
+        top_left="${top_left} %F{#E69875} [${local_branch_name}]"
     fi
 
     PROMPT="$(fill_line "$top_left" "$top_right")"$'\n'$bottom_left

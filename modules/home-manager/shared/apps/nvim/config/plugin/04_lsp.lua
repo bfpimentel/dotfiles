@@ -1,5 +1,5 @@
 vim.lsp.enable({
-  "copilot",
+  -- "copilot",
   "eslint",
   "go",
   "json",
@@ -13,15 +13,13 @@ vim.lsp.enable({
 
 vim.lsp.inline_completion.enable()
 
-local diagnostic_opts = {
+vim.diagnostic.config({
   signs = { priority = 9999, severity = { min = "WARN", max = "ERROR" } },
-  underline = { severity = { min = "HINT", max = "ERROR" } },
-  virtual_lines = false,
-  virtual_text = {
-    current_line = true,
-    severity = { min = "ERROR", max = "ERROR" },
-  },
+  -- underline = { severity = { min = "HINT", max = "ERROR" } },
+  -- virtual_lines = false,
+  -- virtual_text = {
+  --   -- current_line = true,
+  --   severity = { min = "ERROR", max = "ERROR" },
+  -- },
   update_in_insert = false,
-}
-
-vim.diagnostic.config(diagnostic_opts)
+})

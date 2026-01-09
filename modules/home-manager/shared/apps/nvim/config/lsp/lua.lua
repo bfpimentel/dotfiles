@@ -1,6 +1,6 @@
 --- @type vim.lsp.Config
 return {
-  cmd = { "lua-language-server" },
+  cmd = { "emmylua_ls" },
   filetypes = { "lua" },
   root_markers = {
     ".git",

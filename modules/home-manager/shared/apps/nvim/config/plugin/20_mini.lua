@@ -230,13 +230,11 @@ _B.add({
   {
     src = "https://github.com/nvim-mini/mini.nvim",
     version = nil,
-    confirm = false,
     data = {
-      init = function(_)
+      load = function()
         require("mini.ai").setup()
         require("mini.surround").setup()
         require("mini.visits").setup()
-        -- require("mini.diff").setup()
 
         setup_mini_icons()
         setup_mini_notify()
@@ -281,37 +279,35 @@ _B.add({
 
         return {
           -- stylua: ignore start
-          { "<Leader>,",  function() MiniPick.builtin.buffers() end, { desc = "Buffers" } },
-          { "<Leader>/",  function() MiniPick.builtin.grep_live() end, { desc = "Grep" } },
+          { "<Leader>,",  function() MiniPick.builtin.buffers() end, opts = { desc = "Buffers" } },
+          { "<Leader>/",  function() MiniPick.builtin.grep_live() end, opts = { desc = "Grep" } },
           -- History
-          { "<Leader>hc", function() MiniExtra.pickers.history({ scope = ":" }) end, { desc = "Commands History" } },
-          { "<Leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, { desc = "Search History" } },
-          { "<Leader>hn", function() MiniNotify.show_history() end, { desc = "Notification History" } },
+          { "<Leader>hc", function() MiniExtra.pickers.history({ scope = ":" }) end, opts = { desc = "Commands History" } },
+          { "<Leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, opts = { desc = "Search History" } },
+          { "<Leader>hn", function() MiniNotify.show_history() end, opts = { desc = "Notification History" } },
           -- Files
-          { "<Leader>fp", function() MiniPick.builtin.files() end, { desc = "Files" } },
-          { "<Leader>fc", function() MiniPick.builtin.files({ source = { cwd = vim.fn.stdpath("config") } }) end, { desc = "Config Files" } },
-          { "<Leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, { desc = "Recent Files" } },
+          { "<Leader>fp", function() MiniPick.builtin.files() end, opts = { desc = "Files" } },
+          { "<Leader>fc", function() MiniPick.builtin.files({ source = { cwd = vim.fn.stdpath("config") } }) end, opts = { desc = "Config Files" } },
+          { "<Leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },
           -- Search
-          { '<Leader>s"', function() MiniExtra.pickers.registers() end, { desc = "Registers" } },
-          { "<Leader>sc", function() MiniExtra.pickers.commands() end, { desc = "Commands" } },
-          { "<Leader>sd", function() MiniExtra.pickers.diagnostic({}, { window = diagnostics_win_config }) end, { desc = "Diagnostics" } },
-          -- { "<Leader>sd", function() MiniExtra.pickers.list({ scope = "quickfix" }) end, { desc = "Diagnostics" } },
-          { "<Leader>sh", function() MiniPick.builtin.help() end, { desc = "Help Pages" } },
-          { "<Leader>sH", function() MiniExtra.pickers.hl_groups() end, { desc = "Highlight Groups" } },
-          { "<Leader>sk", function() MiniExtra.pickers.keymaps() end, { desc = "Keymaps" } },
-          { "<Leader>sm", function() MiniExtra.pickers.marks() end, { desc = "Marks" } },
-          { "<Leader>sC", function() MiniExtra.pickers.colorschemes() end, { desc = "Colorschemes" } },
+          { '<Leader>s"', function() MiniExtra.pickers.registers() end, opts = { desc = "Registers" } },
+          { "<Leader>sc", function() MiniExtra.pickers.commands() end, opts = { desc = "Commands" } },
+          { "<Leader>sd", function() MiniExtra.pickers.diagnostic({}, { window = diagnostics_win_config }) end, opts = { desc = "Diagnostics" } },
+          { "<Leader>sh", function() MiniPick.builtin.help() end, opts = { desc = "Help Pages" } },
+          { "<Leader>sH", function() MiniExtra.pickers.hl_groups() end, opts = { desc = "Highlight Groups" } },
+          { "<Leader>sk", function() MiniExtra.pickers.keymaps() end, opts = { desc = "Keymaps" } },
+          { "<Leader>sm", function() MiniExtra.pickers.marks() end, opts = { desc = "Marks" } },
+          { "<Leader>sC", function() MiniExtra.pickers.colorschemes() end, opts = { desc = "Colorschemes" } },
           -- LSP
-          { "<Leader>gD", function() MiniExtra.pickers.lsp({ scope = "declaration" }) end, { desc = "Declarations" } },
-          { "<Leader>gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, { desc = "Definitions" } },
-          { "<Leader>gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, { desc = "References" } },
-          { "<Leader>gI", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, { desc = "Implementation" } },
-          { "<Leader>gy", function() MiniExtra.pickers.lsp({ scope = "type_definition" }) end, { desc = "Type Definition" } },
-          { "<Leader>gs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, { desc = "Symbols" } },
-          { "<Leader>gS", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, { desc = "Workspace Symbols" } },
-          -- { "<Leader>gh", function() MiniDiff.toggle_overlay(0) end, { desc = "Show Diff" } },
+          { "<Leader>gD", function() MiniExtra.pickers.lsp({ scope = "declaration" }) end, opts = { desc = "Declarations" } },
+          { "<Leader>gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, opts = { desc = "Definitions" } },
+          { "<Leader>gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, opts = { desc = "References" } },
+          { "<Leader>gI", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, opts = { desc = "Implementation" } },
+          { "<Leader>gy", function() MiniExtra.pickers.lsp({ scope = "type_definition" }) end, opts = { desc = "Type Definition" } },
+          { "<Leader>gs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, opts = { desc = "Symbols" } },
+          { "<Leader>gS", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, opts = { desc = "Workspace Symbols" } },
           -- Explorer
-          { "<Leader>e",  function() toggle_files() end, { desc = "File Explorer" } },
+          { "<Leader>e",  function() toggle_files() end, opts = { desc = "File Explorer" } },
           -- stylua: ignore end
         }
       end,
