@@ -40,10 +40,11 @@ else
 fi
 
 # App rules
-yabai -m rule --add app="^Finder$" space=F
+yabai -m rule --add app="^Finder$" space=F manage=off
 yabai -m rule --add app="^YouTube Music$" space=M
 yabai -m rule --add app="^Ghostty$" space=T
 yabai -m rule --add app="^Simulator$" space=S
+yabai -m rule --add app="^System Settings$" manage=off
 
 # Window rules
 yabai -m rule --add title="Helium - Bruno$" space=B

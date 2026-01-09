@@ -41,10 +41,14 @@ _B.add({
       keys = function()
         local SmartSplits = require("smart-splits")
         return {
-          { "<C-h>", SmartSplits.move_cursor_left, { desc = "Move Cursor to Left Window" } },
-          { "<C-j>", SmartSplits.move_cursor_bottom, { desc = "Move Cursor to Bottom Window" } },
-          { "<C-k>", SmartSplits.move_cursor_up, { desc = "Move Cursor to Top Window" } },
-          { "<C-l>", SmartSplits.move_cursor_right, { desc = "Move Cursor to Right Window" } },
+          { "<C-h>", function() SmartSplits.move_cursor_left() end, { desc = "Move cursor to left window" } },
+          { "<C-j>", function() SmartSplits.move_cursor_bottom() end, { desc = "Move cursor to bottom window" } },
+          { "<C-k>", function() SmartSplits.move_cursor_up() end, { desc = "Move cursor to top window" } },
+          { "<C-l>", function() SmartSplits.move_cursor_right() end, { desc = "Move cursor to right window" } },
+          { "<A-h>", function() SmartSplits.resize_left(5) end, { desc = "Resize to left" } },
+          { "<A-j>", function() SmartSplits.resize_bottom(5) end, { desc = "Resize to bottom" } },
+          { "<A-k>", function() SmartSplits.resize_up(5) end, { desc = "Resize to top" } },
+          { "<A-l>", function() SmartSplits.resize_right(5) end, { desc = "Resize to right" } },
         }
       end,
     },
