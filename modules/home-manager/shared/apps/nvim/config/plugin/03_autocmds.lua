@@ -28,15 +28,23 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function() pcall(vim.treesitter.start) end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Open help pages vertically by default",
+  group = group,
+  pattern = { "help", "man" },
+  command = "wincmd L",
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP keymaps",
   group = group,
   callback = function(event)
     _B.map_keys({
-      { "K", vim.lsp.buf.hover, { buffer = event.buf, desc = "Hover Documentation" } },
-      { "gs", vim.lsp.buf.signature_help, { buffer = event.buf, desc = "Signature Documentation" } },
-      { "<leader>la", vim.lsp.buf.code_action, { buffer = event.buf, desc = "Code Action" } },
-      { "<leader>lA", vim.lsp.buf.code_action, { buffer = event.buf, desc = "Range Code Action" } },
+      { "K", vim.lsp.buf.hover, opts = { buffer = event.buf, desc = "Hover Documentation" } },
+      { "gs", vim.lsp.buf.signature_help, opts = { buffer = event.buf, desc = "Signature Documentation" } },
+      { "<leader>la", vim.lsp.buf.code_action, opts = { buffer = event.buf, desc = "Code Action" } },
+      { "<leader>lA", vim.lsp.buf.code_action, opts = { buffer = event.buf, desc = "Range Code Action" } },
+      { "<leader>le", vim.diagnostic.open_float, opts = { buffer = event.buf, desc = "Open diagnostic message" } },
     })
   end,
 })

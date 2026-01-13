@@ -1,19 +1,17 @@
 _B.add({
   {
     src = "https://github.com/smjonas/inc-rename.nvim",
-    confirm = false,
     data = {
-      init = function(_) require("inc_rename").setup({}) end,
+      load = function() require("inc_rename").setup({}) end,
       keys = {
-        { "<Leader>rn", ":IncRename ", { desc = "Rename Symbol" } },
+        { "<Leader>rn", ":IncRename ", opts = { desc = "Rename Symbol" } },
       },
     },
   },
   {
     src = "https://github.com/akinsho/toggleterm.nvim",
-    confirm = false,
     data = {
-      init = function(_)
+      load = function()
         require("toggleterm").setup({
           shade_terminals = false,
         })
@@ -28,27 +26,33 @@ _B.add({
         })
 
         return {
-          { "<Leader>gg", function() Lazygit:toggle() end, { desc = "LazyGit" } },
+          { "<Leader>gg", function() Lazygit:toggle() end, opts = { desc = "LazyGit" } },
         }
       end,
     },
   },
   {
     src = "https://github.com/mrjones2014/smart-splits.nvim",
-    confirm = false,
     data = {
-      init = function(_) require("smart-splits").setup() end,
+      load = function()
+        require("smart-splits").setup({
+          default_amount = 5,
+        })
+      end,
       keys = function()
         local SmartSplits = require("smart-splits")
+
         return {
-          { "<C-h>", function() SmartSplits.move_cursor_left() end, { desc = "Move cursor to left window" } },
-          { "<C-j>", function() SmartSplits.move_cursor_bottom() end, { desc = "Move cursor to bottom window" } },
-          { "<C-k>", function() SmartSplits.move_cursor_up() end, { desc = "Move cursor to top window" } },
-          { "<C-l>", function() SmartSplits.move_cursor_right() end, { desc = "Move cursor to right window" } },
-          { "<A-h>", function() SmartSplits.resize_left(5) end, { desc = "Resize to left" } },
-          { "<A-j>", function() SmartSplits.resize_bottom(5) end, { desc = "Resize to bottom" } },
-          { "<A-k>", function() SmartSplits.resize_up(5) end, { desc = "Resize to top" } },
-          { "<A-l>", function() SmartSplits.resize_right(5) end, { desc = "Resize to right" } },
+          -- stylua: ignore start
+          { "<C-h>", function() SmartSplits.move_cursor_left() end, opts = { silent = true } },
+          { "<C-j>", function() SmartSplits.move_cursor_down() end, opts = { silent = true } },
+          { "<C-k>", function() SmartSplits.move_cursor_up() end, opts = { silent = true } },
+          { "<C-l>", function() SmartSplits.move_cursor_right() end, opts = { silent = true } },
+          { "<A-h>", function() SmartSplits.resize_left() end, opts = { silent = true } },
+          { "<A-j>", function() SmartSplits.resize_down() end, opts = { silent = true } },
+          { "<A-k>", function() SmartSplits.resize_up() end, opts = { silent = true } },
+          { "<A-l>", function() SmartSplits.resize_right() end, opts = { silent = true } },
+          -- stylua: ignore end
         }
       end,
     },
@@ -56,24 +60,24 @@ _B.add({
   {
     src = "https://github.com/sindrets/diffview.nvim",
     data = {
-      init = function(_)
+      load = function()
         require("diffview").setup({
           hooks = {
             view_opened = function()
               _B.map_keys({
-                { "<Leader>gh", ":DiffviewClose<CR>", { desc = "Close Diffview" } },
+                { "<Leader>gh", ":DiffviewClose<CR>", opts = { desc = "Close Diffview" } },
               })
             end,
             view_closed = function()
               _B.map_keys({
-                { "<Leader>gh", ":DiffviewOpen<CR>", { desc = "Open Diffview" } },
+                { "<Leader>gh", ":DiffviewOpen<CR>", opts = { desc = "Open Diffview" } },
               })
             end,
           },
         })
       end,
       keys = {
-        { "<Leader>gh", ":DiffviewOpen<CR>", { desc = "Open Diffview" } },
+        { "<Leader>gh", ":DiffviewOpen<CR>", opts = { desc = "Open Diffview" } },
       },
     },
   },

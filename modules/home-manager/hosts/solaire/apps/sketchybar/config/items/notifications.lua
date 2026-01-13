@@ -27,7 +27,7 @@ local function show_notification(content, hold)
 
   notification_popup:set({ label = { string = content } })
 
-  sbar.animate("sin", 30, function()
+  Sbar.animate("sin", 30, function()
     notification:set({ popup = { y_offset = -80 } })
     notification:set({ popup = { y_offset = 2 } })
   end)

@@ -1,38 +1,49 @@
----@diagnostic disable: duplicate-doc-field
----@diagnostic disable: duplicate-set-field
+---@diagnostic disable: duplicate-doc-field, duplicate-set-field, duplicate-type
 
----@class Keys
+---@class Keymap
 ---@field [1] string lhs
----@field [2]? string|function rhs
----@field [3]? vim.keymap.set.Opts opts
+---@field [2] string|function rhs
+---@field opts? vim.keymap.set.Opts
 ---@field mode? string|string[]
 
----@class Data
----@field keys? Keys[]|fun():Keys[]
----@field init? fun(plugin: vim.pack.Spec)
+---@class Keys : Keymap[]|(fun():Keymap[])
 
----@class PluginSpec: vim.pack.Spec
+---@class Data
+---@field keys? Keys
+---@field load? fun():void
+
+---@class PluginSpec : vim.pack.Spec
 ---@field data? Data
 
 _B = {}
 
----@param keys Keys[]|fun():Keys[]
+---@param keys Keys
 function _B.map_keys(keys)
-  local keysResult = type(keys) == "function" and keys() or keys --[=[@as Keys[]]=]
+  local keysResult
+
+  if type(keys) == "function" then
+    keysResult = keys()
+  else
+    keysResult = keys
+  end
+
   for _, item in ipairs(keysResult) do
-    local lhs, rhs, opts = item[1], item[2] or "", item[3] or {}
-    vim.keymap.set(item.mode or "n", lhs, rhs, opts)
+    local lhs, rhs = item[1], item[2] or ""
+    vim.keymap.set(item.mode or "n", lhs, rhs, item.opts)
   end
 end
 
 ---@param plugins PluginSpec[]
 function _B.add(plugins)
   vim.pack.add(plugins, {
+    confirm = false,
     load = function(plugin)
+      ---@type Data
       local data = plugin.spec.data or {}
 
       vim.cmd.packadd(plugin.spec.name)
-      if data.init then data.init(plugin) end
+
+      if data.load then data.load() end
       if data.keys then _B.map_keys(data.keys) end
     end,
   })
