@@ -1,5 +1,5 @@
 { util, config, ... }:
 
 {
-  home.file = util.linkHostApp config "ghostty";
+  home.file = util.linkSharedApp config "ghostty";
 }

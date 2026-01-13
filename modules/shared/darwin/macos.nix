@@ -45,7 +45,7 @@
       mru-spaces = false;
       persistent-apps = [
         "/Applications/Helium.app"
-        "/Applications/Ghostty.app"
+        "/Applications/kitty.app"
       ];
     };
     finder = {

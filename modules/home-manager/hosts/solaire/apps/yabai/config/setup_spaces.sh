@@ -49,7 +49,6 @@ function manage_pip {
 yabai -m signal --add event=display_changed action=manage_pip
 yabai -m signal --add event=space_changed action=manage_pip
 
-
 # Destroy spaces with index greater than N - 1. (N = number of spaces)
 # Yabai wants to keep the Nth space anyway, so I destroy N - 1 to ensure there aren't any unlabeled spaces.
 for idx in $(yabai -m query --spaces | jq '.[].index | select(. >= 5)' | sort -nr); do

@@ -177,24 +177,19 @@ local function setup_mini_statusline()
   end
 
   local function mode_hl()
-    local CTRL_S = vim.api.nvim_replace_termcodes("<C-S>", true, true, true)
     local CTRL_V = vim.api.nvim_replace_termcodes("<C-V>", true, true, true)
+
     local modes = setmetatable({
+      -- Normal
       ["n"] = "MiniIconsGrey",
+      -- Insert
+      ["i"] = "MiniIconsBlue",
+      -- Visual
       ["v"] = "MiniIconsPurple",
       ["V"] = "MiniIconsPurple",
       [CTRL_V] = "MiniIconsPurple",
-      ["s"] = "MiniIconsOrange",
-      ["S"] = "MiniIconsOrange",
-      [CTRL_S] = "MiniIconsOrange",
-      ["i"] = "MiniIconsBlue",
-      ["R"] = "MiniIconsRed",
-      ["c"] = "MiniIconsYellow",
-      ["r"] = "MiniIconsYellow",
-      ["!"] = "MiniIconsYellow",
-      ["t"] = "MiniIconsYellow",
     }, {
-      __index = function() return "MiniIconsGrey" end,
+      __index = function() return "MiniIconsYellow" end,
     })
 
     return modes[vim.fn.mode()]

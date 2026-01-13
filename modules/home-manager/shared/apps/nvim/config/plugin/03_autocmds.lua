@@ -28,6 +28,13 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function() pcall(vim.treesitter.start) end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Open help pages vertically by default",
+  group = group,
+  pattern = { "help", "man" },
+  command = "wincmd L",
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "LSP keymaps",
   group = group,

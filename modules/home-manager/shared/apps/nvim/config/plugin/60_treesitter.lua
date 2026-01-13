@@ -42,6 +42,7 @@ _B.add({
           "sql",
           "typst",
           "toml",
+          "tmux",
           "tsx",
           "typescript",
           "vim",

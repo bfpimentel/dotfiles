@@ -40,4 +40,7 @@ ctrl + alt - f : yabai -m window --toggle float
 # recreate spaces
 shift + alt - r : yabai --restart-service
 
+# unbind window hiding
+cmd - h : skhd -k ""
+
 # vim: set ft=sh :

@@ -59,6 +59,7 @@
           "tailscale-app"
           # "loom"
 
+          "kitty@nightly"
           "ghostty"
           "bruno"
           "http-toolkit"

@@ -7,7 +7,6 @@ _B.add({
     data = {
       load = function()
         require("minuet").setup({
-          notify = "debug",
           throttle = 1000,
           debouce = 300,
           provider = "gemini",
