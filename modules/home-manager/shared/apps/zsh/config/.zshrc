@@ -16,7 +16,9 @@ export ANDROID_HOME="$HOME/Library/Android/sdk"
 
 export NIX_PATH="nixpkgs=flake:nixpkgs"
 
-source "$ZDOTDIR/.secrets"
+if [ -f "$ZDOTDIR/.secrets" ]; then
+  source "$ZDOTDIR/.secrets"
+fi
 
 # Path
 path=(
