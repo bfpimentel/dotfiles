@@ -9,6 +9,7 @@ in
     ./gaming
     ./restic
     ./streaming
+    ./tailscale
     ./wireguard
   ];
 
@@ -24,5 +25,6 @@ in
       enable = false;
       isServer = false;
     };
+    tailscale.enable = true;
   };
 }
