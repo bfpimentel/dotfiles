@@ -34,6 +34,7 @@
   "share.age"
   "sonarr.age"
   "speedtest-tracker.age"
+  "tailscale-malenia.age"
   "tailscale-servers.age"
   "telegram.age"
   "tinyauth.age"
