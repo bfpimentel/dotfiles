@@ -60,7 +60,6 @@
           # "loom"
 
           "kitty@nightly"
-          "ghostty"
           "bruno"
           "http-toolkit"
           "macfuse"

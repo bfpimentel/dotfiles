@@ -5,5 +5,7 @@
     orca-slicer
     usbutils
     parted
+
+    kitty
   ];
 }

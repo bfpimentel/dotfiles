@@ -13,6 +13,7 @@
     immich-go
 
     android-tools
+    pstree
     cargo
     xh
     uv
