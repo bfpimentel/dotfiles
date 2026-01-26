@@ -81,4 +81,13 @@ _B.add({
       },
     },
   },
+  {
+    src = "https://github.com/MeanderingProgrammer/render-markdown.nvim",
+    data = {
+      load = function() require("render-markdown").setup({}) end,
+      keys = {
+        { "<Leader>rm", ":RenderMarkdown toggle<CR>", opts = { desc = "Render Markdown" } },
+      },
+    },
+  },
 })

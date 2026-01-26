@@ -41,6 +41,8 @@
         })
         [
           "xcodes-app"
+          "docker-desktop"
+
           "betterdisplay"
           "linearmouse"
           "hiddenbar"
@@ -67,7 +69,7 @@
           "bambu-studio"
           # "autodesk-fusion"
 
-          "moonlight"
+          # "moonlight"
           "crossover"
           "anydesk"
 

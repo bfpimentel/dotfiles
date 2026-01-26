@@ -33,7 +33,7 @@
 
       gopls
 
-      # basedpyright
+      basedpyright
       ruff
 
       nil
