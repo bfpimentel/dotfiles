@@ -1,5 +1,4 @@
 brew bundle
-brew install --cask ./Casks/neovim-nightly.rb
 
 sudo -v
 

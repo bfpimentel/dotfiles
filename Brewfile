@@ -4,12 +4,14 @@ cask_args appdir: '/Applications'
 tap "nikitabobko/tap"
 tap "krtirtho/apps"
 tap "tonisives/tap"
-tap "benjiwolff/neovim-nightly"
+tap "bfpimentel/dotfiles"
 
 # Mac Store Apps
 mas "Quickdrop", id: 6740147178
 
 # Brews
+brew "dockutil"
+
 brew "antidote"
 
 brew "pnpm"
@@ -19,6 +21,7 @@ brew "direnv"
 
 brew "lua"
 
+brew "lazygit"
 brew "gnupg"
 brew "ripgrep"
 brew "libpcap"
@@ -46,6 +49,7 @@ brew "tailwindcss-language-server"
 brew "vscode-langservers-extracted"
 
 # Casks
+cask "neovim-nightly"
 cask "kitty@nightly"
 
 cask "docker-desktop"

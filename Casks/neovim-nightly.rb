@@ -10,8 +10,6 @@ cask "neovim-nightly" do
   desc "Vim-fork focused on extensibility and usability"
   homepage "https://neovim.io"
 
-  conflicts_with formula: "neovim"
-
   binary "nvim-macos-#{arch}/bin/nvim"
 
   postflight do
