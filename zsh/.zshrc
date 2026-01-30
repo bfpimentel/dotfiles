@@ -1,3 +1,4 @@
+
 # Options
 setopt extended_glob null_glob
 setopt append_history share_history inc_append_history
@@ -50,6 +51,7 @@ path=($^path(N-/))
 export PATH
 
 # Antidote
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 antidote load $ZDOTDIR/.zsh_plugins.txt
 
 # History
