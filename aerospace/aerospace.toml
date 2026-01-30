@@ -1,0 +1,121 @@
+config-version = 2
+
+start-at-login = true
+after-login-command = []
+
+key-mapping.preset = 'qwerty'
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 8
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'horizontal'
+
+on-focus-changed = [
+  "exec-and-forget osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-index-jsx\"'",
+]
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+exec-on-workspace-change = [ 
+  '/bin/zsh',
+  '-c', 
+  '~/.config/aerospace/on-ws-change.sh'
+]
+
+persistent-workspaces = ["B", "W", "M", "T", "X"]
+
+[gaps]
+outer.top =        [{ monitor."built-in.*" = 8 }, 48] # for custom bar
+# outer.top =        8
+outer.bottom =     8
+outer.left =       8
+outer.right =      8
+inner.horizontal = 8
+inner.vertical =   8
+
+[mode.main.binding]
+cmd-h = [] # Disable "hide application"
+cmd-alt-h = [] # Disable "hide others"
+
+alt-semicolon = [
+  'mode service',
+]
+
+alt-tab = 'workspace-back-and-forth'
+
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+alt-b = 'workspace B'
+alt-w = 'workspace W'
+alt-m = 'workspace M'
+alt-t = 'workspace T'
+alt-x = 'workspace X'
+
+alt-shift-b = 'move-node-to-workspace B'
+alt-shift-w = 'move-node-to-workspace W'
+alt-shift-m = 'move-node-to-workspace M'
+alt-shift-t = 'move-node-to-workspace T'
+alt-shift-x = 'move-node-to-workspace X'
+
+[workspace-to-monitor-force-assignment]
+T = [ 'secondary', 'main' ]
+X = [ 'secondary', 'main' ]
+
+[mode.service.binding]
+esc = [
+  'reload-config', 
+  'mode main', 
+]
+
+t = [
+  'layout h_tiles v_accordion', 
+] 
+f = [
+  'layout floating tiling', 
+] 
+
+minus = 'resize smart -50'
+equal = 'resize smart +50'
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+check-further-callbacks = true
+run = ['layout floating', 'move-node-to-workspace T']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+check-further-callbacks = true
+run = ['layout floating', 'move-node-to-workspace X']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Youtube Music'
+check-further-callbacks = true
+run = ['layout tiling', 'move-node-to-workspace M']
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'Helium - Bruno'
+check-further-callbacks = true
+run = ['move-node-to-workspace B']
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'Helium - Squibler'
+check-further-callbacks = true
+run = ['move-node-to-workspace W']
+
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+check-further-callbacks = true
+if.window-title-regex-substring = 'Picture-in-Picture'
+run = ['layout floating']
+

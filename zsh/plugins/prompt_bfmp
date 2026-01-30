@@ -1,0 +1,62 @@
+fill_line() {
+    local left_len=$(get_prompt_length $1)
+    local right_len=$(get_prompt_length $2)
+    local pad_len=$((COLUMNS - left_len - right_len - 1))
+    local pad=${(pl.$pad_len.. .)}
+    echo ${1}${pad}${2}
+}
+
+get_prompt_length() {
+    emulate -L zsh
+    local -i x y=${#1} m
+    if (( y )); then
+        while (( ${${(%):-$1%$y(l.1.0)}[-1]} )); do
+            x=y
+            (( y *= 2 ))
+        done
+        while (( y > x + 1 )); do
+            (( m = x + (y - x) / 2 ))
+            (( ${${(%):-$1%$m(l.x.y)}[-1]} = m ))
+        done
+    fi
+    echo $x
+}
+
+update_prompt() {
+    local top_left="${NEWLINE}%F{#7FBBB3}%m %F{#83C092}%n %F{#DBBC7F}%1/"
+    local bottom_left="%F{#D3C6AA}# %f"
+    local top_right=""
+
+    local local_branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    if [ -n "$local_branch_name" ]; then
+        top_left="${top_left} %F{#E69875} [${local_branch_name}]"
+    fi
+
+    PROMPT="$(fill_line "$top_left" "$top_right")"$'\n'$bottom_left
+}
+
+precmd_update_git_vars() {
+    if [ -n "$__EXECUTED_GIT_COMMAND" ] || [ -z "$ZSH_THEME_GIT_PROMPT_CACHE" ]; then
+        update_prompt
+        unset __EXECUTED_GIT_COMMAND
+    fi
+}
+
+preexec_update_git_vars() {
+    case "$2" in
+    git* | hub* | gh* | stg*)
+        __EXECUTED_GIT_COMMAND=1
+        ;;
+    esac
+}
+
+prompt_bfmp() {
+    autoload -U add-zsh-hook
+    add-zsh-hook chpwd update_prompt
+    add-zsh-hook precmd precmd_update_git_vars
+    add-zsh-hook preexec preexec_update_git_vars
+}
+
+prompt_bfmp
+
+# vim: set ft=zsh :
