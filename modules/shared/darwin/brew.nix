@@ -18,12 +18,10 @@
       "nikitabobko/tap"
       "krtirtho/apps"
       "tonisives/tap"
-      "asmvik/formulae"
     ];
 
     brews = [
-      "yabai"
-      "skhd"
+      "overmind"
 
       "lua"
       "ripgrep"
@@ -41,7 +39,7 @@
         })
         [
           "xcodes-app"
-          "docker-desktop"
+          # "docker-desktop"
 
           "betterdisplay"
           "linearmouse"
@@ -50,7 +48,7 @@
           "raycast"
           "ovim"
 
-          # "aerospace"
+          "aerospace"
           "ubersicht"
 
           "helium-browser"
@@ -59,6 +57,7 @@
           "pearcleaner"
           "ankerwork"
           "tailscale-app"
+          "mullvad-vpn@beta"
           # "loom"
 
           "kitty@nightly"
@@ -66,7 +65,7 @@
           "http-toolkit"
           "macfuse"
 
-          "bambu-studio"
+          # "bambu-studio"
           # "autodesk-fusion"
 
           # "moonlight"

@@ -58,30 +58,6 @@ _B.add({
     },
   },
   {
-    src = "https://github.com/sindrets/diffview.nvim",
-    data = {
-      load = function()
-        require("diffview").setup({
-          hooks = {
-            view_opened = function()
-              _B.map_keys({
-                { "<Leader>gh", ":DiffviewClose<CR>", opts = { desc = "Close Diffview" } },
-              })
-            end,
-            view_closed = function()
-              _B.map_keys({
-                { "<Leader>gh", ":DiffviewOpen<CR>", opts = { desc = "Open Diffview" } },
-              })
-            end,
-          },
-        })
-      end,
-      keys = {
-        { "<Leader>gh", ":DiffviewOpen<CR>", opts = { desc = "Open Diffview" } },
-      },
-    },
-  },
-  {
     src = "https://github.com/MeanderingProgrammer/render-markdown.nvim",
     data = {
       load = function() require("render-markdown").setup({}) end,

@@ -33,6 +33,7 @@
 
       gopls
 
+      ty
       basedpyright
       ruff
 

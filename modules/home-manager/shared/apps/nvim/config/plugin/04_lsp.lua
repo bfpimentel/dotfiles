@@ -2,6 +2,7 @@ vim.lsp.enable({
   -- "copilot",
   "eslint",
   "go",
+  "html",
   "json",
   "lua",
   "nix",

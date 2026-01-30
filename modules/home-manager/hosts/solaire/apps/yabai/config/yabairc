@@ -4,7 +4,7 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
 ## Global yabai settings
-yabai -m config external_bar                 main:40:0      
+yabai -m config external_bar                 all:40:0      
 yabai -m config menubar_opacity              1.0            
 yabai -m config mouse_follows_focus          off            
 yabai -m config focus_follows_mouse          off            

@@ -26,8 +26,9 @@ path=(
     $path
     /run/wrappers/bin
     /run/current-system/sw/bin
-    $HOME/.nix-profile/bin
     /etc/profiles/per-user/$USER/bin
+    $HOME/.nix-profile/bin
+    $HOME/.local/bin
     $ANDROID_HOME/tools
     $ANDROID_HOME/platform-tools
 )

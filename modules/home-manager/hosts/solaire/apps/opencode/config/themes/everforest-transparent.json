@@ -66,8 +66,8 @@
       "light": "lightCyan"
     },
     "text": {
-      "dark": "none",
-      "light": "none"
+      "dark": "lightStep1",
+      "light": "lightStep12"
     },
     "textMuted": {
       "dark": "darkStep11",

@@ -1,8 +1,7 @@
+config-version = 2
+
 start-at-login = true
 after-login-command = []
-# after-startup-command = [ 
-#   'exec-and-forget sketchybar',
-# ]
 
 key-mapping.preset = 'qwerty'
 
@@ -14,21 +13,19 @@ accordion-padding = 8
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
 
-# on-focus-changed = [
-#   'exec-and-forget sketchybar --trigger front_app_switched',
-#   # 'exec-and-forget sketchybar --trigger send_message MESSAGE="Focus has changed"'
-# ]
-
 on-focus-changed = [
   "exec-and-forget osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-index-jsx\"'",
 ]
 
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 exec-on-workspace-change = [ 
   '/bin/zsh',
   '-c', 
   '~/.config/aerospace/on-ws-change.sh'
 ]
+
+persistent-workspaces = ["B", "W", "M", "T", "X"]
 
 [gaps]
 outer.top =        [{ monitor."built-in.*" = 8 }, 48] # for custom bar
@@ -45,7 +42,6 @@ cmd-alt-h = [] # Disable "hide others"
 
 alt-semicolon = [
   'mode service',
-  # 'exec-and-forget sketchybar --trigger send_message MESSAGE="Aerospace in Service Mode" HOLD="true"',
 ]
 
 alt-tab = 'workspace-back-and-forth'
@@ -61,32 +57,25 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 alt-b = 'workspace B'
-alt-f = 'workspace F'
+alt-w = 'workspace W'
 alt-m = 'workspace M'
-alt-s = 'workspace S'
 alt-t = 'workspace T'
 alt-x = 'workspace X'
 
 alt-shift-b = 'move-node-to-workspace B'
-alt-shift-f = 'move-node-to-workspace F'
+alt-shift-w = 'move-node-to-workspace W'
 alt-shift-m = 'move-node-to-workspace M'
-alt-shift-s = 'move-node-to-workspace S'
 alt-shift-t = 'move-node-to-workspace T'
 alt-shift-x = 'move-node-to-workspace X'
 
-# alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
-
 [workspace-to-monitor-force-assignment]
-B = [ 'secondary', 'main' ]
-S = [ 'secondary', 'main' ]
-M = [ 'secondary', 'main' ]
+T = [ 'secondary', 'main' ]
+X = [ 'secondary', 'main' ]
 
 [mode.service.binding]
 esc = [
   'reload-config', 
   'mode main', 
-  # 'exec-and-forget sketchybar --reload',
-  # 'exec-and-forget sleep 0.2 && sketchybar --trigger send_message MESSAGE="Aerospace Reloaded"',
 ]
 
 t = [
@@ -95,65 +84,38 @@ t = [
 f = [
   'layout floating tiling', 
 ] 
-# backspace = ['close-all-windows-but-current', 'mode main']
 
 minus = 'resize smart -50'
 equal = 'resize smart +50'
 
 [[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
+if.app-id = 'net.kovidgoyal.kitty'
 check-further-callbacks = true
 run = ['layout floating', 'move-node-to-workspace T']
 
 [[on-window-detected]]
-if.app-id = 'app.zen-browser.zen'
-check-further-callbacks = true
-run = ['move-node-to-workspace B']
-
-[[on-window-detected]]
-if.app-id = 'app.zen-browser.zen'
-check-further-callbacks = true
-if.window-title-regex-substring = 'Picture-in-Picture'
-run = ['layout floating']
-
-[[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-check-further-callbacks = true
-run = ['move-node-to-workspace B']
-
-[[on-window-detected]]
-if.app-id = 'com.brave.Browser'
-check-further-callbacks = true
-if.window-title-regex-substring = 'Picture-in-Picture'
-run = ['layout floating']
-
-[[on-window-detected]]
-if.app-id = 'net.imput.helium'
-check-further-callbacks = true
-run = ['move-node-to-workspace B']
-
-[[on-window-detected]]
-if.app-id = 'net.imput.helium'
-check-further-callbacks = true
-if.window-title-regex-substring = 'Picture-in-Picture'
-run = ['layout floating']
-
-[[on-window-detected]]
-if.app-id = 'com.google.android.studio'
-check-further-callbacks = true
-run = ['layout tiling', 'move-node-to-workspace X'] 
-
-[[on-window-detected]]
 if.app-id = 'com.apple.finder'
 check-further-callbacks = true
-run = ['layout floating', 'move-node-to-workspace F']
-
-[[on-window-detected]]
-if.app-id = 'com.apple.iphonesimulator'
-check-further-callbacks = true
-run = ['layout floating', 'move-node-to-workspace F']
+run = ['layout floating', 'move-node-to-workspace X']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Youtube Music'
 check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace M']
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'Helium - Bruno'
+check-further-callbacks = true
+run = ['move-node-to-workspace B']
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'Helium - Squibler'
+check-further-callbacks = true
+run = ['move-node-to-workspace W']
+
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+check-further-callbacks = true
+if.window-title-regex-substring = 'Picture-in-Picture'
+run = ['layout floating']
+

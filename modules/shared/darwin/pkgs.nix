@@ -20,6 +20,7 @@
     redis
     google-cloud-sdk
     nodejs_24
+    pnpm
 
     opencode
   ];
