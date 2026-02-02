@@ -59,8 +59,8 @@ defaults write com.apple.Dock wvous-tl-corner -int 1;
 defaults write com.apple.Dock wvous-tr-corner -int 1;
 defaults write com.apple.Dock mru-spaces -bool false;
 
-dockutil -add "/Applications/Helium.app"
-dockutil -add "/Applications/kitty.app"
+dockutil --add "/Applications/Helium.app"
+dockutil --add "/Applications/kitty.app"
 
 # Kill affected applications
 APPS=(

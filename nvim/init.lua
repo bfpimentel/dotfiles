@@ -48,3 +48,9 @@ function _B.add(plugins)
     end,
   })
 end
+
+function _B.patch_hl_with_transparency(group_name)
+  local hl = vim.api.nvim_get_hl(0, { name = group_name })
+  local patched_hl = vim.tbl_deep_extend("force", hl, { bg = "NONE" })
+  vim.api.nvim_set_hl(0, group_name, patched_hl)
+end

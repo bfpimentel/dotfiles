@@ -22,14 +22,13 @@ if [ -f "$ZDOTDIR/.secrets" ]; then
   source "$ZDOTDIR/.secrets"
 fi
 
+export PATH="$HOME/.bun/bin:$PATH"
+
 # Path
 path=(
     $path
-    /run/wrappers/bin
-    /run/current-system/sw/bin
-    /etc/profiles/per-user/$USER/bin
-    $HOME/.nix-profile/bin
     $HOME/.local/bin
+    $HOME/.bun/bin
     $ANDROID_HOME/tools
     $ANDROID_HOME/platform-tools
 )
@@ -40,8 +39,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
         /opt/homebrew/bin
         /opt/homebrew/opt/ruby/bin
         /opt/homebrew/opt/postgresql@17/bin
-        # /Applications/Postgres.app/Contents/Versions/latest/bin
         $HOME/.cache/npm/global/bin
+        # /Applications/Postgres.app/Contents/Versions/latest/bin
     )
 fi
 

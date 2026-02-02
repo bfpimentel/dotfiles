@@ -30,6 +30,8 @@ brew "xh"
 brew "fzf"
 brew "wget"
 
+brew "opencode"
+
 brew "redis"
 brew "postgresql@17"
 

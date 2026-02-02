@@ -1,3 +1,14 @@
+local function setup_mini_hues()
+  local MiniHues = require("mini.hues")
+  MiniHues.setup({
+    background = "#000000",
+    foreground = "#c4c6cd",
+    accent = "green",
+    saturation = "medium",
+    autoadjust = true,
+  })
+end
+
 local function setup_mini_icons()
   local MiniIcons = require("mini.icons")
   MiniIcons.setup()
@@ -161,19 +172,15 @@ end
 local function setup_mini_statusline()
   local MiniStatusline = require("mini.statusline")
 
+  _B.patch_hl_with_transparency("MiniStatuslineFilename")
+  _B.patch_hl_with_transparency("MiniStatuslineDevinfo")
+
   local check_macro_recording = function()
     if vim.fn.reg_recording() ~= "" then
       return "Recording @" .. vim.fn.reg_recording()
     else
       return ""
     end
-  end
-
-  local function get_hl(group)
-    local hl = vim.api.nvim_get_hl(0, { name = group })
-    local new_group = group .. "T"
-    vim.api.nvim_set_hl(0, new_group, { fg = hl.fg, bg = "NONE" })
-    return new_group
   end
 
   local function mode_hl()
@@ -206,10 +213,10 @@ local function setup_mini_statusline()
     return MiniStatusline.combine_groups({
       { hl = mode_hl(), strings = { mode } },
       "%<", -- Mark general truncate point
-      { hl = get_hl("MiniStatuslineFilename"), strings = { filename } },
+      { hl = "MiniStatuslineFilename", strings = { filename } },
       "%=", -- End left alignment
-      { hl = get_hl("MiniIconsRed"), strings = { check_macro_recording() } },
-      { hl = get_hl("MiniStatuslineDevinfo"), strings = { git, diff, diagnostics, lsp } },
+      { hl = "MiniIconsRed", strings = { check_macro_recording() } },
+      { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
     })
   end
 
@@ -231,6 +238,7 @@ _B.add({
         require("mini.surround").setup()
         require("mini.visits").setup()
 
+        -- setup_mini_hues()
         setup_mini_icons()
         setup_mini_notify()
         setup_mini_pick()
@@ -242,6 +250,15 @@ _B.add({
         setup_mini_hipatterns()
         setup_mini_clue()
         setup_mini_statusline()
+
+        _B.patch_hl_with_transparency("NormalFloat")
+        _B.patch_hl_with_transparency("FloatBorder")
+        _B.patch_hl_with_transparency("FloatTitle")
+        _B.patch_hl_with_transparency("MiniPickPrompt")
+        _B.patch_hl_with_transparency("MiniPickPromptCaret")
+        _B.patch_hl_with_transparency("MiniPickPromptPrefix")
+        _B.patch_hl_with_transparency("Pmenu")
+        _B.patch_hl_with_transparency("PmenuBorder")
       end,
       keys = function()
         local MiniPick = require("mini.pick")
