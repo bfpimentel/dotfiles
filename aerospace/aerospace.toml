@@ -28,8 +28,7 @@ exec-on-workspace-change = [
 persistent-workspaces = ["B", "W", "M", "T", "X"]
 
 [gaps]
-outer.top =        [{ monitor."built-in.*" = 8 }, 48] # for custom bar
-# outer.top =        8
+outer.top =        8
 outer.bottom =     8
 outer.left =       8
 outer.right =      8

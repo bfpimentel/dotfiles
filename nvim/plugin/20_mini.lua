@@ -26,17 +26,11 @@ local function setup_mini_pick()
   local pick_height = math.floor(0.618 * vim.o.lines)
   local pick_width = math.floor(0.618 * vim.o.columns)
 
-  local win_config = {
-    config = {
-      anchor = "NW",
-      height = pick_height,
-      width = pick_width,
-      row = math.floor(0.5 * (vim.o.lines - pick_height)),
-      col = math.floor(0.5 * (vim.o.columns - pick_width)),
+  MiniPick.setup({
+    options = {
+      use_cache = true,
     },
-  }
-
-  MiniPick.setup({ window = win_config })
+  })
   vim.ui.select = MiniPick.ui_select
 end
 
@@ -273,21 +267,10 @@ _B.add({
         end
 
         local function filter_visits(path_data)
-          local is_folder = vim.fn.isdirectory(path_data.path) == 1
-          -- local is_current_buffer = vim.fn.fnamemodify(path_data.path, ":p") == vim.api.nvim_buf_get_name(0)
+          local is_directory = vim.fn.isdirectory(path_data.path) == 1
           local is_scratch = path_data.path:match("/scratch") ~= nil
-          return not is_folder and not is_scratch
+          return not is_directory and not is_scratch
         end
-
-        local diagnostics_win_config = {
-          config = {
-            anchor = "NW",
-            height = 20,
-            width = vim.o.columns,
-            row = vim.o.lines - 20,
-            col = 0,
-          },
-        }
 
         return {
           -- stylua: ignore start
@@ -298,13 +281,12 @@ _B.add({
           { "<Leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, opts = { desc = "Search History" } },
           { "<Leader>hn", function() MiniNotify.show_history() end, opts = { desc = "Notification History" } },
           -- Files
-          { "<Leader>fp", function() MiniPick.builtin.files() end, opts = { desc = "Files" } },
-          { "<Leader>fc", function() MiniPick.builtin.files({ source = { cwd = vim.fn.stdpath("config") } }) end, opts = { desc = "Config Files" } },
+          { "<Leader>fp", function() MiniPick.builtin.files({ tool = "git" }) end, opts = { desc = "Files" } },
           { "<Leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },
           -- Search
           { '<Leader>s"', function() MiniExtra.pickers.registers() end, opts = { desc = "Registers" } },
           { "<Leader>sc", function() MiniExtra.pickers.commands() end, opts = { desc = "Commands" } },
-          { "<Leader>sd", function() MiniExtra.pickers.diagnostic({}, { window = diagnostics_win_config }) end, opts = { desc = "Diagnostics" } },
+          { "<Leader>sd", function() MiniExtra.pickers.diagnostic() end, opts = { desc = "Diagnostics" } },
           { "<Leader>sh", function() MiniPick.builtin.help() end, opts = { desc = "Help Pages" } },
           { "<Leader>sH", function() MiniExtra.pickers.hl_groups() end, opts = { desc = "Highlight Groups" } },
           { "<Leader>sk", function() MiniExtra.pickers.keymaps() end, opts = { desc = "Keymaps" } },
