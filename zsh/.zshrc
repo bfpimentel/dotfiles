@@ -16,6 +16,8 @@ export TMPDIR="/tmp"
 
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 
+export DOCKER_HOST='unix:///tmp/podman/podman-machine-default-api.sock'
+
 if [ -f "$ZDOTDIR/.secrets" ]; then
   source "$ZDOTDIR/.secrets"
 fi

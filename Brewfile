@@ -32,10 +32,14 @@ brew "wget"
 
 brew "opencode"
 
+brew "podman"
+brew "podman-compose"
 brew "redis"
 brew "postgresql@17"
 
 brew "tree-sitter"
+
+brew "ruff"
 
 brew "emmylua_ls"
 brew "stylua"
@@ -54,7 +58,7 @@ brew "vscode-langservers-extracted"
 cask "neovim-nightly"
 cask "kitty@nightly"
 
-cask "docker-desktop"
+cask "xcodes-app"
 
 cask "betterdisplay"
 cask "linearmouse"
