@@ -16,6 +16,9 @@ cask "moonlight-nightly" do
       system_command "git",
                      args: ["submodule", "update", "--init", "--recursive"]
 
+      system_command "/usr/bin/sed",
+                     args: ["-i", "", "s/QMAKE_APPLE_DEVICE_ARCHS=\"x86_64 arm64\"/QMAKE_APPLE_DEVICE_ARCHS=\"#{Hardware::CPU.arch}\"/", "scripts/generate-dmg.sh"]
+
       system_command "./scripts/generate-dmg.sh",
                      args: ["Release"],
                      env:  { "PATH" => "#{HOMEBREW_PREFIX}/bin:#{ENV["PATH"]}" }
