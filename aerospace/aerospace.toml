@@ -13,17 +13,7 @@ accordion-padding = 8
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
 
-on-focus-changed = [
-  "exec-and-forget osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-index-jsx\"'",
-]
-
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-
-exec-on-workspace-change = [ 
-  '/bin/zsh',
-  '-c', 
-  '~/.config/aerospace/on-ws-change.sh'
-]
 
 persistent-workspaces = ["B", "W", "M", "T", "X"]
 

@@ -25,13 +25,15 @@ fi
 # Path
 path=(
     $path
+    $(brew --prefix)/bin
+    $(brew --prefix)/sbin
+    $(brew --prefix)/opt/qt/bin
+    $(brew --prefix)/opt/postgresql@17/bin
     $HOME/.local/bin
     $HOME/.bun/bin
     $HOME/.cache/npm/global/bin
     $ANDROID_HOME/tools
     $ANDROID_HOME/platform-tools
-    $(brew --prefix)/bin
-    $(brew --prefix)/opt/postgresql@17/bin
 )
 
 typeset -U path

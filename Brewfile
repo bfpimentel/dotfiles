@@ -32,6 +32,9 @@ brew "xh"
 brew "fzf"
 brew "wget"
 
+brew "qt"
+brew "create-dmg"
+
 brew "opencode"
 
 brew "podman"
@@ -58,6 +61,8 @@ brew "vscode-langservers-extracted"
 
 # Casks
 cask "neovim-nightly"
+cask "moonlight-nightly"
+
 cask "kitty@nightly"
 
 cask "xcodes-app"
@@ -89,7 +94,6 @@ cask "gcloud-cli"
 # cask "autodesk-fusion"
 
 # cask "moonlight"
-cask "crossover"
 cask "anydesk"
 
 cask "font-victor-mono-nerd-font"
