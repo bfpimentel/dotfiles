@@ -12,6 +12,8 @@ mas "Quickdrop", id: 6740147178
 # Brews
 brew "dockutil"
 
+brew "stow"
+
 brew "antidote"
 
 brew "pnpm"
