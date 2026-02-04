@@ -67,7 +67,6 @@ cask "linearmouse"
 cask "hiddenbar"
 cask "the-unarchiver"
 cask "raycast"
-cask "ovim"
 
 cask "aerospace"
 cask "ubersicht"

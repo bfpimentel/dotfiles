@@ -1,0 +1,19 @@
+Host github
+    HostName github.com
+    User hello@bruno.so
+
+Host godwyn
+    HostName 10.22.4.4
+    User root
+
+Host miquella
+    HostName 159.112.184.83
+    User bruno
+
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+    ServerAliveInterval 25
+    IdentityFile ~/.ssh/id_personal
+
+# vim: set ft=sshconfig :

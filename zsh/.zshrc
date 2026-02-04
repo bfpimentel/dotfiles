@@ -66,7 +66,7 @@ alias szsh="source $ZDOTDIR/.zshrc"
 alias gst="lazygit"
 alias visudo="sudo -E visudo"
 
-alias cc="cd ~/.config && nvim ."
+alias cc="cd ~/.dotfiles && nvim ."
 
 adbw() {
  adb connect "$1":"$2"
