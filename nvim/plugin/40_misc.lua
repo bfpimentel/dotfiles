@@ -3,9 +3,11 @@ _B.add({
     src = "https://github.com/smjonas/inc-rename.nvim",
     data = {
       load = function() require("inc_rename").setup({}) end,
-      keys = {
-        { "<Leader>rn", ":IncRename ", opts = { desc = "Rename Symbol" } },
-      },
+      keys = function()
+        return {
+          { "<Leader>rn", ":IncRename ", opts = { desc = "Rename Symbol" } },
+        }
+      end,
     },
   },
   {
@@ -61,9 +63,11 @@ _B.add({
     src = "https://github.com/MeanderingProgrammer/render-markdown.nvim",
     data = {
       load = function() require("render-markdown").setup({}) end,
-      keys = {
-        { "<Leader>rm", ":RenderMarkdown toggle<CR>", opts = { desc = "Render Markdown" } },
-      },
+      keys = function()
+        return {
+          { "<Leader>rm", ":RenderMarkdown toggle<CR>", opts = { desc = "Render Markdown" } },
+        }
+      end,
     },
   },
 })

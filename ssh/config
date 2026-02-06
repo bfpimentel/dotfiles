@@ -10,6 +10,10 @@ Host miquella
     HostName 159.112.184.83
     User bruno
 
+Host artorias
+    HostName 10.22.4.10
+    User bruno
+
 Host *
     AddKeysToAgent yes
     UseKeychain yes

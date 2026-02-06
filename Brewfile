@@ -12,9 +12,10 @@ mas "Quickdrop", id: 6740147178
 # Brews
 brew "dockutil"
 
-brew "stow"
-
 brew "antidote"
+brew "tmux"
+brew "tpm"
+brew "stow"
 
 brew "pnpm"
 brew "uv"
@@ -31,9 +32,6 @@ brew "xz"
 brew "xh"
 brew "fzf"
 brew "wget"
-
-brew "qt"
-brew "create-dmg"
 
 brew "opencode"
 
@@ -59,10 +57,10 @@ brew "typescript-language-server"
 brew "tailwindcss-language-server"
 brew "vscode-langservers-extracted"
 
-# Casks
+# Casks - Personal Tap
 cask "neovim-nightly"
-cask "moonlight-nightly"
 
+# Casks
 cask "kitty@nightly"
 
 cask "xcodes-app"
@@ -93,7 +91,7 @@ cask "gcloud-cli"
 # cask "bambu-studio"
 # cask "autodesk-fusion"
 
-# cask "moonlight"
+cask "moonlight"
 cask "anydesk"
 
 cask "font-victor-mono-nerd-font"
