@@ -6,7 +6,7 @@ tap "krtirtho/apps"
 tap "tonisives/tap"
 tap "bfpimentel/dotfiles"
 
-# Mac Store Apps
+# Mac Store
 mas "Quickdrop", id: 6740147178
 
 # Brews
@@ -65,11 +65,13 @@ cask "kitty@nightly"
 
 cask "xcodes-app"
 
+cask "vial"
 cask "betterdisplay"
 cask "linearmouse"
 cask "hiddenbar"
 cask "the-unarchiver"
 cask "raycast"
+cask "eqmac"
 
 cask "aerospace"
 cask "ubersicht"

@@ -223,6 +223,7 @@ local function setup_mini_statusline()
 end
 
 _B.add({
+  ---@diagnostic disable-next-line: assign-type-mismatch
   {
     src = "https://github.com/nvim-mini/mini.nvim",
     version = nil,
@@ -231,6 +232,7 @@ _B.add({
         require("mini.ai").setup()
         require("mini.surround").setup()
         require("mini.visits").setup()
+        require("mini.diff").setup()
 
         -- setup_mini_hues()
         setup_mini_icons()
@@ -259,7 +261,6 @@ _B.add({
         local MiniExtra = require("mini.extra")
         local MiniNotify = require("mini.notify")
         local MiniFiles = require("mini.files")
-        -- local MiniDiff = require("mini.diff")
 
         local function toggle_files()
           local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
