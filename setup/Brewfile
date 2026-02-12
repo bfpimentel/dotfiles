@@ -4,6 +4,7 @@ cask_args appdir: '/Applications'
 tap "nikitabobko/tap"
 tap "krtirtho/apps"
 tap "tonisives/tap"
+tap "jsattler/tap"
 tap "bfpimentel/dotfiles"
 
 # Mac Store
@@ -78,7 +79,7 @@ cask "ubersicht"
 
 cask "helium-browser"
 cask "shottr"
-cask "kap"
+cask "bettercapture"
 cask "pearcleaner"
 cask "ankerwork"
 cask "tailscale-app"

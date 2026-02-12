@@ -1,4 +1,4 @@
-brew bundle
+brew bundle --upgrade
 
 sudo -v
 
@@ -50,7 +50,7 @@ defaults write com.apple.Dock show-process-indicators -bool true
 defaults write com.apple.Dock show-recents -bool false
 defaults write com.apple.Dock showhidden -bool false
 defaults write com.apple.Dock static-only -bool false
-defaults write com.apple.Dock dashboard-in-overlay = false
+defaults write com.apple.Dock dashboard-in-overlay -bool false
 defaults write com.apple.Dock expose-animation-duration -float 0.2
 defaults write com.apple.Dock expose-group-apps -bool true
 defaults write com.apple.Dock wvous-bl-corner -int 1

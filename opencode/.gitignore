@@ -1,0 +1,6 @@
+*
+
+!.gitignore
+
+!themes/*
+!opencode.json
