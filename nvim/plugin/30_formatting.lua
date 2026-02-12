@@ -13,6 +13,7 @@ _B.add({
             typescriptreact = { "prettier" },
             javascript = { "prettier" },
             javascriptreact = { "prettier" },
+            sh = { "shfmt" },
             bash = { "shfmt" },
             zsh = { "shfmt" },
           },

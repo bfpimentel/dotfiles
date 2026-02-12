@@ -1,23 +1,30 @@
 #!/bin/bash
 
-command_exists() {
-  command -v "$1" >/dev/null 2>&1
+install_yay() {
+  if ! command -v yay &>/dev/null; then
+    sudo pacman -S --needed --noconfirm git base-devel
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    cd /tmp/yay
+    makepkg -si --noconfirm
+    cd -
+    rm -rf /tmp/yay
+  fi
 }
 
-if ! command_exists yay; then
-  echo "Installing yay..."
-  sudo pacman -S --needed --noconfirm git base-devel
-  git clone https://aur.archlinux.org/yay.git
-  cd yay
-  makepkg -si --noconfirm
-  cd ..
-  rm -rf yay
-else
-  echo "yay is already installed."
-fi
+execute "Checking/Installing Yay" install_yay
+
+install_package() {
+  local package="$1"
+  if pacman -Si "$package" &>/dev/null; then
+    sudo pacman -S --needed --noconfirm "$package"
+  else
+    yay -S --needed --noconfirm "$package"
+  fi
+}
 
 packages=(
-  "antidote"
+  "zsh"
+  "zsh-antidote"
   "tmux"
   "tpm"
   "stow"
@@ -37,6 +44,8 @@ packages=(
   "opencode"
   "podman"
   "podman-compose"
+  "redis"
+  "postgresql"
   "tree-sitter"
   "ruff"
   "emmylua_ls"
@@ -50,16 +59,17 @@ packages=(
   "vscode-langservers-extracted"
 )
 
-echo "Installing packages..."
-
 for package in "${packages[@]}"; do
-  if pacman -Si "$package" &>/dev/null; then
-    echo "Installing $package with pacman..."
-    sudo pacman -S --needed --noconfirm "$package"
-  else
-    echo "Package $package not found in official repositories. Trying yay..."
-    yay -S --needed --noconfirm "$package"
-  fi
+  execute "Installing $package" "install_package $package"
 done
+
+set_default_shell() {
+  local zsh_path=$(which zsh)
+  if [ "$SHELL" != "$zsh_path" ]; then
+    sudo chsh -s "$zsh_path" "$USER"
+  fi
+}
+
+execute "Setting Zsh as Default Shell" set_default_shell
 
 echo "Linux setup complete."

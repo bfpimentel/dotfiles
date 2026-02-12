@@ -25,10 +25,6 @@ fi
 # Path
 path=(
     $path
-    $(brew --prefix)/bin
-    $(brew --prefix)/sbin
-    $(brew --prefix)/opt/qt/bin
-    $(brew --prefix)/opt/postgresql@17/bin
     $HOME/.local/bin
     $HOME/.bun/bin
     $HOME/.cache/npm/global/bin
@@ -36,13 +32,27 @@ path=(
     $ANDROID_HOME/platform-tools
 )
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export BREWPREFIX=$(brew --prefix)
+
+  path+=(
+    $BREWPREFIX/bin
+    $BREWPREFIX/sbin
+    $BREWPREFIX/opt/qt/bin
+    $BREWPREFIX/opt/postgresql@17/bin
+  )
+
+  source $BREWPREFIX/opt/antidote/share/antidote/antidote.zsh
+else
+  path+=()
+fi
+
 typeset -U path
 path=($^path(N-/))
 
 export PATH
 
 # Antidote
-source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 antidote load $ZDOTDIR/.zsh_plugins.txt
 
 # History
@@ -79,6 +89,8 @@ adbw() {
 }
 
 source <(fzf --zsh)
+
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   tmux attach-session -t default
