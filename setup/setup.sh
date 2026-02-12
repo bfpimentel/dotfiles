@@ -1,3 +1,7 @@
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  sh -c ./macos.sh
+  ./macos.sh
+  exit 0
 fi
+
+./linux.sh
+exit 0
