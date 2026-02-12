@@ -45,6 +45,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   source $BREWPREFIX/opt/antidote/share/antidote/antidote.zsh
 else
   path+=()
+
+  source /usr/share/zsh-antidote/antidote.zsh
 fi
 
 typeset -U path
@@ -92,7 +94,7 @@ source <(fzf --zsh)
 
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+if [[ "$OSTYPE" == "darwin"* ]] && command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   tmux attach-session -t default
 fi
 

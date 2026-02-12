@@ -13,10 +13,18 @@ configure_zdotdir() {
 
 execute "Configuring ZDOTDIR" configure_zdotdir
 
+configure_ssh_config() {
+  if [ ! -f "$HOME/.ssh/config" ]; then
+    echo 'include $HOME/.config/ssh/config' >>"$HOME/.ssh/config"
+  fi
+}
+
+execute "Configuring SSH Config" configure_ssh_config
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
   source "$(dirname "$0")/macos.sh"
-  exit 0
+else
+  source "$(dirname "$0")/linux.sh"
 fi
 
-source "$(dirname "$0")/linux.sh"
 exit 0

@@ -1,9 +1,17 @@
 update_prompt() {
   local NEWLINE=$'\n'
 
-  local top_left="%F{#DBBC7F}[ %1~]"
+  local top_left=
   local bottom_left="%F{#D3C6AA}$ %f"
   local top_right=""
+
+  if [ -n "$SSH_TTY" ]; then
+    top_left="%F{#7FBBB3}[󰢹 %m]"
+  else
+    top_left="%F{#83C092}[󰌢 %m]"
+  fi
+
+  top_left="${top_left} %F{#DBBC7F}[ %1~]"
 
   local local_branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
   if [ -n "$local_branch_name" ]; then

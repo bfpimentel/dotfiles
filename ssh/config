@@ -16,7 +16,6 @@ Host artorias
 
 Host *
     AddKeysToAgent yes
-    UseKeychain yes
     ServerAliveInterval 25
     IdentityFile ~/.ssh/id_personal
 
