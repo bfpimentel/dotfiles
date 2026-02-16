@@ -101,10 +101,12 @@ if vim.env.SSH_TTY and not vim.env.ZELLIJ then
   }
 end
 
--- require("vim._extui").enable({
---   enable = true,
---   msg = {
---     target = "msg",
---     timeout = 4000,
---   },
--- })
+local diagnostic_opts = {
+  signs = { priority = 9999, severity = { min = "WARN", max = "ERROR" } },
+  underline = { severity = { min = "HINT", max = "ERROR" } },
+  virtual_lines = false,
+  update_in_insert = false,
+}
+
+---@diagnostic disable-next-line: param-type-mismatch
+_B.pack.later(function() vim.diagnostic.config(diagnostic_opts) end)

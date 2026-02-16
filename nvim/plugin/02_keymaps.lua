@@ -1,4 +1,4 @@
-_B.map_keys({
+_B.util.map_keys({
   -- stylua: ignore start
   -- General
   { "<Leader>rr", "<CMD>restart<CR>" },

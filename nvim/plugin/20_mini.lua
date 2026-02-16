@@ -22,15 +22,12 @@ end
 
 local function setup_mini_pick()
   local MiniPick = require("mini.pick")
-
-  local pick_height = math.floor(0.618 * vim.o.lines)
-  local pick_width = math.floor(0.618 * vim.o.columns)
-
   MiniPick.setup({
     options = {
       use_cache = true,
     },
   })
+
   vim.ui.select = MiniPick.ui_select
 end
 
@@ -166,8 +163,8 @@ end
 local function setup_mini_statusline()
   local MiniStatusline = require("mini.statusline")
 
-  _B.patch_hl_with_transparency("MiniStatuslineFilename")
-  _B.patch_hl_with_transparency("MiniStatuslineDevinfo")
+  _B.util.patch_hl_with_transparency("MiniStatuslineFilename")
+  _B.util.patch_hl_with_transparency("MiniStatuslineDevinfo")
 
   local check_macro_recording = function()
     if vim.fn.reg_recording() ~= "" then
@@ -222,90 +219,80 @@ local function setup_mini_statusline()
   })
 end
 
-_B.add({
-  ---@diagnostic disable-next-line: assign-type-mismatch
-  {
-    src = "https://github.com/nvim-mini/mini.nvim",
-    version = nil,
-    data = {
-      load = function()
-        require("mini.ai").setup()
-        require("mini.surround").setup()
-        require("mini.visits").setup()
-        require("mini.diff").setup()
+_B.pack.now(function()
+  require("mini.ai").setup()
+  require("mini.surround").setup()
+  require("mini.visits").setup()
+  require("mini.diff").setup()
 
-        -- setup_mini_hues()
-        setup_mini_icons()
-        setup_mini_notify()
-        setup_mini_pick()
-        setup_mini_files()
-        setup_mini_indentscope()
-        setup_mini_jump2d()
-        setup_mini_completion()
-        setup_mini_cmdline()
-        setup_mini_hipatterns()
-        setup_mini_clue()
-        setup_mini_statusline()
+  -- setup_mini_hues()
+  setup_mini_icons()
+  setup_mini_notify()
+  setup_mini_pick()
+  setup_mini_files()
+  setup_mini_indentscope()
+  setup_mini_jump2d()
+  setup_mini_completion()
+  setup_mini_cmdline()
+  setup_mini_hipatterns()
+  setup_mini_clue()
+  setup_mini_statusline()
 
-        _B.patch_hl_with_transparency("NormalFloat")
-        _B.patch_hl_with_transparency("FloatBorder")
-        _B.patch_hl_with_transparency("FloatTitle")
-        _B.patch_hl_with_transparency("MiniPickPrompt")
-        _B.patch_hl_with_transparency("MiniPickPromptCaret")
-        _B.patch_hl_with_transparency("MiniPickPromptPrefix")
-        _B.patch_hl_with_transparency("Pmenu")
-        _B.patch_hl_with_transparency("PmenuBorder")
-      end,
-      keys = function()
-        local MiniPick = require("mini.pick")
-        local MiniExtra = require("mini.extra")
-        local MiniNotify = require("mini.notify")
-        local MiniFiles = require("mini.files")
+  _B.util.patch_hl_with_transparency("NormalFloat")
+  _B.util.patch_hl_with_transparency("FloatBorder")
+  _B.util.patch_hl_with_transparency("FloatTitle")
+  _B.util.patch_hl_with_transparency("MiniPickPrompt")
+  _B.util.patch_hl_with_transparency("MiniPickPromptCaret")
+  _B.util.patch_hl_with_transparency("MiniPickPromptPrefix")
+  _B.util.patch_hl_with_transparency("Pmenu")
+  _B.util.patch_hl_with_transparency("PmenuBorder")
 
-        local function toggle_files()
-          local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-          vim.defer_fn(function() MiniFiles.reveal_cwd() end, 30)
-        end
+  local MiniPick = require("mini.pick")
+  local MiniExtra = require("mini.extra")
+  local MiniNotify = require("mini.notify")
+  local MiniFiles = require("mini.files")
 
-        local function filter_visits(path_data)
-          local is_directory = vim.fn.isdirectory(path_data.path) == 1
-          local is_scratch = path_data.path:match("/scratch") ~= nil
-          return not is_directory and not is_scratch
-        end
+  local function toggle_files()
+    local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+    vim.defer_fn(function() MiniFiles.reveal_cwd() end, 30)
+  end
 
-        return {
-          -- stylua: ignore start
-          { "<Leader>,",  function() MiniPick.builtin.buffers() end, opts = { desc = "Buffers" } },
-          { "<Leader>/",  function() MiniPick.builtin.grep_live() end, opts = { desc = "Grep" } },
-          -- History
-          { "<Leader>hc", function() MiniExtra.pickers.history({ scope = ":" }) end, opts = { desc = "Commands History" } },
-          { "<Leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, opts = { desc = "Search History" } },
-          { "<Leader>hn", function() MiniNotify.show_history() end, opts = { desc = "Notification History" } },
-          -- Files
-          { "<Leader>fp", function() MiniPick.builtin.files({ tool = "git" }) end, opts = { desc = "Files" } },
-          { "<Leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },
-          -- Search
-          { '<Leader>s"', function() MiniExtra.pickers.registers() end, opts = { desc = "Registers" } },
-          { "<Leader>sc", function() MiniExtra.pickers.commands() end, opts = { desc = "Commands" } },
-          { "<Leader>sd", function() MiniExtra.pickers.diagnostic() end, opts = { desc = "Diagnostics" } },
-          { "<Leader>sh", function() MiniPick.builtin.help() end, opts = { desc = "Help Pages" } },
-          { "<Leader>sH", function() MiniExtra.pickers.hl_groups() end, opts = { desc = "Highlight Groups" } },
-          { "<Leader>sk", function() MiniExtra.pickers.keymaps() end, opts = { desc = "Keymaps" } },
-          { "<Leader>sm", function() MiniExtra.pickers.marks() end, opts = { desc = "Marks" } },
-          { "<Leader>sC", function() MiniExtra.pickers.colorschemes() end, opts = { desc = "Colorschemes" } },
-          -- LSP
-          { "<Leader>gD", function() MiniExtra.pickers.lsp({ scope = "declaration" }) end, opts = { desc = "Declarations" } },
-          { "<Leader>gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, opts = { desc = "Definitions" } },
-          { "<Leader>gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, opts = { desc = "References" } },
-          { "<Leader>gI", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, opts = { desc = "Implementation" } },
-          { "<Leader>gy", function() MiniExtra.pickers.lsp({ scope = "type_definition" }) end, opts = { desc = "Type Definition" } },
-          { "<Leader>gs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, opts = { desc = "Symbols" } },
-          { "<Leader>gS", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, opts = { desc = "Workspace Symbols" } },
-          -- Explorer
-          { "<Leader>e",  function() toggle_files() end, opts = { desc = "File Explorer" } },
-          -- stylua: ignore end
-        }
-      end,
-    },
-  },
-})
+  local function filter_visits(path_data)
+    local is_directory = vim.fn.isdirectory(path_data.path) == 1
+    local is_scratch = path_data.path:match("/scratch") ~= nil
+    return not is_directory and not is_scratch
+  end
+
+  _B.util.map_keys({
+    -- stylua: ignore start
+    { "<Leader>,",  function() MiniPick.builtin.buffers() end, opts = { desc = "Buffers" } },
+    { "<Leader>/",  function() MiniPick.builtin.grep_live() end, opts = { desc = "Grep" } },
+    -- History
+    { "<Leader>hc", function() MiniExtra.pickers.history({ scope = ":" }) end, opts = { desc = "Commands History" } },
+    { "<Leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, opts = { desc = "Search History" } },
+    { "<Leader>hn", function() MiniNotify.show_history() end, opts = { desc = "Notification History" } },
+    -- Files
+    { "<Leader>fp", function() MiniPick.builtin.files({ tool = "git" }) end, opts = { desc = "Files" } },
+    { "<Leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },
+    -- Search
+    { '<Leader>s"', function() MiniExtra.pickers.registers() end, opts = { desc = "Registers" } },
+    { "<Leader>sc", function() MiniExtra.pickers.commands() end, opts = { desc = "Commands" } },
+    { "<Leader>sd", function() MiniExtra.pickers.diagnostic() end, opts = { desc = "Diagnostics" } },
+    { "<Leader>sh", function() MiniPick.builtin.help() end, opts = { desc = "Help Pages" } },
+    { "<Leader>sH", function() MiniExtra.pickers.hl_groups() end, opts = { desc = "Highlight Groups" } },
+    { "<Leader>sk", function() MiniExtra.pickers.keymaps() end, opts = { desc = "Keymaps" } },
+    { "<Leader>sm", function() MiniExtra.pickers.marks() end, opts = { desc = "Marks" } },
+    { "<Leader>sC", function() MiniExtra.pickers.colorschemes() end, opts = { desc = "Colorschemes" } },
+    -- LSP
+    { "<Leader>gD", function() MiniExtra.pickers.lsp({ scope = "declaration" }) end, opts = { desc = "Declarations" } },
+    { "<Leader>gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, opts = { desc = "Definitions" } },
+    { "<Leader>gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, opts = { desc = "References" } },
+    { "<Leader>gI", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, opts = { desc = "Implementation" } },
+    { "<Leader>gy", function() MiniExtra.pickers.lsp({ scope = "type_definition" }) end, opts = { desc = "Type Definition" } },
+    { "<Leader>gs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, opts = { desc = "Symbols" } },
+    { "<Leader>gS", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end, opts = { desc = "Workspace Symbols" } },
+    -- Explorer
+    { "<Leader>e",  function() toggle_files() end, opts = { desc = "File Explorer" } },
+    -- stylua: ignore end
+  })
+end)

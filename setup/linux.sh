@@ -45,6 +45,7 @@ packages=(
   "podman"
   "podman-compose"
   "tree-sitter"
+  "tree-sitter-cli"
   "ruff"
   "emmylua-ls-bin"
   "stylua"

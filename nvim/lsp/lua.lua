@@ -17,21 +17,10 @@ return {
   log_level = vim.lsp.protocol.MessageType.Warning,
   settings = {
     Lua = {
-      runtime = {
-        version = "Lua 5.4",
-        path = {
-          "?.lua",
-          "?/init.lua",
-        },
-      },
+      runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      diagnostics = {
-        globals = {
-          "vim",
-          "use",
-        },
+        ignoreSubmodules = true,
+        library = { vim.env.VIMRUNTIME },
       },
     },
   },

@@ -1,31 +1,18 @@
-_B.add({
-  {
-    src = "https://github.com/neanias/everforest-nvim",
-    name = "everforest",
-    data = {
-      load = function()
-        require("everforest").setup({
-          -- background = "soft",
-          transparent_background_level = 2,
-          italics = false,
-          float_style = "dim",
-        })
+_B.pack.now(function()
+  _B.pack.add({
+    {
+      src = "https://github.com/neanias/everforest-nvim",
+      name = "everforest",
+    },
+  })
 
-        require("everforest").load()
-      end,
-    },
-  },
-  {
-    src = "https://github.com/oskarnurm/koda.nvim",
-    name = "koda",
-    data = {
-      load = function()
-        require("koda").setup({
-          transparent = true,
-          auto = true,
-          cache = true,
-        })
-      end,
-    },
-  },
-})
+  local Everforest = require("everforest")
+
+  Everforest.setup({
+    transparent_background_level = 2,
+    italics = false,
+    float_style = "dim",
+  })
+
+  Everforest.load()
+end)
