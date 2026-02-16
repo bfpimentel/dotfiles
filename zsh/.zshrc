@@ -99,7 +99,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --color $realpath'
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --color --group-directories-first $realpath '
 
 # Aliases
 alias szsh="source $ZDOTDIR/.zshrc"
@@ -110,7 +111,7 @@ alias visudo="sudo -E visudo"
 alias cc="cd ~/.dotfiles"
 alias ec="cd ~/.dotfiles && nvim ."
 
-alias ls="eza --color"
+alias ls="eza -l --color --group-directories-first"
 
 adbw() {
  adb connect "$1":"$2"
