@@ -1,10 +1,9 @@
-_B.pack.now_if_args(function()
-  local ts_update = function() vim.cmd("TSUpdate") end
-  _B.pack.on_changed("nvim-treesitter", { "update" }, ts_update, ":TSUpdate")
+Pack.now_if_args(function()
+  Pack.on_changed("nvim-treesitter", { "update" }, function() vim.cmd("TSUpdate") end, "Update Treesitter")
 
-  _B.pack.add({
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
+  Pack.add({
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
   })
 
   local languages = {
@@ -46,7 +45,7 @@ _B.pack.now_if_args(function()
 
   local is_not_installed = function(lang) return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0 end
   local to_install = vim.tbl_filter(is_not_installed, languages)
-  if #to_install > 0 then require("nvim-treesitter").install(to_install) end
+  if #to_install > 0 then pcall(require("nvim-treesitter").install, to_install) end
 
   local filetypes = {}
   for _, lang in ipairs(languages) do
@@ -55,6 +54,6 @@ _B.pack.now_if_args(function()
     end
   end
 
-  local ts_start = function(ev) vim.treesitter.start(ev.buf) end
-  _B.util.new_autocmd("Start tree-sitter", "FileType", filetypes, ts_start)
+  local ts_start = function(event) vim.treesitter.start(event.buf) end
+  Util.new_autocmd("Start tree-sitter", "FileType", filetypes, ts_start)
 end)

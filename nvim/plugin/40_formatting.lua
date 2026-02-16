@@ -1,7 +1,9 @@
-_B.pack.now(function()
-  _B.pack.add({ { src = "https://github.com/stevearc/conform.nvim" } })
+Pack.later(function()
+  Pack.add({ "https://github.com/stevearc/conform.nvim" })
 
-  require("conform").setup({
+  local Conform = require("conform")
+
+  Conform.setup({
     formatters_by_ft = {
       lua = { "stylua" },
       yaml = { "yamlfmt" },
@@ -17,9 +19,9 @@ _B.pack.now(function()
     },
   })
 
-  local function format() require("conform").format({ lsp_fallback = true }) end
+  local function format() Conform.format({ lsp_fallback = true }) end
 
-  _B.util.map_keys({
+  Util.map_keys({
     { "<Leader>ff", format, opts = { desc = "Format File" } },
   })
 end)

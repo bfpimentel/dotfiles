@@ -1,0 +1,62 @@
+Pack.later(function()
+  Pack.add({ "https://github.com/akinsho/toggleterm.nvim" })
+
+  require("toggleterm").setup({
+    shade_terminals = false,
+  })
+
+  local Terminal = require("toggleterm.terminal").Terminal
+  local Lazygit = Terminal:new({
+    cmd = "lazygit",
+    hidden = true,
+    direction = "float",
+    float_opts = { border = "solid" },
+  })
+
+  Util.map_keys({
+    { "<Leader>gg", function() Lazygit:toggle() end, opts = { desc = "LazyGit" } },
+  })
+end)
+
+Pack.later(function()
+  Pack.add({ "https://github.com/mrjones2014/smart-splits.nvim" })
+
+  local SmartSplits = require("smart-splits")
+
+  SmartSplits.setup({
+    default_amount = 5,
+  })
+
+  Util.map_keys({
+    -- stylua: ignore start
+    { "<C-h>", function() SmartSplits.move_cursor_left() end },
+    { "<C-j>", function() SmartSplits.move_cursor_down() end },
+    { "<C-k>", function() SmartSplits.move_cursor_up() end },
+    { "<C-l>", function() SmartSplits.move_cursor_right() end },
+    { "<A-h>", function() SmartSplits.resize_left() end },
+    { "<A-j>", function() SmartSplits.resize_down() end },
+    { "<A-k>", function() SmartSplits.resize_up() end },
+    { "<A-l>", function() SmartSplits.resize_right() end },
+    -- stylua: ignore end
+  }, { silent = true })
+end)
+
+Pack.later(function()
+  Pack.add({ "https://github.com/smjonas/inc-rename.nvim" })
+
+  require("inc_rename").setup({})
+
+  Util.map_keys({
+    { "<Leader>rn", ":IncRename ", opts = { desc = "Rename Symbol" } },
+  })
+end)
+
+Pack.on_filetype("markdown", function()
+  Pack.add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
+
+  require("render-markdown").setup({})
+
+  Util.map_keys({
+    { "<Leader>rm", ":RenderMarkdown toggle<CR>", opts = { desc = "Render Markdown" } },
+  })
+end)

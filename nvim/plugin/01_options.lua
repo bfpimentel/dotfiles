@@ -84,7 +84,7 @@ vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 -- Clipboard
 vim.opt.clipboard = "unnamedplus"
 
-if vim.env.SSH_TTY and not vim.env.ZELLIJ then
+if vim.env.SSH_TTY and not vim.env.TMUX then
   local function paste() return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") } end
 
   local osc52 = require("vim.ui.clipboard.osc52")
@@ -101,6 +101,7 @@ if vim.env.SSH_TTY and not vim.env.ZELLIJ then
   }
 end
 
+-- Diagnostics
 local diagnostic_opts = {
   signs = { priority = 9999, severity = { min = "WARN", max = "ERROR" } },
   underline = { severity = { min = "HINT", max = "ERROR" } },
@@ -108,5 +109,19 @@ local diagnostic_opts = {
   update_in_insert = false,
 }
 
----@diagnostic disable-next-line: param-type-mismatch
-_B.pack.later(function() vim.diagnostic.config(diagnostic_opts) end)
+Pack.later(function() vim.diagnostic.config(diagnostic_opts) end)
+
+vim.lsp.enable({
+  "eslint",
+  "go",
+  "html",
+  "json",
+  "lua",
+  "nix",
+  "python",
+  "typescript",
+  "tailwindcss",
+  "yaml",
+})
+
+vim.lsp.inline_completion.enable()

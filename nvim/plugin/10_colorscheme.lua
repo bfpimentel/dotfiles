@@ -1,5 +1,5 @@
-_B.pack.now(function()
-  _B.pack.add({
+Pack.now(function()
+  Pack.add({
     {
       src = "https://github.com/neanias/everforest-nvim",
       name = "everforest",

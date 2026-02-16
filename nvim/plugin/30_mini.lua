@@ -1,13 +1,13 @@
-local function setup_mini_hues()
-  local MiniHues = require("mini.hues")
-  MiniHues.setup({
-    background = "#000000",
-    foreground = "#c4c6cd",
-    accent = "green",
-    saturation = "medium",
-    autoadjust = true,
-  })
-end
+-- local function setup_mini_hues()
+--   local MiniHues = require("mini.hues")
+--   MiniHues.setup({
+--     background = "#000000",
+--     foreground = "#c4c6cd",
+--     accent = "green",
+--     saturation = "medium",
+--     autoadjust = true,
+--   })
+-- end
 
 local function setup_mini_icons()
   local MiniIcons = require("mini.icons")
@@ -67,7 +67,7 @@ end
 local function setup_mini_completion()
   local MiniCompletion = require("mini.completion")
 
-  ---@diagnostic disable-next-line: duplicate-set-field
+  ---@diagnostic disable-next-line: duplicate-set-field, global-in-non-module
   _G.cr_action = function()
     if vim.fn.complete_info()["selected"] ~= -1 then return "\25" end
     return "\r"
@@ -163,8 +163,8 @@ end
 local function setup_mini_statusline()
   local MiniStatusline = require("mini.statusline")
 
-  _B.util.patch_hl_with_transparency("MiniStatuslineFilename")
-  _B.util.patch_hl_with_transparency("MiniStatuslineDevinfo")
+  Util.patch_hl_with_transparency("MiniStatuslineFilename")
+  Util.patch_hl_with_transparency("MiniStatuslineDevinfo")
 
   local check_macro_recording = function()
     if vim.fn.reg_recording() ~= "" then
@@ -219,7 +219,7 @@ local function setup_mini_statusline()
   })
 end
 
-_B.pack.now(function()
+Pack.now(function()
   require("mini.ai").setup()
   require("mini.surround").setup()
   require("mini.visits").setup()
@@ -238,14 +238,14 @@ _B.pack.now(function()
   setup_mini_clue()
   setup_mini_statusline()
 
-  _B.util.patch_hl_with_transparency("NormalFloat")
-  _B.util.patch_hl_with_transparency("FloatBorder")
-  _B.util.patch_hl_with_transparency("FloatTitle")
-  _B.util.patch_hl_with_transparency("MiniPickPrompt")
-  _B.util.patch_hl_with_transparency("MiniPickPromptCaret")
-  _B.util.patch_hl_with_transparency("MiniPickPromptPrefix")
-  _B.util.patch_hl_with_transparency("Pmenu")
-  _B.util.patch_hl_with_transparency("PmenuBorder")
+  Util.patch_hl_with_transparency("NormalFloat")
+  Util.patch_hl_with_transparency("FloatBorder")
+  Util.patch_hl_with_transparency("FloatTitle")
+  Util.patch_hl_with_transparency("MiniPickPrompt")
+  Util.patch_hl_with_transparency("MiniPickPromptCaret")
+  Util.patch_hl_with_transparency("MiniPickPromptPrefix")
+  Util.patch_hl_with_transparency("Pmenu")
+  Util.patch_hl_with_transparency("PmenuBorder")
 
   local MiniPick = require("mini.pick")
   local MiniExtra = require("mini.extra")
@@ -263,7 +263,7 @@ _B.pack.now(function()
     return not is_directory and not is_scratch
   end
 
-  _B.util.map_keys({
+  Util.map_keys({
     -- stylua: ignore start
     { "<Leader>,",  function() MiniPick.builtin.buffers() end, opts = { desc = "Buffers" } },
     { "<Leader>/",  function() MiniPick.builtin.grep_live() end, opts = { desc = "Grep" } },

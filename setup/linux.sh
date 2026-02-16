@@ -47,7 +47,7 @@ packages=(
   "tree-sitter"
   "tree-sitter-cli"
   "ruff"
-  "emmylua-ls-bin"
+  "lua-language-server"
   "stylua"
   "bash-language-server"
   "shfmt"

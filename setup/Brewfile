@@ -46,7 +46,7 @@ brew "tree-sitter"
 
 brew "ruff"
 
-brew "emmylua_ls"
+brew "lua-language-server"
 brew "stylua"
 
 brew "bash-language-server"

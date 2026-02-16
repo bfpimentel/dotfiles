@@ -1,6 +1,6 @@
 --- @type vim.lsp.Config
 return {
-  cmd = { "emmylua_ls" },
+  cmd = { "lua-language-server" },
   filetypes = { "lua" },
   root_markers = {
     ".git",
@@ -24,4 +24,7 @@ return {
       },
     },
   },
+  on_attach = function(client, _)
+    client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", "#", "(" }
+  end,
 }
