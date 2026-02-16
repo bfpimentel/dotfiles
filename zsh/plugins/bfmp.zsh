@@ -36,13 +36,13 @@ preexec_update_git_vars() {
   esac
 }
 
-prompt_bfmp() {
+bfmp() {
   autoload -U add-zsh-hook
   add-zsh-hook chpwd update_prompt
   add-zsh-hook precmd precmd_update_git_vars
   add-zsh-hook preexec preexec_update_git_vars
 }
 
-prompt_bfmp
+bfmp
 
 # vim: set ft=zsh :

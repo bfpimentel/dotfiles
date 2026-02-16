@@ -24,7 +24,7 @@ install_package() {
 
 packages=(
   "zsh"
-  "zsh-antidote"
+  "zinit"
   "tmux"
   "tpm"
   "stow"

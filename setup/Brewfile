@@ -13,7 +13,7 @@ mas "Quickdrop", id: 6740147178
 # Brews
 brew "dockutil"
 
-brew "antidote"
+brew "zinit"
 brew "tmux"
 brew "tpm"
 brew "stow"
@@ -29,6 +29,7 @@ brew "lazygit"
 brew "gnupg"
 brew "ripgrep"
 brew "libpcap"
+brew "eza"
 brew "xz"
 brew "xh"
 brew "fzf"

@@ -17,6 +17,12 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 persistent-workspaces = ["B", "W", "M", "T", "X"]
 
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  '~/.config/aerospace/handle-pip.sh'
+]
+
 [gaps]
 outer.top =        8
 outer.bottom =     8

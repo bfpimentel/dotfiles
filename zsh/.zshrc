@@ -1,8 +1,3 @@
-# Options
-setopt extended_glob null_glob
-setopt append_history share_history inc_append_history
-setopt hist_ignore_dups hist_ignore_space
-
 # Env
 export TERM="xterm-256color"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -17,6 +12,8 @@ export TMPDIR="/tmp"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 
 export DOCKER_HOST='unix:///tmp/podman/podman-machine-default-api.sock'
+
+export LS_COLORS="di=34:ln=36:so=35:pi=33:ex=32:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;34"
 
 if [ -f "$ZDOTDIR/.secrets" ]; then
   source "$ZDOTDIR/.secrets"
@@ -41,12 +38,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     $BREWPREFIX/opt/qt/bin
     $BREWPREFIX/opt/postgresql@17/bin
   )
-
-  source $BREWPREFIX/opt/antidote/share/antidote/antidote.zsh
 else
   path+=()
-
-  source /usr/share/zsh-antidote/antidote.zsh
 fi
 
 typeset -U path
@@ -54,25 +47,59 @@ path=($^path(N-/))
 
 export PATH
 
-# Antidote
-antidote load $ZDOTDIR/.zsh_plugins.txt
+# Zinit
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  source $BREWPREFIX/opt/zinit/zinit.zsh
+  eval "$(brew shellenv)"
+else
+  source /usr/share/zinit/zinit.zsh
+fi
 
-# History
-HISTSIZE=1000000
-SAVEHIST=1000000
-HISTFILE="${HOME}/.zsh_history"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Prompt
-fpath+=($ZDOTDIR/plugins)
-autoload -Uz prompt_bfmp; prompt_bfmp
-autoload -Uz colors; colors
-autoload -Uz compinit; compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zinit snippet "$ZDOTDIR/plugins/bfmp.zsh"
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+zinit light Aloxaf/fzf-tab
+
+# Load completions
+autoload -Uz compinit && compinit
+
+zinit cdreplay -q
+
+# Keybindings
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
 
 # Edit command line in $EDITOR
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
+
+# History
+HISTSIZE=1000000
+HISTFILE=$HOME/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion Styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --color $realpath'
 
 # Aliases
 alias szsh="source $ZDOTDIR/.zshrc"
@@ -83,6 +110,8 @@ alias visudo="sudo -E visudo"
 alias cc="cd ~/.dotfiles"
 alias ec="cd ~/.dotfiles && nvim ."
 
+alias ls="eza --color"
+
 adbw() {
  adb connect "$1":"$2"
  adb tcpip 5555
@@ -90,10 +119,12 @@ adbw() {
  adb connect "$1":5555
 }
 
-source <(fzf --zsh)
+# Tools
+eval "$(fzf --zsh)"
 
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
+# Init
 if [[ "$OSTYPE" == "darwin"* ]] && command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   tmux attach-session -t default
 fi

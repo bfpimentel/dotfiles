@@ -46,7 +46,7 @@ vim.o.splitright = true -- Vertical splits will be to the right
 vim.o.wrap = false -- Don't visually wrap lines (toggle with \w)
 vim.o.cursorlineopt = "screenline,number" -- Show cursor line per screen line
 vim.o.fillchars = "eob: ,fold:╌"
-vim.o.listchars = "extends:…,nbsp:␣,precedes:…,tab:> "
+vim.o.listchars = "tab:> ,trail:-,nbsp:+"
 vim.o.cmdheight = 0
 vim.o.rnu = true
 
