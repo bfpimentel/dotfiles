@@ -1,7 +1,9 @@
 # Env
 export TERM="xterm-256color"
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export TMUXDIR="$HOME/.config/tmux"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 export LANG="en_US.UTF-8"
 export VISUAL="nvim"
