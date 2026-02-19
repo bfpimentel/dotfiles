@@ -1,20 +1,32 @@
+-- Pack.later(function()
+--   Pack.add({ "https://github.com/akinsho/toggleterm.nvim" })
+--
+--   require("toggleterm").setup({
+--     shade_terminals = false,
+--   })
+--
+--   local Terminal = require("toggleterm.terminal").Terminal
+--   local Lazygit = Terminal:new({
+--     cmd = "lazygit",
+--     hidden = true,
+--     direction = "float",
+--     float_opts = { border = "solid" },
+--   })
+--
+--   Util.map_keys({
+--     { "<Leader>gg", function() Lazygit:toggle() end, opts = { desc = "LazyGit" } },
+--   })
+-- end)
+
 Pack.later(function()
-  Pack.add({ "https://github.com/akinsho/toggleterm.nvim" })
-
-  require("toggleterm").setup({
-    shade_terminals = false,
-  })
-
-  local Terminal = require("toggleterm.terminal").Terminal
-  local Lazygit = Terminal:new({
-    cmd = "lazygit",
-    hidden = true,
-    direction = "float",
-    float_opts = { border = "solid" },
+  Pack.add({
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/sindrets/diffview.nvim",
+    "https://github.com/NeogitOrg/neogit",
   })
 
   Util.map_keys({
-    { "<Leader>gg", function() Lazygit:toggle() end, opts = { desc = "LazyGit" } },
+    { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
   })
 end)
 
