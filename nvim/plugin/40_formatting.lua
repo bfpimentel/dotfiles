@@ -22,6 +22,6 @@ Pack.later(function()
   local function format() Conform.format({ lsp_fallback = true }) end
 
   Util.map_keys({
-    { "<Leader>ff", format, opts = { desc = "Format File" } },
+    { "<leader>ff", format, opts = { desc = "Format File" } },
   })
 end)

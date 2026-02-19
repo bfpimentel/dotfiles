@@ -31,3 +31,12 @@ Util.new_autocmd(
   nil,
   function() vim.cmd("setlocal formatoptions-=c formatoptions-=o") end
 )
+
+Util.new_autocmd(
+  "Open Terminal in Insert Mode",
+  { "TermOpen", "BufWinEnter" },
+  "term://*",
+  function() vim.cmd("startinsert") end
+)
+
+Util.new_autocmd("Close Buffer when closing Terminal", "TermClose", nil, function() vim.cmd("bdelete!") end)

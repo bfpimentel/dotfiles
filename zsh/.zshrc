@@ -37,8 +37,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   path+=(
     $BREWPREFIX/bin
     $BREWPREFIX/sbin
-    $BREWPREFIX/opt/qt/bin
     $BREWPREFIX/opt/postgresql@17/bin
+    $BREWPREFIX/opt/qt/bin
   )
 else
   path+=()

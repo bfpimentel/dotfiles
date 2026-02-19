@@ -2,8 +2,8 @@ Pack.now_if_args(function()
   Pack.on_changed("nvim-treesitter", { "update" }, function() vim.cmd("TSUpdate") end, "Update Treesitter")
 
   Pack.add({
-    "https://github.com/nvim-treesitter/nvim-treesitter",
-    "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
   })
 
   local languages = {

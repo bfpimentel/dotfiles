@@ -35,7 +35,10 @@ brew "xh"
 brew "fzf"
 brew "wget"
 
+brew "qt"
 brew "opencode"
+
+brew "create-dmg"
 
 brew "podman"
 brew "podman-compose"
