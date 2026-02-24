@@ -1,17 +1,16 @@
 # Env
 export TERM="xterm-256color"
 
+export LANG="en_US.UTF-8"
+
 export XDG_CONFIG_HOME="$HOME/.config"
 export TMUXDIR="$HOME/.config/tmux"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export TMPDIR="/tmp"
 
-export LANG="en_US.UTF-8"
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
 export MANPAGER="nvim +Man!"
-export TMPDIR="/tmp"
-
-export ANDROID_HOME="$HOME/Library/Android/sdk"
 
 export DOCKER_HOST='unix:///tmp/podman/podman-machine-default-api.sock'
 
@@ -21,36 +20,27 @@ if [ -f "$ZDOTDIR/.secrets" ]; then
   source "$ZDOTDIR/.secrets"
 fi
 
-# Path
-path=(
-    $path
-    $HOME/.local/bin
-    $HOME/.bun/bin
-    $HOME/.cache/npm/global/bin
-    $ANDROID_HOME/tools
-    $ANDROID_HOME/platform-tools
-)
+export PATH="$PATH:$HOME/.local/bin"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  export BREWPREFIX=$(brew --prefix)
+  export CHROME_EXECUTABLE="/Applications/Helium.app/Contents/MacOS/Helium"
 
-  path+=(
-    $BREWPREFIX/bin
-    $BREWPREFIX/sbin
-    $BREWPREFIX/opt/postgresql@17/bin
-    $BREWPREFIX/opt/qt/bin
-  )
-else
-  path+=()
-fi
+  export PATH="$PATH:$HOME/.bun/bin"
+  export PATH="$PATH:$HOME/.pub-cache/bin"
+  export PATH="$PATH:$HOME/.cache/npm/global/bin"
 
-typeset -U path
-path=($^path(N-/))
+  export ANDROID_HOME="$HOME/Library/Android/sdk"
+  export ANDROID_SDK_ROOT="$ANDROID_HOME"
+  export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+  export PATH="$PATH:$ANDROID_HOME/platform-tools"
+  export PATH="$PATH:$ANDROID_HOME/emulator"
 
-export PATH
+  export BREWPREFIX="$(brew --prefix)"
+  export PATH="$PATH:$BREWPREFIX/bin"
+  export PATH="$PATH:$BREWPREFIX/sbin"
+  export PATH="$PATH:$BREWPREFIX/opt/postgresql@17/bin"
+  export PATH="$PATH:$BREWPREFIX/opt/qt/bin"
 
-# Zinit
-if [[ "$OSTYPE" == "darwin"* ]]; then
   source $BREWPREFIX/opt/zinit/zinit.zsh
   eval "$(brew shellenv)"
 else
@@ -83,10 +73,10 @@ zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
 # History
+HISTDUP=erase
 HISTSIZE=1000000
 HISTFILE=$HOME/.zsh_history
 SAVEHIST=$HISTSIZE
-HISTDUP=erase
 
 setopt appendhistory
 setopt sharehistory
@@ -116,18 +106,19 @@ alias ec="cd ~/.dotfiles && nvim ."
 alias ls="eza -l --color --group-directories-first"
 
 adbw() {
- adb connect "$1":"$2"
- adb tcpip 5555
- adb disconnect
- adb connect "$1":5555
+  adb connect "$1":"$2"
+  adb tcpip 5555
+  adb disconnect
+  adb connect "$1":5555
 }
 
 # Tools
 eval "$(fzf --zsh)"
 
+[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-# Init
+# Tmux
 if [[ "$OSTYPE" == "darwin"* ]] && command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   tmux attach-session -t default
 fi

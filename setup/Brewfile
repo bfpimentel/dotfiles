@@ -18,12 +18,14 @@ brew "tmux"
 brew "tpm"
 brew "stow"
 
+brew "lua"
+
+brew "cocoapods"
+
 brew "pnpm"
 brew "uv"
 brew "overmind"
 brew "direnv"
-
-brew "lua"
 
 brew "lazygit"
 brew "gnupg"
@@ -35,9 +37,9 @@ brew "xh"
 brew "fzf"
 brew "wget"
 
-brew "qt"
 brew "opencode"
 
+brew "qt"
 brew "create-dmg"
 
 brew "podman"
@@ -68,7 +70,9 @@ cask "neovim-nightly"
 # Casks
 cask "kitty@nightly"
 
+cask "flutter"
 cask "xcodes-app"
+cask "android-commandlinetools"
 
 cask "vial"
 cask "betterdisplay"
@@ -79,7 +83,6 @@ cask "raycast"
 cask "eqmac"
 
 cask "aerospace"
-cask "ubersicht"
 
 cask "helium-browser"
 cask "shottr"

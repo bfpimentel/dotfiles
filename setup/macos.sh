@@ -14,6 +14,14 @@ brew_bundle() {
 
 execute "Updating Homebrew Bundle" brew_bundle
 
+install_sdkman() {
+  if ! command -v sdkman &>/dev/null; then
+    /bin/bash -c "$(curl -fsSL https://get.sdkman.io)"
+  fi
+}
+
+execute "Checking/Installing SDKMan" install_sdkman
+
 set_defaults() {
   # Global
   defaults write NSGlobalDomain KeyRepeat -int 1
@@ -28,7 +36,7 @@ set_defaults() {
   defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
   defaults write NSGlobalDomain NSWindowShouldDragOnGesture -bool true
 
-  defaults write NSGlobalDomain com.apple.trackpad.scaling -int -1
+  defaults write NSGlobalDomain com.apple.trackpad.scaling -int 2
   defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
   defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
