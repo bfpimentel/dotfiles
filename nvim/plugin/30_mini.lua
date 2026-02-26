@@ -17,6 +17,7 @@ end
 local function setup_mini_notify()
   local MiniNotify = require("mini.notify")
   MiniNotify.setup()
+
   vim.notify = MiniNotify.make_notify()
 end
 
@@ -25,6 +26,12 @@ local function setup_mini_pick()
   MiniPick.setup({
     options = {
       use_cache = true,
+    },
+    mappings = {
+      choose_marked = "<C-q>",
+    },
+    source = {
+      choose_marked = function(items) MiniPick.default_choose_marked(items, { list_type = "location" }) end,
     },
   })
 
@@ -219,11 +226,16 @@ local function setup_mini_statusline()
   })
 end
 
+local function setup_mini_diff()
+  require("mini.diff").setup({
+    view = { style = "sign" },
+  })
+end
+
 Pack.now(function()
   require("mini.ai").setup()
   require("mini.surround").setup()
   require("mini.visits").setup()
-  require("mini.diff").setup()
 
   -- setup_mini_hues()
   setup_mini_icons()
@@ -237,6 +249,7 @@ Pack.now(function()
   setup_mini_hipatterns()
   setup_mini_clue()
   setup_mini_statusline()
+  setup_mini_diff()
 
   Util.patch_hl_with_transparency("NormalFloat")
   Util.patch_hl_with_transparency("FloatBorder")

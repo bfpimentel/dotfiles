@@ -17,34 +17,34 @@ export DOCKER_HOST='unix:///tmp/podman/podman-machine-default-api.sock'
 export LS_COLORS="di=34:ln=36:so=35:pi=33:ex=32:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;34"
 
 if [ -f "$ZDOTDIR/.secrets" ]; then
-  source "$ZDOTDIR/.secrets"
+    source "$ZDOTDIR/.secrets"
 fi
 
 export PATH="$PATH:$HOME/.local/bin"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  export CHROME_EXECUTABLE="/Applications/Helium.app/Contents/MacOS/Helium"
+    export CHROME_EXECUTABLE="/Applications/Helium.app/Contents/MacOS/Helium"
 
-  export PATH="$PATH:$HOME/.bun/bin"
-  export PATH="$PATH:$HOME/.pub-cache/bin"
-  export PATH="$PATH:$HOME/.cache/npm/global/bin"
+    export PATH="$PATH:$HOME/.bun/bin"
+    export PATH="$PATH:$HOME/.pub-cache/bin"
+    export PATH="$PATH:$HOME/.cache/npm/global/bin"
 
-  export ANDROID_HOME="$HOME/Library/Android/sdk"
-  export ANDROID_SDK_ROOT="$ANDROID_HOME"
-  export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
-  export PATH="$PATH:$ANDROID_HOME/platform-tools"
-  export PATH="$PATH:$ANDROID_HOME/emulator"
+    export ANDROID_HOME="$HOME/Library/Android/sdk"
+    export ANDROID_SDK_ROOT="$ANDROID_HOME"
+    export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+    export PATH="$PATH:$ANDROID_HOME/platform-tools"
+    export PATH="$PATH:$ANDROID_HOME/emulator"
 
-  export BREWPREFIX="$(brew --prefix)"
-  export PATH="$PATH:$BREWPREFIX/bin"
-  export PATH="$PATH:$BREWPREFIX/sbin"
-  export PATH="$PATH:$BREWPREFIX/opt/postgresql@17/bin"
-  export PATH="$PATH:$BREWPREFIX/opt/qt/bin"
+    export BREWPREFIX="$(brew --prefix)"
+    export PATH="$PATH:$BREWPREFIX/bin"
+    export PATH="$PATH:$BREWPREFIX/sbin"
+    export PATH="$PATH:$BREWPREFIX/opt/postgresql@17/bin"
+    export PATH="$PATH:$BREWPREFIX/opt/qt/bin"
 
-  source $BREWPREFIX/opt/zinit/zinit.zsh
-  eval "$(brew shellenv)"
+    source $BREWPREFIX/opt/zinit/zinit.zsh
+    eval "$(brew shellenv)"
 else
-  source /usr/share/zinit/zinit.zsh
+    source /usr/share/zinit/zinit.zsh
 fi
 
 autoload -Uz _zinit
@@ -106,10 +106,10 @@ alias ec="cd ~/.dotfiles && nvim ."
 alias ls="eza -l --color --group-directories-first"
 
 adbw() {
-  adb connect "$1":"$2"
-  adb tcpip 5555
-  adb disconnect
-  adb connect "$1":5555
+    adb connect "$1":"$2"
+    adb tcpip 5555
+    adb disconnect
+    adb connect "$1":5555
 }
 
 # Tools
@@ -120,7 +120,7 @@ eval "$(fzf --zsh)"
 
 # Tmux
 if [[ "$OSTYPE" == "darwin"* ]] && command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-  tmux attach-session -t default
+    tmux attach-session -t default
 fi
 
 # vim: set ft=zsh :

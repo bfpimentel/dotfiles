@@ -40,3 +40,15 @@ Pack.on_filetype("markdown", function()
     { "<leader>rm", ":RenderMarkdown toggle<CR>", opts = { desc = "Render Markdown" } },
   })
 end)
+
+Pack.later(function()
+  Pack.add({ "https://github.com/stevearc/quicker.nvim" })
+
+  local Quicker = require("quicker")
+
+  Quicker.setup()
+
+  Util.map_keys({
+    { "<leader>q", function() Quicker.toggle({ loclist = true }) end, opts = { desc = "Toggle Loclist" } },
+  })
+end)

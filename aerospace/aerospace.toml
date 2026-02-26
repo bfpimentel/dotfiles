@@ -13,15 +13,15 @@ accordion-padding = 8
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
 
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focused-monitor-changed = [ 'move-mouse monitor-lazy-center' ]
 
-persistent-workspaces = ["B", "W", "M", "T", "X"]
+exec-on-workspace-change = [ '/bin/bash', '-c', '~/.config/aerospace/handle-pip.sh' ]
 
-exec-on-workspace-change = [
-  '/bin/bash',
-  '-c',
-  '~/.config/aerospace/handle-pip.sh'
-]
+persistent-workspaces = [ 'B', 'W', 'M', 'T', 'X' ]
+
+[workspace-to-monitor-force-assignment]
+T = [ 'secondary', 'main' ]
+X = [ 'secondary', 'main' ]
 
 [gaps]
 outer.top =        8
@@ -32,14 +32,10 @@ inner.horizontal = 8
 inner.vertical =   8
 
 [mode.main.binding]
-cmd-h = [] # Disable "hide application"
-cmd-alt-h = [] # Disable "hide others"
+ctrl-semicolon = [ 'mode service' ]
 
-alt-semicolon = [
-  'mode service',
-]
-
-alt-tab = 'workspace-back-and-forth'
+cmd-h = []
+cmd-alt-h = []
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -51,66 +47,60 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-alt-b = 'workspace B'
-alt-w = 'workspace W'
-alt-m = 'workspace M'
-alt-t = 'workspace T'
-alt-x = 'workspace X'
-
-alt-shift-b = 'move-node-to-workspace B'
-alt-shift-w = 'move-node-to-workspace W'
-alt-shift-m = 'move-node-to-workspace M'
-alt-shift-t = 'move-node-to-workspace T'
-alt-shift-x = 'move-node-to-workspace X'
-
-[workspace-to-monitor-force-assignment]
-T = [ 'secondary', 'main' ]
-X = [ 'secondary', 'main' ]
+alt-t = [ 'layout h_tiles v_accordion' ]
+alt-f = [ 'layout floating tiling' ]
 
 [mode.service.binding]
-esc = [
-  'reload-config', 
-  'mode main', 
-]
+esc = [ 'reload-config', 'mode main' ]
 
-t = [
-  'layout h_tiles v_accordion', 
-] 
-f = [
-  'layout floating tiling', 
-] 
+b = [ 'workspace B', 'mode main' ]
+w = [ 'workspace W', 'mode main' ]
+m = [ 'workspace M', 'mode main' ]
+t = [ 'workspace T', 'mode main' ]
+x = [ 'workspace X', 'mode main' ]
+
+shift-b = [ 'move-node-to-workspace B', 'mode main' ]
+shift-w = [ 'move-node-to-workspace W', 'mode main' ]
+shift-m = [ 'move-node-to-workspace M', 'mode main' ]
+shift-t = [ 'move-node-to-workspace T', 'mode main' ]
+shift-x = [ 'move-node-to-workspace X', 'mode main' ]
 
 minus = 'resize smart -50'
 equal = 'resize smart +50'
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
-check-further-callbacks = true
 run = ['layout floating', 'move-node-to-workspace T']
+check-further-callbacks = true
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-check-further-callbacks = true
 run = ['layout floating', 'move-node-to-workspace X']
+check-further-callbacks = true
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Youtube Music'
-check-further-callbacks = true
 run = ['layout tiling', 'move-node-to-workspace M']
+check-further-callbacks = true
 
 [[on-window-detected]]
 if.window-title-regex-substring = 'Helium - Bruno'
-check-further-callbacks = true
 run = ['move-node-to-workspace B']
+check-further-callbacks = true
 
 [[on-window-detected]]
 if.window-title-regex-substring = 'Helium - Squibler'
-check-further-callbacks = true
 run = ['move-node-to-workspace W']
+check-further-callbacks = true
 
 [[on-window-detected]]
 if.app-id = 'net.imput.helium'
-check-further-callbacks = true
 if.window-title-regex-substring = 'Picture-in-Picture'
 run = ['layout floating']
+check-further-callbacks = true
 
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+if.window-title-regex-substring = 'Bitwarden'
+run = ['layout floating']
+check-further-callbacks = true

@@ -5,6 +5,7 @@ Pack.later(function()
 
   Conform.setup({
     formatters_by_ft = {
+      ["*"] = { "trim_whitespace" },
       lua = { "stylua" },
       yaml = { "yamlfmt" },
       nix = { "nixfmt" },
@@ -13,11 +14,13 @@ Pack.later(function()
       typescriptreact = { "prettier" },
       javascript = { "prettier" },
       javascriptreact = { "prettier" },
-      sh = { "shfmt" },
-      bash = { "shfmt" },
-      zsh = { "shfmt" },
+      sh = { "beautysh" },
+      bash = { "beautysh" },
+      zsh = { "beautysh" },
     },
   })
+
+  vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
   local function format() Conform.format({ lsp_fallback = true }) end
 
