@@ -50,7 +50,6 @@ fi
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit snippet "$ZDOTDIR/plugins/bfmp.zsh"
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
@@ -60,6 +59,9 @@ zinit light Aloxaf/fzf-tab
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
+
+# Prompt
+source "$ZDOTDIR/plugins/bfmp.zsh"
 
 # Keybindings
 bindkey -e

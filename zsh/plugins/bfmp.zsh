@@ -6,16 +6,16 @@ update_prompt() {
     local top_right=""
 
     if [ -n "$SSH_TTY" ]; then
-        top_left="%F{#7FBBB3}[󰢹 %m]"
+        top_left="%F{#7FBBB3}[󰢹  %m]"
     else
-        top_left="%F{#83C092}[󰌢 %m]"
+        top_left="%F{#83C092}[󰌢  %m]"
     fi
 
-    top_left="${top_left} %F{#DBBC7F}[ %1~]"
+    top_left="${top_left} %F{#DBBC7F}[  %1~]"
 
     local local_branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
     if [ -n "$local_branch_name" ]; then
-        top_left="${top_left} %F{#E69875}[ ${local_branch_name}]"
+        top_left="${top_left} %F{#E69875}[  ${local_branch_name}]"
     fi
 
     PROMPT=$top_left${NEWLINE}$bottom_left

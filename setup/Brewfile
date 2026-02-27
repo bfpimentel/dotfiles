@@ -96,6 +96,7 @@ cask "gcloud-cli"
 cask "moonlight"
 cask "anydesk"
 
+cask "font-iosevka-nerd-font"
 cask "font-victor-mono-nerd-font"
 cask "font-commit-mono-nerd-font"
 cask "sf-symbols"
