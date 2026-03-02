@@ -47,11 +47,10 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-alt-t = [ 'layout h_tiles v_accordion' ]
-alt-f = [ 'layout floating tiling' ]
-
 [mode.service.binding]
 esc = [ 'reload-config', 'mode main' ]
+
+f = [ 'layout floating tiling' ]
 
 b = [ 'workspace B', 'mode main' ]
 w = [ 'workspace W', 'mode main' ]

@@ -58,6 +58,8 @@ brew "beautysh"
 brew "yaml-language-server"
 brew "yamlfmt"
 
+brew "oxlint"
+brew "oxfmt"
 brew "typescript-language-server"
 brew "tailwindcss-language-server"
 brew "vscode-langservers-extracted"
@@ -65,6 +67,8 @@ brew "vscode-langservers-extracted"
 # Casks
 cask "kitty@nightly"
 cask "neovim-nightly"
+
+cask "altserver"
 
 cask "flutter"
 cask "xcodes-app"

@@ -112,12 +112,11 @@ local diagnostic_opts = {
 Pack.later(function() vim.diagnostic.config(diagnostic_opts) end)
 
 vim.lsp.enable({
-  "eslint",
-  "go",
   "html",
   "json",
   "lua",
   "nix",
+  "oxlint",
   "python",
   "typescript",
   "tailwindcss",
