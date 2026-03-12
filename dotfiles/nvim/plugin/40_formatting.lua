@@ -12,10 +12,10 @@ Pack.later(function()
       sh = { "beautysh" },
       bash = { "beautysh" },
       zsh = { "beautysh" },
-      typescript = { "prettier" },
-      typescriptreact = { "prettier" },
-      javascript = { "prettier" },
-      javascriptreact = { "prettier" },
+      typescript = { "prettierd" },
+      typescriptreact = { "prettierd" },
+      javascript = { "prettierd" },
+      javascriptreact = { "prettierd" },
     },
   })
 

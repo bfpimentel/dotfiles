@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   mapApps =
@@ -12,6 +17,8 @@ let
         };
       }) apps
     );
+
+  ifDarwin = value: (if pkgs.stdenv.isDarwin then value else [ ]);
 in
 {
   home = {
@@ -31,14 +38,9 @@ in
       "tmux"
       "zsh"
     ]
-    // (
-      if pkgs.stdenv.isDarwin then
-        mapApps [
-          "aerospace"
-        ]
-      else
-        mapApps [ ]
-    );
+    // ifDarwin mapApps [
+      "aerospace"
+    ];
 
   home.packages =
     with pkgs;
@@ -47,7 +49,6 @@ in
       direnv
 
       zplug
-      tmux
 
       lua
 
@@ -63,18 +64,13 @@ in
 
       kitty
     ]
-    ++ (
-      if pkgs.stdenv.isDarwin then
-        with pkgs;
-        [
-          dockutil
-          xcodes
-          # vial
-          aerospace
-        ]
-      else
-        [
-        ]
+    ++ ifDarwin (
+      with pkgs;
+      [
+        dockutil
+        xcodes
+        aerospace
+      ]
     );
 
   programs.home-manager.enable = true;
@@ -108,46 +104,155 @@ in
       yamlfmt
 
       oxlint
-      oxfmt
+      prettierd
       typescript-language-server
       tailwindcss-language-server
       vscode-langservers-extracted
     ];
   };
 
-  homebrew.taps = [
-    {
-      name = "jsattler/tap";
-      repo = "https://github.com/jsattler/tap.git";
-    }
-  ];
-
-  homebrew.casks =
-    if pkgs.stdenv.isDarwin then
+  programs.tmux = {
+    enable = true;
+    plugins =
+      with pkgs;
+      let
+        smart-splits = tmuxPlugins.mkTmuxPlugin {
+          pluginName = "smart-splits";
+          version = "v2.0.5";
+          src = fetchFromGitHub {
+            owner = "mrjones2014";
+            repo = "smart-splits.nvim";
+            tag = "v2.0.5";
+            sha256 = "sha256-EqnSGTyADvIpHxN3jZxwetENdqv/XUossUzrEvLHHMk=";
+            # rev = "ebb1375cda434c7a075986e1724fa53d0c754e8f";
+            # sha256 = "sha256-Zz9e1P+YKkF24yF6V4u6ZBsiagaCWfOwstP+Ds7CmZU=";
+          };
+        };
+      in
       [
-        "altserver"
-        "ankerwork"
-        "anydesk"
-        "bettercapture"
-        "betterdisplay"
-        "bruno"
-        "eqmac"
-        "helium-browser"
-        "hiddenbar"
-        "http-toolkit"
-        "linearmouse"
-        "moonlight"
-        "pearcleaner"
-        "raycast"
-        "shottr"
-        "tailscale-app"
-        "the-unarchiver"
-        "vial"
-        "xcodes-app"
+        {
+          plugin = tmuxPlugins.resurrect;
+          extraConfig = ''
+            set -g @resurrect-strategy-nvim "session"
+            set -g @resurrect-capture-pane-contents 'on'
+            set -g @resurrect-processes 'nvim ssh'
+          '';
+        }
+        {
+          plugin = tmuxPlugins.continuum;
+          extraConfig = ''
+            set -g @continuum-restore 'on'
+            set -g @continuum-save-interval '10'
+          '';
+        }
+        {
+          plugin = smart-splits;
+          extraConfig = ''
+            set -g @smart-splits_no_wrap ""
+            set -g @smart-splits_resize_step "5"
+          '';
+        }
+      ];
+    extraConfig = /* tmux */ ''
+      # Options
+      set-option -ga terminal-overrides ",xterm-256color:Tc"
 
-        "sf-symbols"
-        "font-victor-mono-nerd-font"
-      ]
-    else
-      [ ];
+      set -sg escape-time 1
+
+      set -g focus-events on
+
+      set -g automatic-rename on
+      set -g automatic-rename-format '#{b:pane_current_path}'
+
+      set -g base-index 1
+      set -g pane-base-index 1
+      set -g renumber-windows on
+
+      set -g pane-border-lines heavy
+      set -g pane-border-indicators both
+
+      # Status
+      set-option -g status-style bg=default,fg='#D3C6AA'
+      set-option -g status-position top
+
+      set -g status-interval 2
+      set -g status-justify left
+      set -g status-left-length 50
+
+      set -g window-status-format '#[fg=#7A8478]#I:#W'
+      set -g window-status-current-format '#[fg=#D3C6AA]#I:#W'
+
+      set -g status-left ""
+      set -g status-right '#[fg=#DBBC7F]  #{=50:session_name}'
+
+      set -g message-style fg="#DBBC7F",bg=default
+
+      set -g pane-border-style fg="#9DA9A0"
+      set -g pane-active-border-style fg="#DBBC7F"
+
+      set -g window-style fg=default,bg=default
+      set -g window-active-style fg=default,bg=default
+
+      # Keybindings
+      # unbind r
+      # bind r   source-file $TMUXDIR/tmux.conf \; display 'Reloaded config'
+
+      bind e   run-shell '$TMUXDIR/scripts/pipe-scrollback.sh'
+
+      bind '"' run-shell '$TMUXDIR/scripts/split-window.sh -v'
+      bind %   run-shell '$TMUXDIR/scripts/split-window.sh -h'
+
+      bind b   run-shell '$TMUXDIR/scripts/select-layout.sh'
+
+      bind c   new-window -c ~
+
+      bind M-Enter send-keys "\x1b\r"
+
+      bind-key -n C-h if -F "#{@pane-is-vim}" 'send-keys C-h' 'select-pane -L'
+      bind-key -n C-j if -F "#{@pane-is-vim}" 'send-keys C-j' 'select-pane -D'
+      bind-key -n C-k if -F "#{@pane-is-vim}" 'send-keys C-k' 'select-pane -U'
+      bind-key -n C-l if -F "#{@pane-is-vim}" 'send-keys C-l' 'select-pane -R'
+
+      bind-key -r h   if -F "#{@pane-is-vim}" 'send-keys M-h' 'resize-pane -L 5'
+      bind-key -r j   if -F "#{@pane-is-vim}" 'send-keys M-j' 'resize-pane -D 5'
+      bind-key -r k   if -F "#{@pane-is-vim}" 'send-keys M-k' 'resize-pane -U 5'
+      bind-key -r l   if -F "#{@pane-is-vim}" 'send-keys M-l' 'resize-pane -R 5'
+
+      bind-key -n C-S-h swap-window -d -t -1
+      bind-key -n C-S-l swap-window -d -t +1
+    '';
+  };
+
+  homebrew = {
+    taps = ifDarwin [
+      {
+        name = "jsattler/tap";
+        repo = "https://github.com/jsattler/tap.git";
+      }
+    ];
+    casks = ifDarwin [
+      "altserver"
+      "ankerwork"
+      "anydesk"
+      "bettercapture"
+      "betterdisplay"
+      "bruno"
+      "eqmac"
+      "helium-browser"
+      "hiddenbar"
+      "http-toolkit"
+      "linearmouse"
+      "moonlight"
+      "pearcleaner"
+      "raycast"
+      "shottr"
+      "tailscale-app"
+      "the-unarchiver"
+      "vial"
+      "xcodes-app"
+
+      "sf-symbols"
+      "font-victor-mono-nerd-font"
+    ];
+  };
 }
