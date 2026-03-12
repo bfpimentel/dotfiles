@@ -1,0 +1,6 @@
+{
+  "diagnostics.disable": [],
+  "workspace.ignoreDir": [
+    "tmux/plugins"
+  ]
+}

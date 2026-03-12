@@ -1,0 +1,12 @@
+[user]
+  name = Bruno Pimentel
+  email = hello@bruno.so
+  username = bfpimentel
+
+[core]
+  editor = nvim
+
+[init]
+  defaultBranch = main
+
+# vim: ft=dosini :

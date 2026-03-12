@@ -1,0 +1,105 @@
+config-version = 2
+
+start-at-login = true
+after-login-command = []
+
+key-mapping.preset = 'qwerty'
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 8
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'horizontal'
+
+on-focused-monitor-changed = [ 'move-mouse monitor-lazy-center' ]
+
+exec-on-workspace-change = [ '/bin/bash', '-c', '~/.config/aerospace/handle-pip.sh' ]
+
+persistent-workspaces = [ 'B', 'W', 'M', 'T', 'X' ]
+
+[workspace-to-monitor-force-assignment]
+T = [ 'secondary', 'main' ]
+X = [ 'secondary', 'main' ]
+
+[gaps]
+outer.top =        8
+outer.bottom =     8
+outer.left =       8
+outer.right =      8
+inner.horizontal = 8
+inner.vertical =   8
+
+[mode.main.binding]
+ctrl-semicolon = [ 'mode service' ]
+
+cmd-h = []
+cmd-alt-h = []
+
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+[mode.service.binding]
+esc = [ 'reload-config', 'mode main' ]
+
+f = [ 'layout floating tiling' ]
+
+b = [ 'workspace B', 'mode main' ]
+w = [ 'workspace W', 'mode main' ]
+m = [ 'workspace M', 'mode main' ]
+t = [ 'workspace T', 'mode main' ]
+x = [ 'workspace X', 'mode main' ]
+
+shift-b = [ 'move-node-to-workspace B', 'mode main' ]
+shift-w = [ 'move-node-to-workspace W', 'mode main' ]
+shift-m = [ 'move-node-to-workspace M', 'mode main' ]
+shift-t = [ 'move-node-to-workspace T', 'mode main' ]
+shift-x = [ 'move-node-to-workspace X', 'mode main' ]
+
+minus = 'resize smart -50'
+equal = 'resize smart +50'
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = ['layout floating', 'move-node-to-workspace T']
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout floating', 'move-node-to-workspace X']
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Youtube Music'
+run = ['layout tiling', 'move-node-to-workspace M']
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'Helium - Bruno'
+run = ['move-node-to-workspace B']
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.window-title-regex-substring = 'Helium - Squibler'
+run = ['move-node-to-workspace W']
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+if.window-title-regex-substring = 'Picture-in-Picture'
+run = ['layout floating']
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'net.imput.helium'
+if.window-title-regex-substring = 'Bitwarden'
+run = ['layout floating']
+check-further-callbacks = true
