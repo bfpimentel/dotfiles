@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    homebrew = {
+      url = "github:koalalorenzo/home-manager-brew";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
@@ -18,6 +22,7 @@
     {
       nixpkgs,
       home-manager,
+      homebrew,
       neovim-nightly,
       ...
     }:
@@ -34,6 +39,7 @@
         inherit pkgs;
         modules = [
           { nixpkgs.overlays = overlays; }
+          homebrew.homeManagerModules.default
           ./home.nix
         ];
       };

@@ -44,9 +44,6 @@ in
     with pkgs;
     [
       nh
-      nil
-      nixfmt
-
       direnv
 
       zplug
@@ -98,6 +95,9 @@ in
 
       ruff
 
+      nil
+      nixfmt
+
       lua-language-server
       stylua
 
@@ -114,4 +114,40 @@ in
       vscode-langservers-extracted
     ];
   };
+
+  homebrew.taps = [
+    {
+      name = "jsattler/tap";
+      repo = "https://github.com/jsattler/tap.git";
+    }
+  ];
+
+  homebrew.casks =
+    if pkgs.stdenv.isDarwin then
+      [
+        "altserver"
+        "ankerwork"
+        "anydesk"
+        "bettercapture"
+        "betterdisplay"
+        "bruno"
+        "eqmac"
+        "helium-browser"
+        "hiddenbar"
+        "http-toolkit"
+        "linearmouse"
+        "moonlight"
+        "pearcleaner"
+        "raycast"
+        "shottr"
+        "tailscale-app"
+        "the-unarchiver"
+        "vial"
+        "xcodes-app"
+
+        "sf-symbols"
+        "font-victor-mono-nerd-font"
+      ]
+    else
+      [ ];
 }
