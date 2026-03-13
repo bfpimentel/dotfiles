@@ -19,7 +19,8 @@ let
       }) apps
     );
 
-  ifDarwin = value: (if pkgs.stdenv.isDarwin then value else [ ]);
+  isDarwin = pkgs.stdenv.isDarwin;
+  ifDarwin = value: if isDarwin then value else [ ];
 in
 {
   home = {
@@ -45,38 +46,27 @@ in
     "aerospace"
   ];
 
-  home.packages =
-    with pkgs;
-    [
-      nh
+  home.packages = with pkgs; [
+    nh
 
-      fish
-      tmux
+    fish
+    tmux
 
-      lua
+    lua
 
-      direnv
+    direnv
 
-      lazygit
-      gnupg
-      ripgrep
-      libpcap
-      eza
-      fzf
-      wget
+    lazygit
+    gnupg
+    ripgrep
+    libpcap
+    fzf
+    wget
 
-      opencode
+    opencode
 
-      kitty
-    ]
-    ++ ifDarwin (
-      with pkgs;
-      [
-        dockutil
-        xcodes
-        aerospace
-      ]
-    );
+    kitty
+  ];
 
   programs.home-manager.enable = true;
 
@@ -115,12 +105,21 @@ in
         name = "jsattler/tap";
         repo = "https://github.com/jsattler/tap.git";
       }
+      {
+        name = "nikitabobko/tap";
+        repo = "https://github.com/nikitabobko/tap.git";
+      }
+    ];
+    formulae = ifDarwin [
+      "dockutil"
     ];
     casks = ifDarwin [
+      "nikitabobko/tap/aerospace"
+      "jsattler/tap/bettercapture"
+
       "altserver"
       "ankerwork"
       "anydesk"
-      "bettercapture"
       "betterdisplay"
       "bruno"
       "eqmac"
