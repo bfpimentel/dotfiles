@@ -7,5 +7,5 @@ current_workspace=$(aerospace list-workspaces --focused)
 win_list=$(aerospace list-windows --monitor "$current_monitor" | grep -E "(Picture-in-Picture|Picture in Picture)" | awk '{print $1}')
 
 echo "$win_list" | while IFS= read -r number; do
-  aerospace move-node-to-workspace --window-id "$number" "$current_workspace" </dev/null
+    aerospace move-node-to-workspace --window-id "$number" "$current_workspace" </dev/null
 done

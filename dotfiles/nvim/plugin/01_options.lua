@@ -112,6 +112,7 @@ local diagnostic_opts = {
 Pack.later(function() vim.diagnostic.config(diagnostic_opts) end)
 
 vim.lsp.enable({
+  "fish",
   "html",
   "json",
   "lua",
