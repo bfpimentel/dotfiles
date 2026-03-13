@@ -19,64 +19,64 @@ let
       }) apps
     );
 
-  ifDarwin = value: (if pkgs.stdenv.isDarwin then value else [ ]);
+  osSpecific =
+    {
+      darwin ? { },
+      linux ? { },
+    }:
+    if pkgs.stdenv.isDarwin then darwin else linux;
 in
 {
   home = {
     username = "bruno";
-    homeDirectory = "/Users/bruno";
     stateVersion = "25.11";
+    homeDirectory = osSpecific {
+      darwin = "/Users/bruno";
+      linux = "/home/bruno";
+    };
   };
 
   home.file = {
     "Documents/Vial".source = mapAbsolute "misc/vial";
   }
-  // mapDotfiles [
-    "fish"
-    "git"
-    "kitty"
-    "lazygit"
-    "nvim"
-    "opencode"
-    "ssh"
-    "tmux"
-  ]
-  // ifDarwin mapDotfiles [
-    "aerospace"
-  ];
-
-  home.packages =
-    with pkgs;
+  // mapDotfiles (
     [
-      nh
-
-      fish
-      tmux
-
-      lua
-
-      direnv
-
-      lazygit
-      gnupg
-      ripgrep
-      libpcap
-      eza
-      fzf
-      wget
-
-      opencode
-
-      kitty
+      "fish"
+      "git"
+      "kitty"
+      "lazygit"
+      "nvim"
+      "opencode"
+      "ssh"
+      "tmux"
     ]
-    ++ ifDarwin (
-      with pkgs;
-      [
-        dockutil
-        xcodes
-        aerospace
-      ]
-    );
+    ++ osSpecific {
+      darwin = [ "aerospace" ];
+      linux = [ ];
+    }
+  );
+
+  home.packages = with pkgs; [
+    nh
+
+    fish
+    tmux
+
+    lua
+
+    direnv
+
+    lazygit
+    gnupg
+    ripgrep
+    libpcap
+    fzf
+    wget
+
+    opencode
+
+    kitty
+  ];
 
   programs.home-manager.enable = true;
 
@@ -109,36 +109,47 @@ in
     ];
   };
 
-  homebrew = {
-    taps = ifDarwin [
-      {
-        name = "jsattler/tap";
-        repo = "https://github.com/jsattler/tap.git";
-      }
-    ];
-    casks = ifDarwin [
-      "altserver"
-      "ankerwork"
-      "anydesk"
-      "bettercapture"
-      "betterdisplay"
-      "bruno"
-      "eqmac"
-      "helium-browser"
-      "hiddenbar"
-      "http-toolkit"
-      "linearmouse"
-      "moonlight"
-      "pearcleaner"
-      "raycast"
-      "shottr"
-      "tailscale-app"
-      "the-unarchiver"
-      "vial"
-      "xcodes-app"
+  homebrew = osSpecific {
+    darwin = {
+      taps = [
+        {
+          name = "jsattler/tap";
+          repo = "https://github.com/jsattler/tap.git";
+        }
+        {
+          name = "nikitabobko/tap";
+          repo = "https://github.com/nikitabobko/tap.git";
+        }
+      ];
+      formulae = [
+        "dockutil"
+      ];
+      casks = [
+        "nikitabobko/tap/aerospace"
+        "jsattler/tap/bettercapture"
 
-      "sf-symbols"
-      "font-victor-mono-nerd-font"
-    ];
+        "altserver"
+        "ankerwork"
+        "anydesk"
+        "betterdisplay"
+        "bruno"
+        "eqmac"
+        "helium-browser"
+        "hiddenbar"
+        "http-toolkit"
+        "linearmouse"
+        "moonlight"
+        "pearcleaner"
+        "raycast"
+        "shottr"
+        "tailscale-app"
+        "the-unarchiver"
+        "vial"
+        "xcodes-app"
+
+        "sf-symbols"
+        "font-victor-mono-nerd-font"
+      ];
+    };
   };
 }

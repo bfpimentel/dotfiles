@@ -10,8 +10,8 @@ set -gx MANPAGE "nvim +Man!"
 
 set -gx DOCKER_HOST "unix:///tmp/podman/podman-machine-default-api.sock"
 
+# MacOS specific
 set -gx CHROME_EXECUTABLE "/Applications/Helium.app/Contents/MacOS/Helium"
-
 set -gx BREWPREFIX "/opt/homebrew"
 
 # Path
@@ -32,4 +32,6 @@ alias ec "cd ~/.dotfiles && nvim ."
 
 alias hm "nh home switch ~/.dotfiles --impure"
 
-eval "$(brew shellenv)"
+if test (uname) = "Darwin"
+    eval "$(brew shellenv)"
+end
