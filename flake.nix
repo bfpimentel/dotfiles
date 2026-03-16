@@ -31,10 +31,15 @@
         {
           hostname = "solaire";
           arch = "aarch64-darwin";
+          extraModules = [
+            homebrew.homeManagerModules.default
+            ./modules/extra/homebrew.nix
+          ];
         }
         {
           hostname = "artorias";
           arch = "x86_64-linux";
+          extraModules = [ ];
         }
       ];
 
@@ -55,10 +60,10 @@
             inherit pkgs;
             modules = [
               { nixpkgs.overlays = overlays; }
-              homebrew.homeManagerModules.default
               ./util.nix
               ./modules
-            ];
+            ]
+            ++ system.extraModules;
           };
         }
       );
