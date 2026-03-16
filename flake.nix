@@ -27,21 +27,39 @@
       ...
     }:
     let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
+      systems = [
+        {
+          hostname = "solaire";
+          arch = "aarch64-darwin";
+        }
+        {
+          hostname = "artorias";
+          arch = "x86_64-linux";
+        }
+      ];
+
+      forAllSystems = f: builtins.foldl' (a: b: a // b) { } (builtins.map f systems);
 
       overlays = [
         neovim-nightly.overlays.default
       ];
     in
     {
-      homeConfigurations."bruno" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          { nixpkgs.overlays = overlays; }
-          homebrew.homeManagerModules.default
-          ./home.nix
-        ];
-      };
+      homeConfigurations = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system.arch};
+        in
+        {
+          "bruno@${system.hostname}" = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [
+              { nixpkgs.overlays = overlays; }
+              homebrew.homeManagerModules.default
+              ./home.nix
+            ];
+          };
+        }
+      );
     };
 }
