@@ -56,7 +56,8 @@
             modules = [
               { nixpkgs.overlays = overlays; }
               homebrew.homeManagerModules.default
-              ./home.nix
+              ./util.nix
+              ./modules
             ];
           };
         }
