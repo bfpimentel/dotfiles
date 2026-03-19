@@ -16,6 +16,8 @@ Pack.later(function()
       typescriptreact = { "prettierd" },
       javascript = { "prettierd" },
       javascriptreact = { "prettierd" },
+      json = { "prettierd" },
+      html = { "prettierd" },
     },
   })
 
