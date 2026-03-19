@@ -33,7 +33,7 @@
           arch = "aarch64-darwin";
           extraModules = [
             homebrew.homeManagerModules.default
-            ./modules/extra/homebrew.nix
+            ./modules/extra/darwin
           ];
         }
         {

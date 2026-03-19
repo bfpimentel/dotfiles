@@ -18,6 +18,7 @@ in
       ];
       formulae = [
         "dockutil"
+        "mole"
       ];
       casks = [
         "nikitabobko/tap/aerospace"
@@ -34,7 +35,6 @@ in
         "http-toolkit"
         "linearmouse"
         "moonlight"
-        "pearcleaner"
         "raycast"
         "shottr"
         "tailscale-app"

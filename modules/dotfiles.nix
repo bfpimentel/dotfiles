@@ -18,7 +18,10 @@ in
       "tmux"
     ]
     ++ osSpecific {
-      darwin = [ "aerospace" ];
+      darwin = [
+        "aerospace"
+        "tuna"
+      ];
       linux = [ ];
     }
   );
