@@ -2,6 +2,8 @@ Pack.later(function()
   Pack.add({ "https://github.com/stevearc/conform.nvim" })
 
   local Conform = require("conform")
+  local web_formatter = vim.fn.executable("oxfmt") == 1 and { "oxfmt" } or { "prettierd" }
+
   Conform.setup({
     formatters_by_ft = {
       ["*"] = { "trim_whitespace" },
@@ -12,12 +14,12 @@ Pack.later(function()
       sh = { "beautysh" },
       bash = { "beautysh" },
       zsh = { "beautysh" },
-      typescript = { "prettierd" },
-      typescriptreact = { "prettierd" },
-      javascript = { "prettierd" },
-      javascriptreact = { "prettierd" },
-      json = { "prettierd" },
-      html = { "prettierd" },
+      json = web_formatter,
+      html = web_formatter,
+      typescript = web_formatter,
+      typescriptreact = web_formatter,
+      javascript = web_formatter,
+      javascriptreact = web_formatter,
     },
   })
 

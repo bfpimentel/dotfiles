@@ -6,16 +6,6 @@ in
 {
   homebrew = osSpecific {
     darwin = {
-      taps = [
-        {
-          name = "jsattler/tap";
-          repo = "https://github.com/jsattler/tap.git";
-        }
-        {
-          name = "nikitabobko/tap";
-          repo = "https://github.com/nikitabobko/tap.git";
-        }
-      ];
       formulae = [
         "dockutil"
         "mole"
@@ -23,6 +13,7 @@ in
       casks = [
         "nikitabobko/tap/aerospace"
         "jsattler/tap/bettercapture"
+        "mikker/tap/tuna"
 
         "altserver"
         "ankerwork"
