@@ -1,0 +1,32 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 12,
+  "modules-left": [
+    "sway/workspaces"
+  ],
+  "modules-center": [
+    "sway/window"
+  ],
+  "modules-right": [
+    "clock"
+  ],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "format": "{name}",
+    "persistent-workspaces": {
+      "B": [],
+      "W": [],
+      "M": [],
+      "T": [],
+      "X": []
+    }
+  },
+  "sway/window": {
+    "max-length": 70
+  },
+  "clock": {
+    "format": "{:%a %d %b %H:%M}"
+  }
+}

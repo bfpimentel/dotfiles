@@ -1,0 +1,9 @@
+show=drun
+width=700
+height=420
+location=center
+allow_images=true
+prompt=Run
+hide_scroll=true
+no_actions=true
+insensitive=true

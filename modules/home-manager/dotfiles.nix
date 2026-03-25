@@ -15,6 +15,7 @@ in
       "lazygit"
       "nvim"
       "opencode"
+      "tree-sitter"
       "tmux"
     ]
     ++ osSpecific {
@@ -22,7 +23,11 @@ in
         "aerospace"
         "tuna"
       ];
-      linux = [ ];
+      linux = [
+        "sway"
+        "waybar"
+        "wofi"
+      ];
     }
   );
 }

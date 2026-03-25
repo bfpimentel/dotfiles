@@ -15,6 +15,8 @@ in
         "jsattler/tap/bettercapture"
         "mikker/tap/tuna"
 
+        "kitty"
+
         "altserver"
         "ankerwork"
         "anydesk"

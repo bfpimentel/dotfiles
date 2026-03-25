@@ -1,0 +1,41 @@
+* {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+}
+
+window#waybar {
+  background: rgba(0, 0, 0, 0.78);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+#workspaces {
+  margin-left: 6px;
+}
+
+#workspaces button {
+  background: transparent;
+  color: #9f9f9f;
+  border: none;
+  border-radius: 0;
+  padding: 0 10px;
+}
+
+#workspaces button.focused {
+  background: #ffffff;
+  color: #000000;
+}
+
+#workspaces button.urgent {
+  background: #ffffff;
+  color: #000000;
+}
+
+#window {
+  color: #ffffff;
+}
+
+#clock {
+  color: #ffffff;
+  margin-right: 10px;
+}

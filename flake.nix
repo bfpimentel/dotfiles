@@ -27,41 +27,67 @@
       ...
     }:
     let
-      systems = [
+      homeManagerSystems = [
         {
-          hostname = "solaire";
           arch = "aarch64-darwin";
           extraModules = [
             homebrew.homeManagerModules.default
-            ./modules/extra/darwin
+            ./modules/home-manager/darwin
           ];
         }
         {
-          hostname = "artorias";
           arch = "x86_64-linux";
-          extraModules = [ ];
+          extraModules = [
+            ./modules/home-manager/linux
+          ];
         }
       ];
 
-      forAllSystems = f: builtins.foldl' (a: b: a // b) { } (builtins.map f systems);
+      forAllHomeManagerSystems =
+        f: builtins.foldl' (a: b: a // b) { } (builtins.map f homeManagerSystems);
 
       overlays = [
         neovim-nightly.overlays.default
       ];
     in
     {
-      homeConfigurations = forAllSystems (
+      nixosConfigurations =
+        let
+          nixModule =
+            { ... }:
+            {
+              nix = {
+                settings.experimental-features = [
+                  "nix-command"
+                  "flakes"
+                ];
+
+                nixPath = [ "nixos-config=/home/bruno/.dotfiles" ];
+              };
+            };
+
+        in
+        {
+          artorias = nixpkgs.lib.nixosSystem {
+            modules = [
+              nixModule
+              ./modules/hosts/artorias
+            ];
+          };
+        };
+
+      homeConfigurations = forAllHomeManagerSystems (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system.arch};
         in
         {
-          "bruno@${system.hostname}" = home-manager.lib.homeManagerConfiguration {
+          "bruno" = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = [
               { nixpkgs.overlays = overlays; }
               ./util.nix
-              ./modules
+              ./modules/home-manager
             ]
             ++ system.extraModules;
           };

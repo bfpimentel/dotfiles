@@ -1,7 +1,6 @@
 # Global Env Variables
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx TMUXDIR "$HOME/.config/tmux"
-set -gx SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.socket"
 set -gx TMPDIR "/tmp"
 
 set -gx VISUAL "nvim"
@@ -30,6 +29,7 @@ alias visudo "sudo -E visudo"
 alias cc "cd ~/.dotfiles"
 alias ec "cd ~/.dotfiles && nvim ."
 
+alias os "nh os switch ~/.dotfiles"
 alias hm "nh home switch ~/.dotfiles --impure"
 
 if test (uname) = "Darwin"

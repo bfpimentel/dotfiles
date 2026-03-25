@@ -1,0 +1,65 @@
+set $mod Mod4
+set $service_mode service
+
+input type:keyboard {
+    xkb_layout us
+    xkb_variant intl
+    repeat_delay 150
+    repeat_rate 80
+}
+
+output HDMI-A-1 mode 2560x1440@119.998Hz
+
+floating_modifier $mod normal
+default_orientation horizontal
+workspace_layout default
+
+gaps inner 8
+gaps outer 8
+
+bindsym Ctrl+semicolon mode "$service_mode"
+
+bindsym Mod1+h focus left
+bindsym Mod1+j focus down
+bindsym Mod1+k focus up
+bindsym Mod1+l focus right
+
+bindsym Mod1+Shift+h move left
+bindsym Mod1+Shift+j move down
+bindsym Mod1+Shift+k move up
+bindsym Mod1+Shift+l move right
+
+bindsym $mod+space exec "wofi --show drun"
+
+exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
+exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal.service >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway ~/.nix-profile/bin/waybar'
+
+mode "$service_mode" {
+    bindsym Escape reload, mode "default"
+
+    bindsym f floating toggle, mode "default"
+
+    bindsym b workspace B, mode "default"
+    bindsym w workspace W, mode "default"
+    bindsym m workspace M, mode "default"
+    bindsym t workspace T, mode "default"
+    bindsym x workspace X, mode "default"
+
+    bindsym Shift+b move container to workspace B, mode "default"
+    bindsym Shift+w move container to workspace W, mode "default"
+    bindsym Shift+m move container to workspace M, mode "default"
+    bindsym Shift+t move container to workspace T, mode "default"
+    bindsym Shift+x move container to workspace X, mode "default"
+
+    bindsym minus resize shrink width 50 px or 50 ppt
+    bindsym equal resize grow width 50 px or 50 ppt
+}
+
+for_window [app_id="net.kovidgoyal.kitty"] move container to workspace T
+for_window [title="(?i).*Youtube Music.*"] move container to workspace M
+
+for_window [app_id="firefox" title="(?i).*Bruno.*"] move container to workspace B
+for_window [app_id="firefox" title="(?i).*Squibler.*"] move container to workspace W
+for_window [app_id="firefox" title="(?i).*Picture(-| )in(-| )Picture.*"] floating enable
+for_window [app_id="firefox" title="(?i).*Bitwarden.*"] floating enable

@@ -1,0 +1,6 @@
+{
+  "parser-directories": [
+    "$HOME/.cache/nvim/nvim-treesitter",
+    "$HOME/.local/share/tree-sitter"
+  ]
+}

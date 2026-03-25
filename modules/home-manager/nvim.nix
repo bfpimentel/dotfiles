@@ -4,6 +4,7 @@
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [
+      stdenv.cc
       tree-sitter
 
       ruff
