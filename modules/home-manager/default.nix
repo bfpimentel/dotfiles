@@ -1,4 +1,4 @@
-{ util, ... }:
+{ pkgs, util, ... }:
 
 let
   inherit (util) osSpecific;
@@ -7,7 +7,6 @@ in
   imports = [
     ./dotfiles.nix
     ./nvim.nix
-    ./packages.nix
     ./ssh.nix
   ];
 
@@ -21,4 +20,25 @@ in
   };
 
   programs.home-manager.enable = true;
+
+  home.packages = with pkgs; [
+    nh
+
+    fish
+    tmux
+    jq
+
+    lua
+
+    direnv
+
+    lazygit
+    gnupg
+    ripgrep
+    libpcap
+    fzf
+    wget
+
+    opencode
+  ];
 }

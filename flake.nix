@@ -85,7 +85,12 @@
           "bruno" = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = [
-              { nixpkgs.overlays = overlays; }
+              {
+                nixpkgs = {
+                  config.allowUnfree = true;
+                  overlays = overlays;
+                };
+              }
               ./util.nix
               ./modules/home-manager
             ]

@@ -9,10 +9,21 @@ input type:keyboard {
 }
 
 output HDMI-A-1 mode 2560x1440@119.998Hz
+output * bg ~/.config/wallpapers/morning.jpg fill
 
 floating_modifier $mod normal
-default_orientation horizontal
 workspace_layout default
+default_orientation horizontal
+
+default_border pixel 1
+default_floating_border pixel 1
+
+client.focused #ffffff #000000 #ffffff #ffffff #ffffff
+client.focused_inactive #4d4d4d #111111 #9a9a9a #4d4d4d #4d4d4d
+client.unfocused #2b2b2b #111111 #7a7a7a #2b2b2b #2b2b2b
+client.urgent #ffffff #000000 #000000 #ffffff #ffffff
+client.placeholder #1a1a1a #1a1a1a #666666 #1a1a1a #1a1a1a
+client.background #000000
 
 gaps inner 8
 gaps outer 8
@@ -30,14 +41,18 @@ bindsym Mod1+Shift+k move up
 bindsym Mod1+Shift+l move right
 
 bindsym $mod+space exec "wofi --show drun"
+bindsym $mod+v exec "sh -c 'cliphist list | wofi --dmenu --prompt Clipboard | cliphist decode | wl-copy'"
 
 exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
-exec --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal.service >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway ~/.nix-profile/bin/waybar'
+exec --no-startup-id wl-paste --type text --watch cliphist store
+exec --no-startup-id wl-paste --type image --watch cliphist store
+exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway ~/.nix-profile/bin/waybar'
 
 mode "$service_mode" {
-    bindsym Escape reload, mode "default"
+    bindsym Escape mode "default"
 
+    bindsym r reload, mode "default"
     bindsym f floating toggle, mode "default"
 
     bindsym b workspace B, mode "default"
@@ -56,10 +71,10 @@ mode "$service_mode" {
     bindsym equal resize grow width 50 px or 50 ppt
 }
 
-for_window [app_id="net.kovidgoyal.kitty"] move container to workspace T
+for_window [app_id="kitty"] move container to workspace T
 for_window [title="(?i).*Youtube Music.*"] move container to workspace M
 
-for_window [app_id="firefox" title="(?i).*Bruno.*"] move container to workspace B
-for_window [app_id="firefox" title="(?i).*Squibler.*"] move container to workspace W
-for_window [app_id="firefox" title="(?i).*Picture(-| )in(-| )Picture.*"] floating enable
-for_window [app_id="firefox" title="(?i).*Bitwarden.*"] floating enable
+for_window [app_id="brave-browser" title="(?i).*Bruno.*"] move container to workspace B
+for_window [app_id="brave-browser" title="(?i).*Squibler.*"] move container to workspace W
+for_window [app_id="brave-browser" title="(?i).*Picture(-| )in(-| )Picture.*"] floating enable
+for_window [app_id="brave-browser" title="(?i).*Bitwarden.*"] floating enable

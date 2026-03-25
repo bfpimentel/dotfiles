@@ -7,3 +7,5 @@ prompt=Run
 hide_scroll=true
 no_actions=true
 insensitive=true
+key_up=Up,Ctrl-p
+key_down=Down,Ctrl-n

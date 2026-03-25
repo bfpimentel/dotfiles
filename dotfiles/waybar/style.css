@@ -1,6 +1,7 @@
 * {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Victor Mono", "VictorMono Nerd Font Mono", monospace;
   font-size: 13px;
+  font-weight: 700;
 }
 
 window#waybar {
@@ -33,6 +34,12 @@ window#waybar {
 
 #window {
   color: #ffffff;
+}
+
+#mode {
+  background: #ffffff;
+  color: #000000;
+  padding: 0 10px;
 }
 
 #clock {

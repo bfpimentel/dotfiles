@@ -10,21 +10,27 @@
     "sway/window"
   ],
   "modules-right": [
+    "sway/mode",
     "clock"
   ],
   "sway/workspaces": {
     "disable-scroll": true,
+    "alphabetical_sort": true,
     "format": "{name}",
     "persistent-workspaces": {
       "B": [],
-      "W": [],
-      "M": [],
       "T": [],
+      "M": [],
+      "W": [],
       "X": []
     }
   },
   "sway/window": {
     "max-length": 70
+  },
+  "sway/mode": {
+    "format": "[S]",
+    "tooltip": false
   },
   "clock": {
     "format": "{:%a %d %b %H:%M}"

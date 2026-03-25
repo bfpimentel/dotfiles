@@ -1,5 +1,5 @@
 * {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "VictorMono Nerd Font Mono", monospace;
   font-size: 14px;
 }
 
@@ -27,7 +27,7 @@ window {
 }
 
 #entry {
-  padding: 8px 10px;
+  padding: 8px 8px;
   border-radius: 0;
 }
 
@@ -38,4 +38,5 @@ window {
 
 #text {
   color: inherit;
+  margin: 0px 8px;
 }
