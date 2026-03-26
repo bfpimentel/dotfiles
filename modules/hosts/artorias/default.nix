@@ -38,6 +38,13 @@
     enable = true;
     wrapperFeatures.gtk = true;
     xwayland.enable = true;
+    extraPackages = with pkgs; [
+      grim
+      pulseaudio
+      swayidle
+      swaylock
+      wmenu
+    ];
   };
 
   systemd.services.greetd.serviceConfig = {

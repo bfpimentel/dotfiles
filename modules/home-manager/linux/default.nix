@@ -12,7 +12,9 @@
     sway
     waybar
     wofi
+    swaylock-effects
 
+    pavucontrol
     wl-clipboard
     cliphist
 
