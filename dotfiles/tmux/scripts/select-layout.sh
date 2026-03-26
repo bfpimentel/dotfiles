@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 TMUXDIR="$HOME/.config/tmux"
 
