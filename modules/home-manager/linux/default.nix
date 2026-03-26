@@ -12,6 +12,8 @@
     fastfetch
     python3
 
+    bitwarden-cli
+
     sway
     waybar
     wofi
@@ -21,6 +23,7 @@
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
     slurp
+    libnotify
 
     pwvucontrol
     wl-clipboard

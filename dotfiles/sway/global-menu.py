@@ -38,6 +38,7 @@ def run_wofi(options: list[str], prompt: str) -> str | None:
 def main() -> int:
     menu = [
         "󰀻 Applications",
+        "󰟵 Bitwarden",
         "󰅌 Clipboard",
         "󰕾 Audio",
         " Windows",
@@ -54,6 +55,7 @@ def main() -> int:
     python = resolve_python()
     routes: dict[str, list[str]] = {
         "󰀻 Applications": [resolve_bin("wofi"), "--show", "drun"],
+        "󰟵 Bitwarden": [python, str(sway_path / "bitwarden-menu.py")],
         "󰅌 Clipboard": [python, str(sway_path / "clipboard-menu.py")],
         "󰕾 Audio": [python, str(sway_path / "audio-control.py")],
         " Windows": [python, str(sway_path / "windows-menu.py")],
