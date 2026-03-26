@@ -17,6 +17,10 @@
     wofi
     mako
     swaylock-effects
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-wlr
+    slurp
 
     pwvucontrol
     wl-clipboard

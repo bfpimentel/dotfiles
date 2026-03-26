@@ -33,7 +33,7 @@ exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY
 exec --no-startup-id wl-paste --type text --watch cliphist store
 exec --no-startup-id wl-paste --type image --watch cliphist store
 
-exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "$HOME/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway $HOME/.nix-profile/bin/waybar'
+exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal-wlr.service xdg-desktop-portal-gtk.service xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "$HOME/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway $HOME/.nix-profile/bin/waybar'
 exec_always --no-startup-id sh -c 'pkill -x .mako-wrapped >/dev/null 2>&1 || true; $HOME/.nix-profile/bin/mako'
 
 bindsym Ctrl+semicolon mode "$service_mode"

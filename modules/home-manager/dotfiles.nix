@@ -39,6 +39,8 @@ in
         "waybar"
         "wofi"
         "mako"
+        "xdg-desktop-portal"
+        "xdg-desktop-portal-wlr"
         "wallpapers"
       ];
     }
