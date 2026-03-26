@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Brave Web Browser
+Exec=brave %U
+Icon=brave-browser
+Terminal=false
+NoDisplay=true

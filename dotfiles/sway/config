@@ -28,6 +28,14 @@ client.background #000000
 gaps inner 8
 gaps outer 8
 
+exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
+exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec --no-startup-id wl-paste --type text --watch cliphist store
+exec --no-startup-id wl-paste --type image --watch cliphist store
+
+exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "$HOME/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway $HOME/.nix-profile/bin/waybar'
+exec_always --no-startup-id sh -c 'pkill -x .mako-wrapped >/dev/null 2>&1 || true; $HOME/.nix-profile/bin/mako'
+
 bindsym Ctrl+semicolon mode "$service_mode"
 
 bindsym Mod1+h focus left
@@ -41,17 +49,10 @@ bindsym Mod1+Shift+k move up
 bindsym Mod1+Shift+l move right
 
 bindsym $mod+space exec "wofi --show drun"
+bindsym $mod+q kill
 bindsym $mod+Shift+l exec "$HOME/.config/sway/lock.sh"
 bindsym $mod+p exec "$HOME/.config/sway/global-menu.sh"
 bindsym $mod+v exec "sh -c 'cliphist list | wofi --dmenu --prompt Clipboard | cliphist decode | wl-copy'"
-
-exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
-exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
-exec --no-startup-id wl-paste --type text --watch cliphist store
-exec --no-startup-id wl-paste --type image --watch cliphist store
-
-exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "$HOME/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway $HOME/.nix-profile/bin/waybar'
-exec_always --no-startup-id sh -c 'pkill -x .mako-wrapped >/dev/null 2>&1 || true; $HOME/.nix-profile/bin/mako'
 
 mode "$service_mode" {
     bindsym Escape mode "default"
@@ -78,7 +79,5 @@ mode "$service_mode" {
 for_window [app_id="kitty"] move container to workspace T
 for_window [title="(?i).*Youtube Music.*"] move container to workspace M
 
-for_window [app_id="brave-browser" title="(?i).*Bruno.*"] move container to workspace B
-for_window [app_id="brave-browser" title="(?i).*Squibler.*"] move container to workspace W
-for_window [app_id="brave-browser" title="(?i).*Picture(-| )in(-| )Picture.*"] floating enable
+for_window [app_id="brave-browser" title="(?i).*Picture(-| )in(-| )Picture.*"] floating enable, sticky enable
 for_window [app_id="brave-browser" title="(?i).*Bitwarden.*"] floating enable

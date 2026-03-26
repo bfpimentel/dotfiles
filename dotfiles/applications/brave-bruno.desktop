@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Brave - Bruno
+GenericName=Web Browser
+Exec=/home/bruno/.config/sway/launch-brave-profile.sh bruno
+Icon=brave-browser
+Terminal=false
+StartupNotify=true
+Categories=Network;WebBrowser;

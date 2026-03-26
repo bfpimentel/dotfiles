@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Brave - Squibler
+GenericName=Web Browser
+Exec=/home/bruno/.config/sway/launch-brave-profile.sh squibler
+Icon=brave-browser
+Terminal=false
+StartupNotify=true
+Categories=Network;WebBrowser;

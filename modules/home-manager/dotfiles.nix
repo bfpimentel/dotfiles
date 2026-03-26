@@ -1,7 +1,18 @@
 { util, ... }:
 
 let
-  inherit (util) mapAbsolute mapDotfiles osSpecific;
+  inherit (util) mapAbsolute osSpecific;
+
+  mapDotfiles =
+    apps:
+    builtins.listToAttrs (
+      builtins.map (app: {
+        name = ".config/${app}";
+        value = {
+          source = mapAbsolute "dotfiles/${app}";
+        };
+      }) apps
+    );
 in
 {
   home.file = {
@@ -31,5 +42,10 @@ in
         "wallpapers"
       ];
     }
-  );
+  )
+  // osSpecific {
+    linux = {
+      ".local/share/applications".source = mapAbsolute "dotfiles/applications";
+    };
+  };
 }

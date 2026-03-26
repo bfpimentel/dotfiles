@@ -4,17 +4,6 @@ let
   mapAbsolute =
     path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/${path}";
 
-  mapDotfiles =
-    apps:
-    builtins.listToAttrs (
-      builtins.map (app: {
-        name = ".config/${app}";
-        value = {
-          source = mapAbsolute "dotfiles/${app}";
-        };
-      }) apps
-    );
-
   osSpecific =
     {
       darwin ? { },
@@ -24,6 +13,6 @@ let
 in
 {
   _module.args.util = {
-    inherit mapAbsolute mapDotfiles osSpecific;
+    inherit mapAbsolute osSpecific;
   };
 }
