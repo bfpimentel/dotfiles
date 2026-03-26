@@ -10,6 +10,7 @@
     kitty
 
     fastfetch
+    python3
 
     sway
     waybar

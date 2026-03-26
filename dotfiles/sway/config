@@ -49,11 +49,12 @@ bindsym Mod1+Shift+k move up
 bindsym Mod1+Shift+l move right
 
 bindsym $mod+space exec "wofi --show drun"
-bindsym $mod+a exec "$HOME/.config/sway/audio-control.sh"
 bindsym $mod+q kill
-bindsym $mod+p exec "$HOME/.config/sway/global-menu.sh"
+
+bindsym $mod+a exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/audio-control.py"
+bindsym $mod+p exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/global-menu.py"
 bindsym $mod+v exec "sh -c 'cliphist list | wofi --dmenu --prompt Clipboard | cliphist decode | wl-copy'"
-bindsym $mod+Shift+l exec "$HOME/.config/sway/lock.sh"
+bindsym $mod+Shift+l exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py"
 
 mode "$service_mode" {
     bindsym Escape mode "default"
