@@ -9,13 +9,15 @@
     git
     kitty
 
+    fastfetch
+
     sway
     waybar
     wofi
     mako
     swaylock-effects
 
-    pavucontrol
+    pwvucontrol
     wl-clipboard
     cliphist
 

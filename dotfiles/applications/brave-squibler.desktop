@@ -7,4 +7,6 @@ Exec=/home/bruno/.config/sway/launch-brave-profile.sh squibler
 Icon=brave-browser
 Terminal=false
 StartupNotify=true
+StartupWMClass=brave-browser
+PrefersNonDefaultGPU=true
 Categories=Network;WebBrowser;

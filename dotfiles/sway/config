@@ -28,8 +28,8 @@ client.background #000000
 gaps inner 8
 gaps outer 8
 
-exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
-exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway DESKTOP_SESSION=sway
+exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP DESKTOP_SESSION
 exec --no-startup-id wl-paste --type text --watch cliphist store
 exec --no-startup-id wl-paste --type image --watch cliphist store
 
@@ -49,16 +49,19 @@ bindsym Mod1+Shift+k move up
 bindsym Mod1+Shift+l move right
 
 bindsym $mod+space exec "wofi --show drun"
+bindsym $mod+a exec "$HOME/.config/sway/audio-control.sh"
 bindsym $mod+q kill
-bindsym $mod+Shift+l exec "$HOME/.config/sway/lock.sh"
 bindsym $mod+p exec "$HOME/.config/sway/global-menu.sh"
 bindsym $mod+v exec "sh -c 'cliphist list | wofi --dmenu --prompt Clipboard | cliphist decode | wl-copy'"
+bindsym $mod+Shift+l exec "$HOME/.config/sway/lock.sh"
 
 mode "$service_mode" {
     bindsym Escape mode "default"
 
     bindsym r reload, mode "default"
+
     bindsym f floating toggle, mode "default"
+    bindsym u sticky toggle, mode "default"
 
     bindsym b workspace B, mode "default"
     bindsym w workspace W, mode "default"
@@ -77,7 +80,7 @@ mode "$service_mode" {
 }
 
 for_window [app_id="kitty"] move container to workspace T
-for_window [title="(?i).*Youtube Music.*"] move container to workspace M
 
-for_window [app_id="brave-browser" title="(?i).*Picture(-| )in(-| )Picture.*"] floating enable, sticky enable
-for_window [app_id="brave-browser" title="(?i).*Bitwarden.*"] floating enable
+for_window [title="Youtube Music"] move container to workspace M
+for_window [title="Picture in picture"] floating enable, sticky enable
+for_window [title="Bitwarden"] floating enable

@@ -27,5 +27,16 @@ case "${1:-}" in
     ;;
 esac
 
+export CHROME_DESKTOP="com.brave.Browser.desktop"
+export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-sway}"
+export XDG_SESSION_DESKTOP="${XDG_SESSION_DESKTOP:-sway}"
+export DESKTOP_SESSION="${DESKTOP_SESSION:-sway}"
+export NIXOS_OZONE_WL=1
+
 "$swaymsg_bin" workspace "$workspace" >/dev/null
-exec "$brave_bin" --profile-directory="$profile_dir" --new-window
+exec "$brave_bin" \
+  --profile-directory="$profile_dir" \
+  --new-window \
+  --ignore-gpu-blocklist \
+  --enable-gpu-rasterization \
+  --enable-zero-copy
