@@ -42,14 +42,16 @@ bindsym Mod1+Shift+l move right
 
 bindsym $mod+space exec "wofi --show drun"
 bindsym $mod+Shift+l exec "$HOME/.config/sway/lock.sh"
-bindsym $mod+p exec "$HOME/.config/sway/task-manager.sh"
+bindsym $mod+p exec "$HOME/.config/sway/global-menu.sh"
 bindsym $mod+v exec "sh -c 'cliphist list | wofi --dmenu --prompt Clipboard | cliphist decode | wl-copy'"
 
 exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 exec --no-startup-id wl-paste --type text --watch cliphist store
 exec --no-startup-id wl-paste --type image --watch cliphist store
+
 exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "$HOME/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway $HOME/.nix-profile/bin/waybar'
+exec_always --no-startup-id sh -c 'pkill -x .mako-wrapped >/dev/null 2>&1 || true; $HOME/.nix-profile/bin/mako'
 
 mode "$service_mode" {
     bindsym Escape mode "default"

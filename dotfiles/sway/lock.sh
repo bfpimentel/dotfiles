@@ -15,14 +15,14 @@ exec "$swaylock_bin" \
     --clock \
     --timestr "%H:%M" \
     --datestr "%a %d %b" \
-    --font "Victor Mono" \
+    --font "VictorMono NFM" \
     --font-size 30 \
     --indicator \
     --indicator-radius 95 \
     --indicator-thickness 6 \
     --line-color 00000000 \
     --separator-color 00000000 \
-    --inside-color 00000088 \
+    --inside-color 000000d9 \
     --ring-color ffffffcc \
     --text-color ffffffee \
     --key-hl-color ffffffff \

@@ -1,11 +1,11 @@
 * {
-  font-family: "Victor Mono", "VictorMono Nerd Font Mono", monospace;
+  font-family: "VictorMono NFM", monospace;
   font-size: 13px;
   font-weight: 700;
 }
 
 window#waybar {
-  background: rgba(0, 0, 0, 0.78);
+  background: rgba(0, 0, 0, 0.85);
   color: #ffffff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.28);
 }
@@ -16,7 +16,7 @@ window#waybar {
 
 #workspaces button {
   background: transparent;
-  color: #9f9f9f;
+  color: #ffffff;
   border: none;
   border-radius: 0;
   padding: 0 10px;

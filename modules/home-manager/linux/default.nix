@@ -12,6 +12,7 @@
     sway
     waybar
     wofi
+    mako
     swaylock-effects
 
     pavucontrol

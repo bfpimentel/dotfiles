@@ -27,6 +27,7 @@ in
         "sway"
         "waybar"
         "wofi"
+        "mako"
         "wallpapers"
       ];
     }
