@@ -35,6 +35,7 @@ in
         "tuna"
       ];
       linux = [
+        "sunshine"
         "sway"
         "waybar"
         "wofi"

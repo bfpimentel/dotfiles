@@ -32,6 +32,7 @@
     brave
 
     steam
+    sunshine
 
     nerd-fonts.victor-mono
   ];
