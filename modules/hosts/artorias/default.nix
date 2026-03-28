@@ -15,10 +15,23 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  users.users.bruno = {
+    isNormalUser = true;
+    description = "Bruno Pimentel";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "input"
+    ];
+  };
+
   networking = {
     hostName = "artorias";
     enableIPv6 = false;
     useDHCP = false;
+    defaultGateway = "10.22.4.1";
+    firewall.enable = false;
     networkmanager = {
       enable = true;
       insertNameservers = [
@@ -26,35 +39,17 @@
         "8.8.8.8"
       ];
     };
-    defaultGateway = "10.22.4.1";
     interfaces."enp5s0".ipv4.addresses = [
       {
         address = "10.22.4.10";
         prefixLength = 24;
       }
     ];
-    firewall.enable = false;
   };
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-  };
-
-  services.avahi.publish.userServices = true;
-
-  services.udev.extraRules = ''
-    KERNEL=="uinput", MODE="0660", GROUP="input", SYMLINK+="uinput"
-  '';
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = "greeter";
-      };
-    };
   };
 
   programs.sway = {
@@ -70,6 +65,16 @@
     ];
   };
 
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
+      };
+    };
+  };
+
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";
@@ -80,14 +85,6 @@
     TTYVTDisallocate = true;
   };
 
-  services.xserver = {
-    enable = false;
-    xkb = {
-      layout = "us";
-      variant = "alt-intl";
-    };
-  };
-
   console.useXkbConfig = true;
 
   security = {
@@ -96,24 +93,25 @@
   };
 
   services = {
+    tailscale.enable = true;
     pulseaudio.enable = false;
+    avahi.publish.userServices = true;
+    udev.extraRules = ''
+      KERNEL=="uinput", MODE="0660", GROUP="input", SYMLINK+="uinput"
+    '';
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-  };
-
-  users.users.bruno = {
-    isNormalUser = true;
-    description = "Bruno Pimentel";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "video"
-      "input"
-    ];
+    xserver = {
+      enable = false;
+      xkb = {
+        layout = "us";
+        variant = "alt-intl";
+      };
+    };
   };
 
   time.timeZone = "America/Sao_Paulo";
