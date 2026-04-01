@@ -25,12 +25,24 @@
     slurp
     libnotify
 
+    peazip
     pwvucontrol
     wl-clipboard
     cliphist
 
-    brave
+    ungoogled-chromium
+    vial
+    kdePackages.dolphin
 
     nerd-fonts.victor-mono
   ];
+
+  services.udiskie = {
+    enable = true;
+    settings = {
+      program_options = {
+        file_manager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
+      };
+    };
+  };
 }

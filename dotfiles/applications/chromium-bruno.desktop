@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Chromium - Bruno
+GenericName=Web Browser
+Exec=chromium --window-name="Chromium - Bruno" --profile-directory="Default" %U
+Icon=chromium
+Terminal=false
+StartupNotify=true
+StartupWMClass=chromium-browser
+PrefersNonDefaultGPU=true
+Categories=Network;WebBrowser;

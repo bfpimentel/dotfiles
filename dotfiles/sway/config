@@ -1,11 +1,16 @@
 set $mod Mod4
 set $service_mode service
 
-input type:keyboard {
+input "type:keyboard" {
     xkb_layout us
     xkb_variant intl
     repeat_delay 150
     repeat_rate 80
+}
+
+input "65261:0:DreaM117er_Explorer_Keyboard_Blank_Mouse" {
+    accel_profile adaptive
+    pointer_accel -0.1
 }
 
 output HDMI-A-1 mode 2560x1440@119.998Hz
@@ -82,6 +87,9 @@ mode "$service_mode" {
 
 for_window [app_id="kitty"] move container to workspace T
 
-for_window [title="Youtube Music"] move container to workspace M
+for_window [title="Chromium - Bruno"] move container to workspace B
+for_window [title="Chromium - Squibler"] move container to workspace W
+for_window [title="YouTube Music"] move container to workspace M
+
 for_window [title="Picture in picture"] floating enable, sticky enable
 for_window [title="Bitwarden"] floating enable
