@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  imports = [
+    ./pencil.nix
+  ];
+}

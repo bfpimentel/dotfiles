@@ -40,10 +40,10 @@ def main() -> int:
         "󰀻 Applications",
         "󰟵 Bitwarden",
         "󰅌 Clipboard",
-        "󰕾 Audio",
         " Windows",
         "󰖲 Tasks",
         "󰍹 Processes",
+        "󰄄 Screenshots",
         "󰐥 Session",
     ]
 
@@ -57,10 +57,10 @@ def main() -> int:
         "󰀻 Applications": [resolve_bin("wofi"), "--show", "drun"],
         "󰟵 Bitwarden": [python, str(sway_path / "bitwarden-menu.py")],
         "󰅌 Clipboard": [python, str(sway_path / "clipboard-menu.py")],
-        "󰕾 Audio": [python, str(sway_path / "audio-control.py")],
         " Windows": [python, str(sway_path / "windows-menu.py")],
         "󰖲 Tasks": [python, str(sway_path / "task-manager.py")],
         "󰍹 Processes": [python, str(sway_path / "processes-menu.py")],
+        "󰄄 Screenshots": [python, str(sway_path / "screenshot-menu.py")],
         "󰐥 Session": [python, str(sway_path / "session-menu.py")],
     }
 

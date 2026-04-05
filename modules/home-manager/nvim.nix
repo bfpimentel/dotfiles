@@ -3,12 +3,8 @@
 {
   programs.neovim = {
     enable = true;
+    plugins = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
     extraPackages = with pkgs; [
-      stdenv.cc
-      tree-sitter
-
-      ruff
-
       nil
       nixfmt
 
@@ -21,13 +17,18 @@
       yaml-language-server
       yamlfmt
 
-      oxlint
-      prettierd
+      prettier
+      # typescript-go # does not work here but works globally
       typescript-language-server
-      tailwindcss-language-server
       vscode-langservers-extracted
+      tailwindcss-language-server
+
+      # basedpyright # does not work here but works globally
+      ruff
 
       fish-lsp
+
+      dart
     ];
   };
 }

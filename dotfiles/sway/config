@@ -3,7 +3,7 @@ set $service_mode service
 
 input "type:keyboard" {
     xkb_layout us
-    xkb_variant intl
+    xkb_variant alt-intl
     repeat_delay 150
     repeat_rate 80
 }
@@ -14,7 +14,7 @@ input "65261:0:DreaM117er_Explorer_Keyboard_Blank_Mouse" {
 }
 
 output HDMI-A-1 mode 2560x1440@119.998Hz
-output * bg '$HOME/.config/wallpapers/morning.jpg' fill
+output * bg '$HOME/Documents/Wallpapers/morning.jpg' fill
 
 floating_modifier $mod normal
 workspace_layout default
@@ -40,11 +40,10 @@ exec --no-startup-id wl-paste --type image --watch cliphist store
 
 exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal-wlr.service xdg-desktop-portal-gtk.service xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "$HOME/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway $HOME/.nix-profile/bin/waybar'
 exec_always --no-startup-id sh -c 'pkill -x .mako-wrapped >/dev/null 2>&1 || true; $HOME/.nix-profile/bin/mako'
+exec --no-startup-id swayidle -w timeout 900 '$HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py'
 
 bindsym Ctrl+semicolon mode "$service_mode"
-
 bindsym Mod1+h focus left
-bindsym Mod1+j focus down
 bindsym Mod1+k focus up
 bindsym Mod1+l focus right
 
@@ -53,13 +52,11 @@ bindsym Mod1+Shift+j move down
 bindsym Mod1+Shift+k move up
 bindsym Mod1+Shift+l move right
 
-bindsym $mod+space exec "wofi --show drun"
 bindsym $mod+q kill
-
-bindsym $mod+a exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/audio-control.py"
 bindsym $mod+p exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/global-menu.py"
 bindsym $mod+v exec "sh -c 'cliphist list | wofi --dmenu --prompt Clipboard | cliphist decode | wl-copy'"
 bindsym $mod+Shift+l exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py"
+bindsym $mod+Shift+s exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/screenshot-menu.py"
 
 mode "$service_mode" {
     bindsym Escape mode "default"
@@ -91,5 +88,5 @@ for_window [title="Chromium - Bruno"] move container to workspace B
 for_window [title="Chromium - Squibler"] move container to workspace W
 for_window [title="YouTube Music"] move container to workspace M
 
-for_window [title="Picture in picture"] floating enable, sticky enable
+for_window [title="Picture-in-picture"] floating enable, sticky enable
 for_window [title="Bitwarden"] floating enable

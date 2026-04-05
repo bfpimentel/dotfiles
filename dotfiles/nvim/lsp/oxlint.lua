@@ -12,20 +12,12 @@ return {
     "htmlangular",
   },
   root_markers = {
+    ".git",
+    "package.json",
     ".oxlintrc.json",
     "oxlint.config.ts",
   },
   workspace_required = true,
-  -- settings = {
-  --   workingDirectory = { mode = "auto" },
-  --   nodePath = "",
-  --   validate = "on",
-  --   experimental = {
-  --     useFlatConfig = false,
-  --   },
-  --   format = false,
-  --   quiet = false,
-  -- },
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_create_user_command(
       bufnr,

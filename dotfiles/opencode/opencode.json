@@ -1,3 +1,11 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "small_model": "opencode/gpt-5-nano",
+  "mcp": {
+    "exa": {
+      "type": "remote",
+      "url": "https://mcp.exa.ai/mcp?exaApiKey=$EXA_API_KEY"
+    }
+  }
 }
+

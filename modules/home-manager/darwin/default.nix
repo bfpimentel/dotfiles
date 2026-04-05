@@ -2,7 +2,7 @@
 
 {
   imports = [
+    ./packages
     ./homebrew.nix
-    ./pencil.nix
   ];
 }

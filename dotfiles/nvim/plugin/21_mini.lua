@@ -1,24 +1,6 @@
--- local function setup_mini_hues()
---   local MiniHues = require("mini.hues")
---   MiniHues.setup({
---     background = "#000000",
---     foreground = "#c4c6cd",
---     accent = "green",
---     saturation = "medium",
---     autoadjust = true,
---   })
--- end
-
 local function setup_mini_icons()
   local MiniIcons = require("mini.icons")
   MiniIcons.setup()
-end
-
-local function setup_mini_notify()
-  local MiniNotify = require("mini.notify")
-  MiniNotify.setup()
-
-  vim.notify = MiniNotify.make_notify()
 end
 
 local function setup_mini_pick()
@@ -237,9 +219,7 @@ Pack.now(function()
   require("mini.surround").setup()
   require("mini.visits").setup()
 
-  -- setup_mini_hues()
   setup_mini_icons()
-  setup_mini_notify()
   setup_mini_pick()
   setup_mini_files()
   setup_mini_indentscope()
@@ -262,7 +242,6 @@ Pack.now(function()
 
   local MiniPick = require("mini.pick")
   local MiniExtra = require("mini.extra")
-  local MiniNotify = require("mini.notify")
   local MiniFiles = require("mini.files")
 
   local function toggle_files()
@@ -283,7 +262,6 @@ Pack.now(function()
     -- History
     { "<leader>hc", function() MiniExtra.pickers.history({ scope = ":" }) end, opts = { desc = "Commands History" } },
     { "<leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, opts = { desc = "Search History" } },
-    { "<leader>hn", function() MiniNotify.show_history() end, opts = { desc = "Notification History" } },
     -- Files
     { "<leader>fp", function() MiniPick.builtin.files({ tool = "git" }) end, opts = { desc = "Files" } },
     { "<leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },

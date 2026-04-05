@@ -17,6 +17,7 @@ in
 {
   home.file = {
     "Documents/Vial".source = mapAbsolute "misc/vial";
+    "Documents/Wallpapers".source = mapAbsolute "misc/wallpapers";
   }
   // mapDotfiles (
     [
@@ -42,7 +43,6 @@ in
         "mako"
         "xdg-desktop-portal"
         "xdg-desktop-portal-wlr"
-        "wallpapers"
       ];
     }
   )

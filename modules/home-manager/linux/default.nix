@@ -5,12 +5,29 @@
     ./gaming.nix
   ];
 
+  home.file.".XCompose".text = ''
+    include "%L"
+
+    <dead_acute> <C> : "Ç"
+    <dead_acute> <c> : "ç"
+  '';
+
+  home.sessionVariables = {
+    GTK_IM_MODULE = "cedilla";
+    QT_IM_MODULE = "cedilla";
+  };
+
   home.packages = with pkgs; [
     git
     kitty
 
+    jq
+
     fastfetch
     python3
+
+    typescript-go
+    basedpyright
 
     bitwarden-cli
 
@@ -19,19 +36,27 @@
     wofi
     mako
     swaylock-effects
+    swayidle
+    slurp
+    grim
+    satty
+    libnotify
+    pwvucontrol
+    cliphist
+    wl-clipboard
     xdg-desktop-portal
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
-    slurp
-    libnotify
-
-    peazip
-    pwvucontrol
-    wl-clipboard
-    cliphist
 
     ungoogled-chromium
     vial
+    peazip
+    gearlever
+    appimage-run
+
+    podman
+    podman-compose
+
     kdePackages.dolphin
 
     nerd-fonts.victor-mono

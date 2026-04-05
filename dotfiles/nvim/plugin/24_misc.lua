@@ -52,3 +52,17 @@ Pack.later(function()
     { "<leader>q", function() Quicker.toggle({ loclist = true }) end, opts = { desc = "Toggle Loclist" } },
   })
 end)
+
+Pack.later(function()
+  Pack.add({ { src = "https://github.com/obsidian-nvim/obsidian.nvim", version = vim.version.range("*") } })
+
+  require("obsidian").setup({
+    legacy_commands = false,
+    workspaces = {
+      {
+        name = "bfmp",
+        path = "~/Documents/Notes/Personal",
+      },
+    },
+  })
+end)

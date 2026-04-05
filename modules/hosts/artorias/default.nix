@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
+    ./display.nix
     ./filesystems.nix
     ./hardware-configuration.nix
   ];
@@ -13,79 +14,46 @@
     kernelModules = [ "uinput" ];
   };
 
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   nixpkgs.config.allowUnfree = true;
 
-  users.users.bruno = {
-    isNormalUser = true;
-    description = "Bruno Pimentel";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "video"
-      "input"
-    ];
+  programs.nix-ld.enable = true;
+
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
   };
 
   networking = {
     hostName = "artorias";
     enableIPv6 = false;
     useDHCP = false;
-    defaultGateway = "10.22.4.1";
     firewall.enable = false;
-    networkmanager = {
-      enable = true;
-      insertNameservers = [
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
-    };
-    interfaces."enp5s0".ipv4.addresses = [
-      {
-        address = "10.22.4.10";
-        prefixLength = 24;
-      }
-    ];
+    networkmanager.enable = false;
   };
 
-  hardware.graphics = {
+  systemd.network = {
     enable = true;
-    enable32Bit = true;
-  };
-
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    xwayland.enable = true;
-    extraPackages = with pkgs; [
-      grim
-      pulseaudio
-      swayidle
-      swaylock
-      wmenu
-    ];
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = "greeter";
+    networks."10-default" = {
+      matchConfig.Name = "enp5s0";
+      address = [ "10.22.4.10/24" ];
+      routes = [ { Gateway = "10.22.4.1"; } ];
+      networkConfig = {
+        DHCP = "no";
+        DNS = [
+          "1.1.1.1"
+          "8.8.8.8"
+        ];
       };
     };
   };
-
-  systemd.services.greetd.serviceConfig = {
-    Type = "idle";
-    StandardInput = "tty";
-    StandardOutput = "tty";
-    StandardError = "journal";
-    TTYReset = true;
-    TTYVHangup = true;
-    TTYVTDisallocate = true;
-  };
-
-  console.useXkbConfig = true;
 
   security = {
     polkit.enable = true;
@@ -93,41 +61,68 @@
   };
 
   services = {
-    tailscale.enable = true;
     pulseaudio.enable = false;
+    tailscale.enable = true;
     avahi.publish.userServices = true;
-    udev.extraRules = ''
-      KERNEL=="uinput", MODE="0660", GROUP="input", SYMLINK+="uinput"
-    '';
+    udisks2.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-    xserver = {
-      enable = false;
-      xkb = {
-        layout = "us";
-        variant = "alt-intl";
-      };
-    };
   };
+
+  nix.settings.trusted-users = [ "bruno" ];
+
+  users.users.bruno = {
+    isNormalUser = true;
+    description = "Bruno Pimentel";
+    extraGroups = [
+      "wheel"
+      "video"
+      "input"
+      "podman"
+    ];
+  };
+
+  services.udev.extraRules = ''
+    KERNEL=="uinput", MODE="0660", GROUP="input", SYMLINK+="uinput"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+
+    ### Pro Micro 3V3/8MHz
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9203", TAG+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+    ### Pro Micro 5V/16MHz
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1b4f", ATTRS{idProduct}=="9205", TAG+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+    # hid_listen
+    KERNEL=="hidraw*", MODE="0660", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
+
+    # hid bootloaders
+    ## QMK HID
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2067", TAG+="uaccess"
+
+    # Explorer
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", ATTRS{idProduct}=="0000", TAG+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+    # Pro Micro DFU
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", TAG+="uaccess"
+  '';
 
   time.timeZone = "America/Sao_Paulo";
 
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = lib.mkDefault "en_IE.UTF-8";
     extraLocaleSettings = {
-      LC_ADDRESS = "pt_BR.UTF-8";
-      LC_IDENTIFICATION = "pt_BR.UTF-8";
-      LC_MEASUREMENT = "pt_BR.UTF-8";
-      LC_MONETARY = "pt_BR.UTF-8";
-      LC_NAME = "pt_BR.UTF-8";
-      LC_NUMERIC = "pt_BR.UTF-8";
-      LC_PAPER = "pt_BR.UTF-8";
-      LC_TELEPHONE = "pt_BR.UTF-8";
-      LC_TIME = "pt_BR.UTF-8";
+      LC_CTYPE = lib.mkDefault "pt_BR.UTF-8";
+    };
+    inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5.addons = with pkgs; [
+        fcitx5-gtk
+        fcitx5-mozc
+      ];
     };
   };
 
