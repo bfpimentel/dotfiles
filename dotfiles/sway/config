@@ -37,10 +37,11 @@ exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY WAYLAN
 exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP DESKTOP_SESSION
 exec --no-startup-id wl-paste --type text --watch cliphist store
 exec --no-startup-id wl-paste --type image --watch cliphist store
+exec --no-startup-id sh -c "swaymsg swaymsg workspace M && swaymsg workspace T && swaymsg workspace W && swaymsg workspace X && swaymsg workspace B"
+exec --no-startup-id swayidle -w timeout 900 '$HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py'
 
 exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal-wlr.service xdg-desktop-portal-gtk.service xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "$HOME/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway $HOME/.nix-profile/bin/waybar'
 exec_always --no-startup-id sh -c 'pkill -x .mako-wrapped >/dev/null 2>&1 || true; $HOME/.nix-profile/bin/mako'
-exec --no-startup-id swayidle -w timeout 900 '$HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py'
 
 bindsym Ctrl+semicolon mode "$service_mode"
 bindsym Mod1+h focus left

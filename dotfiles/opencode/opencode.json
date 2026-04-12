@@ -5,7 +5,15 @@
     "exa": {
       "type": "remote",
       "url": "https://mcp.exa.ai/mcp?exaApiKey=$EXA_API_KEY"
+    },
+    "stitch": {
+      "url": "https://stitch.googleapis.com/mcp",
+      "type": "remote",
+      "oauth": false,
+      "headers": {
+        "Accept": "application/json",
+        "X-Goog-Api-Key": "{env:STITCH_API_KEY}"
+      }
     }
   }
 }
-

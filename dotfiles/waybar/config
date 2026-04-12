@@ -2,8 +2,9 @@
   "layer": "top",
   "position": "top",
   "height": 30,
-  "spacing": 12,
+  "spacing": 8,
   "modules-left": [
+    "custom/global-menu",
     "sway/workspaces"
   ],
   "modules-center": [
@@ -34,5 +35,10 @@
   },
   "clock": {
     "format": "{:%a %d %b %H:%M}"
+  },
+  "custom/global-menu": {
+    "format": "󰿦",
+    "tooltip": false,
+    "on-click": "~/.config/sway/global-menu.py"
   }
 }

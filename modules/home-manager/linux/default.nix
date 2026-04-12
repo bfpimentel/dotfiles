@@ -24,10 +24,11 @@
     jq
 
     fastfetch
-    python3
 
+    python3
     typescript-go
     basedpyright
+    nodejs_25
 
     bitwarden-cli
 

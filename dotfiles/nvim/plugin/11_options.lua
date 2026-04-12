@@ -43,7 +43,7 @@ vim.o.fillchars = "eob: ,fold:╌"
 vim.o.listchars = "tab:> ,trail:-,nbsp:+"
 
 -- Editing
-vim.o.conceallevel = 1
+vim.o.conceallevel = 0
 vim.o.autoindent = true
 vim.o.expandtab = true
 vim.o.formatoptions = "rqnl1j"

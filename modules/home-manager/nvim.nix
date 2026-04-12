@@ -3,6 +3,8 @@
 {
   programs.neovim = {
     enable = true;
+    withRuby = true;
+    withPython3 = true;
     plugins = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
     extraPackages = with pkgs; [
       nil

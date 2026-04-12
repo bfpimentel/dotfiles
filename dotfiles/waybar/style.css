@@ -10,10 +10,6 @@ window#waybar {
   border-bottom: 1px solid rgba(255, 255, 255, 0.28);
 }
 
-#workspaces {
-  margin-left: 6px;
-}
-
 #workspaces button {
   background: transparent;
   color: #ffffff;
@@ -45,4 +41,15 @@ window#waybar {
 #clock {
   color: #ffffff;
   margin-right: 10px;
+}
+
+#custom-global-menu {
+  font-size: 18px;
+  background: transparent;
+  color: #ffffff;
+  padding: 0 18px;
+}
+
+#custom-global-menu:hover {
+  border-top: 1px solid white;
 }
