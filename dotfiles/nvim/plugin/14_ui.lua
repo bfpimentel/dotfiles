@@ -22,6 +22,27 @@ Util.new_autocmd("LSP Progress popup", "LspProgress", nil, function(event)
   })
 end)
 
+Util.new_autocmd("Floating command line", "FileType", "cmd", function()
+  local ui2 = require("vim._core.ui2")
+  vim.schedule(function()
+    local win = ui2.wins and ui2.wins.cmd
+    if win and vim.api.nvim_win_is_valid(win) then
+      local width = math.floor(vim.o.columns * 0.5)
+      pcall(vim.api.nvim_win_set_config, win, {
+        title = "CMD",
+        relative = "editor",
+        row = vim.o.lines - 10,
+        col = (vim.o.columns - width) / 2,
+        width = width,
+        height = 1,
+        anchor = "NW",
+        border = "single",
+        style = "minimal",
+      })
+    end
+  end)
+end)
+
 Pack.later(function()
   local ui2 = require("vim._core.ui2")
 

@@ -79,4 +79,3 @@ local parsers = {
 }
 
 Util.new_autocmd("Start Treesitter Highlighting", "FileType", parsers, function() vim.treesitter.start() end)
-
