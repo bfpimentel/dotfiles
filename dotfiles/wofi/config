@@ -1,10 +1,11 @@
 show=drun
-width=700
+width=600
 height=420
 location=center
 allow_images=true
 prompt=Run
 hide_scroll=true
+matching=fuzzy
 no_actions=true
 insensitive=true
 key_up=Up,Ctrl-p

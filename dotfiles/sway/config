@@ -1,5 +1,6 @@
 set $mod Mod4
 set $service_mode service
+set $dashboard_mode dashboard
 
 input "type:keyboard" {
     xkb_layout us
@@ -38,13 +39,19 @@ exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY
 exec --no-startup-id wl-paste --type text --watch cliphist store
 exec --no-startup-id wl-paste --type image --watch cliphist store
 exec --no-startup-id sh -c "swaymsg swaymsg workspace M && swaymsg workspace T && swaymsg workspace W && swaymsg workspace X && swaymsg workspace B"
-exec --no-startup-id swayidle -w timeout 900 '$HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py'
+exec --no-startup-id swayidle -w \
+    timeout 600 'swaymsg "output * dpms off" && $HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep '$HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py'
 
-exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal-wlr.service xdg-desktop-portal-gtk.service xdg-desktop-portal.service >/dev/null 2>&1 || true; pkill -x .waybar-wrapped >/dev/null 2>&1 || pkill -f "$HOME/.nix-profile/bin/waybar" >/dev/null 2>&1 || true; XDG_CURRENT_DESKTOP=sway $HOME/.nix-profile/bin/waybar'
+exec_always --no-startup-id sh -c 'systemctl --user restart xdg-desktop-portal-wlr.service xdg-desktop-portal-gtk.service xdg-desktop-portal.service >/dev/null 2>&1 || true'
 exec_always --no-startup-id sh -c 'pkill -x .mako-wrapped >/dev/null 2>&1 || true; $HOME/.nix-profile/bin/mako'
+exec_always --no-startup-id sh -c 'killall eww 2>/dev/null; sleep 0.5; eww daemon'
 
 bindsym Ctrl+semicolon mode "$service_mode"
+
 bindsym Mod1+h focus left
+bindsym Mod1+j focus down
 bindsym Mod1+k focus up
 bindsym Mod1+l focus right
 
@@ -54,10 +61,22 @@ bindsym Mod1+Shift+k move up
 bindsym Mod1+Shift+l move right
 
 bindsym $mod+q kill
-bindsym $mod+p exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/global-menu.py"
+bindsym $mod+Shift+q exec "swaymsg exit"
+bindsym $mod+space exec "wofi --show drun"
+bindsym $mod+p exec "eww update selected-index=0; eww open dashboard; swaymsg mode dashboard"
+bindsym $mod+Shift+p exec "eww close dashboard && swaymsg mode default"
 bindsym $mod+v exec "sh -c 'cliphist list | wofi --dmenu --prompt Clipboard | cliphist decode | wl-copy'"
+
 bindsym $mod+Shift+l exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/lock.py"
 bindsym $mod+Shift+s exec "$HOME/.nix-profile/bin/python3 $HOME/.config/sway/screenshot-menu.py"
+
+mode "$dashboard_mode" {
+    bindsym Ctrl+n exec "sh -lc 'i=$(eww get selected-index); eww update selected-index=$(( (i+1) % 6 ))'"
+    bindsym Ctrl+p exec "sh -lc 'i=$(eww get selected-index); eww update selected-index=$(( (i+5) % 6 ))'"
+
+    bindsym Return exec "~/.config/eww/scripts/nav-execute; eww close dashboard; eww update selected-index=0; swaymsg mode default"
+    bindsym Escape exec "eww close dashboard; eww update selected-index=0", mode "default"
+}
 
 mode "$service_mode" {
     bindsym Escape mode "default"
@@ -83,11 +102,11 @@ mode "$service_mode" {
     bindsym equal resize grow width 50 px or 50 ppt
 }
 
-for_window [app_id="kitty"] move container to workspace T
-
-for_window [title="Chromium - Bruno"] move container to workspace B
-for_window [title="Chromium - Squibler"] move container to workspace W
-for_window [title="YouTube Music"] move container to workspace M
+for_window [app_id="kitty"] move container to workspace T, workspace T
+for_window [title="Chromium - Bruno"] move container to workspace B, workspace B
+for_window [title="Chromium - Squibler"] move container to workspace W, workspace W
+for_window [title="YouTube Music"] move container to workspace M, workspace M
 
 for_window [title="Picture-in-picture"] floating enable, sticky enable
 for_window [title="Bitwarden"] floating enable
+for_window [app_id="eww"] floating enable, border none

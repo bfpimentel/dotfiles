@@ -43,6 +43,7 @@ in
         "mako"
         "xdg-desktop-portal"
         "xdg-desktop-portal-wlr"
+        "eww"
       ];
     }
   )

@@ -1,0 +1,92 @@
+* {
+  font-family: "VictorMono NFM", monospace;
+  font-size: 14px;
+}
+
+window {
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.dashboard-container {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.header {
+  margin-top: 12px;
+  margin-left: 12px;
+}
+
+.time {
+  margin-top: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.date {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.workspace-list {
+  margin: 8px 12px 10px 12px;
+}
+
+.workspace-item {
+  min-width: 28px;
+  min-height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.workspace-item label {
+  font-weight: bold;
+}
+
+.workspace-item.active {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.menu-list {
+  margin: 0px;
+  border: none;
+}
+
+.menu-list > .menu-item:last-child {
+  border-bottom: none;
+  margin-bottom: 12px;
+}
+
+.menu-item {
+  all: unset;
+  box-shadow: none;
+  padding: 8px 8px;
+  border-radius: 0;
+  border: none;
+  border-top: none;
+  background: transparent;
+  color: #ffffff;
+  margin: 0 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+  &:hover {
+    background: #ffffff;
+    color: #000000;
+  }
+}
+
+.menu-item:focus,
+.menu-item:active,
+.menu-item:hover {
+  box-shadow: none;
+  border-top: none;
+}
+
+.menu-item.selected {
+  background: #ffffff;
+  color: #000000;
+}

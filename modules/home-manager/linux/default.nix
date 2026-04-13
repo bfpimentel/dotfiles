@@ -33,8 +33,9 @@
     bitwarden-cli
 
     sway
-    waybar
+    eww
     wofi
+    wtype
     mako
     swaylock-effects
     swayidle
@@ -60,6 +61,8 @@
 
     kdePackages.dolphin
 
+    hanken-grotesk
+    nerd-fonts.symbols-only
     nerd-fonts.victor-mono
   ];
 
