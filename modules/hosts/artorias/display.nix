@@ -1,34 +1,58 @@
-{ ... }:
+{ pkgs, ... }:
 
+let
+  sddm-theme-name = "sddm-bfmp";
+
+  sddm-theme = pkgs.stdenvNoCC.mkDerivation {
+    pname = sddm-theme-name;
+    version = "0.1.0";
+    dontUnpack = true;
+
+    installPhase = ''
+      themeDir="$out/share/sddm/themes/${sddm-theme-name}"
+      mkdir -p "$themeDir"
+
+      install -m0644 ${./sddm-theme/Main.qml} "$themeDir/Main.qml"
+      install -m0644 ${./sddm-theme/metadata.desktop} "$themeDir/metadata.desktop"
+      install -m0644 ${./sddm-theme/theme.conf} "$themeDir/theme.conf"
+    '';
+  };
+in
 {
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  services.xserver.enable = false;
+  fonts.packages = [
+    pkgs.nerd-fonts.victor-mono
+
+  ];
+
+  environment.systemPackages = [
+    sddm-theme
+    pkgs.adwaita-icon-theme
+  ];
+
+  services.xserver.enable = true;
 
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
 
-  services.displayManager.ly = {
+  services.displayManager.ly.enable = false;
+
+  services.displayManager.defaultSession = "hyprland";
+
+  services.displayManager.sddm = {
     enable = true;
+    wayland.enable = false;
+    package = pkgs.kdePackages.sddm;
+    theme = sddm-theme-name;
+    extraPackages = [ sddm-theme ];
     settings = {
-      animation = "colormix";
-      bigclock = "en";
-      brightness_down_key = "null";
-      brightness_up_key = "null";
-      clear_password = true;
-      cmatrix_fg = "0x005A4A2A";
-      cmatrix_head_col = "0x00D4A574";
-      colormix_col1 = "0x003D2B1F";
-      colormix_col2 = "0x007A8A9A";
-      colormix_col3 = "0x00E6C88A";
-      hide_borders = true;
-      hide_key_hints = true;
-      hide_keyboard_locks = true;
-      hide_version_string = true;
-      margin_box_h = 2;
-      margin_box_v = 2;
+      Theme = {
+        CursorTheme = "Adwaita";
+        CursorSize = 24;
+      };
     };
   };
 }

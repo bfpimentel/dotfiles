@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import QtQuick.Layouts
 
 PanelWindow {
     id: clipboard
@@ -26,6 +27,8 @@ PanelWindow {
     property var allEntries: []
     property var filteredEntries: []
     property int selectedIndex: -1
+    property int thumbVersion: 0
+    property string thumbDir: String(Quickshell.env("HOME") || "") + "/.cache/quickshell/cliphist-thumbs"
 
     function openClipboard() {
         scaffold.setQuery("")
@@ -58,11 +61,49 @@ PanelWindow {
         var out = []
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i].trim()
-            if (line.length > 0) out.push(line)
+            if (line.length === 0) continue
+
+            var tabIdx = line.indexOf("\t")
+            var id = tabIdx >= 0 ? line.slice(0, tabIdx) : line
+            var preview = tabIdx >= 0 ? line.slice(tabIdx + 1) : ""
+            if (!/^\d+$/.test(id)) continue
+
+            var lower = preview.toLowerCase()
+            var match = lower.match(/binary data[^\n]*(png|jpg|jpeg|bmp|gif|webp)/)
+            var ext = match ? match[1] : ""
+            if (ext === "jpeg") ext = "jpg"
+
+            out.push({
+                id: id,
+                preview: preview,
+                isImage: ext.length > 0,
+                thumbPath: ext.length > 0 ? (thumbDir + "/" + id + "." + ext) : "",
+                display: id + "\t" + preview
+            })
         }
 
         allEntries = out
+        generateThumbnails(out)
         refilter()
+    }
+
+    function generateThumbnails(entries) {
+        var scripts = ["mkdir -p \"$1\""]
+
+        for (var i = 0; i < entries.length; i++) {
+            var item = entries[i]
+            if (!item || !item.isImage || !item.thumbPath) continue
+            scripts.push("printf '%s\\t\\n' '" + item.id + "' | cliphist decode > \"" + item.thumbPath + "\" 2>/dev/null")
+        }
+
+        if (scripts.length <= 1) {
+            thumbVersion += 1
+            return
+        }
+
+        thumbProcess.command = ["sh", "-lc", scripts.join("; "), "_", thumbDir]
+        thumbProcess.running = false
+        thumbProcess.running = true
     }
 
     function refilter() {
@@ -71,7 +112,8 @@ PanelWindow {
 
         for (var i = 0; i < allEntries.length; i++) {
             var item = allEntries[i]
-            if (q.length === 0 || item.toLowerCase().indexOf(q) !== -1) {
+            var text = ((item && item.preview) ? item.preview : "").toLowerCase()
+            if (q.length === 0 || text.indexOf(q) !== -1) {
                 out.push(item)
             }
         }
@@ -87,7 +129,8 @@ PanelWindow {
     function activateSelection() {
         if (selectedIndex < 0 || selectedIndex >= filteredEntries.length) return
         var choice = filteredEntries[selectedIndex]
-        Quickshell.execDetached(["sh", "-lc", "printf '%s\\n' \"$1\" | cliphist decode | wl-copy", "_", choice])
+        if (!choice || !choice.id) return
+        Quickshell.execDetached(["sh", "-lc", "printf '%s\\t\\n' \"$1\" | cliphist decode | wl-copy", "_", choice.id])
         closeClipboard()
     }
 
@@ -97,6 +140,11 @@ PanelWindow {
         stdout: StdioCollector {
             onStreamFinished: clipboard.setEntries(this.text)
         }
+    }
+
+    Process {
+        id: thumbProcess
+        onRunningChanged: if (!running) clipboard.thumbVersion += 1
     }
 
     Scaffold {
@@ -113,22 +161,58 @@ PanelWindow {
         delegate: Rectangle {
             id: row
             required property int index
-            required property string modelData
+            required property var modelData
 
             width: scaffold.listWidth
-            height: 40
+            height: row.modelData.isImage ? 52 : 40
             color: row.index === clipboard.selectedIndex ? "#ffffff" : "transparent"
 
-            Text {
+            RowLayout {
                 anchors.fill: parent
                 anchors.leftMargin: 10
+                anchors.rightMargin: row.modelData.isImage ? 54 : 10
+                spacing: 8
+
+                Text {
+                    Layout.preferredWidth: 56
+                    text: row.modelData.id
+                    color: row.index === clipboard.selectedIndex ? "#000000" : "#ffffff"
+                    font.family: "VictorMono NFM"
+                    font.pixelSize: 13
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                Text {
+                    Layout.fillWidth: true
+                    text: row.modelData.preview
+                    color: row.index === clipboard.selectedIndex ? "#000000" : "#ffffff"
+                    font.family: "VictorMono NFM"
+                    font.pixelSize: 14
+                    elide: Text.ElideRight
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
+
+            Image {
+                id: thumb
+                anchors.right: parent.right
                 anchors.rightMargin: 10
-                text: row.modelData
-                color: row.index === clipboard.selectedIndex ? "#000000" : "#ffffff"
-                font.family: "VictorMono NFM"
-                font.pixelSize: 14
-                elide: Text.ElideRight
-                verticalAlignment: Text.AlignVCenter
+                anchors.verticalCenter: parent.verticalCenter
+                width: 36
+                height: 36
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
+                cache: false
+                visible: !!row.modelData.isImage
+                source: row.modelData.isImage ? ("file://" + row.modelData.thumbPath + "?v=" + clipboard.thumbVersion) : ""
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: "transparent"
+                    border.width: 1
+                    border.color: "#47ffffff"
+                    visible: thumb.visible
+                }
             }
 
             MouseArea {

@@ -125,9 +125,9 @@ PanelWindow {
         id: dashboardRoot
         anchors.fill: parent
         implicitHeight: contentColumn.implicitHeight + 32
-        color: "#33000000"
+        color: "#4d000000"
         border.width: 1
-        border.color: "#3fffffff"
+        border.color: "#47ffffff"
         focus: true
 
         Keys.onPressed: function(event) {

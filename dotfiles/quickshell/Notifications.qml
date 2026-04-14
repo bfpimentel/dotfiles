@@ -111,9 +111,9 @@ Item {
                     Layout.fillWidth: true
                     implicitHeight: content.implicitHeight + 20
                     radius: 0
-                    color: "#33000000"
+                    color: "#4d000000"
                     border.width: 1
-                    border.color: "#49ffffff"
+                    border.color: "#47ffffff"
 
                     Timer {
                         interval: {
@@ -219,7 +219,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: "#33000000"
+            color: "#4d000000"
             border.width: 1
             border.color: "#47ffffff"
 
@@ -252,7 +252,7 @@ Item {
                         Layout.preferredWidth: 58
                         color: "#22ffffff"
                         border.width: 1
-                        border.color: "#55ffffff"
+                        border.color: "#47ffffff"
 
                         MouseArea {
                             anchors.fill: parent
@@ -291,7 +291,7 @@ Item {
                                 implicitHeight: cardContent.implicitHeight + 20
                                 color: "#1bffffff"
                                 border.width: 1
-                                border.color: "#30ffffff"
+                                border.color: "#47ffffff"
 
                                 ColumnLayout {
                                     id: cardContent

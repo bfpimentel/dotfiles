@@ -144,7 +144,7 @@ PanelWindow {
     Scaffold {
         id: scaffold
         anchors.fill: parent
-        color: "#33000000"
+        color: "#4d000000"
         border.color: "#47ffffff"
         placeholderText: "Run"
         model: launcher.filteredApps

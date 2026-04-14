@@ -36,11 +36,9 @@ in
         "tuna"
       ];
       linux = [
-        "eww"
         "hypr"
         "sunshine"
         "quickshell"
-        "wofi"
         "swaync"
         "xdg-desktop-portal"
       ];

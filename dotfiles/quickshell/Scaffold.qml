@@ -18,9 +18,9 @@ Rectangle {
     signal activateRequested()
     signal closeRequested()
 
-    color: "#33000000"
+    color: "#4d000000"
     border.width: 1
-    border.color: "#3fffffff"
+    border.color: "#47ffffff"
 
     function setQuery(query) {
         input.text = query
@@ -57,7 +57,7 @@ Rectangle {
             background: Rectangle {
                 color: "#14ffffff"
                 border.width: 1
-                border.color: "#4dffffff"
+                border.color: "#47ffffff"
             }
 
             onTextChanged: scaffold.queryChanged(text)

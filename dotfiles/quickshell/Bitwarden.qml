@@ -350,9 +350,9 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#33000000"
+        color: "#4d000000"
         border.width: 1
-        border.color: "#3fffffff"
+        border.color: "#47ffffff"
 
         Item {
             anchors.fill: parent
@@ -392,7 +392,7 @@ PanelWindow {
                     background: Rectangle {
                         color: "#14ffffff"
                         border.width: 1
-                        border.color: "#4dffffff"
+                        border.color: "#47ffffff"
                     }
 
                     Keys.onPressed: function(event) {

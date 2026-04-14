@@ -40,10 +40,8 @@
     hypridle
     hyprlock
     hyprpaper
+
     quickshell
-    eww
-    wofi
-    swaynotificationcenter
     slurp
     grim
     satty
