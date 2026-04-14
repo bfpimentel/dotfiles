@@ -40,13 +40,13 @@
     hypridle
     hyprlock
     hyprpaper
+    hyprpwcenter
 
     quickshell
     slurp
     grim
     satty
     libnotify
-    pwvucontrol
     cliphist
     wl-clipboard
     xdg-desktop-portal
