@@ -16,10 +16,6 @@ def resolve_bin(name: str) -> str:
     return found
 
 
-def resolve_python() -> str:
-    return resolve_bin("python3")
-
-
 def run_wofi(options: list[str], prompt: str) -> str | None:
     wofi = resolve_bin("wofi")
     proc = subprocess.run(
@@ -52,16 +48,15 @@ def main() -> int:
     if not selection:
         return 0
 
-    swaymsg = resolve_bin("swaymsg")
+    hyprctl = resolve_bin("hyprctl")
     systemctl = resolve_bin("systemctl")
-    python = resolve_python()
-    lock_script = Path.home() / ".config" / "sway" / "lock.py"
+    hyprlock = resolve_bin("hyprlock")
 
     if selection == "󰍃 Sign out":
         if confirm("Sign out?"):
-            subprocess.run([swaymsg, "exit"], check=False)
+            subprocess.run([hyprctl, "dispatch", "exit"], check=False)
     elif selection == "󰌾 Lock":
-        subprocess.run([python, str(lock_script)], check=False)
+        subprocess.run([hyprlock], check=False)
     elif selection == "󰜉 Reboot":
         if confirm("Reboot?"):
             subprocess.run([systemctl, "reboot"], check=False)

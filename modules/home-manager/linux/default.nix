@@ -30,15 +30,20 @@
     basedpyright
     nodejs_25
 
+    qt6.qtbase
+    qt6.qttools
+    qt6.qtdeclarative # qmlls
+
     bitwarden-cli
 
-    sway
+    hyprland
+    hypridle
+    hyprlock
+    hyprpaper
+    quickshell
     eww
     wofi
-    wtype
-    mako
-    swaylock-effects
-    swayidle
+    swaynotificationcenter
     slurp
     grim
     satty
@@ -47,8 +52,8 @@
     cliphist
     wl-clipboard
     xdg-desktop-portal
+    xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
-    xdg-desktop-portal-wlr
 
     ungoogled-chromium
     vial

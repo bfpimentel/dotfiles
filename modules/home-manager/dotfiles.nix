@@ -36,14 +36,13 @@ in
         "tuna"
       ];
       linux = [
-        "sunshine"
-        "sway"
-        "waybar"
-        "wofi"
-        "mako"
-        "xdg-desktop-portal"
-        "xdg-desktop-portal-wlr"
         "eww"
+        "hypr"
+        "sunshine"
+        "quickshell"
+        "wofi"
+        "swaync"
+        "xdg-desktop-portal"
       ];
     }
   )

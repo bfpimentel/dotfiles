@@ -103,6 +103,7 @@ Pack.later(function()
     "nix",
     "oxlint",
     "python",
+    "qml",
     "typescript",
     "tailwindcss",
     "yaml",

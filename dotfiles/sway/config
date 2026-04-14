@@ -15,7 +15,7 @@ input "65261:0:DreaM117er_Explorer_Keyboard_Blank_Mouse" {
 }
 
 output HDMI-A-1 mode 2560x1440@119.998Hz
-output * bg '$HOME/Documents/Wallpapers/morning.jpg' fill
+output * bg '$HOME/Documents/Wallpapers/workspace.jpg' fill
 
 floating_modifier $mod normal
 workspace_layout default

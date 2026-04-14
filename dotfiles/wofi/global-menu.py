@@ -40,8 +40,6 @@ def main() -> int:
         "󰀻 Applications",
         "󰟵 Bitwarden",
         "󰅌 Clipboard",
-        " Windows",
-        "󰖲 Tasks",
         "󰍹 Processes",
         "󰄄 Screenshots",
         "󰐥 Session",
@@ -51,17 +49,15 @@ def main() -> int:
     if not selection:
         return 0
 
-    sway_path = Path.home() / ".config" / "sway"
+    wofi_path = Path.home() / ".config" / "wofi"
     python = resolve_python()
     routes: dict[str, list[str]] = {
         "󰀻 Applications": [resolve_bin("wofi"), "--show", "drun"],
-        "󰟵 Bitwarden": [python, str(sway_path / "bitwarden-menu.py")],
-        "󰅌 Clipboard": [python, str(sway_path / "clipboard-menu.py")],
-        " Windows": [python, str(sway_path / "windows-menu.py")],
-        "󰖲 Tasks": [python, str(sway_path / "task-manager.py")],
-        "󰍹 Processes": [python, str(sway_path / "processes-menu.py")],
-        "󰄄 Screenshots": [python, str(sway_path / "screenshot-menu.py")],
-        "󰐥 Session": [python, str(sway_path / "session-menu.py")],
+        "󰟵 Bitwarden": [python, str(wofi_path / "bitwarden-menu.py")],
+        "󰅌 Clipboard": [python, str(wofi_path / "clipboard-menu.py")],
+        "󰍹 Processes": [python, str(wofi_path / "processes-menu.py")],
+        "󰄄 Screenshots": [python, str(wofi_path / "screenshot-menu.py")],
+        "󰐥 Session": [python, str(wofi_path / "session-menu.py")],
     }
 
     cmd = routes.get(selection)

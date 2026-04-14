@@ -5,9 +5,8 @@
 
   services.xserver.enable = false;
 
-  programs.sway = {
+  programs.hyprland = {
     enable = true;
-    wrapperFeatures.gtk = true;
     xwayland.enable = true;
   };
 

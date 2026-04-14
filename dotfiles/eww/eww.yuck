@@ -1,7 +1,7 @@
 (defvar selected-index 0)
 (defpoll time :interval "1s" "date '+%H:%M'")
 (defpoll date :interval "60s" "date '+%a %d %b'")
-(defpoll current-workspace :interval "1s" "swaymsg -t get_workspaces -r | python3 -c 'import json,sys; ws=json.load(sys.stdin); print(next((w[\"name\"] for w in ws if w.get(\"focused\")), \"\"))'")
+(defpoll current-workspace :interval "1s" "hyprctl activeworkspace -j | python3 -c 'import json,sys; ws=json.load(sys.stdin); print(ws.get(\"name\", \"\"))'")
 
 (defwindow dashboard
   :monitor 0
@@ -47,19 +47,19 @@
               :onclick "wofi --show drun & eww close dashboard"
               (label :xalign 0 :hexpand true :text "󰀻  Applications"))
       (button :class {selected-index == 1 ? "menu-item selected" : "menu-item"}
-              :onclick "python3 ~/.config/sway/bitwarden-menu.py & eww close dashboard"
+              :onclick "python3 ~/.config/wofi/bitwarden-menu.py & eww close dashboard"
               (label :xalign 0 :hexpand true :text "󰟵  Bitwarden"))
       (button :class {selected-index == 2 ? "menu-item selected" : "menu-item"}
-              :onclick "python3 ~/.config/sway/clipboard-menu.py & eww close dashboard"
+              :onclick "python3 ~/.config/wofi/clipboard-menu.py & eww close dashboard"
               (label :xalign 0 :hexpand true :text "󰅌  Clipboard"))
       (button :class {selected-index == 3 ? "menu-item selected" : "menu-item"}
-              :onclick "python3 ~/.config/sway/processes-menu.py & eww close dashboard"
+              :onclick "python3 ~/.config/wofi/processes-menu.py & eww close dashboard"
               (label :xalign 0 :hexpand true :text "󰍹  Processes"))
       (button :class {selected-index == 4 ? "menu-item selected" : "menu-item"}
-              :onclick "python3 ~/.config/sway/screenshot-menu.py & eww close dashboard"
+              :onclick "python3 ~/.config/wofi/screenshot-menu.py & eww close dashboard"
               (label :xalign 0 :hexpand true :text "󰄄  Screenshots"))
       (button :class {selected-index == 5 ? "menu-item selected" : "menu-item"}
-              :onclick "python3 ~/.config/sway/session-menu.py & eww close dashboard"
+              :onclick "python3 ~/.config/wofi/session-menu.py & eww close dashboard"
               (label :xalign 0 :hexpand true :text "󰐥  Session")))))
 
 ; vim: set ft=lisp :

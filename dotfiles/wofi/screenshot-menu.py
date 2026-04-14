@@ -44,10 +44,10 @@ def ensure_screenshots_dir() -> Path:
 
 
 def get_focused_window_geometry() -> str | None:
-    swaymsg = resolve_bin("swaymsg")
+    hyprctl = resolve_bin("hyprctl")
     jq = resolve_bin("jq")
     result = subprocess.run(
-        [swaymsg, "-t", "get_tree"],
+        [hyprctl, "-j", "activewindow"],
         capture_output=True,
         text=True,
         check=False,
@@ -58,7 +58,7 @@ def get_focused_window_geometry() -> str | None:
         [
             jq,
             "-r",
-            '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"',
+            '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"',
         ],
         input=result.stdout,
         capture_output=True,
@@ -67,7 +67,10 @@ def get_focused_window_geometry() -> str | None:
     )
     if jq_result.returncode != 0:
         return None
-    return jq_result.stdout.strip() or None
+    value = jq_result.stdout.strip()
+    if not value or value == "null,null nullxnull":
+        return None
+    return value
 
 
 def take_full_screenshot(save: bool = True) -> None:
