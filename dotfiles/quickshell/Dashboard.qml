@@ -9,6 +9,9 @@ PanelWindow {
     id: dashboard
     signal requestLauncher()
     signal requestClipboard()
+    signal requestSession()
+    signal requestProcesses()
+    signal requestScreenshot()
 
     visible: false
     focusable: true
@@ -36,9 +39,9 @@ PanelWindow {
         { icon: "󰀻 ", label: "Applications", action: "launcher" },
         { icon: "󰟵 ", label: "Bitwarden", command: ["sh", "-lc", "python3 ~/.config/wofi/bitwarden-menu.py"] },
         { icon: "󰅌 ", label: "Clipboard", action: "clipboard" },
-        { icon: "󰍹 ", label: "Processes", command: ["sh", "-lc", "python3 ~/.config/wofi/processes-menu.py"] },
-        { icon: "󰄄 ", label: "Screenshots", command: ["sh", "-lc", "python3 ~/.config/wofi/screenshot-menu.py"] },
-        { icon: "󰐥 ", label: "Session", command: ["sh", "-lc", "python3 ~/.config/wofi/session-menu.py"] }
+        { icon: "󰍹 ", label: "Processes", action: "processes" },
+        { icon: "󰄄 ", label: "Screenshots", action: "screenshot" },
+        { icon: "󰐥 ", label: "Session", action: "session" }
     ]
 
     function refreshClock() {
@@ -78,6 +81,24 @@ PanelWindow {
 
         if (item.action === "clipboard") {
             dashboard.requestClipboard()
+            closeDashboard()
+            return
+        }
+
+        if (item.action === "session") {
+            dashboard.requestSession()
+            closeDashboard()
+            return
+        }
+
+        if (item.action === "processes") {
+            dashboard.requestProcesses()
+            closeDashboard()
+            return
+        }
+
+        if (item.action === "screenshot") {
+            dashboard.requestScreenshot()
             closeDashboard()
             return
         }
