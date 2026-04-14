@@ -18,7 +18,7 @@ Rectangle {
     signal activateRequested()
     signal closeRequested()
 
-    color: "#d9111116"
+    color: "#33000000"
     border.width: 1
     border.color: "#3fffffff"
 

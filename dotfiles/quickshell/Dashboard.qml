@@ -8,6 +8,7 @@ import QtQuick.Layouts
 PanelWindow {
     id: dashboard
     signal requestLauncher()
+    signal requestBitwarden()
     signal requestClipboard()
     signal requestSession()
     signal requestProcesses()
@@ -37,7 +38,7 @@ PanelWindow {
     property var workspaceNames: ["B", "M", "T", "W", "X"]
     property var menuItems: [
         { icon: "󰀻 ", label: "Applications", action: "launcher" },
-        { icon: "󰟵 ", label: "Bitwarden", command: ["sh", "-lc", "python3 ~/.config/wofi/bitwarden-menu.py"] },
+        { icon: "󰟵 ", label: "Bitwarden", action: "bitwarden" },
         { icon: "󰅌 ", label: "Clipboard", action: "clipboard" },
         { icon: "󰍹 ", label: "Processes", action: "processes" },
         { icon: "󰄄 ", label: "Screenshots", action: "screenshot" },
@@ -75,6 +76,12 @@ PanelWindow {
 
         if (item.action === "launcher") {
             dashboard.requestLauncher()
+            closeDashboard()
+            return
+        }
+
+        if (item.action === "bitwarden") {
+            dashboard.requestBitwarden()
             closeDashboard()
             return
         }
@@ -118,7 +125,7 @@ PanelWindow {
         id: dashboardRoot
         anchors.fill: parent
         implicitHeight: contentColumn.implicitHeight + 32
-        color: "#d9111116"
+        color: "#33000000"
         border.width: 1
         border.color: "#3fffffff"
         focus: true

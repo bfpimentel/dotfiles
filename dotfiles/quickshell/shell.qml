@@ -7,6 +7,7 @@ ShellRoot {
     Dashboard {
         id: dashboard
         onRequestLauncher: launcher.openLauncher()
+        onRequestBitwarden: bitwarden.openBitwarden()
         onRequestClipboard: clipboard.openClipboard()
         onRequestSession: session.openSession()
         onRequestProcesses: processes.openProcesses()
@@ -15,6 +16,10 @@ ShellRoot {
 
     Launcher {
         id: launcher
+    }
+
+    Bitwarden {
+        id: bitwarden
     }
 
     Clipboard {
@@ -33,6 +38,10 @@ ShellRoot {
         id: screenshot
     }
 
+    Notifications {
+        id: notifications
+    }
+
     IpcHandler {
         target: "launcher"
         enabled: true
@@ -48,6 +57,24 @@ ShellRoot {
         function toggle() {
             if (launcher.visible) launcher.closeLauncher()
             else launcher.openLauncher()
+        }
+    }
+
+    IpcHandler {
+        target: "bitwarden"
+        enabled: true
+
+        function show() {
+            bitwarden.openBitwarden()
+        }
+
+        function hide() {
+            bitwarden.closeBitwarden()
+        }
+
+        function toggle() {
+            if (bitwarden.visible) bitwarden.closeBitwarden()
+            else bitwarden.openBitwarden()
         }
     }
 
@@ -150,6 +177,27 @@ ShellRoot {
         function toggle() {
             if (screenshot.visible) screenshot.closeScreenshot()
             else screenshot.openScreenshot()
+        }
+    }
+
+    IpcHandler {
+        target: "notifications"
+        enabled: true
+
+        function show() {
+            notifications.openCenter()
+        }
+
+        function hide() {
+            notifications.closeCenter()
+        }
+
+        function toggle() {
+            notifications.toggleCenter()
+        }
+
+        function clear() {
+            notifications.clearAll()
         }
     }
 }
