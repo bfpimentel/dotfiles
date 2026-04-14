@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 
 PanelWindow {
@@ -45,10 +44,10 @@ PanelWindow {
 
     function openLauncher() {
         allApps = DesktopEntries.applications && DesktopEntries.applications.values ? DesktopEntries.applications.values : []
-        input.text = ""
+        scaffold.setQuery("")
         refilter()
         visible = true
-        input.forceActiveFocus()
+        scaffold.focusPrompt()
     }
 
     function closeLauncher() {
@@ -112,7 +111,7 @@ PanelWindow {
     }
 
     function refilter() {
-        var q = input.text.toLowerCase()
+        var q = scaffold.queryText.toLowerCase()
         var out = []
 
         for (var i = 0; i < allApps.length; i++) {
@@ -133,12 +132,7 @@ PanelWindow {
     }
 
     function move(delta) {
-        if (filteredApps.length === 0) return
-        var next = selectedIndex + delta
-        if (next < 0) next = 0
-        if (next >= filteredApps.length) next = filteredApps.length - 1
-        selectedIndex = next
-        list.positionViewAtIndex(selectedIndex, ListView.Contain)
+        scaffold.moveSelection(delta)
     }
 
     function activate() {
@@ -147,110 +141,68 @@ PanelWindow {
         closeLauncher()
     }
 
-    Rectangle {
+    Scaffold {
+        id: scaffold
         anchors.fill: parent
         color: "#d9000000"
-        border.width: 1
         border.color: "#47ffffff"
+        placeholderText: "Run"
+        model: launcher.filteredApps
+        selectedIndex: launcher.selectedIndex
+        onSelectedIndexChanged: launcher.selectedIndex = selectedIndex
+        onQueryChanged: launcher.refilter()
+        onActivateRequested: launcher.activate()
+        onCloseRequested: launcher.closeLauncher()
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 12
-            spacing: 10
+        delegate: Rectangle {
+            id: appRow
+            required property int index
+            required property var modelData
 
-            TextField {
-                id: input
-                Layout.fillWidth: true
-                Layout.preferredHeight: 40
-                placeholderText: "Run"
-                color: "#ffffff"
-                placeholderTextColor: "#88ffffff"
-                font.family: "VictorMono NFM"
-                font.pixelSize: 14
+            width: scaffold.listWidth
+            height: 36
+            color: index === launcher.selectedIndex ? "#ffffff" : "transparent"
 
-                background: Rectangle {
-                    color: "#14ffffff"
-                    border.width: 1
-                    border.color: "#4dffffff"
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 8
+                anchors.rightMargin: 8
+                spacing: 8
+
+                IconImage {
+                    id: appIcon
+                    Layout.preferredWidth: 18
+                    Layout.preferredHeight: 18
+                    source: launcher.iconSource(appRow.modelData.icon)
+                    visible: source && source.toString().length > 0
+                    asynchronous: true
+                    mipmap: true
                 }
 
-                onTextChanged: launcher.refilter()
+                Item {
+                    Layout.preferredWidth: 18
+                    Layout.preferredHeight: 18
+                    visible: !appIcon.visible
+                }
 
-                Keys.onPressed: function(event) {
-                    if (event.key === Qt.Key_Down || (event.key === Qt.Key_N && (event.modifiers & Qt.ControlModifier))) {
-                        launcher.move(1)
-                        event.accepted = true
-                    } else if (event.key === Qt.Key_Up || (event.key === Qt.Key_P && (event.modifiers & Qt.ControlModifier))) {
-                        launcher.move(-1)
-                        event.accepted = true
-                    } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                        launcher.activate()
-                        event.accepted = true
-                    } else if (event.key === Qt.Key_Escape) {
-                        launcher.closeLauncher()
-                        event.accepted = true
-                    }
+                Text {
+                    Layout.fillWidth: true
+                    text: appRow.modelData.name
+                    color: appRow.index === launcher.selectedIndex ? "#000000" : "#ffffff"
+                    font.family: "VictorMono NFM"
+                    font.pixelSize: 14
+                    elide: Text.ElideRight
+                    verticalAlignment: Text.AlignVCenter
                 }
             }
 
-            ListView {
-                id: list
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                clip: true
-                model: launcher.filteredApps
-
-                delegate: Rectangle {
-                    id: appRow
-                    required property int index
-                    required property var modelData
-
-                    width: list.width
-                    height: 36
-                    color: index === launcher.selectedIndex ? "#ffffff" : "transparent"
-
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.leftMargin: 8
-                        anchors.rightMargin: 8
-                        spacing: 8
-
-                        IconImage {
-                            id: appIcon
-                            Layout.preferredWidth: 18
-                            Layout.preferredHeight: 18
-                            source: launcher.iconSource(appRow.modelData.icon)
-                            visible: source && source.toString().length > 0
-                            asynchronous: true
-                            mipmap: true
-                        }
-
-                        Item {
-                            Layout.preferredWidth: 18
-                            Layout.preferredHeight: 18
-                            visible: !appIcon.visible
-                        }
-
-                        Text {
-                            Layout.fillWidth: true
-                            text: appRow.modelData.name
-                            color: appRow.index === launcher.selectedIndex ? "#000000" : "#ffffff"
-                            font.family: "VictorMono NFM"
-                            font.pixelSize: 14
-                            elide: Text.ElideRight
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: launcher.selectedIndex = appRow.index
-                        onClicked: {
-                            launcher.selectedIndex = appRow.index
-                            launcher.activate()
-                        }
-                    }
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: launcher.selectedIndex = appRow.index
+                onClicked: {
+                    launcher.selectedIndex = appRow.index
+                    launcher.activate()
                 }
             }
         }

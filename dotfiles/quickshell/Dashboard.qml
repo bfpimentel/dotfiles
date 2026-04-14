@@ -7,6 +7,9 @@ import QtQuick.Layouts
 
 PanelWindow {
     id: dashboard
+    signal requestLauncher()
+    signal requestClipboard()
+
     visible: false
     focusable: true
     color: "transparent"
@@ -30,9 +33,9 @@ PanelWindow {
     property string currentWorkspace: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.name : ""
     property var workspaceNames: ["B", "M", "T", "W", "X"]
     property var menuItems: [
-        { icon: "󰀻 ", label: "Applications", command: ["wofi", "--show", "drun"] },
+        { icon: "󰀻 ", label: "Applications", action: "launcher" },
         { icon: "󰟵 ", label: "Bitwarden", command: ["sh", "-lc", "python3 ~/.config/wofi/bitwarden-menu.py"] },
-        { icon: "󰅌 ", label: "Clipboard", command: ["sh", "-lc", "python3 ~/.config/wofi/clipboard-menu.py"] },
+        { icon: "󰅌 ", label: "Clipboard", action: "clipboard" },
         { icon: "󰍹 ", label: "Processes", command: ["sh", "-lc", "python3 ~/.config/wofi/processes-menu.py"] },
         { icon: "󰄄 ", label: "Screenshots", command: ["sh", "-lc", "python3 ~/.config/wofi/screenshot-menu.py"] },
         { icon: "󰐥 ", label: "Session", command: ["sh", "-lc", "python3 ~/.config/wofi/session-menu.py"] }
@@ -66,6 +69,19 @@ PanelWindow {
     function activateSelection() {
         if (selectedIndex < 0 || selectedIndex >= menuItems.length) return
         var item = menuItems[selectedIndex]
+
+        if (item.action === "launcher") {
+            dashboard.requestLauncher()
+            closeDashboard()
+            return
+        }
+
+        if (item.action === "clipboard") {
+            dashboard.requestClipboard()
+            closeDashboard()
+            return
+        }
+
         Quickshell.execDetached(item.command)
         closeDashboard()
     }

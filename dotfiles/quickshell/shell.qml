@@ -6,10 +6,16 @@ import Quickshell.Io
 ShellRoot {
     Dashboard {
         id: dashboard
+        onRequestLauncher: launcher.openLauncher()
+        onRequestClipboard: clipboard.openClipboard()
     }
 
     Launcher {
         id: launcher
+    }
+
+    Clipboard {
+        id: clipboard
     }
 
     IpcHandler {
@@ -57,6 +63,24 @@ ShellRoot {
 
         function activate() {
             dashboard.activateSelection()
+        }
+    }
+
+    IpcHandler {
+        target: "clipboard"
+        enabled: true
+
+        function show() {
+            clipboard.openClipboard()
+        }
+
+        function hide() {
+            clipboard.closeClipboard()
+        }
+
+        function toggle() {
+            if (clipboard.visible) clipboard.closeClipboard()
+            else clipboard.openClipboard()
         }
     }
 }
