@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Services.Notifications
+import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
@@ -53,6 +54,47 @@ Item {
         center.visible = true
     }
 
+    function iconSourceFor(notification) {
+        if (!notification) return Quickshell.iconPath("dialog-information", "application-x-executable")
+
+        function asSource(value) {
+            if (!value) return ""
+            var text = String(value)
+            if (text.length === 0) return ""
+            if (text.indexOf("://") !== -1) return text
+            if (text.charAt(0) === "/") return "file://" + text
+
+            var resolved = Quickshell.iconPath(text, "")
+            return resolved && resolved.length > 0 ? resolved : ""
+        }
+
+        var direct = [
+            notification.image,
+            notification.imagePath,
+            notification.appIcon,
+            notification.appIconName
+        ]
+
+        for (var i = 0; i < direct.length; i++) {
+            var src = asSource(direct[i])
+            if (src.length > 0) return src
+        }
+
+        var desktop = notification.desktopEntry ? String(notification.desktopEntry) : ""
+        if (desktop.length > 0) {
+            var slash = desktop.lastIndexOf("/")
+            var base = slash >= 0 ? desktop.slice(slash + 1) : desktop
+            if (base.endsWith(".desktop")) base = base.slice(0, -8)
+            var desktopSrc = asSource(base)
+            if (desktopSrc.length > 0) return desktopSrc
+        }
+
+        var appNameSrc = asSource(notification.appName)
+        if (appNameSrc.length > 0) return appNameSrc
+
+        return Quickshell.iconPath("dialog-information", "application-x-executable")
+    }
+
     function closeCenter() {
         center.visible = false
     }
@@ -83,6 +125,8 @@ Item {
         focusable: false
         color: "transparent"
         aboveWindows: true
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.namespace: "quickshell-notifications-popup"
         implicitWidth: 360
         implicitHeight: Math.min(700, popupColumn.implicitHeight)
 
@@ -111,7 +155,7 @@ Item {
                     Layout.fillWidth: true
                     implicitHeight: content.implicitHeight + 20
                     radius: 0
-                    color: "#4d000000"
+                    color: "#cc000000"
                     border.width: 1
                     border.color: "#47ffffff"
 
@@ -124,7 +168,6 @@ Item {
                         running: true
                         repeat: false
                         onTriggered: {
-                            if (toast.modelData) toast.modelData.expire()
                             notifications.removePopupById(toast.modelData ? toast.modelData.id : -1)
                         }
                     }
@@ -142,7 +185,7 @@ Item {
                             IconImage {
                                 Layout.preferredWidth: 16
                                 Layout.preferredHeight: 16
-                                source: toast.modelData && toast.modelData.appIcon ? Quickshell.iconPath(toast.modelData.appIcon, "dialog-information") : Quickshell.iconPath("dialog-information", "application-x-executable")
+                                source: notifications.iconSourceFor(toast.modelData)
                             }
 
                             Text {
@@ -204,6 +247,8 @@ Item {
         focusable: true
         color: "transparent"
         aboveWindows: true
+        WlrLayershell.layer: WlrLayer.Overlay
+        WlrLayershell.namespace: "quickshell-notifications-center"
         implicitWidth: 380
         implicitHeight: screen ? Math.floor(screen.height * 0.85) : 700
 
@@ -219,7 +264,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: "#4d000000"
+            color: "#cc000000"
             border.width: 1
             border.color: "#47ffffff"
 
@@ -306,7 +351,7 @@ Item {
                                         IconImage {
                                             Layout.preferredWidth: 16
                                             Layout.preferredHeight: 16
-                                            source: card.modelData && card.modelData.appIcon ? Quickshell.iconPath(card.modelData.appIcon, "dialog-information") : Quickshell.iconPath("dialog-information", "application-x-executable")
+                                            source: notifications.iconSourceFor(card.modelData)
                                         }
 
                                         Text {

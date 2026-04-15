@@ -350,7 +350,7 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#4d000000"
+        color: "#cc000000"
         border.width: 1
         border.color: "#47ffffff"
 

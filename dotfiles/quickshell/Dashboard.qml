@@ -125,7 +125,7 @@ PanelWindow {
         id: dashboardRoot
         anchors.fill: parent
         implicitHeight: contentColumn.implicitHeight + 32
-        color: "#4d000000"
+        color: "#cc000000"
         border.width: 1
         border.color: "#47ffffff"
         focus: true
