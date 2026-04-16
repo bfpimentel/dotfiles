@@ -1,243 +1,280 @@
 pragma ComponentBehavior: Bound
-
-import Quickshell
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
+import Quickshell
+import Quickshell.Hyprland
+
 PanelWindow {
-    id: dashboard
-    signal requestLauncher()
-    signal requestBitwarden()
-    signal requestClipboard()
-    signal requestSession()
-    signal requestProcesses()
-    signal requestScreenshot()
+  id: dashboard
 
-    visible: false
-    focusable: true
-    color: "transparent"
-    aboveWindows: true
-    implicitWidth: 600
-    implicitHeight: dashboardRoot.implicitHeight
+  property string currentDate: ""
+  property string currentTime: ""
+  property string currentWorkspace: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.name : ""
+  property var menuItems: [
+    {
+      icon: "󰀻 ",
+      label: "Applications",
+      action: "launcher"
+    },
+    {
+      icon: "󰟵 ",
+      label: "Bitwarden",
+      action: "bitwarden"
+    },
+    {
+      icon: "󰅌 ",
+      label: "Clipboard",
+      action: "clipboard"
+    },
+    {
+      icon: "󰍹 ",
+      label: "Processes",
+      action: "processes"
+    },
+    {
+      icon: "󰄄 ",
+      label: "Screenshots",
+      action: "screenshot"
+    },
+    {
+      icon: "󰐥 ",
+      label: "Session",
+      action: "session"
+    }
+  ]
+  property int selectedIndex: 0
+  property var workspaceNames: ["B", "M", "T", "W", "X"]
 
-    anchors {
-        top: true
-        left: true
+  signal requestBitwarden
+  signal requestClipboard
+  signal requestLauncher
+  signal requestProcesses
+  signal requestScreenshot
+  signal requestSession
+
+  function activateSelection() {
+    if (selectedIndex < 0 || selectedIndex >= menuItems.length)
+      return;
+    var item = menuItems[selectedIndex];
+
+    if (item.action === "launcher") {
+      dashboard.requestLauncher();
+      closeDashboard();
+      return;
     }
 
-    margins {
-        top: screen ? Math.floor((screen.height - implicitHeight) / 2) : 0
-        left: screen ? Math.floor((screen.width - implicitWidth) / 2) : 0
+    if (item.action === "bitwarden") {
+      dashboard.requestBitwarden();
+      closeDashboard();
+      return;
     }
 
-    property int selectedIndex: 0
-    property string currentTime: ""
-    property string currentDate: ""
-    property string currentWorkspace: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.name : ""
-    property var workspaceNames: ["B", "M", "T", "W", "X"]
-    property var menuItems: [
-        { icon: "󰀻 ", label: "Applications", action: "launcher" },
-        { icon: "󰟵 ", label: "Bitwarden", action: "bitwarden" },
-        { icon: "󰅌 ", label: "Clipboard", action: "clipboard" },
-        { icon: "󰍹 ", label: "Processes", action: "processes" },
-        { icon: "󰄄 ", label: "Screenshots", action: "screenshot" },
-        { icon: "󰐥 ", label: "Session", action: "session" }
-    ]
-
-    function refreshClock() {
-        var now = new Date()
-        currentTime = Qt.formatTime(now, "hh:mm")
-        currentDate = Qt.formatDate(now, "ddd dd MMM")
+    if (item.action === "clipboard") {
+      dashboard.requestClipboard();
+      closeDashboard();
+      return;
     }
 
-    function openDashboard() {
-        refreshClock()
-        selectedIndex = 0
-        visible = true
-        dashboardRoot.forceActiveFocus()
+    if (item.action === "session") {
+      dashboard.requestSession();
+      closeDashboard();
+      return;
     }
 
-    function closeDashboard() {
-        visible = false
+    if (item.action === "processes") {
+      dashboard.requestProcesses();
+      closeDashboard();
+      return;
     }
 
-    function move(delta) {
-        if (menuItems.length === 0) return
-        var next = selectedIndex + delta
-        if (next < 0) next = menuItems.length - 1
-        if (next >= menuItems.length) next = 0
-        selectedIndex = next
+    if (item.action === "screenshot") {
+      dashboard.requestScreenshot();
+      closeDashboard();
+      return;
     }
 
-    function activateSelection() {
-        if (selectedIndex < 0 || selectedIndex >= menuItems.length) return
-        var item = menuItems[selectedIndex]
+    Quickshell.execDetached(item.command);
+    closeDashboard();
+  }
 
-        if (item.action === "launcher") {
-            dashboard.requestLauncher()
-            closeDashboard()
-            return
+  function closeDashboard() {
+    visible = false;
+  }
+
+  function move(delta) {
+    if (menuItems.length === 0)
+      return;
+    var next = selectedIndex + delta;
+    if (next < 0)
+      next = menuItems.length - 1;
+    if (next >= menuItems.length)
+      next = 0;
+    selectedIndex = next;
+  }
+
+  function openDashboard() {
+    refreshClock();
+    selectedIndex = 0;
+    visible = true;
+    dashboardRoot.forceActiveFocus();
+  }
+
+  function refreshClock() {
+    var now = new Date();
+    currentTime = Qt.formatTime(now, "hh:mm");
+    currentDate = Qt.formatDate(now, "ddd dd MMM");
+  }
+
+  aboveWindows: true
+  color: "transparent"
+  focusable: true
+  implicitHeight: dashboardRoot.implicitHeight
+  implicitWidth: 600
+  visible: false
+
+  anchors {
+    left: true
+    top: true
+  }
+
+  margins {
+    left: screen ? Math.floor((screen.width - implicitWidth) / 2) : 0
+    top: screen ? Math.floor((screen.height - implicitHeight) / 2) : 0
+  }
+
+  Timer {
+    interval: 1000
+    repeat: true
+    running: dashboard.visible
+
+    onTriggered: dashboard.refreshClock()
+  }
+
+  Rectangle {
+    id: dashboardRoot
+
+    anchors.fill: parent
+    border.color: "#47ffffff"
+    border.width: 1
+    color: "#cc000000"
+    focus: true
+    implicitHeight: contentColumn.implicitHeight + 32
+
+    Keys.onPressed: function (event) {
+      if (event.key === Qt.Key_Escape) {
+        dashboard.closeDashboard();
+        event.accepted = true;
+      } else if (event.key === Qt.Key_Down || (event.key === Qt.Key_N && (event.modifiers & Qt.ControlModifier))) {
+        dashboard.move(1);
+        event.accepted = true;
+      } else if (event.key === Qt.Key_Up || (event.key === Qt.Key_P && (event.modifiers & Qt.ControlModifier))) {
+        dashboard.move(-1);
+        event.accepted = true;
+      } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+        dashboard.activateSelection();
+        event.accepted = true;
+      }
+    }
+
+    ColumnLayout {
+      id: contentColumn
+
+      anchors.fill: parent
+      anchors.margins: 16
+      spacing: 14
+
+      ColumnLayout {
+        Layout.fillWidth: true
+        spacing: 0
+
+        Text {
+          color: "#ffffff"
+          font.bold: true
+          font.family: "VictorMono NFM"
+          font.pixelSize: 38
+          text: dashboard.currentTime
         }
 
-        if (item.action === "bitwarden") {
-            dashboard.requestBitwarden()
-            closeDashboard()
-            return
+        Text {
+          color: "#a7ffffff"
+          font.family: "VictorMono NFM"
+          font.pixelSize: 14
+          text: dashboard.currentDate
         }
+      }
 
-        if (item.action === "clipboard") {
-            dashboard.requestClipboard()
-            closeDashboard()
-            return
-        }
+      RowLayout {
+        Layout.fillWidth: true
+        spacing: 8
 
-        if (item.action === "session") {
-            dashboard.requestSession()
-            closeDashboard()
-            return
-        }
+        Repeater {
+          model: dashboard.workspaceNames
 
-        if (item.action === "processes") {
-            dashboard.requestProcesses()
-            closeDashboard()
-            return
-        }
+          delegate: Rectangle {
+            id: workspacePill
 
-        if (item.action === "screenshot") {
-            dashboard.requestScreenshot()
-            closeDashboard()
-            return
-        }
+            required property string modelData
 
-        Quickshell.execDetached(item.command)
-        closeDashboard()
-    }
+            border.color: dashboard.currentWorkspace === workspacePill.modelData ? "#ffffff" : "#44ffffff"
+            border.width: 1
+            color: dashboard.currentWorkspace === workspacePill.modelData ? "#f0ffffff" : "#1cffffff"
+            implicitHeight: 26
+            implicitWidth: 34
 
-    Timer {
-        interval: 1000
-        running: dashboard.visible
-        repeat: true
-        onTriggered: dashboard.refreshClock()
-    }
-
-    Rectangle {
-        id: dashboardRoot
-        anchors.fill: parent
-        implicitHeight: contentColumn.implicitHeight + 32
-        color: "#cc000000"
-        border.width: 1
-        border.color: "#47ffffff"
-        focus: true
-
-        Keys.onPressed: function(event) {
-            if (event.key === Qt.Key_Escape) {
-                dashboard.closeDashboard()
-                event.accepted = true
-            } else if (event.key === Qt.Key_Down || (event.key === Qt.Key_N && (event.modifiers & Qt.ControlModifier))) {
-                dashboard.move(1)
-                event.accepted = true
-            } else if (event.key === Qt.Key_Up || (event.key === Qt.Key_P && (event.modifiers & Qt.ControlModifier))) {
-                dashboard.move(-1)
-                event.accepted = true
-            } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                dashboard.activateSelection()
-                event.accepted = true
+            Text {
+              anchors.centerIn: parent
+              color: dashboard.currentWorkspace === workspacePill.modelData ? "#000000" : "#ffffff"
+              font.family: "VictorMono NFM"
+              font.pixelSize: 13
+              text: workspacePill.modelData
             }
+          }
         }
+      }
 
-        ColumnLayout {
-            id: contentColumn
-            anchors.fill: parent
-            anchors.margins: 16
-            spacing: 14
+      ColumnLayout {
+        Layout.fillWidth: true
+        spacing: 0
 
-            ColumnLayout {
-                Layout.fillWidth: true
-                spacing: 0
+        Repeater {
+          model: dashboard.menuItems
 
-                Text {
-                    text: dashboard.currentTime
-                    color: "#ffffff"
-                    font.family: "VictorMono NFM"
-                    font.pixelSize: 38
-                    font.bold: true
-                }
+          delegate: Rectangle {
+            id: menuRow
 
-                Text {
-                    text: dashboard.currentDate
-                    color: "#a7ffffff"
-                    font.family: "VictorMono NFM"
-                    font.pixelSize: 14
-                }
+            required property int index
+            required property var modelData
+
+            Layout.fillWidth: true
+            color: dashboard.selectedIndex === menuRow.index ? "#ffffff" : "transparent"
+            implicitHeight: 40
+
+            Text {
+              anchors.fill: parent
+              anchors.leftMargin: 12
+              anchors.rightMargin: 12
+              color: dashboard.selectedIndex === menuRow.index ? "#000000" : "#ffffff"
+              font.family: "VictorMono NFM"
+              font.pixelSize: 15
+              horizontalAlignment: Text.AlignLeft
+              text: menuRow.modelData.icon + "  " + menuRow.modelData.label
+              verticalAlignment: Text.AlignVCenter
             }
 
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 8
+            MouseArea {
+              anchors.fill: parent
+              hoverEnabled: true
 
-                Repeater {
-                    model: dashboard.workspaceNames
-
-                    delegate: Rectangle {
-                        id: workspacePill
-                        required property string modelData
-                        implicitWidth: 34
-                        implicitHeight: 26
-                        color: dashboard.currentWorkspace === workspacePill.modelData ? "#f0ffffff" : "#1cffffff"
-                        border.width: 1
-                        border.color: dashboard.currentWorkspace === workspacePill.modelData ? "#ffffff" : "#44ffffff"
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: workspacePill.modelData
-                            color: dashboard.currentWorkspace === workspacePill.modelData ? "#000000" : "#ffffff"
-                            font.family: "VictorMono NFM"
-                            font.pixelSize: 13
-                        }
-                    }
-                }
+              onClicked: {
+                dashboard.selectedIndex = menuRow.index;
+                dashboard.activateSelection();
+              }
+              onEntered: dashboard.selectedIndex = menuRow.index
             }
-
-            ColumnLayout {
-                Layout.fillWidth: true
-                spacing: 0
-
-                Repeater {
-                    model: dashboard.menuItems
-
-                    delegate: Rectangle {
-                        id: menuRow
-                        required property int index
-                        required property var modelData
-                        Layout.fillWidth: true
-                        implicitHeight: 40
-                        color: dashboard.selectedIndex === menuRow.index ? "#ffffff" : "transparent"
-
-                        Text {
-                            anchors.fill: parent
-                            anchors.leftMargin: 12
-                            anchors.rightMargin: 12
-                            horizontalAlignment: Text.AlignLeft
-                            verticalAlignment: Text.AlignVCenter
-                            text: menuRow.modelData.icon + "  " + menuRow.modelData.label
-                            color: dashboard.selectedIndex === menuRow.index ? "#000000" : "#ffffff"
-                            font.family: "VictorMono NFM"
-                            font.pixelSize: 15
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onEntered: dashboard.selectedIndex = menuRow.index
-                            onClicked: {
-                                dashboard.selectedIndex = menuRow.index
-                                dashboard.activateSelection()
-                            }
-                        }
-                    }
-                }
-            }
+          }
         }
+      }
     }
+  }
 }

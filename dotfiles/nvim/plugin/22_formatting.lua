@@ -22,6 +22,7 @@ Pack.later(function()
       bash = { "beautysh" },
       zsh = { "beautysh" },
       dart = { "dart_format" },
+      qml = { "qmlformat" },
       json = web_formatter,
       html = web_formatter,
       typescript = web_formatter,

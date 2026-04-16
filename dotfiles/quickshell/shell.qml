@@ -4,200 +4,244 @@ import Quickshell
 import Quickshell.Io
 
 ShellRoot {
-    Dashboard {
-        id: dashboard
-        onRequestLauncher: launcher.openLauncher()
-        onRequestBitwarden: bitwarden.openBitwarden()
-        onRequestClipboard: clipboard.openClipboard()
-        onRequestSession: session.openSession()
-        onRequestProcesses: processes.openProcesses()
-        onRequestScreenshot: screenshot.openScreenshot()
+  Dashboard {
+    id: dashboard
+
+    onRequestBitwarden: bitwarden.openBitwarden()
+    onRequestClipboard: clipboard.openClipboard()
+    onRequestLauncher: launcher.openLauncher()
+    onRequestProcesses: processes.openProcesses()
+    onRequestScreenshot: screenshot.openScreenshot()
+    onRequestSession: session.openSession()
+  }
+
+  Launcher {
+    id: launcher
+
+  }
+
+  Bitwarden {
+    id: bitwarden
+
+  }
+
+  Clipboard {
+    id: clipboard
+
+  }
+
+  Session {
+    id: session
+
+  }
+
+  Processes {
+    id: processes
+
+  }
+
+  Screenshot {
+    id: screenshot
+
+  }
+
+  Notifications {
+    id: notifications
+
+  }
+
+  Volume {
+    id: volume
+
+  }
+
+  IpcHandler {
+    function hide() {
+      launcher.closeLauncher();
     }
 
-    Launcher {
-        id: launcher
+    function show() {
+      launcher.openLauncher();
     }
 
-    Bitwarden {
-        id: bitwarden
+    function toggle() {
+      if (launcher.visible)
+        launcher.closeLauncher();
+      else
+        launcher.openLauncher();
     }
 
-    Clipboard {
-        id: clipboard
+    enabled: true
+    target: "launcher"
+  }
+
+  IpcHandler {
+    function hide() {
+      bitwarden.closeBitwarden();
     }
 
-    Session {
-        id: session
+    function show() {
+      bitwarden.openBitwarden();
     }
 
-    Processes {
-        id: processes
+    function toggle() {
+      if (bitwarden.visible)
+        bitwarden.closeBitwarden();
+      else
+        bitwarden.openBitwarden();
     }
 
-    Screenshot {
-        id: screenshot
+    enabled: true
+    target: "bitwarden"
+  }
+
+  IpcHandler {
+    function activate() {
+      dashboard.activateSelection();
     }
 
-    Notifications {
-        id: notifications
+    function hide() {
+      dashboard.closeDashboard();
     }
 
-    IpcHandler {
-        target: "launcher"
-        enabled: true
-
-        function show() {
-            launcher.openLauncher()
-        }
-
-        function hide() {
-            launcher.closeLauncher()
-        }
-
-        function toggle() {
-            if (launcher.visible) launcher.closeLauncher()
-            else launcher.openLauncher()
-        }
+    function next() {
+      dashboard.move(1);
     }
 
-    IpcHandler {
-        target: "bitwarden"
-        enabled: true
-
-        function show() {
-            bitwarden.openBitwarden()
-        }
-
-        function hide() {
-            bitwarden.closeBitwarden()
-        }
-
-        function toggle() {
-            if (bitwarden.visible) bitwarden.closeBitwarden()
-            else bitwarden.openBitwarden()
-        }
+    function prev() {
+      dashboard.move(-1);
     }
 
-    IpcHandler {
-        target: "dashboard"
-        enabled: true
-
-        function show() {
-            dashboard.openDashboard()
-        }
-
-        function hide() {
-            dashboard.closeDashboard()
-        }
-
-        function toggle() {
-            if (dashboard.visible) dashboard.closeDashboard()
-            else dashboard.openDashboard()
-        }
-
-        function next() {
-            dashboard.move(1)
-        }
-
-        function prev() {
-            dashboard.move(-1)
-        }
-
-        function activate() {
-            dashboard.activateSelection()
-        }
+    function show() {
+      dashboard.openDashboard();
     }
 
-    IpcHandler {
-        target: "clipboard"
-        enabled: true
-
-        function show() {
-            clipboard.openClipboard()
-        }
-
-        function hide() {
-            clipboard.closeClipboard()
-        }
-
-        function toggle() {
-            if (clipboard.visible) clipboard.closeClipboard()
-            else clipboard.openClipboard()
-        }
+    function toggle() {
+      if (dashboard.visible)
+        dashboard.closeDashboard();
+      else
+        dashboard.openDashboard();
     }
 
-    IpcHandler {
-        target: "session"
-        enabled: true
+    enabled: true
+    target: "dashboard"
+  }
 
-        function show() {
-            session.openSession()
-        }
-
-        function hide() {
-            session.closeSession()
-        }
-
-        function toggle() {
-            if (session.visible) session.closeSession()
-            else session.openSession()
-        }
+  IpcHandler {
+    function hide() {
+      clipboard.closeClipboard();
     }
 
-    IpcHandler {
-        target: "processes"
-        enabled: true
-
-        function show() {
-            processes.openProcesses()
-        }
-
-        function hide() {
-            processes.closeProcesses()
-        }
-
-        function toggle() {
-            if (processes.visible) processes.closeProcesses()
-            else processes.openProcesses()
-        }
+    function show() {
+      clipboard.openClipboard();
     }
 
-    IpcHandler {
-        target: "screenshot"
-        enabled: true
-
-        function show() {
-            screenshot.openScreenshot()
-        }
-
-        function hide() {
-            screenshot.closeScreenshot()
-        }
-
-        function toggle() {
-            if (screenshot.visible) screenshot.closeScreenshot()
-            else screenshot.openScreenshot()
-        }
+    function toggle() {
+      if (clipboard.visible)
+        clipboard.closeClipboard();
+      else
+        clipboard.openClipboard();
     }
 
-    IpcHandler {
-        target: "notifications"
-        enabled: true
+    enabled: true
+    target: "clipboard"
+  }
 
-        function show() {
-            notifications.openCenter()
-        }
-
-        function hide() {
-            notifications.closeCenter()
-        }
-
-        function toggle() {
-            notifications.toggleCenter()
-        }
-
-        function clear() {
-            notifications.clearAll()
-        }
+  IpcHandler {
+    function hide() {
+      session.closeSession();
     }
+
+    function show() {
+      session.openSession();
+    }
+
+    function toggle() {
+      if (session.visible)
+        session.closeSession();
+      else
+        session.openSession();
+    }
+
+    enabled: true
+    target: "session"
+  }
+
+  IpcHandler {
+    function hide() {
+      processes.closeProcesses();
+    }
+
+    function show() {
+      processes.openProcesses();
+    }
+
+    function toggle() {
+      if (processes.visible)
+        processes.closeProcesses();
+      else
+        processes.openProcesses();
+    }
+
+    enabled: true
+    target: "processes"
+  }
+
+  IpcHandler {
+    function hide() {
+      screenshot.closeScreenshot();
+    }
+
+    function show() {
+      screenshot.openScreenshot();
+    }
+
+    function toggle() {
+      if (screenshot.visible)
+        screenshot.closeScreenshot();
+      else
+        screenshot.openScreenshot();
+    }
+
+    enabled: true
+    target: "screenshot"
+  }
+
+  IpcHandler {
+    function clear() {
+      notifications.clearAll();
+    }
+
+    function hide() {
+      notifications.closeCenter();
+    }
+
+    function show() {
+      notifications.openCenter();
+    }
+
+    function toggle() {
+      notifications.toggleCenter();
+    }
+
+    enabled: true
+    target: "notifications"
+  }
+
+  IpcHandler {
+    function lower() {
+      volume.lower();
+    }
+
+    function raise() {
+      volume.raise();
+    }
+
+    function toggle() {
+      volume.toggle();
+    }
+
+    enabled: true
+    target: "volume"
+  }
 }
