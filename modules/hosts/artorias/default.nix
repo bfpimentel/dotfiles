@@ -111,20 +111,5 @@
 
   time.timeZone = "America/Sao_Paulo";
 
-  i18n = {
-    defaultLocale = lib.mkDefault "en_IE.UTF-8";
-    extraLocaleSettings = {
-      LC_CTYPE = lib.mkDefault "pt_BR.UTF-8";
-    };
-    inputMethod = {
-      enable = true;
-      type = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-gtk
-        fcitx5-mozc
-      ];
-    };
-  };
-
   system.stateVersion = "25.11";
 }

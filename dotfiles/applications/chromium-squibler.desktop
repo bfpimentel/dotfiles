@@ -3,7 +3,7 @@ Type=Application
 Version=1.0
 Name=Chromium - Squibler
 GenericName=Web Browser
-Exec=chromium --window-name="Chromium - Squibler" --profile-directory="Profile 1" %U
+Exec=chromium --window-name="Chromium - Squibler" --profile-directory="Profile 1" --enable-features=UseOzonePlatform --ozone-platform=wayland %U
 Icon=chromium
 Terminal=false
 StartupNotify=true

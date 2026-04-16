@@ -1,0 +1,42 @@
+Pack.later(function()
+  Pack.add({ "https://github.com/romus204/tree-sitter-manager.nvim" })
+
+  require("tree-sitter-manager").setup({
+    border = "single",
+    ensure_installed = {
+      "bash",
+      "c",
+      "comment",
+      "css",
+      "dart",
+      "diff",
+      "dockerfile",
+      "git_config",
+      "gitcommit",
+      "gitignore",
+      "go",
+      "hcl",
+      "html",
+      "http",
+      "java",
+      "javascript",
+      "jsdoc",
+      "json",
+      "json5",
+      "jsx",
+      "kitty",
+      "make",
+      "nix",
+      "python",
+      "regex",
+      "sql",
+      "ssh_config",
+      "tmux",
+      "toml",
+      "tsx",
+      "typescript",
+      "typst",
+      "yaml",
+    },
+  })
+end)

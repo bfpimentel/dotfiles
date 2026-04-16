@@ -3,7 +3,7 @@ Type=Application
 Version=1.0
 Name=Chromium - Bruno
 GenericName=Web Browser
-Exec=chromium --window-name="Chromium - Bruno" --profile-directory="Default" %U
+Exec=chromium --window-name="Chromium - Bruno" --profile-directory="Default" --enable-features=UseOzonePlatform --ozone-platform=wayland %U
 Icon=chromium
 Terminal=false
 StartupNotify=true

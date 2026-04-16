@@ -1,12 +1,29 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.neovim = {
     enable = true;
     withRuby = true;
     withPython3 = true;
-    plugins = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
+    extraWrapperArgs = [
+      "--prefix"
+      "PATH"
+      ":"
+      "${lib.makeBinPath (
+        with pkgs;
+        [
+          gcc
+          tree-sitter
+          typescript-go
+          basedpyright
+        ]
+      )}"
+    ];
     extraPackages = with pkgs; [
+      gcc
+      tree-sitter
+
+      # Language servers and linters
       nil
       nixfmt
 
@@ -19,13 +36,13 @@
       yaml-language-server
       yamlfmt
 
-      prettier
-      # typescript-go # does not work here but works globally
+      typescript-go
       typescript-language-server
       vscode-langservers-extracted
       tailwindcss-language-server
+      prettier
 
-      # basedpyright # does not work here but works globally
+      basedpyright
       ruff
 
       fish-lsp

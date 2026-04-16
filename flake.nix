@@ -47,7 +47,7 @@
         f: builtins.foldl' (a: b: a // b) { } (builtins.map f homeManagerSystems);
 
       overlays = [
-        neovim-nightly.overlays.default
+        # neovim-nightly.overlays.default
       ];
     in
     {

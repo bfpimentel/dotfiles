@@ -5,18 +5,6 @@
     ./gaming.nix
   ];
 
-  home.file.".XCompose".text = ''
-    include "%L"
-
-    <dead_acute> <C> : "Ç"
-    <dead_acute> <c> : "ç"
-  '';
-
-  home.sessionVariables = {
-    GTK_IM_MODULE = "cedilla";
-    QT_IM_MODULE = "cedilla";
-  };
-
   home.packages = with pkgs; [
     git
     kitty
@@ -26,8 +14,6 @@
     fastfetch
 
     python3
-    typescript-go
-    basedpyright
     nodejs_25
 
     qt6.qtbase

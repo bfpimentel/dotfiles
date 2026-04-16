@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   sddm-theme-name = "sddm-bfmp";
@@ -19,11 +19,8 @@ let
   };
 in
 {
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
   fonts.packages = [
     pkgs.nerd-fonts.victor-mono
-
   ];
 
   environment.systemPackages = [
@@ -38,21 +35,38 @@ in
     xwayland.enable = true;
   };
 
-  services.displayManager.ly.enable = false;
-
-  services.displayManager.defaultSession = "hyprland";
-
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = false;
-    package = pkgs.kdePackages.sddm;
-    theme = sddm-theme-name;
-    extraPackages = [ sddm-theme ];
-    settings = {
-      Theme = {
-        CursorTheme = "Adwaita";
-        CursorSize = 24;
+  services.displayManager = {
+    defaultSession = "hyprland";
+    sddm = {
+      enable = true;
+      wayland.enable = false;
+      package = pkgs.kdePackages.sddm;
+      theme = sddm-theme-name;
+      extraPackages = [ sddm-theme ];
+      settings = {
+        Theme = {
+          CursorTheme = "Adwaita";
+          CursorSize = 24;
+        };
       };
     };
+  };
+
+  i18n = {
+    defaultLocale = lib.mkDefault "en_IE.UTF-8";
+    supportedLocales = [
+      "en_IE.UTF-8/UTF-8"
+      "en_US.UTF-8/UTF-8"
+      "pt_BR.UTF-8/UTF-8"
+    ];
+    extraLocaleSettings = {
+      LC_CTYPE = lib.mkDefault "pt_BR.UTF-8";
+    };
+  };
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    GTK_IM_MODULE = lib.mkDefault "cedilla";
+    QT_IM_MODULE = lib.mkDefault "cedilla";
   };
 }

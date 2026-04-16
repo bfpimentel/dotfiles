@@ -9,7 +9,7 @@ Rectangle {
 
     property string placeholderText: ""
     property var model: []
-    property int selectedIndex: -1
+    property int selectedIndex: 0
     property Component delegate
     readonly property real listWidth: list.width
     readonly property string queryText: input.text
@@ -37,6 +37,10 @@ Rectangle {
         if (next >= model.length) next = model.length - 1
         selectedIndex = next
         list.positionViewAtIndex(selectedIndex, ListView.Contain)
+    }
+
+    function reset() {
+        selectedIndex = 0
     }
 
     ColumnLayout {
@@ -71,9 +75,11 @@ Rectangle {
                     event.accepted = true
                 } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                     scaffold.activateRequested()
+                    scaffold.reset()
                     event.accepted = true
                 } else if (event.key === Qt.Key_Escape) {
                     scaffold.closeRequested()
+                    scaffold.reset()
                     event.accepted = true
                 }
             }
