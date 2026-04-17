@@ -1,158 +1,104 @@
-pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-
 import Quickshell
-import Quickshell.Io
-import Quickshell.Wayland
+import Quickshell.Services.Pipewire
+import Quickshell.Widgets
 
-Item {
-  id: volumeWidget
+Scope {
+  id: root
 
-  property int currentVolume: 0
-  property bool isMuted: false
-  property bool showPopup: false
+  property bool shouldShowOsd: false
 
-  function getVolumeIcon() {
-    if (isMuted || currentVolume === 0)
-      return "MUTE";
-    if (currentVolume < 30)
-      return "LOW";
-    if (currentVolume < 60)
-      return "MID";
-    return "HIGH";
+  PwObjectTracker {
+    objects: [Pipewire.defaultAudioSink]
   }
 
-  function get_change_volume_command(operation) {
-    return ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", ">/dev/null", "2>&1", ";", "wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"];
-  }
-
-  function lower() {
-    volumeWidget.showPopup = true;
-    process.command = ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-"];
-    process.running = true;
-  }
-
-  function raise() {
-    volumeWidget.showPopup = true;
-    process.command = ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", ">/dev/null", "2>&1", ";", "wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"];
-    process.running = true;
-  }
-
-  function toggle() {
-    volumeWidget.showPopup = true;
-    process.command = ["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"];
-    process.running = true;
-  }
-
-  function updateVolume(output) {
-    var text = String(output).trim();
-    if (text.length === 0)
-      return;
-    var parts = text.split(":");
-    if (parts.length < 2)
-      return;
-    var volStr = parts[1].trim();
-    var muteFlag = volStr.indexOf("[MUTED]") !== -1;
-    var volNum = parseFloat(volStr.replace("[MUTED]", "").trim());
-
-    if (!isNaN(volNum)) {
-      currentVolume = Math.round(volNum * 100);
-      isMuted = muteFlag;
+  Connections {
+    function onVolumeChanged() {
+      Pipewire.defaultAudioSink?.audio;
+      root.shouldShowOsd = true;
+      hideTimer.restart();
     }
-  }
 
-  Component.onCompleted: {
-    process.command = ["wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"];
-    process.running = true;
-  }
-
-  Process {
-    id: process
-
-    command: []
-    running: false
-
-    stdout: StdioCollector {
-      onStreamFinished: volumeWidget.updateVolume(this.text)
-    }
+    target: Pipewire.defaultAudioSink?.audio
   }
 
   Timer {
-    id: popupTimer
+    id: hideTimer
 
-    interval: 2000
-    repeat: false
-    running: false
+    interval: 1000
 
-    onTriggered: {
-      volumeWidget.showPopup = false;
-    }
+    onTriggered: root.shouldShowOsd = false
   }
 
-  PanelWindow {
-    id: volumePopup
+  LazyLoader {
+    active: root.shouldShowOsd
 
-    WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.namespace: "quickshell-volume-popup"
-    aboveWindows: true
-    color: "transparent"
-    focusable: false
-    implicitHeight: 60
-    implicitWidth: 200
-    visible: volumeWidget.showPopup
+    PanelWindow {
+      anchors.top: true
+      color: "transparent"
+      exclusiveZone: 0
+      focusable: false
+      implicitHeight: 50
+      implicitWidth: 200
+      margins.top: 16
 
-    anchors {
-      left: true
-      top: true
-    }
+      // An empty click mask prevents the window from blocking mouse events.
+      mask: Region {
+      }
 
-    margins {
-      left: screen ? Math.floor((screen.width - implicitWidth) / 2) : 0
-      top: 40
-    }
-
-    Rectangle {
-      anchors.fill: parent
-      border.color: "#47ffffff"
-      border.width: 1
-      color: "#cc000000"
-
-      RowLayout {
+      Rectangle {
         anchors.fill: parent
-        anchors.margins: 12
-        spacing: 12
+        border.color: "#47ffffff"
+        border.width: 1
+        color: "#cc000000"
+        radius: 0
 
-        Text {
-          color: "#ffffff"
-          font.bold: true
-          font.family: "VictorMono NFM"
-          font.pixelSize: 14
-          text: volumeWidget.getVolumeIcon()
-        }
-
-        ColumnLayout {
-          Layout.fillWidth: true
-          spacing: 4
+        RowLayout {
+          anchors {
+            fill: parent
+            leftMargin: 12
+            rightMargin: 12
+          }
 
           Text {
-            color: "#ffffff"
-            font.bold: true
+            color: "#ffffffff"
             font.family: "VictorMono NFM"
             font.pixelSize: 14
-            text: volumeWidget.isMuted ? "0%" : volumeWidget.currentVolume + "%"
+            text: "VOL"
+            verticalAlignment: Text.AlignVCenter
           }
 
           Rectangle {
             Layout.fillWidth: true
-            color: "#33ffffff"
-            implicitHeight: 4
+            Layout.leftMargin: 4
+            Layout.rightMargin: 4
+            color: "#ff474747"
+            implicitHeight: 10
+            radius: 0
 
             Rectangle {
-              color: "#ffffff"
-              height: parent.height
-              width: parent.width * (volumeWidget.isMuted ? 0 : volumeWidget.currentVolume / 100)
+              color: "#ffffffff"
+              implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio.volume ?? 0)
+              radius: 0
+
+              anchors {
+                bottom: parent.bottom
+                left: parent.left
+                top: parent.top
+              }
             }
+          }
+
+          Text {
+            color: "#ffffffff"
+            font.family: "VictorMono NFM"
+            font.pixelSize: 14
+            text: {
+              var currentVolume = Math.round((Pipewire.defaultAudioSink?.audio.volume ?? 0) * 100);
+              return `${currentVolume}%`;
+            }
+            verticalAlignment: Text.AlignVCenter
           }
         }
       }

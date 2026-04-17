@@ -4,7 +4,7 @@
   programs.neovim = {
     enable = true;
     withRuby = true;
-    withPython3 = true;
+    # withPython3 = true;
     extraWrapperArgs = [
       "--prefix"
       "PATH"

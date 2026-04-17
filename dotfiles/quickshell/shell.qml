@@ -229,18 +229,6 @@ ShellRoot {
   }
 
   IpcHandler {
-    function lower() {
-      volume.lower();
-    }
-
-    function raise() {
-      volume.raise();
-    }
-
-    function toggle() {
-      volume.toggle();
-    }
-
     enabled: true
     target: "volume"
   }

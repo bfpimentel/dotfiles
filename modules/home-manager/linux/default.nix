@@ -13,7 +13,6 @@
 
     fastfetch
 
-    python3
     nodejs_25
 
     qt6.qtbase
@@ -35,6 +34,7 @@
     libnotify
     cliphist
     wl-clipboard
+    playerctl
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk

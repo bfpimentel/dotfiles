@@ -99,8 +99,11 @@ local function setup_mini_hipatterns()
 
   local hex_colors = function(_, match)
     local len = string.len(match)
-    if len == 7 or len == 9 then
-      local hex = string.format("#%s", match:sub(2, 7))
+    if len == 7 then
+      local hex = string.format("#%s", match:sub(2, 7)) -- #FFFFFF
+      return MiniHipatterns.compute_hex_color_group(hex, "bg")
+    elseif len == 9 then
+      local hex = string.format("#%s", match:sub(4, 9)) -- #00FFFFFF
       return MiniHipatterns.compute_hex_color_group(hex, "bg")
     end
 
