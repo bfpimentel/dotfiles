@@ -93,6 +93,7 @@ Rectangle {
 
       Layout.fillHeight: true
       Layout.fillWidth: true
+      Layout.maximumHeight: 340
       clip: true
       delegate: scaffold.delegate
       model: scaffold.model

@@ -318,7 +318,7 @@ PanelWindow {
   color: "transparent"
   focusable: true
   implicitHeight: 460
-  implicitWidth: 700
+  implicitWidth: 600
   visible: false
 
   anchors {
@@ -472,17 +472,6 @@ PanelWindow {
           font.pixelSize: 14
           text: row.modelData.text
           verticalAlignment: Text.AlignVCenter
-        }
-
-        MouseArea {
-          anchors.fill: parent
-          hoverEnabled: true
-
-          onClicked: {
-            bitwarden.selectedIndex = row.index;
-            bitwarden.activateSelection();
-          }
-          onEntered: bitwarden.selectedIndex = row.index
         }
       }
 

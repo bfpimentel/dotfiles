@@ -15,35 +15,40 @@ PanelWindow {
     {
       icon: "󰀻 ",
       label: "Applications",
+      trigger: "A",
       action: "launcher"
     },
     {
       icon: "󰟵 ",
       label: "Bitwarden",
+      trigger: "B",
       action: "bitwarden"
     },
     {
       icon: "󰅌 ",
       label: "Clipboard",
+      trigger: "C",
       action: "clipboard"
     },
     {
       icon: "󰍹 ",
       label: "Processes",
+      trigger: "P",
       action: "processes"
     },
     {
       icon: "󰄄 ",
+      trigger: "S",
       label: "Screenshots",
       action: "screenshot"
     },
     {
       icon: "󰐥 ",
+      trigger: "Q",
       label: "Session",
       action: "session"
     }
   ]
-  property int selectedIndex: 0
   property var workspaceNames: ["B", "M", "T", "W", "X"]
 
   signal requestBitwarden
@@ -53,69 +58,12 @@ PanelWindow {
   signal requestScreenshot
   signal requestSession
 
-  function activateSelection() {
-    if (selectedIndex < 0 || selectedIndex >= menuItems.length)
-      return;
-    var item = menuItems[selectedIndex];
-
-    if (item.action === "launcher") {
-      dashboard.requestLauncher();
-      closeDashboard();
-      return;
-    }
-
-    if (item.action === "bitwarden") {
-      dashboard.requestBitwarden();
-      closeDashboard();
-      return;
-    }
-
-    if (item.action === "clipboard") {
-      dashboard.requestClipboard();
-      closeDashboard();
-      return;
-    }
-
-    if (item.action === "session") {
-      dashboard.requestSession();
-      closeDashboard();
-      return;
-    }
-
-    if (item.action === "processes") {
-      dashboard.requestProcesses();
-      closeDashboard();
-      return;
-    }
-
-    if (item.action === "screenshot") {
-      dashboard.requestScreenshot();
-      closeDashboard();
-      return;
-    }
-
-    Quickshell.execDetached(item.command);
-    closeDashboard();
-  }
-
   function closeDashboard() {
     visible = false;
   }
 
-  function move(delta) {
-    if (menuItems.length === 0)
-      return;
-    var next = selectedIndex + delta;
-    if (next < 0)
-      next = menuItems.length - 1;
-    if (next >= menuItems.length)
-      next = 0;
-    selectedIndex = next;
-  }
-
   function openDashboard() {
     refreshClock();
-    selectedIndex = 0;
     visible = true;
     dashboardRoot.forceActiveFocus();
   }
@@ -124,6 +72,33 @@ PanelWindow {
     var now = new Date();
     currentTime = Qt.formatTime(now, "hh:mm");
     currentDate = Qt.formatDate(now, "ddd dd MMM");
+  }
+
+  function requestAndClose(action) {
+    switch (action) {
+    case ("launcher"):
+      dashboard.requestLauncher();
+      break;
+    case "bitwarden":
+      dashboard.requestBitwarden();
+      break;
+    case "clipboard":
+      dashboard.requestClipboard();
+      break;
+    case "processes":
+      dashboard.requestProcesses();
+      break;
+    case "screenshot":
+      dashboard.requestScreenshot();
+      break;
+    case "session":
+      dashboard.requestSession();
+      break;
+    default:
+      return;
+    }
+
+    closeDashboard();
   }
 
   aboveWindows: true
@@ -162,19 +137,39 @@ PanelWindow {
     implicitHeight: contentColumn.implicitHeight + 32
 
     Keys.onPressed: function (event) {
+      // Actions
       if (event.key === Qt.Key_Escape) {
         dashboard.closeDashboard();
         event.accepted = true;
-      } else if (event.key === Qt.Key_Down || (event.key === Qt.Key_N && (event.modifiers & Qt.ControlModifier))) {
-        dashboard.move(1);
-        event.accepted = true;
-      } else if (event.key === Qt.Key_Up || (event.key === Qt.Key_P && (event.modifiers & Qt.ControlModifier))) {
-        dashboard.move(-1);
-        event.accepted = true;
-      } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-        dashboard.activateSelection();
-        event.accepted = true;
+        return;
       }
+
+      // Items
+      switch (event.key) {
+      case Qt.Key_A:
+        dashboard.requestLauncher();
+        break;
+      case Qt.Key_B:
+        dashboard.requestBitwarden();
+        break;
+      case Qt.Key_C:
+        dashboard.requestClipboard();
+        break;
+      case Qt.Key_P:
+        dashboard.requestProcesses();
+        break;
+      case Qt.Key_S:
+        dashboard.requestScreenshot();
+        break;
+      case Qt.Key_Q:
+        dashboard.requestSession();
+        break;
+      default:
+        return;
+      }
+
+      closeDashboard();
+      event.accepted = true;
     }
 
     ColumnLayout {
@@ -235,42 +230,38 @@ PanelWindow {
 
       ColumnLayout {
         Layout.fillWidth: true
-        spacing: 0
+        spacing: 10
 
         Repeater {
           model: dashboard.menuItems
 
-          delegate: Rectangle {
-            id: menuRow
+          delegate: RowLayout {
+            id: menuItem
 
             required property int index
             required property var modelData
 
             Layout.fillWidth: true
-            color: dashboard.selectedIndex === menuRow.index ? "#ffffff" : "transparent"
-            implicitHeight: 40
+            Layout.leftMargin: 4
+            Layout.rightMargin: 4
 
             Text {
-              anchors.fill: parent
-              anchors.leftMargin: 12
-              anchors.rightMargin: 12
-              color: dashboard.selectedIndex === menuRow.index ? "#000000" : "#ffffff"
+              Layout.fillWidth: true
+              color: "#ffffff"
               font.family: "VictorMono NFM"
-              font.pixelSize: 15
+              font.pixelSize: 16
               horizontalAlignment: Text.AlignLeft
-              text: menuRow.modelData.icon + "  " + menuRow.modelData.label
+              text: menuItem.modelData.icon + " " + menuItem.modelData.label
               verticalAlignment: Text.AlignVCenter
             }
 
-            MouseArea {
-              anchors.fill: parent
-              hoverEnabled: true
-
-              onClicked: {
-                dashboard.selectedIndex = menuRow.index;
-                dashboard.activateSelection();
-              }
-              onEntered: dashboard.selectedIndex = menuRow.index
+            Text {
+              color: "#cccccc"
+              font.family: "VictorMono NFM"
+              font.pixelSize: 16
+              horizontalAlignment: Text.AlignRight
+              text: menuItem.modelData.trigger
+              verticalAlignment: Text.AlignVCenter
             }
           }
         }

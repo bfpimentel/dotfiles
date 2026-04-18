@@ -129,7 +129,7 @@ PanelWindow {
   color: "transparent"
   focusable: true
   implicitHeight: 320
-  implicitWidth: 520
+  implicitWidth: 600
   visible: false
 
   anchors {
@@ -170,17 +170,6 @@ PanelWindow {
         font.pixelSize: 14
         text: row.modelData.icon + "  " + row.modelData.label
         verticalAlignment: Text.AlignVCenter
-      }
-
-      MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onClicked: {
-          session.selectedIndex = row.index;
-          session.activateSelection();
-        }
-        onEntered: session.selectedIndex = row.index
       }
     }
 

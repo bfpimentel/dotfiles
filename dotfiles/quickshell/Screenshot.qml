@@ -88,12 +88,8 @@ PanelWindow {
     closeScreenshot();
   }
 
-  function screenshotsDir() {
-    return "${HOME}/Documents/Screenshots";
-  }
-
   function scriptFor(key) {
-    var dir = screenshotsDir();
+    var dir = "${HOME}/Documents/Screenshots";
     var ts = timestampExpr();
     var file = dir + "/screenshot-" + ts + ".png";
     var geom = focusedWindowGeometryExpr();
@@ -128,7 +124,7 @@ PanelWindow {
   color: "transparent"
   focusable: true
   implicitHeight: 420
-  implicitWidth: 640
+  implicitWidth: 600
   visible: false
 
   anchors {
@@ -169,17 +165,6 @@ PanelWindow {
         font.pixelSize: 14
         text: row.modelData.text
         verticalAlignment: Text.AlignVCenter
-      }
-
-      MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onClicked: {
-          screenshot.selectedIndex = row.index;
-          screenshot.activateSelection();
-        }
-        onEntered: screenshot.selectedIndex = row.index
       }
     }
 

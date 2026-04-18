@@ -79,18 +79,6 @@ PanelWindow {
     if (has(app.name) || has(app.comment) || has(app.genericName))
       return true;
 
-    // if (app.categories) {
-    //     for (var i = 0; i < app.categories.length; i++) {
-    //         if (has(app.categories[i])) return true
-    //     }
-    // }
-    //
-    // if (app.keywords) {
-    //     for (var j = 0; j < app.keywords.length; j++) {
-    //         if (has(app.keywords[j])) return true
-    //     }
-    // }
-
     return false;
   }
 
@@ -198,17 +186,6 @@ PanelWindow {
           text: appRow.modelData.name
           verticalAlignment: Text.AlignVCenter
         }
-      }
-
-      MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onClicked: {
-          launcher.selectedIndex = appRow.index;
-          launcher.activate();
-        }
-        onEntered: launcher.selectedIndex = appRow.index
       }
     }
 

@@ -34,5 +34,6 @@ in
     linux = {
       ".local/share/applications".source = mapAbsolute "dotfiles/applications";
     };
+    darwin = { };
   };
 }

@@ -126,7 +126,7 @@ PanelWindow {
   color: "transparent"
   focusable: true
   implicitHeight: 440
-  implicitWidth: 700
+  implicitWidth: 600
   visible: false
 
   anchors {
@@ -221,17 +221,6 @@ PanelWindow {
           color: "transparent"
           visible: thumb.visible
         }
-      }
-
-      MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onClicked: {
-          clipboard.selectedIndex = row.index;
-          clipboard.activateSelection();
-        }
-        onEntered: clipboard.selectedIndex = row.index
       }
     }
 
