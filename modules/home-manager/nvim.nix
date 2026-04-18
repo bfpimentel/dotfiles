@@ -1,53 +1,35 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
-  programs.neovim = {
-    enable = true;
-    withRuby = true;
-    # withPython3 = true;
-    extraWrapperArgs = [
-      "--prefix"
-      "PATH"
-      ":"
-      "${lib.makeBinPath (
-        with pkgs;
-        [
-          gcc
-          tree-sitter
-          typescript-go
-          basedpyright
-        ]
-      )}"
-    ];
-    extraPackages = with pkgs; [
-      gcc
-      tree-sitter
+  home.packages = with pkgs; [
+    neovim
+    gcc
+    tree-sitter
 
-      # Language servers and linters
-      nil
-      nixfmt
+    # Language servers and linters
+    nil
+    nixfmt
 
-      lua-language-server
-      stylua
+    lua-language-server
+    stylua
 
-      bash-language-server
-      beautysh
+    bash-language-server
+    beautysh
 
-      yaml-language-server
-      yamlfmt
+    yaml-language-server
+    yamlfmt
 
-      typescript-go
-      typescript-language-server
-      vscode-langservers-extracted
-      tailwindcss-language-server
-      prettier
+    typescript-go
+    typescript-language-server
+    vscode-langservers-extracted
+    tailwindcss-language-server
+    prettier
 
-      basedpyright
-      ruff
+    basedpyright
+    ruff
 
-      fish-lsp
+    fish-lsp
 
-      dart
-    ];
-  };
+    dart
+  ];
 }

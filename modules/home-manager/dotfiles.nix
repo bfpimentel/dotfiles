@@ -1,18 +1,7 @@
 { util, ... }:
 
 let
-  inherit (util) mapAbsolute osSpecific;
-
-  mapDotfiles =
-    apps:
-    builtins.listToAttrs (
-      builtins.map (app: {
-        name = ".config/${app}";
-        value = {
-          source = mapAbsolute "dotfiles/${app}";
-        };
-      }) apps
-    );
+  inherit (util) mapAbsolute osSpecific mapDotfiles;
 in
 {
   home.file = {
@@ -27,7 +16,6 @@ in
       "lazygit"
       "nvim"
       "opencode"
-      "tree-sitter"
       "tmux"
     ]
     ++ osSpecific {
@@ -39,8 +27,6 @@ in
         "hypr"
         "sunshine"
         "quickshell"
-        "swaync"
-        "xdg-desktop-portal"
       ];
     }
   )

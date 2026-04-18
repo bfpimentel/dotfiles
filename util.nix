@@ -10,9 +10,20 @@ let
       linux ? { },
     }:
     if pkgs.stdenv.isDarwin then darwin else linux;
+
+  mapDotfiles =
+    apps:
+    builtins.listToAttrs (
+      builtins.map (app: {
+        name = ".config/${app}";
+        value = {
+          source = mapAbsolute "dotfiles/${app}";
+        };
+      }) apps
+    );
 in
 {
   _module.args.util = {
-    inherit mapAbsolute osSpecific;
+    inherit mapAbsolute osSpecific mapDotfiles;
   };
 }

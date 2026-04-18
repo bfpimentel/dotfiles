@@ -27,6 +27,10 @@
     hyprpaper
     hyprpwcenter
 
+    xdg-desktop-portal
+    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gtk
+
     quickshell
     slurp
     grim
@@ -35,9 +39,6 @@
     cliphist
     wl-clipboard
     playerctl
-    xdg-desktop-portal
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gtk
 
     ungoogled-chromium
     vial
