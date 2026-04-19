@@ -8,7 +8,7 @@ key-mapping.preset = 'qwerty'
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
-accordion-padding = 8
+accordion-padding = 0
 
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
@@ -24,18 +24,30 @@ T = [ 'secondary', 'main' ]
 X = [ 'secondary', 'main' ]
 
 [gaps]
-outer.top =        8
-outer.bottom =     8
-outer.left =       8
-outer.right =      8
-inner.horizontal = 8
-inner.vertical =   8
+outer.top =        0
+outer.bottom =     0
+outer.left =       0
+outer.right =      0
+inner.horizontal = 0
+inner.vertical =   0
 
 [mode.main.binding]
-ctrl-semicolon = [ 'mode service' ]
+alt-semicolon = [ 'mode service' ]
 
 cmd-h = []
 cmd-alt-h = []
+
+alt-b = 'workspace B'
+alt-w = 'workspace W'
+alt-m = 'workspace M'
+alt-t = 'workspace T'
+alt-x = 'workspace X'
+
+alt-shift-b = 'move-node-to-workspace B'
+alt-shift-w = 'move-node-to-workspace W'
+alt-shift-m = 'move-node-to-workspace M'
+alt-shift-t = 'move-node-to-workspace T'
+alt-shift-x = 'move-node-to-workspace X'
 
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -48,33 +60,20 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 [mode.service.binding]
-esc = [ 'reload-config', 'mode main' ]
-
+r = [ 'reload-config', 'mode main' ]
 f = [ 'layout floating tiling' ]
-
-b = [ 'workspace B', 'mode main' ]
-w = [ 'workspace W', 'mode main' ]
-m = [ 'workspace M', 'mode main' ]
-t = [ 'workspace T', 'mode main' ]
-x = [ 'workspace X', 'mode main' ]
-
-shift-b = [ 'move-node-to-workspace B', 'mode main' ]
-shift-w = [ 'move-node-to-workspace W', 'mode main' ]
-shift-m = [ 'move-node-to-workspace M', 'mode main' ]
-shift-t = [ 'move-node-to-workspace T', 'mode main' ]
-shift-x = [ 'move-node-to-workspace X', 'mode main' ]
 
 minus = 'resize smart -50'
 equal = 'resize smart +50'
 
 [[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = ['layout floating', 'move-node-to-workspace T']
+if.app-id = 'com.apple.finder'
+run = ['layout floating']
 check-further-callbacks = true
 
 [[on-window-detected]]
-if.app-id = 'com.apple.finder'
-run = ['layout floating', 'move-node-to-workspace X']
+if.app-id = 'net.kovidgoyal.kitty'
+run = ['layout tiling', 'move-node-to-workspace T']
 check-further-callbacks = true
 
 [[on-window-detected]]

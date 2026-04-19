@@ -4,7 +4,7 @@ schemaVersion = 1
 custom = []
 
     [hotkeys.app.activate]
-    carbonKeyCode = 49
+    carbonKeyCode = 35
     carbonModifiers = 256
 
 [[leaderMode.bindings]]
@@ -37,4 +37,4 @@ url = 'tuna://run/path.%252FUsers%252Fbruno/Open'
 
 [settings]
 clipboardHistoryRetention = 'sevenDays'
-themeIdentifier = 'com.brnbw.tuna.themes.default'
+themeIdentifier = 'com.brnbw.tuna.themes.NormieBar'

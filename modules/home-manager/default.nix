@@ -24,20 +24,20 @@ in
   home.packages = with pkgs; [
     nh
 
-    fish
-    tmux
-    jq
-
-    lua
-
-    direnv
-
-    lazygit
+    curl
     gnupg
     ripgrep
     libpcap
     fzf
     wget
+
+    fish
+    tmux
+    jq
+    lazygit
+    direnv
+
+    lua
 
     opencode
   ];

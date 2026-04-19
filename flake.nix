@@ -28,8 +28,9 @@
       ...
     }:
     let
-      homeManagerSystems = [
+      hmSystems = [
         {
+          hostname = "brunoMBP-M5P";
           arch = "aarch64-darwin";
           extraModules = [
             homebrew.homeManagerModules.default
@@ -37,6 +38,7 @@
           ];
         }
         {
+          hostname = "artorias";
           arch = "x86_64-linux";
           extraModules = [
             ./modules/home-manager/linux
@@ -44,8 +46,7 @@
         }
       ];
 
-      forAllHomeManagerSystems =
-        f: builtins.foldl' (a: b: a // b) { } (builtins.map f homeManagerSystems);
+      eachHmSystem = f: builtins.foldl' (a: b: a // b) { } (builtins.map f hmSystems);
 
       overlays = [
         neovim-nightly.overlays.default
@@ -77,13 +78,13 @@
           };
         };
 
-      homeConfigurations = forAllHomeManagerSystems (
+      homeConfigurations = eachHmSystem (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system.arch};
         in
         {
-          "bruno" = home-manager.lib.homeManagerConfiguration {
+          "bruno@${system.hostname}" = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = [
               {
