@@ -15,12 +15,22 @@
         name = "mikker/tap";
         repo = "https://github.com/mikker/tap.git";
       }
+      {
+        name = "felixkratz/formulae";
+        repo = "https://github.com/felixkratz/formulae.git";
+      }
+      {
+        name = "acsandmann/tap";
+        repo = "https://github.com/acsandmann/tap.git";
+      }
     ];
     formulae = [
+      "acsandmann/tap/rift"
+      "felixkratz/formulae/borders"
+
       "mole"
     ];
     casks = [
-      "nikitabobko/tap/aerospace"
       "jsattler/tap/bettercapture"
       "mikker/tap/tuna"
 
@@ -43,6 +53,7 @@
       "tailscale-app"
       "the-unarchiver"
       "vial"
+      "wallspace"
       "xcodes-app"
 
       "sf-symbols"

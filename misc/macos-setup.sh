@@ -48,8 +48,12 @@ defaults write kCFPreferencesAnyApplication "TSMLanguageIndicatorEnabled" -bool 
 
 # Mission Control
 defaults write NSGlobalDomain "AppleSpacesSwitchOnActivate" -bool "false"
+defaults write com.apple.spaces "spans-displays" -bool "false"
 defaults write com.apple.dock "mru-spaces" -bool "false"
-defaults write com.apple.spaces "spans-displays" -bool "true"
+defaults write com.apple.dock "wvous-tl-corner" -int 0
+defaults write com.apple.dock "wvous-tr-corner" -int 0
+defaults write com.apple.dock "wvous-bl-corner" -int 0
+defaults write com.apple.dock "wvous-br-corner" -int 0
 
 # Screenshots
 defaults write com.apple.screencapture location "$HOME/Documents/Screenshots"

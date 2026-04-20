@@ -21,7 +21,9 @@ in
     ++ osSpecific {
       darwin = [
         "aerospace"
+        "borders"
         "tuna"
+        "rift"
       ];
       linux = [
         "hypr"

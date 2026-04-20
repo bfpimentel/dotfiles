@@ -25,17 +25,18 @@ in
     nh
 
     curl
-    gnupg
-    ripgrep
-    libpcap
-    fzf
-    wget
-
-    fish
-    tmux
-    jq
-    lazygit
     direnv
+    fish
+    git
+    lazygit
+    tmux
+
+    fzf
+    gnupg
+    jq
+    libpcap
+    ripgrep
+    wget
 
     lua
 

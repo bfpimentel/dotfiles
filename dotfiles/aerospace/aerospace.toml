@@ -1,7 +1,6 @@
 config-version = 2
 
 start-at-login = true
-after-login-command = []
 
 key-mapping.preset = 'qwerty'
 
@@ -13,9 +12,15 @@ accordion-padding = 0
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
 
+after-login-command = []
+
 on-focused-monitor-changed = [ 'move-mouse monitor-lazy-center' ]
 
 exec-on-workspace-change = [ '/bin/bash', '-c', '~/.config/aerospace/handle-pip.sh' ]
+
+after-startup-command = [
+  'exec-and-forget borders'
+]
 
 persistent-workspaces = [ 'B', 'W', 'M', 'T', 'X' ]
 
@@ -78,7 +83,7 @@ run = ['layout tiling', 'move-node-to-workspace T']
 check-further-callbacks = true
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Youtube Music'
+if.app-id = 'com.sertacozercan.Kaset'
 run = ['layout tiling', 'move-node-to-workspace M']
 check-further-callbacks = true
 

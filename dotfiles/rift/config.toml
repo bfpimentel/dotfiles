@@ -1,10 +1,21 @@
 [settings]
 animate = true
 animation_duration = 0.2
-animation_fps = 100.0
+animation_fps = 120.0
+
+hot_reload = true
+
+focus_follows_mouse = true
+mouse_follows_focus = true
+mouse_hides_on_focus = false
+
+run_on_start = [ "borders" ]
 
 [settings.layout]
 mode = "traditional"
+
+[settings.ui.menu_bar]
+enabled = true
 
 [settings.layout.gaps.outer]
 top = 8
@@ -16,6 +27,11 @@ right = 8
 horizontal = 8
 vertical = 8
 
+[settings.ui.mission_control]
+enabled = true
+fade_enabled = true
+fade_duration_ms = 100.0
+
 [virtual_workspaces]
 enabled = true
 default_workspace_count = 5
@@ -23,17 +39,21 @@ workspace_names = [ "B", "W", "M", "T", "X" ]
 default_workspace = 0
 auto_assign_windows = true
 
-[app_rules]
-{ app_id = "com.apple.finder", floating = true }
-{ app_id = "net.kovidgoyal.kitty", floating = false, workspace = 3 }
+app_rules = [
+  { app_id = "com.apple.finder", floating = true },
+  { app_id = "net.kovidgoyal.kitty", floating = false, workspace = 3 },
 
-{ app_id = "net.imput.helium", title_substring = "YouTube Music", floating = false, workspace = 2 }
-{ app_id = "net.imput.helium", title_substring = "Helium - Bruno", floating = false, workspace = 0 }
-{ app_id = "net.imput.helium", title_substring = "Helium - Squibler", floating = false, workspace = 1 }
-{ app_id = "net.imput.helium", title_substring = "Picture-in-Picture", floating = true }
-{ app_id = "net.imput.helium", title_substring = "Bitwarden", floating = true }
+  { app_id = "net.imput.helium", title_substring = "YouTube Music", floating = false, workspace = 2 },
+  { app_id = "net.imput.helium", title_substring = "Helium - Bruno", floating = false, workspace = 0 },
+  { app_id = "net.imput.helium", title_substring = "Helium - Squibler", floating = false, workspace = 1 },
+  { app_id = "net.imput.helium", title_substring = "Picture-in-Picture", manage = false },
+  { app_id = "net.imput.helium", title_substring = "Bitwarden", floating = true }
+]
 
 [keys]
+"Alt + Z" = "toggle_space_activated"
+"Alt + F" = "toggle_window_floating"
+
 "Alt + B" = { switch_to_workspace = 0 }
 "Alt + W" = { switch_to_workspace = 1 }
 "Alt + M" = { switch_to_workspace = 2 }
@@ -56,9 +76,7 @@ auto_assign_windows = true
 "Alt + Shift + K" = { move_node = "up" }
 "Alt + Shift + L" = { move_node = "right" }
 
-"Alt + F" = { toggle_window_floating = true }
+"Alt + Ctrl + L" = "resize_window_shrink"
+"Alt + Ctrl + H" = "resize_window_grow"
 
-"Ctrl + Alt + L" = { resize_window_grow = 50 }
-"Ctrl + Alt + L" = { resize_window_shrink = 50 }
-
-# "Alt + Esc" = { exec = "killall rift && /Applications/Rift.app/Contents/MacOS/rift" }
+"Alt + ;" = "show_mission_control_all"
