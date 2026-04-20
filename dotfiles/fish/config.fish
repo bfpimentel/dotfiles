@@ -34,3 +34,7 @@ alias hm "nh home switch ~/.dotfiles --impure"
 if test (uname) = "Darwin"
     eval "$(brew shellenv)"
 end
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/bruno/.lmstudio/bin
+# End of LM Studio CLI section

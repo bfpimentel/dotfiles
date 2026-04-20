@@ -17,7 +17,6 @@
       }
     ];
     formulae = [
-      "dockutil"
       "mole"
     ];
     casks = [
@@ -37,6 +36,7 @@
       "hiddenbar"
       "http-toolkit"
       "linearmouse"
+      "lm-studio"
       "moonlight"
       "raycast"
       "shottr"

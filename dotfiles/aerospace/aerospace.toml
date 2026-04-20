@@ -24,18 +24,18 @@ T = [ 'secondary', 'main' ]
 X = [ 'secondary', 'main' ]
 
 [gaps]
-outer.top =        0
-outer.bottom =     0
-outer.left =       0
-outer.right =      0
-inner.horizontal = 0
-inner.vertical =   0
+outer.top =        8
+outer.bottom =     8
+outer.left =       8
+outer.right =      8
+inner.horizontal = 8
+inner.vertical =   8
 
 [mode.main.binding]
-alt-semicolon = [ 'mode service' ]
-
 cmd-h = []
 cmd-alt-h = []
+
+alt-semicolon = [ 'mode service' ]
 
 alt-b = 'workspace B'
 alt-w = 'workspace W'
@@ -60,6 +60,7 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 [mode.service.binding]
+esc = [ 'mode main' ]
 r = [ 'reload-config', 'mode main' ]
 f = [ 'layout floating tiling' ]
 
