@@ -30,18 +30,18 @@
     let
       hmSystems = [
         {
-          hostname = "brunoMBP-M5P";
+          hostname = "seraphim";
           arch = "aarch64-darwin";
           extraModules = [
             homebrew.homeManagerModules.default
-            ./modules/home-manager/darwin
+            ./modules/home-manager/hosts/seraphim
           ];
         }
         {
-          hostname = "artorias";
+          hostname = "cherubim";
           arch = "x86_64-linux";
           extraModules = [
-            ./modules/home-manager/linux
+            ./modules/home-manager/hosts/cherubim
           ];
         }
       ];
@@ -70,10 +70,10 @@
 
         in
         {
-          artorias = nixpkgs.lib.nixosSystem {
+          cherubim = nixpkgs.lib.nixosSystem {
             modules = [
               nixModule
-              ./modules/hosts/artorias
+              ./modules/nixos/hosts/cherubim
             ];
           };
         };

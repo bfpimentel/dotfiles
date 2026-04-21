@@ -32,7 +32,7 @@
   };
 
   networking = {
-    hostName = "artorias";
+    hostName = "cherubim";
     enableIPv6 = false;
     useDHCP = false;
     firewall.enable = false;
@@ -93,6 +93,18 @@
       "input"
       "podman"
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHfTMOZqQ5tMiLG7GmhkhZrwgzpD2cPuQAuqAnG24qHw hello@bruno.so"
+    ];
+  };
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "bruno" ];
+    };
   };
 
   services.udev.extraRules = ''

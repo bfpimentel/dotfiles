@@ -32,7 +32,7 @@ in
     }
     // osSpecific {
       darwin = {
-        "artorias" = {
+        "cherubim" = {
           hostname = "10.22.4.10";
           user = "bruno";
           identityFile = "${home}/.ssh/id_personal";

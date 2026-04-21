@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     neovim
+
     gcc
     tree-sitter
 

@@ -30,13 +30,13 @@ in
     git
     lazygit
     tmux
+    wget
 
+    fastfetch
     fzf
     gnupg
-    jq
     libpcap
     ripgrep
-    wget
 
     lua
 

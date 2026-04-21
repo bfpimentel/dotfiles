@@ -6,50 +6,46 @@
   ];
 
   home.packages = with pkgs; [
-    git
     kitty
 
-    jq
-
-    fastfetch
+    bitwarden-cli
+    openclaw
 
     nodejs_25
 
-    qt6.qtbase
-    qt6.qttools
-    qt6.qtdeclarative # qmlls
-
-    bitwarden-cli
-
-    hyprland
     hypridle
+    hyprland
     hyprlock
     hyprpaper
     hyprpwcenter
 
-    xdg-desktop-portal
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gtk
-
-    quickshell
-    slurp
-    grim
-    satty
-    libnotify
     cliphist
-    wl-clipboard
+    grim
+    libnotify
     playerctl
+    quickshell
+    satty
+    slurp
+    wl-clipboard
 
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
+
+    appimage-run
+    gearlever
+    peazip
     ungoogled-chromium
     vial
-    peazip
-    gearlever
-    appimage-run
 
     podman
     podman-compose
 
     kdePackages.dolphin
+
+    qt6.qtbase
+    qt6.qtdeclarative # qmlls
+    qt6.qttools
 
     hanken-grotesk
     nerd-fonts.symbols-only
