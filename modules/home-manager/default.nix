@@ -1,11 +1,10 @@
 { pkgs, util, ... }:
 
 let
-  inherit (util) osSpecific;
+  inherit (util) mapAbsolute mapDotfiles osSpecific;
 in
 {
   imports = [
-    ./dotfiles.nix
     ./neovim.nix
     ./ssh.nix
   ];
@@ -20,6 +19,20 @@ in
   };
 
   programs.home-manager.enable = true;
+
+  home.file = {
+    "Documents/Vial".source = mapAbsolute "misc/vial";
+    "Documents/Wallpapers".source = mapAbsolute "misc/wallpapers";
+  }
+  // mapDotfiles ([
+    "fish"
+    "git"
+    "kitty"
+    "lazygit"
+    "nvim"
+    "opencode"
+    "tmux"
+  ]);
 
   home.packages = with pkgs; [
     nh

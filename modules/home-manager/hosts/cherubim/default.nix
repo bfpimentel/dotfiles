@@ -1,9 +1,22 @@
-{ pkgs, ... }:
+{ pkgs, util, ... }:
 
+let
+  inherit (util) mapAbsolute mapDotfiles;
+in
 {
   imports = [
     ./gaming.nix
   ];
+
+  home.file = {
+    ".local/share/applications".source = mapAbsolute "dotfiles/applications";
+  }
+  // mapDotfiles ([
+    "hypr"
+    "openclaw"
+    "quickshell"
+    "sunshine"
+  ]);
 
   home.packages = with pkgs; [
     kitty
