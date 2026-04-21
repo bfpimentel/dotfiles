@@ -6,7 +6,7 @@ in
 {
   imports = [
     ./dotfiles.nix
-    ./nvim.nix
+    ./neovim.nix
     ./ssh.nix
   ];
 

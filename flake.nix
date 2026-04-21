@@ -89,8 +89,13 @@
             modules = [
               {
                 nixpkgs = {
-                  config.allowUnfree = true;
                   overlays = overlays;
+                  config = {
+                    allowUnfree = true;
+                    permittedInsecurePackages = [
+                      "openclaw-2026.4.11"
+                    ];
+                  };
                 };
               }
               ./util.nix
