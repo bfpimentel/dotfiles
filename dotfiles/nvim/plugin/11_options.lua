@@ -67,20 +67,82 @@ vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 vim.o.clipboard = "unnamedplus"
 
 if vim.env.SSH_TTY then
-  local function paste() return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") } end
+  local function register_cache()
+    local cache = {
+      ["+"] = { {}, "v" },
+      ["*"] = { {}, "v" },
+    }
+
+    local function set(reg, lines, regtype)
+      cache[reg] = { vim.deepcopy(lines), regtype }
+    end
+
+    local function get(reg)
+      local value = cache[reg] or { {}, "v" }
+      return { vim.deepcopy(value[1]), value[2] }
+    end
+
+    return set, get
+  end
+
+  local set_cache, get_cache = register_cache()
+
+  local function make_tmux_copy(reg, fallback)
+    return function(lines, regtype)
+      set_cache(reg, lines, regtype)
+      vim.fn.system({ "tmux", "load-buffer", "-w", "-" }, table.concat(lines, "\n"))
+      if vim.v.shell_error ~= 0 then fallback(lines, regtype) end
+    end
+  end
+
+  local function make_tmux_paste(reg)
+    return function()
+      local text = vim.fn.system({ "tmux", "save-buffer", "-" })
+      if vim.v.shell_error == 0 then
+        return { vim.split(text, "\n", { plain = true }), "v" }
+      end
+      return get_cache(reg)
+    end
+  end
+
+  local function make_cached_copy(reg, copy)
+    return function(lines, regtype)
+      set_cache(reg, lines, regtype)
+      copy(lines, regtype)
+    end
+  end
+
+  local function make_cached_paste(reg)
+    return function() return get_cache(reg) end
+  end
 
   local osc52 = require("vim.ui.clipboard.osc52")
-  vim.g.clipboard = {
-    name = "OSC 52",
-    copy = {
-      ["+"] = osc52.copy("+"),
-      ["*"] = osc52.copy("*"),
-    },
-    paste = {
-      ["+"] = paste,
-      ["*"] = paste,
-    },
-  }
+
+  if vim.env.TMUX then
+    vim.g.clipboard = {
+      name = "tmux+OSC52",
+      copy = {
+        ["+"] = make_tmux_copy("+", osc52.copy("+")),
+        ["*"] = make_tmux_copy("*", osc52.copy("*")),
+      },
+      paste = {
+        ["+"] = make_tmux_paste("+"),
+        ["*"] = make_tmux_paste("*"),
+      },
+    }
+  else
+    vim.g.clipboard = {
+      name = "OSC 52",
+      copy = {
+        ["+"] = make_cached_copy("+", osc52.copy("+")),
+        ["*"] = make_cached_copy("*", osc52.copy("*")),
+      },
+      paste = {
+        ["+"] = make_cached_paste("+"),
+        ["*"] = make_cached_paste("*"),
+      },
+    }
+  end
 end
 
 -- Diagnostics
