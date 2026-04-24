@@ -23,7 +23,9 @@ in
 
     bitwarden-cli
     openclaw
+    mcporter
 
+    bun
     nodejs_25
 
     hypridle
@@ -45,8 +47,6 @@ in
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
 
-    appimage-run
-    gearlever
     peazip
     ungoogled-chromium
     vial
@@ -63,6 +63,7 @@ in
     hanken-grotesk
     nerd-fonts.symbols-only
     nerd-fonts.victor-mono
+    nerd-fonts.iosevka
   ];
 
   services.udiskie = {
