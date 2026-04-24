@@ -71,6 +71,7 @@ in
 
       "sf-symbols"
       "font-victor-mono-nerd-font"
+      "font-iosevka-nerd-font"
     ];
   };
 }

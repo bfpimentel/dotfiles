@@ -66,7 +66,7 @@ vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 -- Clipboard
 vim.o.clipboard = "unnamedplus"
 
-if vim.env.SSH_TTY and not vim.env.TMUX then
+if vim.env.SSH_TTY then
   local function paste() return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") } end
 
   local osc52 = require("vim.ui.clipboard.osc52")

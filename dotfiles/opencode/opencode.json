@@ -18,6 +18,14 @@
     "nixos": {
       "type": "local",
       "command": ["nix", "run", "github:utensils/mcp-nixos", "--"]
+    },
+    "home-assistant": {
+      "url": "http://10.22.4.3:8123/api/mcp",
+      "type": "remote",
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer {env:HASS_TOKEN}"
+      }
     }
   },
   "provider": {
