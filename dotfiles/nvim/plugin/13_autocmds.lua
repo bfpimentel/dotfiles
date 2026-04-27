@@ -1,5 +1,11 @@
 Util.new_autocmd("Highlight on yank", "TextYankPost", nil, function() vim.highlight.on_yank() end)
 
+Util.new_autocmd("Set scroll options for text buffers", { "BufEnter", "WinEnter" }, "*", function()
+  local is_text_buffer = vim.bo.buftype == ""
+  vim.opt_local.scrolloff = is_text_buffer and 999 or 0
+  vim.opt_local.scrolloffpad = is_text_buffer and 1 or 0
+end)
+
 Util.new_autocmd("Go to last location when opening a buffer", "BufReadPost", nil, function()
   local mark = vim.api.nvim_buf_get_mark(0, '"')
   local lcount = vim.api.nvim_buf_line_count(0)
@@ -40,4 +46,3 @@ Util.new_autocmd(
 )
 
 Util.new_autocmd("Close Buffer when closing Terminal", "TermClose", nil, function() vim.cmd("bdelete!") end)
-

@@ -2,6 +2,11 @@
 
 let
   inherit (util) mapAbsolute mapDotfiles osSpecific;
+
+  zshEnv = /* zsh */ ''
+    export XDG_CONFIG_HOME="$HOME/.config"
+    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+  '';
 in
 {
   imports = [
@@ -23,23 +28,27 @@ in
   home.file = {
     "Documents/Vial".source = mapAbsolute "misc/vial";
     "Documents/Wallpapers".source = mapAbsolute "misc/wallpapers";
+    ".zshenv".text = zshEnv;
   }
   // mapDotfiles ([
-    "fish"
     "git"
     "kitty"
     "lazygit"
     "nvim"
     "opencode"
     "tmux"
+    "zsh"
   ]);
 
   home.packages = with pkgs; [
     nh
 
+    zsh
+    antidote
+    oh-my-posh
+
     curl
-    direnv
-    fish
+    # direnv
     git
     lazygit
     tmux

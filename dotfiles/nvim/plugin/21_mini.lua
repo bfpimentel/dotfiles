@@ -266,7 +266,7 @@ Pack.now(function()
     { "<leader>hc", function() MiniExtra.pickers.history({ scope = ":" }) end, opts = { desc = "Commands History" } },
     { "<leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, opts = { desc = "Search History" } },
     -- Files
-    { "<leader>fp", function() MiniPick.builtin.files({ tool = "git" }) end, opts = { desc = "Files" } },
+    { "<leader>fp", function() MiniPick.builtin.files() end, opts = { desc = "Files" } },
     { "<leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },
     -- Search
     { '<leader>s"', function() MiniExtra.pickers.registers() end, opts = { desc = "Registers" } },

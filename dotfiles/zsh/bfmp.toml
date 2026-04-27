@@ -1,0 +1,51 @@
+version = 3
+final_space = false
+
+[[blocks]]
+type = "prompt"
+alignment = "left"
+
+[[blocks.segments]]
+type = "session"
+style = "plain"
+foreground_templates = [
+  "{{ if .SSHSession }}#7FBBB3{{ end }}",
+  "{{ if not .SSHSession }}#83C092{{ end }}",
+]
+template = "{{ .HostName }}{{ if .SSHSession }} [ssh]{{ end }}"
+
+[[blocks.segments]]
+type = "path"
+style = "plain"
+foreground = "#DBBC7F"
+template = " {{ .Path }}"
+
+[blocks.segments.properties]
+style = "folder"
+
+[[blocks.segments]]
+type = "git"
+style = "plain"
+foreground = "#E69875"
+template = " [{{ .HEAD }}]"
+
+[blocks.segments.properties]
+branch_icon = ""
+fetch_status = false
+
+[[blocks.segments]]
+type = "text"
+style = "plain"
+foreground = "#D699B6"
+template = "{{ if .Env.DIRENV_DIR }} [dev]{{ end }}"
+
+[[blocks]]
+type = "prompt"
+alignment = "left"
+newline = true
+
+[[blocks.segments]]
+type = "text"
+style = "plain"
+foreground = "#D3C6AA"
+template = "$ "

@@ -41,7 +41,6 @@ vim.o.splitright = true
 vim.o.rnu = true
 vim.o.fillchars = "eob: ,fold:╌"
 vim.o.listchars = "tab:> ,trail:-,nbsp:+"
-vim.o.scrolloff = 999
 
 -- Editing
 vim.o.conceallevel = 0
