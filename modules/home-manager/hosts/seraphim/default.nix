@@ -4,7 +4,6 @@ let
   inherit (util) mapDotfiles;
 in
 {
-
   home.file = {
   }
   // mapDotfiles ([
@@ -61,7 +60,7 @@ in
       "linearmouse"
       "lm-studio"
       "moonlight"
-      "raycast"
+      "pearcleaner"
       "shottr"
       "tailscale-app"
       "the-unarchiver"

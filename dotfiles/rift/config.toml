@@ -41,6 +41,8 @@ auto_assign_windows = true
 
 app_rules = [
   { app_id = "com.apple.finder", floating = true },
+  { app_id = "com.apple.systemsettings", floating = true },
+
   { app_id = "net.kovidgoyal.kitty", floating = false, workspace = 3 },
 
   { app_id = "net.imput.helium", title_substring = "YouTube Music", floating = false, workspace = 2 },

@@ -1,39 +1,39 @@
 schemaVersion = 1
 
+[[comboMode.bindings]]
+key = 's'
+url = 'tuna://run/path.%252FApplications%252FSafari.app/Open'
+
+[[comboMode.bindings]]
+key = 't'
+url = 'tuna://run/path.%252FSystem%252FApplications%252FUtilities%252FTerminal.app/Open'
+
+[[comboMode.bindings]]
+key = 'f'
+url = 'tuna://run/path.%252FSystem%252FLibrary%252FCoreServices%252FFinder.app/Open'
+
+[[comboMode.bindings]]
+key = 'm'
+url = 'tuna://run/path.%252FSystem%252FApplications%252FMessages.app/Open'
+
+[[comboMode.bindings]]
+key = 'n'
+url = 'tuna://run/path.%252FSystem%252FApplications%252FNotes.app/Open'
+
+[[comboMode.bindings]]
+key = 'd'
+url = 'tuna://run/path.%252FUsers%252Fbruno%252FDownloads/Open'
+
+[[comboMode.bindings]]
+key = 'h'
+url = 'tuna://run/path.%252FUsers%252Fbruno/Open'
+
 [hotkeys]
 custom = []
 
     [hotkeys.app.activate]
     carbonKeyCode = 35
     carbonModifiers = 256
-
-[[leaderMode.bindings]]
-key = 's'
-url = 'tuna://run/path.%252FApplications%252FSafari.app/Open'
-
-[[leaderMode.bindings]]
-key = 't'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FUtilities%252FTerminal.app/Open'
-
-[[leaderMode.bindings]]
-key = 'f'
-url = 'tuna://run/path.%252FSystem%252FLibrary%252FCoreServices%252FFinder.app/Open'
-
-[[leaderMode.bindings]]
-key = 'm'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FMessages.app/Open'
-
-[[leaderMode.bindings]]
-key = 'n'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FNotes.app/Open'
-
-[[leaderMode.bindings]]
-key = 'd'
-url = 'tuna://run/path.%252FUsers%252Fbruno%252FDownloads/Open'
-
-[[leaderMode.bindings]]
-key = 'h'
-url = 'tuna://run/path.%252FUsers%252Fbruno/Open'
 
 [settings]
 clipboardHistoryRetention = 'sevenDays'

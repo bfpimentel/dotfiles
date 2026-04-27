@@ -44,6 +44,7 @@ in
     lazygit
     tmux
     wget
+    uv
 
     fastfetch
     fzf
