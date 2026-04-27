@@ -73,18 +73,9 @@
       "dark": "darkStep11",
       "light": "lightStep11"
     },
-    "background": {
-      "dark": "none",
-      "light": "none"
-    },
-    "backgroundPanel": {
-      "dark": "none",
-      "light": "none"
-    },
-    "backgroundElement": {
-      "dark": "none",
-      "light": "none"
-    },
+    "background": "none",
+    "backgroundPanel": "none",
+    "backgroundElement": "none",
     "border": {
       "dark": "darkStep7",
       "light": "lightStep7"
