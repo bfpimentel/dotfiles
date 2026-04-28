@@ -5,11 +5,9 @@
     (
       {
         config,
-        util,
         ...
       }:
       let
-        inherit (util) osSpecific;
         home = config.home.homeDirectory;
       in
       {
@@ -37,15 +35,21 @@
               serverAliveInterval = 25;
               forwardAgent = true;
             };
-          }
-          // osSpecific {
-            darwin = {
-              "cherubim" = {
-                hostname = "10.22.4.10";
-                user = "bruno";
-                identityFile = "${home}/.ssh/id_personal";
-              };
-            };
+          };
+        };
+      }
+    )
+  ];
+
+  config.bfmp.hm.hosts.seraphim.modules = [
+    (
+      { config, ... }:
+      {
+        programs.ssh.matchBlocks = {
+          "cherubim" = {
+            hostname = "10.22.4.10";
+            user = "bruno";
+            identityFile = "${config.home.homeDirectory}/.ssh/id_personal";
           };
         };
       }

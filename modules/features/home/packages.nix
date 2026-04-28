@@ -1,27 +1,45 @@
 { ... }:
 
 {
+  config.bfmp.hm.sharedModules = [
+    (
+      { pkgs, util, ... }:
+      {
+        home.packages = with pkgs; [
+          nh
+
+          antidote
+          oh-my-posh
+
+          curl
+          git
+          lazygit
+          tmux
+          wget
+          uv
+
+          fastfetch
+          fzf
+          gnupg
+          libpcap
+          ripgrep
+
+          lua
+
+          opencode
+        ];
+      }
+    )
+  ];
+
+  config.bfmp.hm.hosts.seraphim.modules = [
+    ({ ... }: { })
+  ];
+
   config.bfmp.hm.hosts.cherubim.modules = [
     (
+      { pkgs, ... }:
       {
-        pkgs,
-        util,
-        ...
-      }:
-      let
-        inherit (util) mapAbsolute mapDotfiles;
-      in
-      {
-        home.file = {
-          ".local/share/applications".source = mapAbsolute "dotfiles/applications";
-        }
-        // mapDotfiles ([
-          "hypr"
-          "openclaw"
-          "quickshell"
-          "sunshine"
-        ]);
-
         home.packages = with pkgs; [
           zsh
           kitty
@@ -70,15 +88,6 @@
           nerd-fonts.victor-mono
           nerd-fonts.iosevka
         ];
-
-        services.udiskie = {
-          enable = true;
-          settings = {
-            program_options = {
-              file_manager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
-            };
-          };
-        };
       }
     )
   ];

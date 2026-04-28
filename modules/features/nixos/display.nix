@@ -2,7 +2,8 @@
 
 {
   config.bfmp.nixos.hosts.cherubim.modules = [
-    ({ pkgs, lib, ... }:
+    (
+      { pkgs, lib, ... }:
       let
         sddm-theme-name = "sddm-bfmp";
 

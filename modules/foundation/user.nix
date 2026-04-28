@@ -1,5 +1,0 @@
-{ ... }:
-
-{
-  config.bfmp.user = "bruno";
-}

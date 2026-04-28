@@ -4,19 +4,8 @@
   config.bfmp.hm.hosts.seraphim.modules = [
     inputs.homebrew.homeManagerModules.default
     (
-      { util, ... }:
-      let
-        inherit (util) mapDotfiles;
-      in
+      { ... }:
       {
-        home.file = { }
-        // mapDotfiles ([
-          "aerospace"
-          "borders"
-          "rift"
-          "tuna"
-        ]);
-
         homebrew = {
           taps = [
             {

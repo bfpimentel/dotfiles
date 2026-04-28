@@ -6,20 +6,10 @@ let
 in
 {
   options.bfmp = {
-    user = mkOption {
-      type = types.str;
-      default = "bruno";
-    };
-
     hm = {
       overlays = mkOption {
         type = types.listOf types.raw;
         default = [ ];
-      };
-
-      nixpkgsConfig = mkOption {
-        type = types.attrs;
-        default = { };
       };
 
       sharedModules = mkOption {
@@ -47,7 +37,7 @@ in
     };
 
     nixos = {
-      commonModules = mkOption {
+      sharedModules = mkOption {
         type = types.listOf types.deferredModule;
         default = [ ];
       };
