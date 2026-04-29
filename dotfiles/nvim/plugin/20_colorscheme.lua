@@ -1,18 +1,14 @@
 Pack.now(function()
   Pack.add({
     {
-      src = "https://github.com/neanias/everforest-nvim",
+      src = "https://github.com/sainnhe/everforest",
       name = "everforest",
     },
   })
 
-  local Everforest = require("everforest")
+  vim.g.everforest_enable_italic = 0
+  vim.g.everforest_transparent_background = 2
+  vim.g.everforest_float_style = "dim"
 
-  Everforest.setup({
-    transparent_background_level = 2,
-    italics = false,
-    float_style = "dim",
-  })
-
-  Everforest.load()
+  vim.cmd("colorscheme everforest")
 end)

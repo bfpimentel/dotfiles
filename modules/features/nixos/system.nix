@@ -7,7 +7,12 @@
       {
         system.stateVersion = "25.11";
 
-        boot.kernelPackages = pkgs.linuxPackages_latest;
+        boot = {
+          kernelPackages = pkgs.linuxPackages_latest;
+          loader.systemd-boot.enable = true;
+          loader.efi.canTouchEfiVariables = true;
+          kernelModules = [ "uinput" ];
+        };
 
         time.timeZone = "America/Sao_Paulo";
 
@@ -28,11 +33,7 @@
     (
       { pkgs, ... }:
       {
-        boot = {
-          loader.systemd-boot.enable = true;
-          loader.efi.canTouchEfiVariables = true;
-          kernelModules = [ "uinput" ];
-        };
+        boot.kernelModules = [ "uinput" ];
 
         hardware.graphics = {
           enable = true;
@@ -67,5 +68,9 @@
         };
       }
     )
+  ];
+
+  config.bfmp.nixos.hosts.thronos.modules = [
+    ({ ... }: { })
   ];
 }
