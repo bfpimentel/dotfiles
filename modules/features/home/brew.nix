@@ -24,22 +24,19 @@
               name = "felixkratz/formulae";
               repo = "https://github.com/felixkratz/formulae.git";
             }
-            {
-              name = "acsandmann/tap";
-              repo = "https://github.com/acsandmann/tap.git";
-            }
           ];
 
           formulae = [
-            "acsandmann/tap/rift"
             "felixkratz/formulae/borders"
+
             "mole"
           ];
 
           casks = [
             "jsattler/tap/bettercapture"
             "mikker/tap/tuna"
-            "kitty"
+            "nikitabobko/tap/aerospace"
+
             "altserver"
             "ankerwork"
             "anydesk"
@@ -49,6 +46,7 @@
             "helium-browser"
             "hiddenbar"
             "http-toolkit"
+            "kitty"
             "linearmouse"
             "lm-studio"
             "moonlight"
@@ -59,6 +57,7 @@
             "vial"
             "wallspace"
             "xcodes-app"
+
             "sf-symbols"
             "font-victor-mono-nerd-font"
             "font-iosevka-nerd-font"

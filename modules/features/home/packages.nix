@@ -42,14 +42,15 @@
       {
         home.packages = with pkgs; [
           zsh
-          kitty
+
+          bun
+          nodejs_25
 
           bitwarden-cli
           openclaw
           mcporter
 
-          bun
-          nodejs_25
+          kitty
 
           hypridle
           hyprland
@@ -87,6 +88,20 @@
           nerd-fonts.symbols-only
           nerd-fonts.victor-mono
           nerd-fonts.iosevka
+        ];
+      }
+    )
+  ];
+
+  config.bfmp.hm.hosts.thronos.modules = [
+    (
+      { pkgs, ... }:
+      {
+        home.packages = with pkgs; [
+          zsh
+
+          bun
+          nodejs_25
         ];
       }
     )

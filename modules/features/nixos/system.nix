@@ -1,23 +1,15 @@
 { ... }:
 
 {
-  config.bfmp.nixos.hosts.cherubim.modules = [
+  config.bfmp.nixos.sharedModules = [
     (
       { pkgs, ... }:
       {
-        boot = {
-          kernelPackages = pkgs.linuxPackages_latest;
-          loader.systemd-boot.enable = true;
-          loader.efi.canTouchEfiVariables = true;
-          kernelModules = [ "uinput" ];
-        };
+        system.stateVersion = "25.11";
 
-        hardware.graphics = {
-          enable = true;
-          enable32Bit = true;
-        };
+        boot.kernelPackages = pkgs.linuxPackages_latest;
 
-        nixpkgs.config.allowUnfree = true;
+        time.timeZone = "America/Sao_Paulo";
 
         programs.nix-ld.enable = true;
 
@@ -28,29 +20,23 @@
             dockerCompat = true;
           };
         };
+      }
+    )
+  ];
 
-        networking = {
-          hostName = "cherubim";
-          enableIPv6 = false;
-          useDHCP = false;
-          firewall.enable = false;
-          networkmanager.enable = false;
+  config.bfmp.nixos.hosts.cherubim.modules = [
+    (
+      { pkgs, ... }:
+      {
+        boot = {
+          loader.systemd-boot.enable = true;
+          loader.efi.canTouchEfiVariables = true;
+          kernelModules = [ "uinput" ];
         };
 
-        systemd.network = {
+        hardware.graphics = {
           enable = true;
-          networks."10-default" = {
-            matchConfig.Name = "enp5s0";
-            address = [ "10.22.4.10/24" ];
-            routes = [ { Gateway = "10.22.4.1"; } ];
-            networkConfig = {
-              DHCP = "no";
-              DNS = [
-                "1.1.1.1"
-                "8.8.8.8"
-              ];
-            };
-          };
+          enable32Bit = true;
         };
 
         security = {
@@ -79,35 +65,6 @@
             };
           };
         };
-
-        nix.settings.trusted-users = [ "bruno" ];
-
-        users.users.bruno = {
-          isNormalUser = true;
-          description = "Bruno Pimentel";
-          extraGroups = [
-            "wheel"
-            "video"
-            "input"
-            "podman"
-          ];
-          openssh.authorizedKeys.keys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHfTMOZqQ5tMiLG7GmhkhZrwgzpD2cPuQAuqAnG24qHw hello@bruno.so"
-          ];
-        };
-
-        services.openssh = {
-          enable = true;
-          settings = {
-            PasswordAuthentication = false;
-            PermitRootLogin = "no";
-            AllowUsers = [ "bruno" ];
-          };
-        };
-
-        time.timeZone = "America/Sao_Paulo";
-
-        system.stateVersion = "25.11";
       }
     )
   ];

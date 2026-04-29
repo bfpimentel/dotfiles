@@ -5,10 +5,14 @@
     hosts = {
       seraphim.arch = "aarch64-darwin";
       cherubim.arch = "x86_64-linux";
+      thronos.arch = "aarch64-linux";
     };
 
     overlays = [
       inputs.neovim-nightly.overlays.default
+      (final: prev: {
+        nh = inputs.nh.packages.${prev.stdenv.hostPlatform.system}.default;
+      })
     ];
   };
 
@@ -40,6 +44,15 @@
   ];
 
   config.bfmp.hm.hosts.cherubim.modules = [
+    (
+      { util, ... }:
+      {
+        home.homeDirectory = "/home/bruno";
+      }
+    )
+  ];
+
+  config.bfmp.hm.hosts.thronos.modules = [
     (
       { util, ... }:
       {

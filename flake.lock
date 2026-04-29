@@ -117,6 +117,26 @@
         "type": "github"
       }
     },
+    "nh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777401891,
+        "narHash": "sha256-3ixfZlUQ0krjSKW2PJ4yRq5lRKDRNLHMWiuYiKzd6KU=",
+        "owner": "nix-community",
+        "repo": "nh",
+        "rev": "022883ebe6d8cef6f3083c66734e25c08fcf8dce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nh",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1776877367,
@@ -154,6 +174,7 @@
         "home-manager": "home-manager",
         "homebrew": "homebrew",
         "neovim-nightly": "neovim-nightly",
+        "nh": "nh",
         "nixpkgs": "nixpkgs"
       }
     }

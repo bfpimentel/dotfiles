@@ -38,7 +38,11 @@ in
     nixosConfigurations = lib.mapAttrs (
       _: hostConfig:
       inputs.nixpkgs.lib.nixosSystem {
-        modules = cfg.nixos.sharedModules ++ hostConfig.modules;
+        modules = [
+          { nixpkgs.config.allowUnfree = true; }
+        ]
+        ++ cfg.nixos.sharedModules
+        ++ hostConfig.modules;
       }
     ) cfg.nixos.hosts;
   };
