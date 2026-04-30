@@ -8,6 +8,9 @@
         home.packages = with pkgs; [
           nh
 
+          bun
+          nodejs_25
+
           antidote
           oh-my-posh
 
@@ -42,9 +45,6 @@
       {
         home.packages = with pkgs; [
           zsh
-
-          bun
-          nodejs_25
 
           bitwarden-cli
           openclaw
@@ -99,9 +99,6 @@
       {
         home.packages = with pkgs; [
           zsh
-
-          bun
-          nodejs_25
         ];
       }
     )
