@@ -40,6 +40,7 @@ in
       inputs.nixpkgs.lib.nixosSystem {
         modules = [
           { nixpkgs.config.allowUnfree = true; }
+          inputs.home-manager.nixosModules.home-manager
         ]
         ++ cfg.nixos.sharedModules
         ++ hostConfig.modules;

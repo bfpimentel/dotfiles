@@ -18,9 +18,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-    };
     homebrew = {
       url = "github:koalalorenzo/home-manager-brew";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +29,15 @@
     nh = {
       url = "github:nix-community/nh";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hermes-agent = {
+      url = "github:nousresearch/hermes-agent";
+    };
+    agenix = {
+      url = "github:ryantm/agenix";
+    };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
     };
   };
 

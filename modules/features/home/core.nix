@@ -11,7 +11,7 @@
     overlays = [
       inputs.neovim-nightly.overlays.default
       (final: prev: {
-        nh = inputs.nh.packages.${prev.system}.default;
+        nh = inputs.nh.packages.${prev.stdenv.hostPlatform.system}.default;
       })
     ];
   };
