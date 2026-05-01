@@ -17,14 +17,6 @@
         time.timeZone = "America/Sao_Paulo";
 
         programs.nix-ld.enable = true;
-
-        virtualisation = {
-          containers.enable = true;
-          podman = {
-            enable = true;
-            dockerCompat = true;
-          };
-        };
       }
     )
   ];

@@ -11,7 +11,16 @@
         age = {
           identityPaths = [ "/home/bruno/.ssh/id_personal" ];
           secrets = {
-            hermes-agent.file = ../../../secrets/hermes-agent.age;
+            hermes-env = {
+              file = ../../../secrets/hermes-env.age;
+              owner = "hermes";
+              group = "hermes";
+            };
+            hermes-auth = {
+              file = ../../../secrets/hermes-auth.age;
+              owner = "hermes";
+              group = "hermes";
+            };
           };
         };
       }
