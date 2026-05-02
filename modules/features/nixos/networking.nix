@@ -41,6 +41,31 @@
     )
   ];
 
+  config.bfmp.nixos.hosts.powers.modules = [
+    (
+      { pkgs, ... }:
+      {
+        networking = {
+          hostName = "powers";
+          firewall.enable = false;
+        };
+
+        systemd.network.networks."10-default" = {
+          matchConfig.Name = "eno1";
+          address = [ "10.22.4.6/24" ];
+          routes = [ { Gateway = "10.22.4.1"; } ];
+          networkConfig = {
+            DHCP = "no";
+            DNS = [
+              "1.1.1.1"
+              "8.8.8.8"
+            ];
+          };
+        };
+      }
+    )
+  ];
+
   config.bfmp.nixos.hosts.thronos.modules = [
     (
       { ... }:

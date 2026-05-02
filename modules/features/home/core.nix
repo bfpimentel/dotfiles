@@ -5,6 +5,7 @@
     hosts = {
       seraphim.arch = "aarch64-darwin";
       cherubim.arch = "x86_64-linux";
+      powers.arch = "x86_64-linux";
       thronos.arch = "aarch64-linux";
     };
 
@@ -44,6 +45,15 @@
   ];
 
   config.bfmp.hm.hosts.cherubim.modules = [
+    (
+      { util, ... }:
+      {
+        home.homeDirectory = "/home/bruno";
+      }
+    )
+  ];
+
+  config.bfmp.hm.hosts.powers.modules = [
     (
       { util, ... }:
       {

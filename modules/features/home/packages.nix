@@ -95,6 +95,17 @@
     )
   ];
 
+  config.bfmp.hm.hosts.powers.modules = [
+    (
+      { pkgs, ... }:
+      {
+        home.packages = with pkgs; [
+          zsh
+        ];
+      }
+    )
+  ];
+
   config.bfmp.hm.hosts.thronos.modules = [
     (
       { pkgs, ... }:

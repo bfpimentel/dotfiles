@@ -44,8 +44,8 @@
             user = "bruno";
             identityFile = "${home}/.ssh/id_personal";
           };
-          "thronos" = {
-            hostname = "159.112.184.83";
+          "powers" = {
+            hostname = "10.22.4.6";
             user = "bruno";
             identityFile = "${home}/.ssh/id_personal";
           };
@@ -57,6 +57,11 @@
           "virtues" = {
             hostname = "10.22.4.3";
             user = "root";
+            identityFile = "${home}/.ssh/id_personal";
+          };
+          "thronos" = {
+            hostname = "159.112.184.83";
+            user = "bruno";
             identityFile = "${home}/.ssh/id_personal";
           };
         };

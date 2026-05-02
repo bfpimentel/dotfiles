@@ -11,7 +11,8 @@ Most app configuration lives in `dotfiles/` and is linked with Home Manager help
 ## Hosts
 
 - `seraphim`: macOS Home Manager profile (`aarch64-darwin`), with Homebrew and macOS app configs.
-- `cherubim`: Linux desktop (`x86_64-linux`), with NixOS, Hyprland, gaming, containers, and Hermes.
+- `cherubim`: Linux desktop (`x86_64-linux`), with NixOS, Hyprland, gaming, containers.
+- `powers`: Linux mini PC (`x86_64-linux`), with NixOS, Hermes.
 - `thronos`: Linux OCI server (`aarch64-linux`), with NixOS networking and minimal home setup.
 
 ## Structure

@@ -62,6 +62,10 @@
     )
   ];
 
+  config.bfmp.nixos.hosts.powers.modules = [
+    ({ ... }: { })
+  ];
+
   config.bfmp.nixos.hosts.thronos.modules = [
     ({ ... }: { })
   ];
