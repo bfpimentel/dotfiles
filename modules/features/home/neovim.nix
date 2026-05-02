@@ -32,8 +32,6 @@
           basedpyright
           ruff
 
-          fish-lsp
-
           dart
         ];
       }

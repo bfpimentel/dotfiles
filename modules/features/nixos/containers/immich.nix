@@ -53,6 +53,15 @@
             extraOptions = [ "--shm-size=128mb" ];
           };
         };
+
+        systemd.services = {
+          podman-immich-server.unitConfig.RequiresMountsFor = [
+            "/mnt/share/photos"
+            "/mnt/share/containers"
+          ];
+
+          podman-immich-postgres.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
+        };
       }
     )
   ];

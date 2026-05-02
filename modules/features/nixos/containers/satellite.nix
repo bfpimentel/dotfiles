@@ -16,6 +16,8 @@
             "shady.url" = "https://satellite.local.jalotopimentel.com";
           };
         };
+
+        systemd.services.podman-satellite.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
       }
     )
   ];

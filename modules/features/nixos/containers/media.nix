@@ -54,6 +54,18 @@
             };
           };
         };
+
+        systemd.services = {
+          podman-qbittorrent.unitConfig.RequiresMountsFor = [
+            "/mnt/share/containers"
+            "/mnt/share/downloads"
+          ];
+
+          podman-jellyfin.unitConfig.RequiresMountsFor = [
+            "/mnt/share/containers"
+            "/mnt/share/media"
+          ];
+        };
       }
     )
   ];

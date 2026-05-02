@@ -9,7 +9,6 @@ Pack.later(function()
     "dart",
     "diff",
     "dockerfile",
-    "fish",
     "git_config",
     "gitcommit",
     "gitignore",

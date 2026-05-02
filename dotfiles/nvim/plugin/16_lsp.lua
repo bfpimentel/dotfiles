@@ -10,7 +10,6 @@ Pack.later(function()
 
   vim.lsp.enable({
     "eslint",
-    "fish",
     "html",
     "json",
     "lua",

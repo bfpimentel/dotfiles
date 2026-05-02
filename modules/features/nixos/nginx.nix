@@ -25,7 +25,8 @@ in
             domain = "*.${acmeHost}";
             extraDomainNames = [ acmeHost ];
             dnsProvider = "cloudflare";
-            credentialsFile = config.age.secrets.nginx-env.path;
+            group = "nginx";
+            environmentFile = config.age.secrets.nginx-env.path;
           };
         };
 

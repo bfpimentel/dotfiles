@@ -16,6 +16,8 @@
             "/mnt/share/containers/shady/config:/app/config"
           ];
         };
+
+        systemd.services.podman-shady.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
       }
     )
   ];

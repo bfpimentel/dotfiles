@@ -19,6 +19,8 @@
             "shady.url" = "https://drip.local.jalotopimentel.com";
           };
         };
+
+        systemd.services.podman-drip.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
       }
     )
   ];
