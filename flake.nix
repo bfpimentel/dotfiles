@@ -26,10 +26,6 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nh = {
-      url = "github:nix-community/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     hermes-agent = {
       url = "github:nousresearch/hermes-agent";
     };

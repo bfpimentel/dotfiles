@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  config.bfmp.nixos.hosts.cherubim.modules = [
+  config.bfmp.nixos.hosts.powers.modules = [
     (
       { ... }:
       {
@@ -12,18 +12,6 @@
             dockerCompat = true;
           };
         };
-
-        security.sudo.extraRules = [
-          {
-            users = [ "bruno" ];
-            commands = [
-              {
-                command = "/home/bruno/.nix-profile/bin/podman";
-                options = [ "NOPASSWD" ];
-              }
-            ];
-          }
-        ];
       }
     )
   ];

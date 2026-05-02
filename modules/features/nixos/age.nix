@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 {
-  config.bfmp.nixos.hosts.cherubim.modules = [
+  config.bfmp.nixos.sharedModules = [
     inputs.agenix.nixosModules.default
     (
       { config, ... }:

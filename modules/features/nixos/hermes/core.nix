@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 {
-  config.bfmp.nixos.hosts.cherubim.modules = [
+  config.bfmp.nixos.hosts.powers.modules = [
     inputs.hermes-agent.nixosModules.default
     (
       {
