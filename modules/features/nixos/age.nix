@@ -4,9 +4,9 @@
   config.bfmp.nixos.sharedModules = [
     inputs.agenix.nixosModules.default
     (
-      { config, ... }:
+      { config, pkgs, ... }:
       {
-        environment.systemPackages = [ inputs.agenix.packages.x86_64-linux.default ];
+        environment.systemPackages = [ inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default ];
         age.identityPaths = [ "/home/bruno/.ssh/id_personal" ];
       }
     )
