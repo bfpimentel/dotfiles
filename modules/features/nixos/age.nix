@@ -11,6 +11,34 @@
         age = {
           identityPaths = [ "/home/bruno/.ssh/id_personal" ];
           secrets = {
+            # General
+            nginx-env = {
+              file = ../../../secrets/nginx-env.age;
+              owner = "acme";
+              group = "nginx";
+              mode = "0440";
+            };
+
+            # Share
+            share-credentials = {
+              file = ../../../secrets/share-credentials.age;
+              owner = "bruno";
+              group = "bruno";
+            };
+
+            # Containers
+            bap-env = {
+              file = ../../../secrets/bap-env.age;
+              owner = "bruno";
+              group = "bruno";
+            };
+            immich-env = {
+              file = ../../../secrets/immich-env.age;
+              owner = "bruno";
+              group = "bruno";
+            };
+
+            # Hermes
             hermes-env = {
               file = ../../../secrets/hermes-env.age;
               owner = "hermes";
