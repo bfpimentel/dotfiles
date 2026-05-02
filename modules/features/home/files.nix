@@ -65,7 +65,6 @@
         }
         // mapDotfiles ([
           "hypr"
-          "openclaw"
           "quickshell"
           "sunshine"
         ]);

@@ -7,6 +7,15 @@
 
 let
   cfg = config.bfmp;
+
+  hmNixPkgsModule =
+
+    {
+      nixpkgs = {
+        overlays = cfg.hm.overlays;
+        config.allowUnfree = true;
+      };
+    };
 in
 {
   flake = {
@@ -15,32 +24,27 @@ in
       lib.nameValuePair "bruno@${hostname}" (
         inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages.${hostConfig.arch};
-
-          modules = [
-            {
-              nixpkgs = {
-                overlays = cfg.hm.overlays;
-                config = {
-                  allowUnfree = true;
-                  permittedInsecurePackages = [
-                    "openclaw-2026.4.21"
-                  ];
-                };
-              };
-            }
-          ]
-          ++ cfg.hm.sharedModules
-          ++ hostConfig.modules;
+          modules = [ hmNixPkgsModule ] ++ cfg.hm.sharedModules ++ hostConfig.modules;
         }
       )
     ) cfg.hm.hosts;
 
     nixosConfigurations = lib.mapAttrs (
-      _: hostConfig:
+      hostname: hostConfig:
+      let
+        homeHostConfig = cfg.hm.hosts.${hostname} or { modules = [ ]; };
+      in
       inputs.nixpkgs.lib.nixosSystem {
         modules = [
-          { nixpkgs.config.allowUnfree = true; }
+          hmNixPkgsModule
           inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.bruno.imports = cfg.hm.sharedModules ++ homeHostConfig.modules;
+            };
+          }
         ]
         ++ cfg.nixos.sharedModules
         ++ hostConfig.modules;

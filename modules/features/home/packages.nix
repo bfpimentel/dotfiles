@@ -49,7 +49,6 @@
           zsh
 
           bitwarden-cli
-          openclaw
           mcporter
 
           kitty
