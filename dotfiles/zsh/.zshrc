@@ -1,5 +1,19 @@
+
+HISTFILE="$ZDOTDIR/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+
 setopt AUTO_CD
 setopt INTERACTIVE_COMMENTS
+
+setopt APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_FCNTL_LOCK
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+setopt SHARE_HISTORY
 
 for file in $ZDOTDIR/conf.d/*.zsh(N); do
     source "$file"
