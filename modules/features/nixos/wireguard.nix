@@ -24,6 +24,10 @@ let
       publicKey = "j1jw7utTgzsueh42W0ESYQEawSPEZSJSsyzIP1w2CHU=";
       address = "10.64.0.10";
     })
+    (mkClient {
+      publicKey = "ioVFvdH7TJUB4ZE24JsTi1oOxu4KcEk0pWMI7qLnG0U=";
+      address = "10.64.0.11";
+    })
   ];
 in
 {

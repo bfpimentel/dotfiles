@@ -52,7 +52,6 @@
             "moonlight"
             "pearcleaner"
             "shottr"
-            "tailscale-app"
             "the-unarchiver"
             "vial"
             "wallspace"
