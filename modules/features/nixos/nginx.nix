@@ -2,12 +2,23 @@
 
 let
   acmeHost = "local.jalotopimentel.com";
-  mkProxyHost = port: {
+
+  mkLocalProxyHost = port: {
     useACMEHost = acmeHost;
     forceSSL = true;
 
     locations."/" = {
       proxyPass = "http://10.22.4.6:${toString port}";
+      proxyWebsockets = true;
+    };
+  };
+
+  mkRemoteProxyHost = address: {
+    useACMEHost = acmeHost;
+    forceSSL = true;
+
+    locations."/" = {
+      proxyPass = "http://${address}";
       proxyWebsockets = true;
     };
   };
@@ -38,13 +49,18 @@ in
           recommendedTlsSettings = true;
 
           virtualHosts = {
-            "bap.local.jalotopimentel.com" = mkProxyHost 6224;
-            "drip.local.jalotopimentel.com" = mkProxyHost 7123;
-            "photos.local.jalotopimentel.com" = mkProxyHost 2283;
-            "torrent.local.jalotopimentel.com" = mkProxyHost 8080;
-            "media.local.jalotopimentel.com" = mkProxyHost 8096;
-            "satellite.local.jalotopimentel.com" = mkProxyHost 6333;
-            "shady.local.jalotopimentel.com" = mkProxyHost 7112;
+            # Local
+            "bap.local.jalotopimentel.com" = mkLocalProxyHost 6224;
+            "drip.local.jalotopimentel.com" = mkLocalProxyHost 7123;
+            "photos.local.jalotopimentel.com" = mkLocalProxyHost 2283;
+            "torrent.local.jalotopimentel.com" = mkLocalProxyHost 8080;
+            "media.local.jalotopimentel.com" = mkLocalProxyHost 8096;
+            "satellite.local.jalotopimentel.com" = mkLocalProxyHost 6333;
+            "shady.local.jalotopimentel.com" = mkLocalProxyHost 7112;
+
+            # Remote
+            "storage.local.jalotopimentel.com" = mkRemoteProxyHost "10.22.4.4:2000";
+            "home.local.jalotopimentel.com" = mkRemoteProxyHost "10.22.4.3:8123";
           };
         };
 
