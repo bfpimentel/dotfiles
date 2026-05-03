@@ -9,7 +9,7 @@
           immich-server = {
             image = "ghcr.io/immich-app/immich-server:v2";
             pull = "always";
-            autoStart = false;
+            autoStart = true;
             dependsOn = [
               "immich-redis"
               "immich-postgres"
@@ -30,7 +30,7 @@
           immich-machine-learning = {
             image = "ghcr.io/immich-app/immich-machine-learning:v2";
             pull = "always";
-            autoStart = false;
+            autoStart = true;
             environmentFiles = [ config.age.secrets.immich-env.path ];
             volumes = [ "model-cache:/cache" ];
           };
@@ -38,19 +38,15 @@
           immich-redis = {
             image = "docker.io/valkey/valkey:9@sha256:546304417feac0874c3dd576e0952c6bb8f06bb4093ea0c9ca303c73cf458f63";
             pull = "always";
-            autoStart = false;
+            autoStart = true;
           };
 
           immich-postgres = {
             image = "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23";
             pull = "always";
-            autoStart = false;
-            # extraOptions = [ "--shm-size=128mb" ];
-            # environment = {
-            #   POSTGRES_INITDB_ARGS = "--data-checksums";
-            # };
+            autoStart = true;
             environmentFiles = [ config.age.secrets.immich-env.path ];
-            volumes = [ "/mnt/share/containers/immich/postgres:/var/lib/postgresql/data" ];
+            volumes = [ "/mnt/mass/containers/immich/postgres:/var/lib/postgresql/data" ];
           };
         };
 
@@ -60,7 +56,7 @@
             "/mnt/share/containers"
           ];
 
-          podman-immich-postgres.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
+          podman-immich-postgres.unitConfig.RequiresMountsFor = [ "/mnt/mass/containers" ];
         };
       }
     )

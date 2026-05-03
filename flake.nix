@@ -32,10 +32,6 @@
     agenix = {
       url = "github:ryantm/agenix";
     };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };

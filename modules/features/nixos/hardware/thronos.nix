@@ -3,6 +3,7 @@
 {
   config.bfmp.nixos.hosts.thronos.modules = [
     (
+      # Generated configuration. Override through other modules.
       {
         lib,
         modulesPath,
