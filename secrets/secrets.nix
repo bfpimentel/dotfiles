@@ -15,4 +15,8 @@ in
   # Hermes
   "hermes-env.age".publicKeys = [ bruno ];
   "hermes-auth.age".publicKeys = [ bruno ];
+
+  # WireGuard
+  "wireguard-thronos-private.age".publicKeys = [ bruno ];
+  "wireguard-powers-private.age".publicKeys = [ bruno ];
 }

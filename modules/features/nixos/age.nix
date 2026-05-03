@@ -55,6 +55,28 @@
             owner = "hermes";
             group = "hermes";
           };
+
+          # WireGuard
+          wireguard-powers-private = {
+            file = ../../../secrets/wireguard-powers-private.age;
+            owner = "systemd-network";
+            group = "systemd-network";
+            mode = "0400";
+          };
+        };
+      }
+    )
+  ];
+
+  config.bfmp.nixos.hosts.thronos.modules = [
+    (
+      { ... }:
+      {
+        age.secrets.wireguard-thronos-private = {
+          file = ../../../secrets/wireguard-thronos-private.age;
+          owner = "systemd-network";
+          group = "systemd-network";
+          mode = "0400";
         };
       }
     )
