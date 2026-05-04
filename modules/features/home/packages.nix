@@ -38,7 +38,14 @@
   ];
 
   config.bfmp.hm.hosts.seraphim.modules = [
-    ({ ... }: { })
+    (
+      { pkgs, ... }:
+      {
+        home.packages = with pkgs; [
+          rsync
+        ];
+      }
+    )
   ];
 
   config.bfmp.hm.hosts.cherubim.modules = [

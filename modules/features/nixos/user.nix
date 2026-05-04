@@ -3,13 +3,16 @@
 {
   config.bfmp.nixos.sharedModules = [
     (
-      { ... }:
+      { pkgs, ... }:
       {
+        programs.zsh.enable = true;
+
         nix.settings.trusted-users = [ "bruno" ];
 
         users.users.bruno = {
           isNormalUser = true;
           description = "Bruno Pimentel";
+          shell = pkgs.zsh;
           extraGroups = [
             "wheel"
             "video"

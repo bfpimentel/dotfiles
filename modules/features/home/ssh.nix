@@ -39,24 +39,25 @@
       in
       {
         programs.ssh.matchBlocks = {
-          "cherubim" = {
-            hostname = "10.22.4.10";
-            user = "bruno";
-            identityFile = "${home}/.ssh/id_personal";
-          };
-          "powers" = {
-            hostname = "10.22.4.6";
-            user = "bruno";
+          "virtues" = {
+            hostname = "10.22.4.3";
+            user = "root";
             identityFile = "${home}/.ssh/id_personal";
           };
           "dominions" = {
             hostname = "10.22.4.4";
             user = "root";
             identityFile = "${home}/.ssh/id_personal";
+            setEnv.TERM = "xterm";
           };
-          "virtues" = {
-            hostname = "10.22.4.3";
-            user = "root";
+          "powers" = {
+            hostname = "10.22.4.6";
+            user = "bruno";
+            identityFile = "${home}/.ssh/id_personal";
+          };
+          "cherubim" = {
+            hostname = "10.22.4.10";
+            user = "bruno";
             identityFile = "${home}/.ssh/id_personal";
           };
           "thronos" = {

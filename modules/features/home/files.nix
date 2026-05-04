@@ -20,6 +20,7 @@
         home.file = {
           "Documents/Vial".source = mapAbsolute "misc/vial";
           "Documents/Wallpapers".source = mapAbsolute "misc/wallpapers";
+          ".local/share/antidote".source = "${pkgs.antidote}/share/antidote";
           ".zshenv".text = zshEnv;
         }
         // mapDotfiles ([

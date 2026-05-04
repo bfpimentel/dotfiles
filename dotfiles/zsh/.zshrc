@@ -39,10 +39,23 @@ bindkey '^[[Z' reverse-menu-complete
 zsh_plugins_root="$ZDOTDIR/.zsh_plugins"
 zsh_plugins_txt="${zsh_plugins_root}.txt"
 zsh_plugins_bundle="${zsh_plugins_root}.zsh"
+oh_my_posh_bin="$(command -v oh-my-posh)"
+antidote_zsh=""
 
-source "$HOME/.nix-profile/share/antidote/antidote.zsh"
+for profile in "$HOME/.local" "$HOME/.nix-profile" "/etc/profiles/per-user/$USER" "/run/current-system/sw"; do
+    if [[ -r "$profile/share/antidote/antidote.zsh" ]]; then
+        antidote_zsh="$profile/share/antidote/antidote.zsh"
+        break
+    fi
+done
 
-if [[ -r "$zsh_plugins_txt" ]]; then
+if [[ -n "$antidote_zsh" ]]; then
+    source "$antidote_zsh"
+else
+    print -u2 "zsh: antidote.zsh not found in Nix profiles"
+fi
+
+if [[ -n "$antidote_zsh" && -r "$zsh_plugins_txt" ]]; then
     if [[ ! -r "$zsh_plugins_bundle" || "$zsh_plugins_txt" -nt "$zsh_plugins_bundle" ]]; then
         antidote bundle < "$zsh_plugins_txt" >| "$zsh_plugins_bundle"
     fi
@@ -50,4 +63,8 @@ if [[ -r "$zsh_plugins_txt" ]]; then
     source "$zsh_plugins_bundle"
 fi
 
-eval "$(~/.nix-profile/bin/oh-my-posh init zsh --config $ZDOTDIR/bfmp.toml)"
+if [[ -n "$oh_my_posh_bin" ]]; then
+    eval "$("$oh_my_posh_bin" init zsh --config "$ZDOTDIR/bfmp.toml")"
+else
+    print -u2 "zsh: oh-my-posh not found in PATH"
+fi
