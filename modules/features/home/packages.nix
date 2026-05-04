@@ -18,7 +18,6 @@
           curl
           git
           lazygit
-          tmux
           wget
           uv
 
@@ -42,6 +41,7 @@
       { pkgs, ... }:
       {
         home.packages = with pkgs; [
+          tmux
           rsync
         ];
       }
