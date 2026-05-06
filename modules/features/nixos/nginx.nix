@@ -50,17 +50,18 @@ in
 
           virtualHosts = {
             # Local
-            "bap.local.jalotopimentel.com" = mkLocalProxyHost 6224;
-            "drip.local.jalotopimentel.com" = mkLocalProxyHost 7123;
-            "photos.local.jalotopimentel.com" = mkLocalProxyHost 2283;
-            "torrent.local.jalotopimentel.com" = mkLocalProxyHost 8080;
-            "media.local.jalotopimentel.com" = mkLocalProxyHost 8096;
-            "satellite.local.jalotopimentel.com" = mkLocalProxyHost 6333;
-            "shady.local.jalotopimentel.com" = mkLocalProxyHost 7112;
+            "bap.${acmeHost}" = mkLocalProxyHost 6224;
+            "dash.${acmeHost}" = mkLocalProxyHost 7112;
+            "drip.${acmeHost}" = mkLocalProxyHost 7123;
+            "media.${acmeHost}" = mkLocalProxyHost 8096;
+            "photos.${acmeHost}" = mkLocalProxyHost 2283;
+            "satellite.${acmeHost}" = mkLocalProxyHost 6333;
+            "torrent.${acmeHost}" = mkLocalProxyHost 8080;
 
             # Remote
-            "storage.local.jalotopimentel.com" = mkRemoteProxyHost "10.22.4.4:2000";
-            "home.local.jalotopimentel.com" = mkRemoteProxyHost "10.22.4.3:8123";
+            "home.${acmeHost}" = mkRemoteProxyHost "10.22.4.3:8123";
+            "storage.${acmeHost}" = mkRemoteProxyHost "10.22.4.4:2000";
+            "streaming.${acmeHost}" = mkRemoteProxyHost "10.22.4.10:47990";
           };
         };
 

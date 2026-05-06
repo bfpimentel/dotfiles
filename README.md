@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a heavily opinionated and personal dotfiles repository using Nix and the Dendritic pattern.
+This is a heavily opinionated and personal dotfiles repository using Nix with the Dendritic pattern.
 
 It's intended to be fully reproducible, although I'm not ensuring anything.
 
@@ -11,9 +11,9 @@ Most app configuration lives in `dotfiles/` and is linked with Home Manager help
 ## Hosts
 
 - `seraphim`: Macbook Pro (`aarch64-darwin`) with Home Manager, Homebrew.
-- `cherubim`: Linux desktop (`x86_64-linux`) with NixOS, Display Manager (Hyprland), Game streaming setup.
-- `powers`: Linux mini PC (`x86_64-linux`) with NixOS, Hermes, containers.
-- `thronos`: Linux OCI server (`aarch64-linux`) with NixOS, WIP.
+- `cherubim`: NixOS Host (`x86_64-linux`), Display Manager (Hyprland), Game streaming setup.
+- `powers`: NixOS Host (`x86_64-linux`), Hermes, containers.
+- `thronos`: NixOS Host (`aarch64-linux`), Wireguard Tunnel for local network.
 
 ## Structure
 

@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "plugin": [],
   "small_model": "opencode/gpt-5-nano",
   "mcp": {
     "exa": {

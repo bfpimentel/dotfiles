@@ -21,6 +21,4 @@ Pack.later(function()
     "tailwindcss",
     "yaml",
   })
-
-  vim.lsp.inline_completion.enable()
 end)

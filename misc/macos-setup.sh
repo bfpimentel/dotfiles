@@ -56,7 +56,8 @@ defaults write com.apple.dock "wvous-bl-corner" -int 0
 defaults write com.apple.dock "wvous-br-corner" -int 0
 
 # Screenshots
-defaults write com.apple.screencapture location "$HOME/Documents/Screenshots"
+defaults write com.apple.screencapture "location" "$HOME/Documents/Screenshots"
+defaults write com.apple.iphonesimulator "ScreenShotSaveLocation" -string "$HOME/Documents/Screenshots"
 
 # Feedback
 defaults write com.apple.appleseed.FeedbackAssistant "Autogather" -bool "false"
@@ -71,5 +72,6 @@ defaults write com.apple.LaunchServices "LSQuarantine" -bool "false"
 killall Finder &>/dev/null
 killall Dock &>/dev/null
 killall SystemUIServer &>/dev/null
+killall Simulator &>/dev/null
 
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
