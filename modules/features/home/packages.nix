@@ -8,7 +8,6 @@
         home.packages = with pkgs; [
           nh
 
-          # direnv
           bun
           nodejs_25
 
@@ -43,6 +42,7 @@
         home.packages = with pkgs; [
           tmux
           rsync
+          direnv
         ];
       }
     )

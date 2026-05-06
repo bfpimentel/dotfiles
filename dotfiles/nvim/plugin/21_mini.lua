@@ -258,6 +258,19 @@ Pack.now(function()
     return not is_directory and not is_scratch
   end
 
+  local function pick_files()
+    if vim.fn.executable("rg") ~= 1 then return MiniPick.builtin.files() end
+
+    MiniPick.builtin.cli({
+      command = { "rg", "--files", "--hidden", "--glob", "!**/.git/**", "--color=never" },
+    }, {
+      source = {
+        name = "Files (rg)",
+        show = function(buf_id, items, query) MiniPick.default_show(buf_id, items, query, { show_icons = true }) end,
+      },
+    })
+  end
+
   Util.map_keys({
     -- stylua: ignore start
     { "<leader>,",  function() MiniPick.builtin.buffers() end, opts = { desc = "Buffers" } },
@@ -266,7 +279,7 @@ Pack.now(function()
     { "<leader>hc", function() MiniExtra.pickers.history({ scope = ":" }) end, opts = { desc = "Commands History" } },
     { "<leader>hs", function() MiniExtra.pickers.history({ scope = "/" }) end, opts = { desc = "Search History" } },
     -- Files
-    { "<leader>fp", function() MiniPick.builtin.files() end, opts = { desc = "Files" } },
+    { "<leader>fp", function() pick_files() end, opts = { desc = "Files" } },
     { "<leader>fr", function() MiniExtra.pickers.visit_paths({ cwd = nil, recency_weight = 1, filter = filter_visits }) end, opts = { desc = "Recent Files" } },
     -- Search
     { '<leader>s"', function() MiniExtra.pickers.registers() end, opts = { desc = "Registers" } },
