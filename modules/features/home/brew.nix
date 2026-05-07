@@ -42,6 +42,7 @@
             "anydesk"
             "betterdisplay"
             "bruno"
+            "codex-app"
             "eqmac"
             "helium-browser"
             "hiddenbar"
