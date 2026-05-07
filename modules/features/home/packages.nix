@@ -29,7 +29,6 @@
           lua
 
           opencode
-          codex
         ];
       }
     )
