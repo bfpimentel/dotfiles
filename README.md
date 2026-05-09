@@ -31,7 +31,7 @@ Most app configuration lives in `dotfiles/` and is linked with Home Manager help
         └── nixos              # NixOS boot, users, networking, display, secrets, services
             ├── hardware       # Host hardware definitions
             ├── hermes         # Hermes agent service and documents
-            └── containers     # OCI declarative containers (podman)
+            └── containers     # OCI declarative containers (docker)
 ```
 
 ## Design

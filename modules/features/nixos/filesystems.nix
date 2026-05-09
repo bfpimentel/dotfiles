@@ -27,9 +27,7 @@
           options = [
             "rw"
             "uid=1000"
-            "gid=100"
-            "forceuid"
-            "forcegid"
+            "gid=1000"
             "file_mode=0660"
             "dir_mode=0770"
             "credentials=${config.age.secrets.share-credentials.path}"
