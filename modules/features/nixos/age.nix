@@ -29,19 +29,24 @@
           share-credentials = {
             file = ../../../secrets/share-credentials.age;
             owner = "bruno";
-            group = "users";
+            group = "bruno";
           };
 
           # Containers
           bap-env = {
             file = ../../../secrets/bap-env.age;
             owner = "bruno";
-            group = "users";
+            group = "bruno";
           };
           immich-env = {
             file = ../../../secrets/immich-env.age;
             owner = "bruno";
-            group = "users";
+            group = "bruno";
+          };
+          searxng-env = {
+            file = ../../../secrets/searxng-env.age;
+            owner = "bruno";
+            group = "bruno";
           };
 
           # Hermes

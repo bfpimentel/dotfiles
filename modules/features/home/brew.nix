@@ -13,10 +13,6 @@
               repo = "https://github.com/nikitabobko/tap.git";
             }
             {
-              name = "jsattler/tap";
-              repo = "https://github.com/jsattler/tap.git";
-            }
-            {
               name = "mikker/tap";
               repo = "https://github.com/mikker/tap.git";
             }
@@ -33,7 +29,6 @@
           ];
 
           casks = [
-            "jsattler/tap/bettercapture"
             "mikker/tap/tuna"
             "nikitabobko/tap/aerospace"
 

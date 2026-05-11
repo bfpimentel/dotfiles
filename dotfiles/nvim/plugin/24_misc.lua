@@ -32,12 +32,17 @@ Pack.later(function()
 end)
 
 Pack.on_filetype("markdown", function()
-  Pack.add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
+  Pack.add({ "https://github.com/OXY2DEV/markview.nvim" })
 
-  require("render-markdown").setup({})
+  require("markview").setup({
+    preview = {
+      enable_hybrid_mode = true,
+      hybrid_modes = { "n" },
+    },
+  })
 
   Util.map_keys({
-    { "<leader>rm", ":RenderMarkdown toggle<CR>", opts = { desc = "Render Markdown" } },
+    { "<leader>rm", ":Markview toggle<CR>", opts = { desc = "Render Markdown" } },
   })
 end)
 

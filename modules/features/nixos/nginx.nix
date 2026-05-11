@@ -57,6 +57,7 @@ in
             "media.${acmeHost}" = mkLocalProxyHost 8096;
             "photos.${acmeHost}" = mkLocalProxyHost 2283;
             "satellite.${acmeHost}" = mkLocalProxyHost 6333;
+            "search.${acmeHost}" = mkLocalProxyHost 7114;
             "torrent.${acmeHost}" = mkLocalProxyHost 8080;
 
             # Remote
