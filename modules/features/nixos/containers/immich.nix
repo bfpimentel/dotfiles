@@ -3,7 +3,12 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { config, pkgs, ... }:
+      {
+        config,
+        pkgs,
+        util,
+        ...
+      }:
       {
         virtualisation.oci-containers.containers = {
           immich-server = {
@@ -51,9 +56,9 @@
         };
 
         systemd.services = {
-          podman-immich-server.unitConfig.RequiresMountsFor = [
-            "/mnt/share/photos"
-            "/mnt/share/containers"
+          podman-immich-server = util.mkContainerWaitMount [
+            "mnt-share-photos.automount"
+            "mnt-share-containers.automount"
           ];
 
           podman-immich-postgres.unitConfig.RequiresMountsFor = [ "/mnt/mass/containers" ];

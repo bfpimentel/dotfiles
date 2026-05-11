@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { ... }:
+      { util, ... }:
       {
         virtualisation.oci-containers.containers.satellite = {
           image = "ghcr.io/bfpimentel/satellite:latest";
@@ -17,7 +17,7 @@
           };
         };
 
-        systemd.services.podman-satellite.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
+        systemd.services.podman-satellite = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
       }
     )
   ];

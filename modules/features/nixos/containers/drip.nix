@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { ... }:
+      { util, ... }:
       {
         virtualisation.oci-containers.containers.drip = {
           image = "ghcr.io/bfpimentel/drip:latest";
@@ -20,7 +20,7 @@
           };
         };
 
-        systemd.services.podman-drip.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
+        systemd.services.podman-drip = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
       }
     )
   ];

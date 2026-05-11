@@ -31,6 +31,12 @@
             "file_mode=0660"
             "dir_mode=0770"
             "credentials=${config.age.secrets.share-credentials.path}"
+            "_netdev"
+            "nofail"
+            "noauto"
+            "x-systemd.automount"
+            "x-systemd.idle-timeout=10min"
+            "x-systemd.mount-timeout=15s"
           ];
         };
       in

@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { ... }:
+      { util, ... }:
       {
         virtualisation.oci-containers.containers = {
           qbittorrent = {
@@ -56,14 +56,14 @@
         };
 
         systemd.services = {
-          podman-qbittorrent.unitConfig.RequiresMountsFor = [
-            "/mnt/share/containers"
-            "/mnt/share/downloads"
+          podman-qbittorrent = util.mkContainerWaitMount [
+            "mnt-share-containers.automount"
+            "mnt-share-downloads.automount"
           ];
 
-          podman-jellyfin.unitConfig.RequiresMountsFor = [
-            "/mnt/share/containers"
-            "/mnt/share/media"
+          podman-jellyfin = util.mkContainerWaitMount [
+            "mnt-share-containers.automount"
+            "mnt-share-media.automount"
           ];
         };
       }

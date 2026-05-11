@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { ... }:
+      { util, ... }:
       {
         virtualisation.oci-containers.containers.shady = {
           image = "ghcr.io/bfpimentel/shady:latest";
@@ -17,7 +17,7 @@
           ];
         };
 
-        systemd.services.podman-shady.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
+        systemd.services.podman-shady = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
       }
     )
   ];

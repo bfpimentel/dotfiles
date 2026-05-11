@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { config, ... }:
+      { config, util, ... }:
       {
         virtualisation.oci-containers.containers = {
           searxng = {
@@ -46,8 +46,8 @@
         };
 
         systemd.services = {
-          podman-searxng.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
-          podman-searxng-valkey.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
+          podman-searxng = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
+          podman-searxng-valkey = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
         };
       }
     )

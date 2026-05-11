@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { ... }:
+      { util, ... }:
       {
         virtualisation.oci-containers.containers.dozzle = {
           image = "ghcr.io/amir20/dozzle:latest";
@@ -20,7 +20,7 @@
           };
         };
 
-        systemd.services.podman-dozzle.unitConfig.RequiresMountsFor = [ "/mnt/share/containers" ];
+        systemd.services.podman-dozzle = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
       }
     )
   ];
