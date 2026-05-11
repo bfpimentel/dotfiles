@@ -14,7 +14,7 @@
             environment = {
               SEARXNG_BASE_URL = "https://search.local.jalotopimentel.com/";
               SEARXNG_BIND_ADDRESS = "0.0.0.0";
-              SEARXNG_LIMITER = "true";
+              SEARXNG_LIMITER = "false";
               SEARXNG_VALKEY_URL = "valkey://searxng-valkey:6379/0";
             };
             environmentFiles = [ config.age.secrets.searxng-env.path ];
