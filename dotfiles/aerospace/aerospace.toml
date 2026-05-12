@@ -14,7 +14,11 @@ default-root-container-orientation = 'horizontal'
 
 on-focused-monitor-changed = [ 'move-mouse monitor-lazy-center' ]
 
-exec-on-workspace-change = [ '/bin/bash', '-c', '/Users/bruno/.config/aerospace/handle-pip.sh' ]
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  '/Users/bruno/.config/aerospace/handle-pip.sh'
+]
 
 after-startup-command = [
   'exec-and-forget /Users/bruno/.nix-profile/bin/borders'

@@ -32,6 +32,16 @@
             group = "bruno";
           };
 
+          # Restic
+          restic-env = {
+            file = ../../../secrets/restic-env.age;
+            mode = "0400";
+          };
+          restic-password = {
+            file = ../../../secrets/restic-password.age;
+            mode = "0400";
+          };
+
           # Containers
           bap-env = {
             file = ../../../secrets/bap-env.age;

@@ -8,6 +8,10 @@ in
   # Share
   "share-credentials.age".publicKeys = [ bruno ];
 
+  # Restic
+  "restic-env.age".publicKeys = [ bruno ];
+  "restic-password.age".publicKeys = [ bruno ];
+
   # Containers
   "bap-env.age".publicKeys = [ bruno ];
   "immich-env.age".publicKeys = [ bruno ];
