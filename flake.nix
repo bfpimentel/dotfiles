@@ -18,13 +18,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    homebrew = {
-      url = "github:koalalorenzo/home-manager-brew";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    brew-api = {
+      url = "github:bfpimentel/brew-api";
+      flake = false;
+    };
+    brew-nix = {
+      url = "github:BatteredBunny/brew-nix";
+      inputs.brew-api.follows = "brew-api";
     };
     hermes-agent = {
       url = "github:nousresearch/hermes-agent";

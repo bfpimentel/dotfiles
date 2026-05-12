@@ -11,6 +11,7 @@
 
     overlays = [
       inputs.neovim-nightly.overlays.default
+      inputs.brew-nix.overlays.default
     ];
   };
 

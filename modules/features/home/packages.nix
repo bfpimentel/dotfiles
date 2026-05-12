@@ -37,12 +37,56 @@
   config.bfmp.hm.hosts.seraphim.modules = [
     (
       { pkgs, ... }:
-      {
-        home.packages = with pkgs; [
-          tmux
-          rsync
-          direnv
+      let
+        casks = with pkgs.brewCasks; [
+          # Custom Taps
+          aerospace
+          # tuna # Not working right now. Installed manually.
+
+          altserver
+          betterdisplay
+          bruno
+          codex-app
+          helium-browser
+          hiddenbar
+          kitty
+          lm-studio
+          moonlight
+          pearcleaner
+          shottr
+          the-unarchiver
+          vial
+          wallspace
+          xcodes-app
+
+          (anydesk.overrideAttrs (oldAttrs: {
+            src = pkgs.fetchurl {
+              url = builtins.head oldAttrs.src.urls;
+              hash = "sha256-LLq0NjqBe7CCb31ksYn5VkBLVF98GSlV5AOb9H5ihhU=";
+            };
+          }))
+          (ankerwork.overrideAttrs (oldAttrs: {
+            src = pkgs.fetchurl {
+              url = builtins.head oldAttrs.src.urls;
+              hash = "sha256-1Wo7ZPJdrsf01NQbQsFAh+kCRJSexSC/vX3vyy+qFD0=";
+            };
+          }))
         ];
+      in
+      {
+        home.packages =
+          with pkgs;
+          [
+            tmux
+            rsync
+            direnv
+            jankyborders
+
+            nerd-fonts.symbols-only
+            nerd-fonts.victor-mono
+            nerd-fonts.iosevka
+          ]
+          ++ casks;
       }
     )
   ];
