@@ -15,16 +15,8 @@ path=(
 )
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
-    export BREWPREFIX="/opt/homebrew"
-
     path=(
-        "$BREWPREFIX/bin"
-        "$BREWPREFIX/sbin"
         "$HOME/.lmstudio/bin"
         $path
     )
-
-    if [[ -x "$BREWPREFIX/bin/brew" ]]; then
-        eval "$("$BREWPREFIX/bin/brew" shellenv)"
-    fi
 fi

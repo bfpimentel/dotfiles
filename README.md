@@ -10,7 +10,7 @@ Most app configuration lives in `dotfiles/` and is linked with Home Manager help
 
 ## Hosts
 
-- `seraphim`: Macbook Pro (`aarch64-darwin`) with Home Manager, Homebrew.
+- `seraphim`: Macbook Pro (`aarch64-darwin`) with Home Manager, Declarative Homebrew Casks.
 - `cherubim`: NixOS Host (`x86_64-linux`), Display Manager (Hyprland), Game streaming setup.
 - `powers`: NixOS Host (`x86_64-linux`), Hermes, containers.
 - `thronos`: NixOS Host (`aarch64-linux`), Wireguard Tunnel for local network.
