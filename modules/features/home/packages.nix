@@ -40,7 +40,6 @@
       let
         casks = with pkgs.brewCasks; [
           # Custom Taps
-          aerospace
           # tuna # Not working right now. Installed manually.
 
           altserver
@@ -77,10 +76,12 @@
         home.packages =
           with pkgs;
           [
+            aerospace
+            jankyborders
+
             tmux
             rsync
             direnv
-            jankyborders
 
             nerd-fonts.symbols-only
             nerd-fonts.victor-mono

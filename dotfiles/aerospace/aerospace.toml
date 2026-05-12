@@ -12,17 +12,18 @@ accordion-padding = 0
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'horizontal'
 
-after-login-command = []
-
 on-focused-monitor-changed = [ 'move-mouse monitor-lazy-center' ]
 
-exec-on-workspace-change = [ '/bin/bash', '-c', '~/.config/aerospace/handle-pip.sh' ]
+exec-on-workspace-change = [ '/bin/bash', '-c', '/Users/bruno/.config/aerospace/handle-pip.sh' ]
 
 after-startup-command = [
-  'exec-and-forget borders'
+  'exec-and-forget /Users/bruno/.nix-profile/bin/borders'
 ]
 
 persistent-workspaces = [ 'B', 'W', 'M', 'T', 'X' ]
+
+[exec.env-vars]
+PATH = '/Users/bruno/.nix-profile/bin/:${PATH}'
 
 [workspace-to-monitor-force-assignment]
 T = [ 'secondary', 'main' ]
@@ -39,6 +40,7 @@ inner.vertical =   8
 [mode.main.binding]
 cmd-h = []
 cmd-alt-h = []
+cmd-m = []
 
 alt-semicolon = [ 'mode service' ]
 
@@ -83,11 +85,6 @@ run = ['layout tiling', 'move-node-to-workspace T']
 check-further-callbacks = true
 
 [[on-window-detected]]
-if.app-id = 'com.sertacozercan.Kaset'
-run = ['layout tiling', 'move-node-to-workspace M']
-check-further-callbacks = true
-
-[[on-window-detected]]
 if.window-title-regex-substring = 'Helium - Bruno'
 run = ['move-node-to-workspace B']
 check-further-callbacks = true
@@ -99,7 +96,7 @@ check-further-callbacks = true
 
 [[on-window-detected]]
 if.app-id = 'net.imput.helium'
-if.window-title-regex-substring = 'Picture-in-Picture'
+if.window-title-regex-substring = 'Picture in Picture'
 run = ['layout floating']
 check-further-callbacks = true
 
