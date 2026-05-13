@@ -13,6 +13,8 @@
         ];
       in
       {
+        environment.systemPackages = with pkgs; [ restic ];
+
         services.restic.backups.${backupName} = {
           initialize = false;
           environmentFile = config.age.secrets.restic-env.path;
@@ -24,6 +26,11 @@
             "photos"
           ];
 
+          exclude = [
+            "containers/immich/postgres"
+            "containers/nginx/letsencrypt"
+          ];
+
           timerConfig = {
             OnCalendar = "*-*-* 03:00:00";
             Persistent = true;
@@ -31,6 +38,8 @@
 
           pruneOpts = [
             "--keep-last 7"
+            "--keep-weekly 4"
+            "--keep-monthly 12"
           ];
 
           backupPrepareCommand = ''

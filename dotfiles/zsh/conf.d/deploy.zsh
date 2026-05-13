@@ -118,17 +118,6 @@ EOF
             "$repo"/ \
             "$host:~/.dotfiles/" || return 1
 
-        deploy_step "authenticate sudo" "running"
-
-        ssh -t "$host" "sudo -v"
-
-        if [[ "$?" -ne 0 ]]; then
-            deploy_hosts[$host]="failed"
-            deploy_step "authenticate sudo" "failed"
-            return 1
-        fi
-
-        deploy_step "authenticate sudo" "ok"
         deploy_step "nixos-rebuild switch" "running"
 
         deploy_run_quiet "nixos-rebuild switch" nix run nixpkgs#nixos-rebuild -- switch \

@@ -85,12 +85,12 @@ fi
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
     eval "$(direnv hook zsh)"
-fi
 
-if [[ -z "$TMUX" ]]; then
-    if tmux has-session 2>/dev/null; then
-        exec tmux attach
-    else
-        exec tmux
+    if [[ -z "$TMUX" ]]; then
+        if tmux has-session 2>/dev/null; then
+            exec tmux attach
+        else
+            exec tmux
+        fi
     fi
 fi

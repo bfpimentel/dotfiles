@@ -1,6 +1,7 @@
 --- @type vim.lsp.Config
 return {
-  cmd = { "tsgo", "--lsp", "-stdio" },
+  -- cmd = { "tsgo", "--lsp", "-stdio" },
+  cmd = { "typescript-language-server", "--stdio" },
   filetypes = {
     "javascript",
     "javascriptreact",
