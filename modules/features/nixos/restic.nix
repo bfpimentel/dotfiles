@@ -38,18 +38,27 @@
 
           pruneOpts = [
             "--keep-last 7"
-            "--keep-weekly 4"
-            "--keep-monthly 12"
           ];
 
           backupPrepareCommand = ''
             set -euo pipefail
-            ${pkgs.systemd}/bin/systemctl stop 'podman-*.service'
+
+            units_file="$RUNTIME_DIRECTORY/podman-units"
+            ${pkgs.systemd}/bin/systemctl list-units 'podman-*.service' --state=active --plain --no-legend \
+              | ${pkgs.gawk}/bin/awk '{print $1}' > "$units_file"
+
+            if [ -s "$units_file" ]; then
+              ${pkgs.systemd}/bin/systemctl stop $(cat "$units_file")
+            fi
           '';
 
           backupCleanupCommand = ''
             set -euo pipefail
-            ${pkgs.systemd}/bin/systemctl start 'podman-*.service'
+
+            units_file="$RUNTIME_DIRECTORY/podman-units"
+            if [ -s "$units_file" ]; then
+              ${pkgs.systemd}/bin/systemctl start $(cat "$units_file")
+            fi
           '';
         };
 
@@ -59,7 +68,10 @@
             After = shareAutomounts;
           };
 
-          serviceConfig.WorkingDirectory = "/mnt/share";
+          serviceConfig = {
+            WorkingDirectory = "/mnt/share";
+            RuntimeDirectory = "restic-backups-${backupName}";
+          };
         };
       }
     )
