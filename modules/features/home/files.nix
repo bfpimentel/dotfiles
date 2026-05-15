@@ -48,6 +48,7 @@
           // mapDotfiles ([
             "aerospace"
             "borders"
+            "pi"
             "tuna"
           ]);
       }

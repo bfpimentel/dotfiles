@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   config.bfmp.hm.sharedModules = [
@@ -76,6 +76,8 @@
         home.packages =
           with pkgs;
           [
+            inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+
             aerospace
             jankyborders
 

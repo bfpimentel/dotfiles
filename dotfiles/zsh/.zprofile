@@ -15,6 +15,8 @@ path=(
 )
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
+    export PI_CODING_AGENT_DIR="$HOME/.config/pi/agent"
+
     path=(
         "$HOME/.lmstudio/bin"
         $path
