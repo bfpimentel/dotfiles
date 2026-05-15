@@ -3,6 +3,12 @@
 let
   acmeHost = "local.jalotopimentel.com";
 
+  extraConfig = ''
+    client_max_body_size 0;
+    proxy_request_buffering off;
+    proxy_max_temp_file_size 0;
+  '';
+
   mkLocalProxyHost = port: {
     useACMEHost = acmeHost;
     forceSSL = true;
@@ -10,6 +16,7 @@ let
     locations."/" = {
       proxyPass = "http://10.22.4.6:${toString port}";
       proxyWebsockets = true;
+      extraConfig = extraConfig;
     };
   };
 
@@ -20,6 +27,7 @@ let
     locations."/" = {
       proxyPass = "http://${address}";
       proxyWebsockets = true;
+      extraConfig = extraConfig;
     };
   };
 in
