@@ -5,7 +5,6 @@
   "defaultThinkingLevel": "low",
   "theme": "dark",
   "enableInstallTelemetry": false,
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "editorPaddingX": 1
 }
-
