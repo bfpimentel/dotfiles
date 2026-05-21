@@ -3,8 +3,15 @@
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "low",
-  "theme": "dark",
+  "shellPath": "/bin/zsh",
+  "theme": "everforest",
   "enableInstallTelemetry": false,
   "hideThinkingBlock": true,
-  "editorPaddingX": 1
+  "editorPaddingX": 1,
+  "quietStartup": false,
+  "doubleEscapeAction": "tree",
+  "transport": "auto",
+  "terminal": {
+    "showTerminalProgress": true
+  }
 }

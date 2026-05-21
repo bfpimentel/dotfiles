@@ -74,6 +74,7 @@ alt-shift-l = 'move right'
 esc = [ 'mode main' ]
 r = [ 'reload-config', 'mode main' ]
 f = [ 'layout floating tiling' ]
+m = "exec-and-forget osascript -e 'tell application \"System Events\" to tell dock preferences to set autohide menu bar to not (get autohide menu bar)'"
 
 minus = 'resize smart -50'
 equal = 'resize smart +50'
