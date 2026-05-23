@@ -13,5 +13,8 @@
   "transport": "auto",
   "terminal": {
     "showTerminalProgress": true
-  }
+  },
+  "packages": [
+    "git:github.com/code-yeongyu/pi-apply-patch"
+  ]
 }
