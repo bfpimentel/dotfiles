@@ -69,6 +69,7 @@ in
             "torrent.${acmeHost}" = mkLocalProxyHost 8080;
 
             # Remote
+            "dns.${acmeHost}" = mkRemoteProxyHost "10.22.4.7:3000";
             "home.${acmeHost}" = mkRemoteProxyHost "10.22.4.3:8123";
             "storage.${acmeHost}" = mkRemoteProxyHost "10.22.4.4:2000";
             "streaming.${acmeHost}" = mkRemoteProxyHost "10.22.4.10:47990";

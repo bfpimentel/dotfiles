@@ -14,16 +14,16 @@
         programs.ssh = {
           enable = true;
           enableDefaultConfig = false;
-          matchBlocks = {
+          settings = {
             "github.com" = {
-              hostname = "github.com";
-              user = "bfpimentel";
-              identityFile = "${home}/.ssh/id_personal";
+              HostName = "github.com";
+              User = "bfpimentel";
+              IdentityFile = "${home}/.ssh/id_personal";
             };
             "*" = {
-              addKeysToAgent = "yes";
-              serverAliveInterval = 25;
-              forwardAgent = true;
+              AddKeysToAgent = "yes";
+              ServerAliveInterval = 25;
+              ForwardAgent = true;
             };
           };
         };
@@ -38,32 +38,32 @@
         home = config.home.homeDirectory;
       in
       {
-        programs.ssh.matchBlocks = {
+        programs.ssh.settings = {
           "virtues" = {
-            hostname = "10.22.4.3";
-            user = "root";
-            identityFile = "${home}/.ssh/id_personal";
+            HostName = "10.22.4.3";
+            User = "root";
+            IdentityFile = "${home}/.ssh/id_personal";
           };
           "dominions" = {
-            hostname = "10.22.4.4";
-            user = "root";
-            identityFile = "${home}/.ssh/id_personal";
-            setEnv.TERM = "xterm";
+            HostName = "10.22.4.4";
+            User = "root";
+            IdentityFile = "${home}/.ssh/id_personal";
+            SetEnv.TERM = "xterm";
           };
           "powers" = {
-            hostname = "10.22.4.6";
-            user = "bruno";
-            identityFile = "${home}/.ssh/id_personal";
+            HostName = "10.22.4.6";
+            User = "bruno";
+            IdentityFile = "${home}/.ssh/id_personal";
           };
           "cherubim" = {
-            hostname = "10.22.4.10";
-            user = "bruno";
-            identityFile = "${home}/.ssh/id_personal";
+            HostName = "10.22.4.10";
+            User = "bruno";
+            IdentityFile = "${home}/.ssh/id_personal";
           };
           "thronos" = {
-            hostname = "159.112.184.83";
-            user = "bruno";
-            identityFile = "${home}/.ssh/id_personal";
+            HostName = "159.112.184.83";
+            User = "bruno";
+            IdentityFile = "${home}/.ssh/id_personal";
           };
         };
       }

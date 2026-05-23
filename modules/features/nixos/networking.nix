@@ -52,7 +52,10 @@
 
         systemd.network.networks."10-default" = {
           matchConfig.Name = "eno1";
-          address = [ "10.22.4.6/24" ];
+          address = [
+            "10.22.4.6/24"
+            "10.22.4.7/24"
+          ];
           routes = [ { Gateway = "10.22.4.1"; } ];
           networkConfig = {
             DHCP = "no";
