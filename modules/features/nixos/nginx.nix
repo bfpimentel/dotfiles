@@ -67,7 +67,7 @@ in
             "photos.${acmeHost}" = mkLocalProxyHost 2283;
             "satellite.${acmeHost}" = mkLocalProxyHost 6333;
             "search.${acmeHost}" = mkLocalProxyHost 7114;
-            "torrent.${acmeHost}" = mkLocalProxyHost 8080;
+            "torrent.${acmeHost}" = mkLocalProxyHost 6882;
 
             # Remote
             "dns.${acmeHost}" = mkRemoteProxyHost "10.22.4.7:3000";

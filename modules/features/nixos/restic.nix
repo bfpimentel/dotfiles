@@ -6,11 +6,6 @@
       { config, pkgs, ... }:
       let
         backupName = "shares";
-        shareAutomounts = [
-          "mnt-share-containers.automount"
-          "mnt-share-homeassistant.automount"
-          "mnt-share-photos.automount"
-        ];
       in
       {
         environment.systemPackages = with pkgs; [ restic ];
@@ -21,9 +16,9 @@
           passwordFile = config.age.secrets.restic-password.path;
 
           paths = [
-            "containers"
-            "homeassistant"
-            "photos"
+            "/mnt/mass/containers"
+            "/mnt/share/homeassistant"
+            "/mnt/share/photos"
           ];
 
           exclude = [
@@ -62,17 +57,22 @@
           '';
         };
 
-        systemd.services."restic-backups-${backupName}" = {
-          unitConfig = {
-            Wants = shareAutomounts;
-            After = shareAutomounts;
-          };
+        systemd.services."restic-backups-${backupName}" =
+          let
+            shareAutomounts = [
+              "mnt-share-photos.automount"
+            ];
+          in
+          {
+            unitConfig = {
+              Wants = shareAutomounts;
+              After = shareAutomounts;
+            };
 
-          serviceConfig = {
-            WorkingDirectory = "/mnt/share";
-            RuntimeDirectory = "restic-backups-${backupName}";
+            serviceConfig = {
+              RuntimeDirectory = "restic-backups-${backupName}";
+            };
           };
-        };
       }
     )
   ];

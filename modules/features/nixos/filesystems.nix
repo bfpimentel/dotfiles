@@ -52,7 +52,6 @@
             ];
           };
 
-          "/mnt/share/containers" = mkNasShare "containers";
           "/mnt/share/downloads" = mkNasShare "downloads";
           "/mnt/share/homeassistant" = mkNasShare "homeassistant";
           "/mnt/share/media" = mkNasShare "media";

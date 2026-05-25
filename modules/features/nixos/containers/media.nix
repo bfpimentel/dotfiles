@@ -5,6 +5,11 @@
     (
       { util, ... }:
       {
+        systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/qbittorrent/data 0755 1000 1000 -"
+          "d /mnt/mass/containers/jellyfin/data 0755 1000 1000 -"
+        ];
+
         virtualisation.oci-containers.containers = {
           qbittorrent = {
             image = "lscr.io/linuxserver/qbittorrent:latest";
@@ -18,12 +23,12 @@
               TORRENTING_PORT = "6881";
             };
             ports = [
-              "8080:8080"
+              "6882:8080"
               "6881:6881"
               "6881:6881/udp"
             ];
             volumes = [
-              "/mnt/share/containers/qbittorrent/data:/config"
+              "/mnt/mass/containers/qbittorrent/data:/config"
               "/mnt/share/downloads:/downloads"
             ];
             labels = {
@@ -45,7 +50,7 @@
             };
             ports = [ "8096:8096" ];
             volumes = [
-              "/mnt/share/containers/jellyfin/data:/data"
+              "/mnt/mass/containers/jellyfin/data:/config"
               "/mnt/share/media:/media"
             ];
             labels = {
@@ -57,12 +62,10 @@
 
         systemd.services = {
           podman-qbittorrent = util.mkContainerWaitMount [
-            "mnt-share-containers.automount"
             "mnt-share-downloads.automount"
           ];
 
           podman-jellyfin = util.mkContainerWaitMount [
-            "mnt-share-containers.automount"
             "mnt-share-media.automount"
           ];
         };

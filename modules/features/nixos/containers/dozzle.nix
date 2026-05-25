@@ -5,6 +5,10 @@
     (
       { util, ... }:
       {
+        systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/dozzle/data 0755 1000 1000 -"
+        ];
+
         virtualisation.oci-containers.containers.dozzle = {
           image = "ghcr.io/amir20/dozzle:latest";
           pull = "always";
@@ -12,15 +16,13 @@
           ports = [ "7113:8080" ];
           volumes = [
             "/run/podman/podman.sock:/var/run/docker.sock:ro"
-            "/mnt/share/containers/dozzle/data:/data"
+            "/mnt/mass/containers/dozzle/data:/data"
           ];
           labels = {
             "shady.name" = "dozzle";
             "shady.url" = "https://logs.local.jalotopimentel.com";
           };
         };
-
-        systemd.services.podman-dozzle = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
       }
     )
   ];

@@ -5,6 +5,12 @@
     (
       { config, util, ... }:
       {
+        systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/searxng/cache 0755 1000 1000 -"
+          "d /mnt/mass/containers/searxng/config 0755 1000 1000 -"
+          "d /mnt/mass/containers/searxng/valkey 0755 999 root -"
+        ];
+
         virtualisation.oci-containers.containers = {
           searxng = {
             image = "docker.io/searxng/searxng:latest";
@@ -20,8 +26,8 @@
             environmentFiles = [ config.age.secrets.searxng-env.path ];
             ports = [ "7114:8080" ];
             volumes = [
-              "/mnt/share/containers/searxng/cache:/var/cache/searxng"
-              "/mnt/share/containers/searxng/config:/etc/searxng"
+              "/mnt/mass/containers/searxng/cache:/var/cache/searxng"
+              "/mnt/mass/containers/searxng/config:/etc/searxng"
             ];
             labels = {
               "shady.name" = "searxng";
@@ -41,13 +47,8 @@
               "--loglevel"
               "warning"
             ];
-            volumes = [ "/mnt/share/containers/searxng/valkey:/data" ];
+            volumes = [ "/mnt/mass/containers/searxng/valkey:/data" ];
           };
-        };
-
-        systemd.services = {
-          podman-searxng = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
-          podman-searxng-valkey = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
         };
       }
     )

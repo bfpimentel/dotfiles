@@ -5,6 +5,11 @@
     (
       { util, ... }:
       {
+        systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/shady/uploads 0755 1000 1000 -"
+          "d /mnt/mass/containers/shady/config 0755 1000 1000 -"
+        ];
+
         virtualisation.oci-containers.containers.shady = {
           image = "ghcr.io/bfpimentel/shady:latest";
           pull = "always";
@@ -12,12 +17,10 @@
           ports = [ "7112:7111" ];
           volumes = [
             "/run/podman/podman.sock:/var/run/docker.sock:ro"
-            "/mnt/share/containers/shady/uploads:/app/uploads"
-            "/mnt/share/containers/shady/config:/app/config"
+            "/mnt/mass/containers/shady/uploads:/app/uploads"
+            "/mnt/mass/containers/shady/config:/app/config"
           ];
         };
-
-        systemd.services.podman-shady = util.mkContainerWaitMount [ "mnt-share-containers.automount" ];
       }
     )
   ];

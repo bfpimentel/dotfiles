@@ -10,6 +10,10 @@
         ...
       }:
       {
+        systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/immich/postgres 0755 999 root -"
+        ];
+
         virtualisation.oci-containers.containers = {
           immich-server = {
             image = "ghcr.io/immich-app/immich-server:v2";
@@ -55,14 +59,9 @@
           };
         };
 
-        systemd.services = {
-          podman-immich-server = util.mkContainerWaitMount [
-            "mnt-share-photos.automount"
-            "mnt-share-containers.automount"
-          ];
-
-          podman-immich-postgres.unitConfig.RequiresMountsFor = [ "/mnt/mass/containers" ];
-        };
+        systemd.services.podman-immich-server = util.mkContainerWaitMount [
+          "mnt-share-photos.automount"
+        ];
       }
     )
   ];
