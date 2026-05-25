@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { config, util, ... }:
+      { config, ... }:
       {
         systemd.tmpfiles.rules = [
           "d /mnt/mass/containers/searxng/cache 0755 1000 1000 -"

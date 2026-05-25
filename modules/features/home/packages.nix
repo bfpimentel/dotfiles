@@ -9,7 +9,7 @@
           nh
 
           bun
-          nodejs_25
+          nodejs_22
 
           antidote
           oh-my-posh
@@ -43,19 +43,15 @@
           # tuna # Not working right now. Installed manually.
 
           altserver
-          betterdisplay
           bruno
-          codex-app
           helium-browser
           hiddenbar
           kitty
           lm-studio
-          moonlight
           pearcleaner
           shottr
           the-unarchiver
           vial
-          wallspace
           xcodes-app
 
           (anydesk.overrideAttrs (oldAttrs: {

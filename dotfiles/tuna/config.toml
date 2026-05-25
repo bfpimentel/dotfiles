@@ -1,5 +1,33 @@
 schemaVersion = 1
 
+[catalogs]
+sortOrders = []
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'Tuna.CurrentSelectionCatalog'
+    mode = 'some'
+    selectedItemKeys = [ 'Current Clipboard' ]
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'Tuna.EffectsCatalog'
+    mode = 'none'
+    selectedItemKeys = []
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'Tuna.ModesCatalog'
+    mode = 'some'
+    selectedItemKeys = [ 'Combo Mode', 'Fuzzy Mode', 'Text Mode' ]
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'TunaCore.ApplicationsCatalog'
+    mode = 'some'
+    selectedItemKeys = [ 'Applications' ]
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'TunaEmoji.EmojiCatalog'
+    mode = 'none'
+    selectedItemKeys = []
+
 [[comboMode.bindings]]
 key = 's'
 url = 'tuna://run/path.%252FApplications%252FSafari.app/Open'

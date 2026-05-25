@@ -43,6 +43,12 @@
           };
 
           # Containers
+          ghcr-token = {
+            file = ../../../secrets/ghcr-token.age;
+            owner = "root";
+            group = "root";
+            mode = "0400";
+          };
           bap-env = {
             file = ../../../secrets/bap-env.age;
             owner = "bruno";

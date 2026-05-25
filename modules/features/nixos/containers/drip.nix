@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { util, ... }:
+      { ... }:
       {
         systemd.tmpfiles.rules = [
           "d /mnt/mass/containers/drip/uploads 0755 1000 1000 -"

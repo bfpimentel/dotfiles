@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
   config.bfmp.nixos.hosts.powers.modules = [
