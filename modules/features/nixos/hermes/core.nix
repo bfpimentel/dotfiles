@@ -17,6 +17,7 @@
           environmentFiles = [ config.age.secrets.hermes-env.path ];
           authFile = config.age.secrets.hermes-auth.path;
           addToSystemPackages = true;
+          extraDependencyGroups = [ "messaging" ];
           container = {
             enable = true;
             backend = "podman";
