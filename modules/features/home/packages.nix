@@ -81,6 +81,9 @@
             rsync
             direnv
 
+            podman
+            podman-compose
+
             nerd-fonts.symbols-only
             nerd-fonts.victor-mono
             nerd-fonts.iosevka

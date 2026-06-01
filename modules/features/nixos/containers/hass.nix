@@ -15,9 +15,7 @@
           pull = "always";
           autoStart = true;
           ports = [ "8333:8333" ];
-          environment = {
-            HOME_ASSISTANT_URL = "https://home.local.jalotopimentel.com";
-          };
+          environmentFiles = [ config.age.secrets.hass-env.path ];
           labels = {
             "shady.name" = "hass-lb";
             "shady.url" = "https://hass.local.jalotopimentel.com";

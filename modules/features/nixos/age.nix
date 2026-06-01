@@ -64,6 +64,11 @@
             owner = "bruno";
             group = "bruno";
           };
+          hass-env = {
+            file = ../../../secrets/hass-env.age;
+            owner = "bruno";
+            group = "bruno";
+          };
 
           # Hermes
           hermes-env = {

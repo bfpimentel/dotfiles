@@ -17,6 +17,7 @@ in
   "bap-env.age".publicKeys = [ bruno ];
   "immich-env.age".publicKeys = [ bruno ];
   "searxng-env.age".publicKeys = [ bruno ];
+  "hass-env.age".publicKeys = [ bruno ];
 
   # Hermes
   "hermes-env.age".publicKeys = [ bruno ];

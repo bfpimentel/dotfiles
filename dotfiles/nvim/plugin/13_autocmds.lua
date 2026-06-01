@@ -1,4 +1,4 @@
-Util.new_autocmd("Highlight on yank", "TextYankPost", nil, function() vim.highlight.on_yank() end)
+Util.new_autocmd("Highlight on yank", "TextYankPost", nil, function() vim.hl.hl_op() end)
 
 Util.new_autocmd("Set scroll options for text buffers", { "BufEnter", "WinEnter" }, "*", function()
   local is_text_buffer = vim.bo.buftype == ""
