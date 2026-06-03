@@ -11,6 +11,7 @@
       }:
       {
         systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/immich 0755 1000 1000 -"
           "d /mnt/mass/containers/immich/postgres 0755 999 root -"
         ];
 

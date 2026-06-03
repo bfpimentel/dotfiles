@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.75.4",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
-  "defaultThinkingLevel": "low",
+  "defaultThinkingLevel": "high",
   "shellPath": "/bin/zsh",
   "theme": "everforest",
   "enableInstallTelemetry": false,

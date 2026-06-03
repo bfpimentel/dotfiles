@@ -6,6 +6,7 @@
       { config, ... }:
       {
         systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/searxng 0755 1000 1000 -"
           "d /mnt/mass/containers/searxng/cache 0755 1000 1000 -"
           "d /mnt/mass/containers/searxng/config 0755 1000 1000 -"
           "d /mnt/mass/containers/searxng/valkey 0755 999 root -"

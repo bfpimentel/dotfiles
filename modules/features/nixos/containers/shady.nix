@@ -6,6 +6,7 @@
       { ... }:
       {
         systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/shady 0755 1000 1000 -"
           "d /mnt/mass/containers/shady/uploads 0755 1000 1000 -"
           "d /mnt/mass/containers/shady/config 0755 1000 1000 -"
         ];
@@ -14,6 +15,7 @@
           image = "ghcr.io/bfpimentel/shady:latest";
           pull = "always";
           autoStart = true;
+          user = "1000:1000";
           ports = [ "7112:7111" ];
           volumes = [
             "/run/podman/podman.sock:/var/run/docker.sock:ro"

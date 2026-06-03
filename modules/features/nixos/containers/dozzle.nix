@@ -6,6 +6,7 @@
       { ... }:
       {
         systemd.tmpfiles.rules = [
+          "d /mnt/mass/containers/dozzle 0755 1000 1000 -"
           "d /mnt/mass/containers/dozzle/data 0755 1000 1000 -"
         ];
 

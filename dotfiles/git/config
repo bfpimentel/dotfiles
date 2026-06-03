@@ -5,6 +5,7 @@
 
 [core]
   editor = nvim
+	hooksPath = .githooks
 
 [init]
   defaultBranch = main

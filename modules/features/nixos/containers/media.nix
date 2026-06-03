@@ -6,8 +6,10 @@
       { util, ... }:
       {
         systemd.tmpfiles.rules = [
-          "d /mnt/mass/containers/qbittorrent/data 0755 1000 1000 -"
+          "d /mnt/mass/containers/jellyfin 0755 1000 1000 -"
           "d /mnt/mass/containers/jellyfin/data 0755 1000 1000 -"
+          "d /mnt/mass/containers/qbittorrent 0755 1000 1000 -"
+          "d /mnt/mass/containers/qbittorrent/data 0755 1000 1000 -"
         ];
 
         virtualisation.oci-containers.containers = {

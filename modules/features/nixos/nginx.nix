@@ -62,6 +62,7 @@ in
             "dash.${acmeHost}" = mkLocalProxyHost 7112;
             "drip.${acmeHost}" = mkLocalProxyHost 7123;
             "hass.${acmeHost}" = mkLocalProxyHost 8333;
+            "hass-sync.${acmeHost}" = mkLocalProxyHost 8334;
             "logs.${acmeHost}" = mkLocalProxyHost 7113;
             "media.${acmeHost}" = mkLocalProxyHost 8096;
             "photos.${acmeHost}" = mkLocalProxyHost 2283;
