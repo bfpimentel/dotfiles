@@ -1,15 +1,3 @@
-Util.new_autocmd("Message Location", "Filetype", "msg", function()
-  local ui2 = require("vim._core.ui2")
-  local win = ui2.wins and ui2.wins.msg
-  if win and vim.api.nvim_win_is_valid(win) then
-    vim.api.nvim_set_option_value(
-      "winhighlight",
-      "Normal:NormalFloat,FloatBorder:FloatBorder",
-      { scope = "local", win = win }
-    )
-  end
-end)
-
 Util.new_autocmd("LSP Progress popup", "LspProgress", nil, function(event)
   local value = event.data.params.value
   vim.api.nvim_echo({ { value.message or "done" } }, false, {
@@ -79,8 +67,8 @@ Pack.later(function()
     if (target == "msg" or target == nil) and vim.api.nvim_win_is_valid(ui2.wins.msg) then
       pcall(vim.api.nvim_win_set_config, ui2.wins.msg, {
         relative = "editor",
-        anchor = "NE",
-        row = 1,
+        anchor = "SE",
+        row = vim.o.lines - 1,
         col = vim.o.columns - 1,
         border = "single",
       })

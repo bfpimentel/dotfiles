@@ -31,21 +31,6 @@ Pack.later(function()
   })
 end)
 
-Pack.on_filetype("markdown", function()
-  Pack.add({ "https://github.com/OXY2DEV/markview.nvim" })
-
-  require("markview").setup({
-    preview = {
-      enable_hybrid_mode = true,
-      hybrid_modes = { "n" },
-    },
-  })
-
-  Util.map_keys({
-    { "<leader>rm", ":Markview toggle<CR>", opts = { desc = "Render Markdown" } },
-  })
-end)
-
 Pack.later(function()
   Pack.add({ "https://github.com/stevearc/quicker.nvim" })
 
@@ -55,19 +40,5 @@ Pack.later(function()
 
   Util.map_keys({
     { "<leader>q", function() Quicker.toggle({ loclist = true }) end, opts = { desc = "Toggle Loclist" } },
-  })
-end)
-
-Pack.later(function()
-  Pack.add({ { src = "https://github.com/obsidian-nvim/obsidian.nvim", version = vim.version.range("*") } })
-
-  require("obsidian").setup({
-    legacy_commands = false,
-    workspaces = {
-      {
-        name = "bfmp",
-        path = "~/Documents/Notes/Personal",
-      },
-    },
   })
 end)

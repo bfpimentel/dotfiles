@@ -82,6 +82,28 @@ local function setup_mini_cmdline()
   MiniCmdline.setup()
 end
 
+local function setup_mini_input()
+  local MiniInput = require("mini.input")
+  MiniInput.setup()
+
+  local cmdline_opts = { prompt = "Command", scope = "editor" }
+  local highlight_vim = MiniInput.gen_highlight.treesitter("vim")
+  local highlight_cmdline = function(state)
+    state = highlight_vim(state) or state
+    return MiniInput.default_highlight(state) or state
+  end
+
+  cmdline_opts.handlers = { highlight = highlight_cmdline }
+  cmdline_opts.completion = "cmdline"
+
+  local input_cmdline = function()
+    local cmd = MiniInput.get(cmdline_opts)
+    if cmd ~= nil then vim.cmd(cmd) end
+  end
+
+  vim.keymap.set("n", ":", input_cmdline)
+end
+
 local function setup_mini_hipatterns()
   local MiniHipatterns = require("mini.hipatterns")
 
@@ -229,6 +251,7 @@ Pack.now(function()
   setup_mini_jump2d()
   setup_mini_completion()
   setup_mini_cmdline()
+  setup_mini_input()
   setup_mini_hipatterns()
   setup_mini_clue()
   setup_mini_statusline()
