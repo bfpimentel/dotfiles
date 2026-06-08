@@ -69,17 +69,11 @@
             owner = "bruno";
             group = "bruno";
           };
-
-          # Hermes
           hermes-env = {
             file = ../../../secrets/hermes-env.age;
-            owner = "hermes";
-            group = "hermes";
-          };
-          hermes-auth = {
-            file = ../../../secrets/hermes-auth.age;
-            owner = "hermes";
-            group = "hermes";
+            owner = "bruno";
+            group = "bruno";
+            mode = "0400";
           };
 
           # WireGuard

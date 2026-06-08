@@ -44,6 +44,7 @@
 
           altserver
           bruno
+          codex-app
           helium-browser
           hiddenbar
           kitty
