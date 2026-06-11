@@ -15,7 +15,6 @@
           image = "ghcr.io/bfpimentel/shady:latest";
           pull = "always";
           autoStart = true;
-          user = "1000:1000";
           ports = [ "7112:7111" ];
           volumes = [
             "/run/podman/podman.sock:/var/run/docker.sock:ro"

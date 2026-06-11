@@ -22,15 +22,19 @@
               "8642:8642"
               "9119:9119"
             ];
+            environmentFiles = [ config.age.secrets.hermes-env.path ];
             environment = {
               PUID = "1000";
               PGID = "1000";
               HERMES_DASHBOARD = "1";
             };
-            environmentFiles = [ config.age.secrets.hermes-env.path ];
             volumes = [
               "/mnt/mass/containers/hermes:/opt/data"
             ];
+            labels = {
+              "shady.name" = "hermes";
+              "shady.url" = "https://hermes.local.jalotopimentel.com";
+            };
           };
         };
       }

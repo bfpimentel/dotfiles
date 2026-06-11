@@ -37,6 +37,8 @@ sortOrders = []
         'LM Studio',
         'Notes',
         'Safari',
+        'Screenshot',
+        'Simulator',
         'Tuna',
         'Vial',
         'WireGuard',

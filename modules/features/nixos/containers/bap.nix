@@ -6,7 +6,7 @@
       { config, ... }:
       {
         virtualisation.oci-containers.containers = {
-          bitwarden-alias-provider-server = {
+          bap-server = {
             image = "ghcr.io/bfpimentel/bitwarden-alias-provider-server:latest";
             pull = "always";
             autoStart = true;
@@ -14,11 +14,11 @@
             ports = [ "6223:6123" ];
           };
 
-          bitwarden-alias-provider-web = {
+          bap-web = {
             image = "ghcr.io/bfpimentel/bitwarden-alias-provider-web:latest";
             pull = "always";
             autoStart = true;
-            dependsOn = [ "bitwarden-alias-provider-server" ];
+            dependsOn = [ "bap-server" ];
             environmentFiles = [ config.age.secrets.bap-env.path ];
             ports = [ "6224:6124" ];
             labels = {

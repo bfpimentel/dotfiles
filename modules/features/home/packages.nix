@@ -44,6 +44,7 @@
 
           altserver
           bruno
+          claude
           codex-app
           helium-browser
           hiddenbar
@@ -81,6 +82,7 @@
             tmux
             rsync
             direnv
+            pnpm
 
             podman
             podman-compose

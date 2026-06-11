@@ -30,9 +30,6 @@
       url = "github:BatteredBunny/brew-nix";
       inputs.brew-api.follows = "brew-api";
     };
-    hermes-agent = {
-      url = "github:nousresearch/hermes-agent";
-    };
     agenix = {
       url = "github:ryantm/agenix";
     };
