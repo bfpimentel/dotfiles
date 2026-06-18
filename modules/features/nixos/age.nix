@@ -59,6 +59,11 @@
             owner = "bruno";
             group = "bruno";
           };
+          n8n-env = {
+            file = ../../../secrets/n8n-env.age;
+            owner = "bruno";
+            group = "bruno";
+          };
           searxng-env = {
             file = ../../../secrets/searxng-env.age;
             owner = "bruno";

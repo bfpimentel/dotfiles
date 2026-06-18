@@ -67,6 +67,7 @@ in
             "hermes.${acmeHost}" = mkLocalProxyHost 9119;
             "logs.${acmeHost}" = mkLocalProxyHost 7113;
             "media.${acmeHost}" = mkLocalProxyHost 8096;
+            "n8n.${acmeHost}" = mkLocalProxyHost 5678;
             "photos.${acmeHost}" = mkLocalProxyHost 2283;
             "satellite.${acmeHost}" = mkLocalProxyHost 6333;
             "search.${acmeHost}" = mkLocalProxyHost 7114;

@@ -24,8 +24,6 @@
             ];
             environmentFiles = [ config.age.secrets.hermes-env.path ];
             environment = {
-              PUID = "1000";
-              PGID = "1000";
               HERMES_DASHBOARD = "1";
             };
             volumes = [

@@ -43,6 +43,7 @@
           # tuna # Not working right now. Installed manually.
 
           altserver
+          bettercapture
           bruno
           claude
           codex-app
@@ -59,7 +60,7 @@
           (anydesk.overrideAttrs (oldAttrs: {
             src = pkgs.fetchurl {
               url = builtins.head oldAttrs.src.urls;
-              hash = "sha256-LLq0NjqBe7CCb31ksYn5VkBLVF98GSlV5AOb9H5ihhU=";
+              hash = "sha256-6BApi8XV8T+Th4jOejQqfN0Sz/EF7HNHUtXC9O5egCI=";
             };
           }))
           (ankerwork.overrideAttrs (oldAttrs: {
