@@ -85,7 +85,7 @@ run = ['layout floating']
 check-further-callbacks = true
 
 [[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
+if.app-id = 'com.mitchellh.ghostty'
 run = ['layout tiling', 'move-node-to-workspace T']
 check-further-callbacks = true
 

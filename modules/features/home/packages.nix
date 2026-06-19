@@ -47,6 +47,7 @@
           bruno
           claude
           codex-app
+          ghostty
           helium-browser
           hiddenbar
           kitty

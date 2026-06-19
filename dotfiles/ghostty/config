@@ -1,0 +1,74 @@
+font-family = Iosevka Nerd Font Mono
+font-size = 16
+font-thicken = true
+font-thicken-strength = 125
+adjust-cell-height = 6
+
+window-padding-x = 12
+window-padding-y = 12
+
+background = #000000
+foreground = #D8CAAC
+background-opacity = 0.70
+background-blur-radius = 10
+macos-titlebar-style = hidden
+
+cursor-color = #D8CAAC
+
+selection-foreground = #D8CAAC
+selection-background = #505A60
+
+palette = 0=#3C474D
+palette = 1=#E68183
+palette = 2=#A7C080
+palette = 3=#D9BB80
+palette = 4=#83B6AF
+palette = 5=#D39BB6
+palette = 6=#87C095
+palette = 7=#868D80
+palette = 8=#868D80
+palette = 9=#E68183
+palette = 10=#A7C080
+palette = 11=#D9BB80
+palette = 12=#83B6AF
+palette = 13=#D39BB6
+palette = 14=#87C095
+palette = 15=#868D80
+
+copy-on-select = clipboard
+shell-integration = detect
+
+font-codepoint-map = U+e5Fa-U+e62b=Symbols Nerd Font Mono
+font-codepoint-map = U+e700-U+e7c5=Symbols Nerd Font Mono
+font-codepoint-map = U+f000-U+f2e0=Symbols Nerd Font Mono
+font-codepoint-map = U+e200-U+e2a9=Symbols Nerd Font Mono
+font-codepoint-map = U+f0001-U+f1af0=Symbols Nerd Font Mono
+font-codepoint-map = U+e300-U+e3e3=Symbols Nerd Font Mono
+font-codepoint-map = U+f400-U+f532=Symbols Nerd Font Mono
+font-codepoint-map = U+2665=Symbols Nerd Font Mono
+font-codepoint-map = U+26A1=Symbols Nerd Font Mono
+font-codepoint-map = U+e0a0-U+e0a2=Symbols Nerd Font Mono
+font-codepoint-map = U+e0b0-U+e0b3=Symbols Nerd Font Mono
+font-codepoint-map = U+e0b4-U+e0c8=Symbols Nerd Font Mono
+font-codepoint-map = U+e0cc-U+e0d4=Symbols Nerd Font Mono
+font-codepoint-map = U+e0a3=Symbols Nerd Font Mono
+font-codepoint-map = U+e0ca=Symbols Nerd Font Mono
+font-codepoint-map = U+23fb-U+23fe=Symbols Nerd Font Mono
+font-codepoint-map = U+2b58=Symbols Nerd Font Mono
+font-codepoint-map = U+f300-U+f32f=Symbols Nerd Font Mono
+font-codepoint-map = U+e000-U+e00a=Symbols Nerd Font Mono
+font-codepoint-map = U+ea60-U+ebeb=Symbols Nerd Font Mono
+font-codepoint-map = U+276c-U+2771=Symbols Nerd Font Mono
+font-codepoint-map = U+2500-U+259f=Symbols Nerd Font Mono
+
+keybind = clear
+keybind = ctrl+shift+q=quit
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = ctrl+shift+r=reload_config
+keybind = ctrl+equal=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
+keybind = shift+enter=text:\x1b[13;2u
+
+# vim: set ft=cfg :
