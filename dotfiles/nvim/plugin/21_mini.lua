@@ -84,24 +84,29 @@ end
 
 local function setup_mini_input()
   local MiniInput = require("mini.input")
-  MiniInput.setup()
 
-  local cmdline_opts = { prompt = "Command", scope = "editor" }
-  local highlight_vim = MiniInput.gen_highlight.treesitter("vim")
-  local highlight_cmdline = function(state)
-    state = highlight_vim(state) or state
-    return MiniInput.default_highlight(state) or state
-  end
+  local input_view = MiniInput.gen_view.floatwin({
+    style = "BM",
+    adjust_config = function(state, config)
+      local input = state.input or ""
+      local prompt = state.prompt or ""
+      local input_width = vim.fn.strdisplaywidth(prompt .. input) + 10
+      local min_width = math.floor(vim.o.columns * 0.5)
+      local max_width = math.floor(vim.o.columns * 0.9)
 
-  cmdline_opts.handlers = { highlight = highlight_cmdline }
-  cmdline_opts.completion = "cmdline"
+      config.width = math.min(max_width, math.max(min_width, input_width))
+      config.col = math.floor((vim.o.columns - config.width) * 0.5)
 
-  local input_cmdline = function()
-    local cmd = MiniInput.get(cmdline_opts)
-    if cmd ~= nil then vim.cmd(cmd) end
-  end
+      return config
+    end,
+  })
 
-  vim.keymap.set("n", ":", input_cmdline)
+  MiniInput.setup({
+    handlers = {
+      complete = MiniInput.default_complete,
+      view = input_view,
+    },
+  })
 end
 
 local function setup_mini_hipatterns()
@@ -177,12 +182,9 @@ end
 local function setup_mini_statusline()
   local MiniStatusline = require("mini.statusline")
 
-  Util.patch_hl_with_transparency("MiniStatuslineFilename")
-  Util.patch_hl_with_transparency("MiniStatuslineDevinfo")
-
   local check_macro_recording = function()
     if vim.fn.reg_recording() ~= "" then
-      return "Recording @" .. vim.fn.reg_recording()
+      return "REC @" .. vim.fn.reg_recording()
     else
       return ""
     end
@@ -219,8 +221,8 @@ local function setup_mini_statusline()
       { hl = mode_hl(), strings = { mode } },
       "%<", -- Mark general truncate point
       { hl = "MiniStatuslineFilename", strings = { filename } },
-      "%=", -- End left alignment
       { hl = "MiniIconsRed", strings = { check_macro_recording() } },
+      "%=", -- End left alignment
       { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
     })
   end
@@ -257,12 +259,16 @@ Pack.now(function()
   setup_mini_statusline()
   setup_mini_diff()
 
-  Util.patch_hl_with_transparency("NormalFloat")
-  Util.patch_hl_with_transparency("FloatBorder")
-  Util.patch_hl_with_transparency("FloatTitle")
+  Util.patch_hl_with_transparency("MiniInputCaret")
   Util.patch_hl_with_transparency("MiniPickPrompt")
   Util.patch_hl_with_transparency("MiniPickPromptCaret")
   Util.patch_hl_with_transparency("MiniPickPromptPrefix")
+  Util.patch_hl_with_transparency("MiniStatuslineDevinfo")
+  Util.patch_hl_with_transparency("MiniStatuslineFilename")
+
+  Util.patch_hl_with_transparency("FloatBorder")
+  Util.patch_hl_with_transparency("FloatTitle")
+  Util.patch_hl_with_transparency("NormalFloat")
   Util.patch_hl_with_transparency("Pmenu")
   Util.patch_hl_with_transparency("PmenuBorder")
 

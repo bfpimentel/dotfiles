@@ -39,9 +39,6 @@
       { pkgs, ... }:
       let
         casks = with pkgs.brewCasks; [
-          # Custom Taps
-          # tuna # Not working right now. Installed manually.
-
           altserver
           bettercapture
           bruno

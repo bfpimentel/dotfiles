@@ -15,6 +15,7 @@
     "showTerminalProgress": true
   },
   "packages": [
-    "git:github.com/code-yeongyu/pi-apply-patch"
+    "git:github.com/code-yeongyu/pi-apply-patch",
+    "npm:pi-mcp-adapter"
   ]
 }
