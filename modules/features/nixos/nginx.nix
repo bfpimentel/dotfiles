@@ -65,6 +65,7 @@ in
             "hass-sync.${acmeHost}" = mkLocalProxyHost 8334;
             "hass.${acmeHost}" = mkLocalProxyHost 8333;
             "hermes.${acmeHost}" = mkLocalProxyHost 9119;
+            "jobs.${acmeHost}" = mkLocalProxyHost 3005;
             "logs.${acmeHost}" = mkLocalProxyHost 7113;
             "media.${acmeHost}" = mkLocalProxyHost 8096;
             "n8n.${acmeHost}" = mkLocalProxyHost 5678;
@@ -72,6 +73,7 @@ in
             "satellite.${acmeHost}" = mkLocalProxyHost 6333;
             "search.${acmeHost}" = mkLocalProxyHost 7114;
             "torrent.${acmeHost}" = mkLocalProxyHost 6882;
+            "trips.${acmeHost}" = mkLocalProxyHost 3006;
 
             # Remote
             "dns.${acmeHost}" = mkRemoteProxyHost "10.22.4.7:3000";
