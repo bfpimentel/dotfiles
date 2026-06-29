@@ -23,6 +23,8 @@ Pack.later(function()
     "json5",
     "jsx",
     "kitty",
+    "lua",
+    "luadoc",
     "make",
     "nix",
     "python",

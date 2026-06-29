@@ -27,8 +27,6 @@
           ripgrep
 
           lua
-
-          opencode
         ];
       }
     )
@@ -42,13 +40,11 @@
           altserver
           bettercapture
           bruno
-          claude
           codex-app
           ghostty
           helium-browser
           hiddenbar
           kitty
-          lm-studio
           pearcleaner
           shottr
           the-unarchiver
@@ -84,8 +80,8 @@
             direnv
             pnpm
 
-            podman
-            podman-compose
+            # podman
+            # podman-compose
 
             nerd-fonts.symbols-only
             nerd-fonts.victor-mono
