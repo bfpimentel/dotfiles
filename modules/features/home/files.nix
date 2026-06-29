@@ -49,6 +49,7 @@
           // mapDotfiles ([
             "aerospace"
             "borders"
+            "herdr"
             "pi"
             "tuna"
           ]);

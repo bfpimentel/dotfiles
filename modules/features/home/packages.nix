@@ -74,6 +74,7 @@
           with pkgs;
           [
             inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+            inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.herdr
 
             aerospace
             jankyborders

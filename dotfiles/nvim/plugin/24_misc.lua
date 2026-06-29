@@ -1,27 +1,4 @@
 Pack.later(function()
-  Pack.add({ "https://github.com/mrjones2014/smart-splits.nvim" })
-
-  local SmartSplits = require("smart-splits")
-
-  SmartSplits.setup({
-    default_amount = 5,
-  })
-
-  Util.map_keys({
-    -- stylua: ignore start
-    { "<C-h>", function() SmartSplits.move_cursor_left() end },
-    { "<C-j>", function() SmartSplits.move_cursor_down() end },
-    { "<C-k>", function() SmartSplits.move_cursor_up() end },
-    { "<C-l>", function() SmartSplits.move_cursor_right() end },
-    { "<A-h>", function() SmartSplits.resize_left() end },
-    { "<A-j>", function() SmartSplits.resize_down() end },
-    { "<A-k>", function() SmartSplits.resize_up() end },
-    { "<A-l>", function() SmartSplits.resize_right() end },
-    -- stylua: ignore end
-  }, { silent = true })
-end)
-
-Pack.later(function()
   Pack.add({ "https://github.com/smjonas/inc-rename.nvim" })
 
   require("inc_rename").setup({})

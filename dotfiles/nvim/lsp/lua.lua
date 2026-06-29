@@ -25,6 +25,12 @@ return {
     },
   },
   on_attach = function(client, _)
-    client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", "#", "(" }
+    -- Work around Neovim semantic token state errors with lua-language-server.
+    -- Treesitter already handles Lua highlighting well enough here.
+    client.server_capabilities.semanticTokensProvider = nil
+
+    if client.server_capabilities.completionProvider then
+      client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", "#", "(" }
+    end
   end,
 }

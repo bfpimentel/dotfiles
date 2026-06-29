@@ -33,11 +33,14 @@
     agenix = {
       url = "github:ryantm/agenix";
     };
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-    };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
+    };
+    herdr = {
+      url = "github:ogulcancelik/herdr";
+    };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
     };
   };
 
