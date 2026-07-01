@@ -2,6 +2,8 @@ config-version = 2
 
 start-at-login = true
 
+auto-reload-config = true
+
 key-mapping.preset = 'qwerty'
 
 enable-normalization-flatten-containers = true
@@ -20,9 +22,9 @@ exec-on-workspace-change = [
   '/Users/bruno/.config/aerospace/handle-pip.sh'
 ]
 
-after-startup-command = [
-  'exec-and-forget /Users/bruno/.nix-profile/bin/borders'
-]
+# after-startup-command = [
+#   'exec-and-forget /Users/bruno/.nix-profile/bin/borders'
+# ]
 
 persistent-workspaces = [ 'B', 'W', 'M', 'T', 'X' ]
 
@@ -82,12 +84,17 @@ equal = 'resize smart +50'
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = ['layout floating']
-check-further-callbacks = true
+check-further-callbacks = false
+
+[[on-window-detected]]
+if.app-id = 'cc.ffitch.shottr'
+run = ['layout floating']
+check-further-callbacks = false
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 run = ['layout tiling', 'move-node-to-workspace T']
-check-further-callbacks = true
+check-further-callbacks = false
 
 [[on-window-detected]]
 if.window-title-regex-substring = 'Helium - Bruno'
@@ -103,10 +110,10 @@ check-further-callbacks = true
 if.app-id = 'net.imput.helium'
 if.window-title-regex-substring = 'Picture in Picture'
 run = ['layout floating']
-check-further-callbacks = true
+check-further-callbacks = false
 
 [[on-window-detected]]
 if.app-id = 'net.imput.helium'
 if.window-title-regex-substring = 'Bitwarden'
 run = ['layout floating']
-check-further-callbacks = true
+check-further-callbacks = false

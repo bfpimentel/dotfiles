@@ -37,7 +37,6 @@
       { pkgs, ... }:
       let
         casks = with pkgs.brewCasks; [
-          altserver
           bettercapture
           bruno
           codex-app
@@ -51,6 +50,16 @@
           vial
           xcodes-app
 
+          (aerospace.overrideAttrs (oldAttrs: {
+            installPhase = oldAttrs.installPhase + ''
+              mkdir -p $out/bin
+              install -m755 ../bin/aerospace $out/bin/aerospace
+            '';
+
+            meta = oldAttrs.meta // {
+              mainProgram = "aerospace";
+            };
+          }))
           (anydesk.overrideAttrs (oldAttrs: {
             src = pkgs.fetchurl {
               url = builtins.head oldAttrs.src.urls;
@@ -71,9 +80,6 @@
           [
             inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
             inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.herdr
-
-            aerospace
-            jankyborders
 
             tmux
             rsync
