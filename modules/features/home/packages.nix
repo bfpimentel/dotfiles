@@ -3,7 +3,7 @@
 {
   config.bfmp.hm.sharedModules = [
     (
-      { pkgs, util, ... }:
+      { pkgs, ... }:
       {
         home.packages = with pkgs; [
           bun

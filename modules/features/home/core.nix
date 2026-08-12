@@ -17,11 +17,7 @@
 
   config.bfmp.hm.sharedModules = [
     (
-      {
-        pkgs,
-        util,
-        ...
-      }:
+      { ... }:
       {
         home = {
           username = "bruno";
@@ -35,7 +31,7 @@
 
   config.bfmp.hm.hosts.seraphim.modules = [
     (
-      { util, ... }:
+      { ... }:
       {
         home.homeDirectory = "/Users/bruno";
       }
@@ -44,7 +40,7 @@
 
   config.bfmp.hm.hosts.cherubim.modules = [
     (
-      { util, ... }:
+      { ... }:
       {
         home.homeDirectory = "/home/bruno";
       }
@@ -53,7 +49,7 @@
 
   config.bfmp.hm.hosts.powers.modules = [
     (
-      { util, ... }:
+      { ... }:
       {
         home.homeDirectory = "/home/bruno";
       }
@@ -62,7 +58,7 @@
 
   config.bfmp.hm.hosts.thronos.modules = [
     (
-      { util, ... }:
+      { ... }:
       {
         home.homeDirectory = "/home/bruno";
       }

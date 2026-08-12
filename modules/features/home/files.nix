@@ -23,7 +23,7 @@
           ".local/share/antidote".source = "${pkgs.antidote}/share/antidote";
           ".zshenv".text = zshEnv;
         }
-        // mapDotfiles ([
+        // mapDotfiles [
           "git"
           "ghostty"
           "lazygit"
@@ -31,7 +31,7 @@
           "opencode"
           "tmux"
           "zsh"
-        ]);
+        ];
       }
     )
   ];
@@ -45,13 +45,13 @@
       {
         home.file =
           { }
-          // mapDotfiles ([
+          // mapDotfiles [
             "aerospace"
             "borders"
             "herdr"
             "pi"
             "tuna"
-          ]);
+          ];
       }
     )
   ];
@@ -66,11 +66,11 @@
         home.file = {
           ".local/share/applications".source = mapAbsolute "dotfiles/applications";
         }
-        // mapDotfiles ([
+        // mapDotfiles [
           "hypr"
           "quickshell"
           "sunshine"
-        ]);
+        ];
 
         services.udiskie = {
           enable = true;

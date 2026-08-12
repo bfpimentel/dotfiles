@@ -3,7 +3,7 @@
 {
   config.bfmp.nixos.sharedModules = [
     (
-      { pkgs, ... }:
+      { ... }:
       {
         networking = {
           enableIPv6 = false;
@@ -18,7 +18,7 @@
 
   config.bfmp.nixos.hosts.cherubim.modules = [
     (
-      { pkgs, ... }:
+      { ... }:
       {
         networking = {
           hostName = "cherubim";
@@ -43,7 +43,7 @@
 
   config.bfmp.nixos.hosts.powers.modules = [
     (
-      { pkgs, ... }:
+      { ... }:
       {
         networking = {
           hostName = "powers";

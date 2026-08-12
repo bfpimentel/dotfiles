@@ -33,7 +33,7 @@
 
   config.bfmp.nixos.hosts.cherubim.modules = [
     (
-      { pkgs, ... }:
+      { ... }:
       {
         boot.kernelModules = [ "uinput" ];
 

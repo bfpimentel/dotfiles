@@ -51,6 +51,9 @@
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
     };
+    multiverse = {
+      url = "github:fzakaria/nixpkgs-multiverse";
+    };
   };
 
   outputs =

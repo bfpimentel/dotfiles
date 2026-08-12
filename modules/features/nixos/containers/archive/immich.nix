@@ -5,7 +5,6 @@
     (
       {
         config,
-        pkgs,
         util,
         ...
       }:

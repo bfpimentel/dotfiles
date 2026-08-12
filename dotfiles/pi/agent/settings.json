@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.81.1",
+  "lastChangelogVersion": "0.84.1",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
@@ -17,6 +17,7 @@
   "packages": [
     "git:github.com/code-yeongyu/pi-apply-patch",
     "npm:pi-mcp-adapter",
-    "npm:pi-zentui"
+    "npm:pi-zentui",
+    "npm:pi-session-manager"
   ]
 }

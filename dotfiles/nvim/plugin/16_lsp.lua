@@ -21,7 +21,7 @@ Pack.later(function()
   end)
 
   vim.lsp.enable({
-    "eslint",
+    -- "eslint",
     "html",
     "json",
     "lua",
@@ -29,8 +29,8 @@ Pack.later(function()
     "oxlint",
     "python",
     "qml",
-    "typescript",
     "tailwindcss",
+    "typescript",
     "yaml",
   })
 end)
