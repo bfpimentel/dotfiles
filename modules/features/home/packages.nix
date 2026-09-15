@@ -56,12 +56,12 @@
 
         casks = with pkgs.brewCasks; [
           bettercapture
+          betterdisplay
           bruno
-          codex-app
+          chatgpt
           crossover
           ghostty
           helium-browser
-          hiddenbar
           openusage
           pearcleaner
           shottr

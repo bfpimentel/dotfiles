@@ -13,6 +13,8 @@ end)
 Pack.later(function()
   local ui2 = require("vim._core.ui2")
 
+  vim.opt.messagesopt:append({ maxheight = 50, timeout = 5000 })
+
   ui2.enable({
     enable = true,
     msg = {
@@ -44,15 +46,11 @@ Pack.later(function()
         wmsg = "msg",
         typed_cmd = "cmd",
       },
-      cmd = {
-        height = 0.5,
-      },
       dialog = {
         height = 0.5,
       },
       msg = {
         height = 0.3,
-        timeout = 5000,
       },
       pager = {
         height = 0.5,

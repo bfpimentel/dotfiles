@@ -10,9 +10,9 @@ defaults delete NSGlobalDomain "AppleReduceDesktopTinting"
 defaults write com.apple.Accessibility "ReduceMotionEnabled" -int "1"
 defaults delete com.apple.Accessibility
 
-defaults write -g NSSplitViewItemSidebarDefaultsToFloatingAppearance -bool "false"
-defaults write -g NSSplitViewItemGlassMinimumCornerRadius -float "0.1"
-defaults write -g NSConvolutionOverride1 -float "0.1"
+defaults write NSGlobalDomain "NSSplitViewItemSidebarDefaultsToFloatingAppearance" -bool "false"
+defaults write NSGlobalDomain "NSSplitViewItemGlassMinimumCornerRadius" -float "1"
+defaults write NSGlobalDomain "NSConvolutionOverride1" -float "1"
 
 # Dock
 defaults write com.apple.dock "tilesize" -int "48"

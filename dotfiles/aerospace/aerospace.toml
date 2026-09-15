@@ -22,9 +22,9 @@ exec-on-workspace-change = [
   '/Users/bruno/.config/aerospace/handle-pip.sh'
 ]
 
-after-startup-command = [
-  'exec-and-forget /etc/profiles/per-user/bruno/bin/borders'
-]
+# after-startup-command = [
+#   'exec-and-forget /etc/profiles/per-user/bruno/bin/borders'
+# ]
 
 persistent-workspaces = [ 'B', 'W', 'M', 'T', 'X' ]
 
@@ -36,10 +36,10 @@ T = [ 'secondary', 'main' ]
 X = [ 'secondary', 'main' ]
 
 [gaps]
-outer.top =        0
-outer.bottom =     0
-outer.left =       0
-outer.right =      0
+outer.top =        8
+outer.bottom =     8
+outer.left =       8
+outer.right =      8
 inner.horizontal = 8
 inner.vertical =   8
 

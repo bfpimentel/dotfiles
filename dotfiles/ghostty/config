@@ -5,13 +5,14 @@ font-thicken-strength = 125
 adjust-cell-height = 6
 
 theme = Gruvbox Material
-background = #32302f
+# background = #32302f
+background = #000000
 
 window-padding-x = 12
 window-padding-y = 8
 
-background-opacity = 0.60
-background-blur-radius = 20
+background-opacity = 0.70
+background-blur-radius = 10
 macos-titlebar-style = hidden
 
 copy-on-select = clipboard

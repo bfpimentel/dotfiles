@@ -1,60 +1,12 @@
-schemaVersion = 1
-
 [catalogs]
+searchPriorities = []
 sortOrders = []
 
     [[catalogs.globalScopes]]
-    catalogIdentifier = 'Tuna.CurrentSelectionCatalog'
-    mode = 'some'
-    selectedItemKeys = [ 'Current Clipboard' ]
+    catalogIdentifier = 'tuna.commands'
 
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'Tuna.EffectsCatalog'
-    mode = 'none'
-    selectedItemKeys = []
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'Tuna.ModesCatalog'
-    mode = 'some'
-    selectedItemKeys = [ 'Combo Mode', 'Fuzzy Mode', 'Text Mode' ]
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'TunaCore.ApplicationsCatalog'
-    mode = 'some'
-    selectedItemKeys = [ 'Applications', 'Dory', 'Kap', 'LM Studio' ]
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'TunaEmoji.EmojiCatalog'
-    mode = 'none'
-    selectedItemKeys = []
-
-[[comboMode.bindings]]
-key = 's'
-url = 'tuna://run/path.%252FApplications%252FSafari.app/Open'
-
-[[comboMode.bindings]]
-key = 't'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FUtilities%252FTerminal.app/Open'
-
-[[comboMode.bindings]]
-key = 'f'
-url = 'tuna://run/path.%252FSystem%252FLibrary%252FCoreServices%252FFinder.app/Open'
-
-[[comboMode.bindings]]
-key = 'm'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FMessages.app/Open'
-
-[[comboMode.bindings]]
-key = 'n'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FNotes.app/Open'
-
-[[comboMode.bindings]]
-key = 'd'
-url = 'tuna://run/path.%252FUsers%252Fbruno%252FDownloads/Open'
-
-[[comboMode.bindings]]
-key = 'h'
-url = 'tuna://run/path.%252FUsers%252Fbruno/Open'
+        [catalogs.globalScopes.scope]
+        kind = 'none'
 
 [hotkeys]
 custom = []
