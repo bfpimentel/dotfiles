@@ -14,7 +14,6 @@ return {
   },
   single_file_support = true,
   telemetry = { enabled = false },
-  log_level = vim.lsp.protocol.MessageType.Warning,
   settings = {
     Lua = {
       runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
@@ -24,4 +23,7 @@ return {
       },
     },
   },
+  on_attach = function(client, _)
+    client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", "#", "(" }
+  end,
 }

@@ -1,7 +1,13 @@
 Pack.later(function()
-  Pack.add({ "https://github.com/romus204/tree-sitter-manager.nvim" })
+  local ts_update = function() vim.cmd("TSUpdate") end
+  Pack.on_changed("nvim-treesitter", { "update" }, ts_update, ":TSUpdate")
 
-  local parsers = {
+  Pack.add(
+    { "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" }
+  )
+
+  local languages = {
     "bash",
     "c",
     "comment",
@@ -39,10 +45,17 @@ Pack.later(function()
     "yaml",
   }
 
-  require("tree-sitter-manager").setup({
-    border = "single",
-    ensure_installed = parsers,
-  })
+  local is_not_installed = function(lang) return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0 end
+  local to_install = vim.tbl_filter(is_not_installed, languages)
+  if #to_install > 0 then require("nvim-treesitter").install(to_install) end
 
-  Util.new_autocmd("Start Treesitter Highlighting", "FileType", parsers, function() vim.treesitter.start() end)
+  local filetypes = {}
+  for _, lang in ipairs(languages) do
+    for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+      table.insert(filetypes, ft)
+    end
+  end
+
+  local ts_start = function(ev) vim.treesitter.start(ev.buf) end
+  Util.new_autocmd("Start tree-sitter", "FileType", filetypes, ts_start)
 end)

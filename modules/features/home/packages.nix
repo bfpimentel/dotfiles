@@ -62,6 +62,7 @@
           crossover
           ghostty
           helium-browser
+          iloader
           openusage
           pearcleaner
           shottr

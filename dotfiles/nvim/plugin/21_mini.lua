@@ -1,6 +1,14 @@
-local function setup_mini_icons()
-  local MiniIcons = require("mini.icons")
-  MiniIcons.setup()
+local function setup_mini_ai()
+  local MiniAi = require("mini.ai")
+  local MiniExtra = require("mini.extra")
+
+  MiniAi.setup({
+    custom_textobjects = {
+      B = MiniExtra.gen_ai_spec.buffer(),
+      F = MiniAi.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+    },
+    search_method = "cover",
+  })
 end
 
 local function setup_mini_pick()
@@ -59,23 +67,23 @@ end
 local function setup_mini_completion()
   local MiniCompletion = require("mini.completion")
 
-  ---@diagnostic disable-next-line: duplicate-set-field
-  _G.cr_action = function()
-    if vim.fn.complete_info()["selected"] ~= -1 then return "\25" end
-    return "\r"
+  local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
+  local process_items = function(items, base)
+    return MiniCompletion.default_process_items(items, base, process_items_opts)
   end
 
-  vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
-
   MiniCompletion.setup({
-    delay = { completion = 100, info = 100, signature = 50 },
-    source = {
-      nvim_lsp = true,
-      buffer = true,
-      path = true,
-      luasnip = true,
+    lsp_completion = {
+      source_func = "omnifunc",
+      auto_setup = false,
+      process_items = process_items,
     },
   })
+
+  local on_attach = function(ev) vim.bo[ev.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp" end
+  Util.new_autocmd("Set 'omnifunc'", "LspAttach", nil, on_attach)
+
+  vim.lsp.config("*", { capabilities = MiniCompletion.get_lsp_capabilities() })
 
   require("mini.icons").tweak_lsp_kind()
 end
@@ -140,12 +148,14 @@ local function setup_mini_hipatterns()
     return false
   end
 
+  local hi_words = require("mini.extra").gen_highlighter.words
+
   MiniHipatterns.setup({
     highlighters = {
-      fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
-      hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-      todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-      note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+      fixme = hi_words({ "FIXME", "fixme" }, "MiniHipatternsFixme"),
+      hack = hi_words({ "HACK", "hack" }, "MiniHipatternsHack"),
+      todo = hi_words({ "TODO", "todo" }, "MiniHipatternsTodo"),
+      note = hi_words({ "NOTE", "note" }, "MiniHipatternsNote"),
       zero_x_colors = {
         pattern = "0x%x+",
         group = zero_x_colors,
@@ -245,11 +255,13 @@ local function setup_mini_diff()
 end
 
 Pack.now(function()
-  require("mini.ai").setup()
+  require("mini.comment").setup()
+  require("mini.git").setup()
+  require("mini.icons").setup()
   require("mini.surround").setup()
   require("mini.visits").setup()
 
-  setup_mini_icons()
+  setup_mini_ai()
   setup_mini_pick()
   setup_mini_files()
   setup_mini_indentscope()

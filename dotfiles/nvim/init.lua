@@ -7,7 +7,6 @@
 ---@field mode? string|string[]
 
 _G.Util = {}
-_G.Pack = {}
 
 ---@param group_name string
 function Util.patch_hl_with_transparency(group_name)
@@ -31,6 +30,8 @@ Util.new_autocmd = function(desc, event, pattern, callback)
   local opts = { group = group, pattern = pattern, callback = callback, desc = desc }
   vim.api.nvim_create_autocmd(event, opts)
 end
+
+_G.Pack = {}
 
 vim.pack.add({ "https://github.com/nvim-mini/mini.nvim" })
 

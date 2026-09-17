@@ -3,10 +3,42 @@ searchPriorities = []
 sortOrders = []
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.clipboard'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.commands'
 
         [catalogs.globalScopes.scope]
         kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.emoji'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.modes'
+
+        [catalogs.globalScopes.scope]
+        itemIDs = [ 'combo', 'search', 'talk' ]
+        kind = 'excluding'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.processes'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.system-settings'
+
+        [catalogs.globalScopes.scope]
+        itemIDs = [ 'Lock Screen' ]
+        kind = 'excluding'
 
 [hotkeys]
 custom = []
