@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@earendil-works/*": [
+        "./npm/node_modules/@earendil-works/*",
+        "./install/releases/0.99.1/node_modules/@earendil-works/*"
+      ],
+      "*": [
+        "./npm/node_modules/*",
+        "./install/releases/0.99.1/node_modules/*"
+      ]
+    },
+    "typeRoots": [
+      "npm/node_modules/@types",
+      "install/releases/0.99.1/node_modules/@types"
+    ],
+    "types": ["node"]
+  },
+  "include": ["extensions/**/*.ts"]
+}

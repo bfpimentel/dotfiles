@@ -6,9 +6,6 @@
       { pkgs, ... }:
       {
         home.packages = with pkgs; [
-          bun
-          nodejs_22
-
           antidote
           oh-my-posh
 
@@ -16,7 +13,10 @@
           git
           lazygit
           wget
+
           uv
+          bun
+          nodejs_22
 
           fastfetch
           fzf
@@ -95,8 +95,6 @@
           packages =
             with pkgs;
             [
-              pi-coding-agent
-
               # inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
               inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.herdr

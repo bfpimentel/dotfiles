@@ -49,8 +49,8 @@
             group = "root";
             mode = "0400";
           };
-          bap-env = {
-            file = ../../../secrets/bap-env.age;
+          eag-env = {
+            file = ../../../secrets/eag-env.age;
             owner = "bruno";
             group = "bruno";
           };

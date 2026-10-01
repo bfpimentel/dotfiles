@@ -26,13 +26,13 @@
           yaml-language-server
           yamlfmt
 
-          typescript-go
+          typescript
           typescript-language-server
           vscode-langservers-extracted
           tailwindcss-language-server
           prettier
           oxfmt
-          (mv.version "oxlint" "1.76.0") # FIXME: 1.77.0 is not being able to compile
+          oxlint
 
           basedpyright
           ruff

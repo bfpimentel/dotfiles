@@ -58,8 +58,8 @@ in
 
           virtualHosts = {
             # Local
-            "bap-server.${acmeHost}" = mkLocalProxyHost 6223;
-            "bap.${acmeHost}" = mkLocalProxyHost 6224;
+            "eag-api.${acmeHost}" = mkLocalProxyHost 6223;
+            "eag.${acmeHost}" = mkLocalProxyHost 6224;
             "books-sync.${acmeHost}" = mkLocalProxyHost 17200;
             "books.${acmeHost}" = mkLocalProxyHost 8083;
             "dash.${acmeHost}" = mkLocalProxyHost 7112;
