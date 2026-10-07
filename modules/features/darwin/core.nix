@@ -6,7 +6,10 @@
     (
       { ... }:
       {
-        determinateNix.enable = true;
+        determinateNix = {
+          enable = true;
+          customSettings.extra-trusted-users = [ "bruno" ];
+        };
         system.stateVersion = 6;
       }
     )

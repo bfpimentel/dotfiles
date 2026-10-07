@@ -62,11 +62,11 @@
           crossover
           ghostty
           helium-browser
-          iloader
           openusage
           pearcleaner
           shottr
           the-unarchiver
+          tinycast
           vial
           xcodes-app
 
@@ -95,7 +95,7 @@
           packages =
             with pkgs;
             [
-              # inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
               inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.herdr
 

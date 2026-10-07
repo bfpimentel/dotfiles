@@ -15,6 +15,7 @@ path=(
 if [[ "$OSTYPE" == darwin* ]]; then
     export DOCKER_HOST="unix:///tmp/podman/podman-machine-default-api.sock"
     export PI_CODING_AGENT_DIR="$HOME/.config/pi/agent"
+    export CHROME_EXECUTABLE="$HOME/Applications/Home Manager Apps/Helium.app/Contents/MacOS/Helium"
 
     path=(
         "$HOME/.lmstudio/bin"

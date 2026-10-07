@@ -40,7 +40,7 @@ previous_tab = "prefix+h"
 next_tab = "prefix+l"
 switch_tab = "prefix+1..9"
 edit_scrollback = "prefix+e"
-# close_tab = "prefix+shift+x"
+close_tab = "prefix+shift+x"
 
 # Panes
 zoom = "prefix+z"
@@ -56,7 +56,7 @@ navigate_pane_right = ""
 # Workspaces
 new_workspace = "prefix+shift+n"
 rename_workspace = "prefix+shift+w"
-close_workspace = "prefix+shift+x"
+# close_workspace = "prefix+shift+x"
 previous_workspace = "prefix+shift+h"
 next_workspace = "prefix+shift+l"
 # navigate_workspace_up = "k"

@@ -2,19 +2,25 @@
   "defaultModel": "gpt-6.1-sol",
   "defaultProvider": "openai-codex",
   "defaultThinkingLevel": "medium",
-  "defaultTools": [ "+codemode" ],
+  "defaultTools": [
+    "+codemode"
+  ],
   "doubleEscapeAction": "tree",
   "editorPaddingX": 1,
   "enableInstallTelemetry": false,
   "fullscreenExitOutput": "resume-hint",
   "fullscreenScrollbar": "auto",
   "hideThinkingBlock": true,
-  "lastChangelogVersion": "0.99.1",
+  "lastChangelogVersion": "1.0.4",
   "packages": [],
   "quietStartup": false,
   "shellPath": "/bin/zsh",
-  "terminal": { "showTerminalProgress": true },
+  "terminal": {
+    "showTerminalProgress": true
+  },
   "theme": "gruvbox-material-soft",
   "transport": "auto",
-  "tuiMode": "fullscreen"
+  "tuiMode": "fullscreen",
+  "steeringMode": "one-at-a-time",
+  "markdown.codeBlockIndent": ""
 }

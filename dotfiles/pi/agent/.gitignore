@@ -5,5 +5,6 @@ install
 
 auth.json
 mcp-cache.json
+mcp.log
 models-store.json
 trust.json

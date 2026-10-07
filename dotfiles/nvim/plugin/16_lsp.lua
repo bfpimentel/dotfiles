@@ -29,6 +29,7 @@ Pack.later(function()
     "oxlint",
     "python",
     "qml",
+    "swift",
     "tailwindcss",
     "typescript",
     "yaml",
