@@ -15,6 +15,13 @@
         "PLAYWRIGHT_MCP_EXECUTABLE_PATH": "${CHROME_EXECUTABLE}",
         "PWTEST_SOCKETS_DIR": "/tmp/pw"
       }
+    },
+    "nixos": {
+      "command": "uvx",
+      "args": ["mcp-nixos"]
+    },
+    "open-pencil": {
+      "command": "openpencil-mcp"
     }
   }
 }

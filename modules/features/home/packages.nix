@@ -54,6 +54,12 @@
         };
         androidSdk = androidComposition.androidsdk;
 
+        # The cask does not bundle the MCP CLI. Match its version; Bun
+        # downloads the npm package on first use, outside the Nix build.
+        openpencil-mcp = pkgs.writeShellScriptBin "openpencil-mcp" ''
+          exec ${pkgs.bun}/bin/bun x --bun --package @open-pencil/mcp@${pkgs.brewCasks.openpencil.version} openpencil-mcp "$@"
+        '';
+
         casks = with pkgs.brewCasks; [
           bettercapture
           betterdisplay
@@ -62,6 +68,7 @@
           crossover
           ghostty
           helium-browser
+          openpencil
           openusage
           pearcleaner
           shottr
@@ -96,12 +103,12 @@
             with pkgs;
             [
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
-              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
               inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.herdr
 
               nh
 
-              jankyborders
+              mole-cleaner
+              openpencil-mcp
 
               tmux
               rsync
