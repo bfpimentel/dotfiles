@@ -1,0 +1,66 @@
+{
+  "name": "gruvbox-material-soft",
+  "base": "dark",
+  "overrides": {
+    "claude": "rgb(231,138,78)",
+    "claudeShimmer": "rgb(240,170,120)",
+    "clawd_body": "rgb(231,138,78)",
+    "clawd_background": "rgb(50,48,47)",
+    "briefLabelClaude": "rgb(231,138,78)",
+    "briefLabelYou": "rgb(125,174,163)",
+
+    "text": "rgb(212,190,152)",
+    "inverseText": "rgb(50,48,47)",
+    "inactive": "rgb(146,131,116)",
+    "inactiveShimmer": "rgb(168,153,132)",
+    "subtle": "rgb(102,92,84)",
+
+    "promptBorder": "rgb(124,111,100)",
+    "promptBorderShimmer": "rgb(168,153,132)",
+    "bashBorder": "rgb(231,138,78)",
+    "suggestion": "rgb(125,174,163)",
+    "remember": "rgb(125,174,163)",
+    "ide": "rgb(125,174,163)",
+    "permission": "rgb(125,174,163)",
+    "permissionShimmer": "rgb(165,205,195)",
+    "planMode": "rgb(137,180,130)",
+    "autoAccept": "rgb(211,134,155)",
+    "autoAcceptShimmer": "rgb(230,175,190)",
+    "skill": "rgb(211,134,155)",
+    "background": "rgb(137,180,130)",
+    "merged": "rgb(211,134,155)",
+    "effortUltra": "rgb(211,134,155)",
+    "fastMode": "rgb(231,138,78)",
+    "fastModeShimmer": "rgb(240,170,120)",
+
+    "success": "rgb(169,182,101)",
+    "error": "rgb(234,105,98)",
+    "warning": "rgb(216,166,87)",
+    "warningShimmer": "rgb(235,195,130)",
+
+    "diffAdded": "rgb(66,74,62)",
+    "diffRemoved": "rgb(84,57,55)",
+    "diffAddedDimmed": "rgb(58,62,54)",
+    "diffRemovedDimmed": "rgb(68,52,50)",
+    "diffAddedWord": "rgb(98,114,62)",
+    "diffRemovedWord": "rgb(130,68,64)",
+
+    "userMessageBackground": "rgb(60,56,54)",
+    "userMessageBackgroundHover": "rgb(80,73,69)",
+    "selectionBg": "rgb(80,73,69)",
+    "bashMessageBackgroundColor": "rgb(64,56,50)",
+    "memoryBackgroundColor": "rgb(54,60,56)",
+
+    "rate_limit_fill": "rgb(125,174,163)",
+    "rate_limit_empty": "rgb(80,73,69)",
+
+    "red_FOR_SUBAGENTS_ONLY": "rgb(234,105,98)",
+    "blue_FOR_SUBAGENTS_ONLY": "rgb(125,174,163)",
+    "green_FOR_SUBAGENTS_ONLY": "rgb(169,182,101)",
+    "yellow_FOR_SUBAGENTS_ONLY": "rgb(216,166,87)",
+    "purple_FOR_SUBAGENTS_ONLY": "rgb(211,134,155)",
+    "orange_FOR_SUBAGENTS_ONLY": "rgb(231,138,78)",
+    "pink_FOR_SUBAGENTS_ONLY": "rgb(211,134,155)",
+    "cyan_FOR_SUBAGENTS_ONLY": "rgb(137,180,130)"
+  }
+}

@@ -1,0 +1,17 @@
+*
+
+!.gitignore
+
+!settings.json
+!mcp.json
+!keybindings.json
+!CLAUDE.md
+
+!skills/
+!skills/**
+!agents/
+!agents/**
+!commands/
+!commands/**
+!themes/
+!themes/**

@@ -28,7 +28,6 @@
           "ghostty"
           "lazygit"
           "nvim"
-          "opencode"
           "tmux"
           "zsh"
         ];
@@ -48,6 +47,7 @@
           // mapDotfiles [
             "aerospace"
             "borders"
+            "claude"
             "herdr"
             "pi"
             "tuna"

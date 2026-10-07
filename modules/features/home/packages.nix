@@ -103,6 +103,7 @@
             with pkgs;
             [
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
               inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.herdr
 
               nh

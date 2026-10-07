@@ -39,7 +39,8 @@ else
 fi
 
 if [[ -n "$antidote_zsh" && -r "$zsh_plugins_txt" ]]; then
-    if [[ ! -r "$zsh_plugins_bundle" || "$zsh_plugins_txt" -nt "$zsh_plugins_bundle" ]]; then
+    # Antidote clones into ~/Library/Caches on macOS, which the OS may purge.
+    if [[ ! -r "$zsh_plugins_bundle" || "$zsh_plugins_txt" -nt "$zsh_plugins_bundle" || ! -d "$(antidote home)" ]]; then
         zsh_plugins_tmp="${zsh_plugins_bundle}.$$"
         if antidote bundle < "$zsh_plugins_txt" >| "$zsh_plugins_tmp"; then
             mv -f -- "$zsh_plugins_tmp" "$zsh_plugins_bundle"
