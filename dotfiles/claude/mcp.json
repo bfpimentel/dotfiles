@@ -3,11 +3,6 @@
     "codebase-memory-mcp": {
       "command": "/Users/bruno/.local/bin/codebase-memory-mcp"
     },
-    "searxng": {
-      "command": "npx",
-      "args": ["-y", "mcp-searxng"],
-      "env": { "SEARXNG_URL": "https://search.local.jalotopimentel.com" }
-    },
     "playwright": {
       "command": "npx",
       "args": ["-y", "@playwright/mcp@latest", "--browser=chrome"],
@@ -19,9 +14,6 @@
     "nixos": {
       "command": "uvx",
       "args": ["mcp-nixos"]
-    },
-    "open-pencil": {
-      "command": "openpencil-mcp"
     }
   }
 }

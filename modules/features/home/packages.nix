@@ -64,8 +64,6 @@
           bettercapture
           betterdisplay
           bruno
-          chatgpt
-          crossover
           ghostty
           helium-browser
           openpencil
@@ -95,6 +93,21 @@
               mainProgram = "aerospace";
             };
           }))
+
+          (boosteroid.overrideAttrs (oldAttrs: {
+            src = pkgs.fetchurl {
+              url = builtins.head oldAttrs.src.urls;
+              hash = "sha256-1fVvcAuK1Ww88TwNcaBurDDXh26zNw9CROFpwFVAn7Y=";
+            };
+          }))
+
+          (claude.overrideAttrs {
+            # brew-nix adds a bin/claude wrapper that launches the desktop app,
+            # which shadows Claude Code from llm-agents. Keep only the bundle.
+            postFixup = ''
+              rm -rf $out/bin
+            '';
+          })
         ];
       in
       {
@@ -117,7 +130,6 @@
               pnpm
               (python3.withPackages (pythonPackages: [
                 pythonPackages.pexpect
-                pythonPackages.textual
               ]))
 
               podman

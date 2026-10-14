@@ -11,7 +11,7 @@
   "fullscreenExitOutput": "resume-hint",
   "fullscreenScrollbar": "auto",
   "hideThinkingBlock": true,
-  "lastChangelogVersion": "1.0.4",
+  "lastChangelogVersion": "1.1.0",
   "packages": [],
   "quietStartup": false,
   "shellPath": "/bin/zsh",

@@ -1,4 +1,8 @@
 {
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  },
   "theme": "custom:gruvbox-material-soft",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "agentPushNotifEnabled": true
 }

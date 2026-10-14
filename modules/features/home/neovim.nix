@@ -3,42 +3,49 @@
 {
   config.bfmp.hm.sharedModules = [
     (
-      { pkgs, ... }:
+      { lib, pkgs, ... }:
       let
         mv = inputs.multiverse.multiverse.${pkgs.stdenv.hostPlatform.system};
       in
       {
-        home.packages = with pkgs; [
-          neovim
+        programs.neovim = {
+          enable = true;
+          package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
+          withPython3 = false;
+          withRuby = false;
 
-          gcc
-          tree-sitter
+          extraPackages = with pkgs; [
+            gcc
+            tree-sitter
 
-          nixd
-          nixfmt
+            nixd
+            nixfmt
 
-          lua-language-server
-          stylua
+            lua-language-server
+            stylua
 
-          bash-language-server
-          beautysh
+            bash-language-server
+            beautysh
 
-          yaml-language-server
-          yamlfmt
+            yaml-language-server
+            yamlfmt
 
-          typescript
-          typescript-language-server
-          vscode-langservers-extracted
-          tailwindcss-language-server
-          prettier
-          oxfmt
-          oxlint
+            typescript
+            # typescript-language-server
+            vscode-langservers-extracted
+            tailwindcss-language-server
+            prettier
+            oxfmt
+            oxlint
 
-          basedpyright
-          ruff
+            basedpyright
+            ruff
 
-          dart
-        ];
+            dart
+          ];
+        };
+
+        xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
       }
     )
   ];
