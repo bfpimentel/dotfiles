@@ -10,7 +10,11 @@
       {
         programs.neovim = {
           enable = true;
-          package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
+          package =
+            if pkgs.stdenv.hostPlatform.isDarwin then
+              inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default
+            else
+              pkgs.neovim-unwrapped;
           withPython3 = false;
           withRuby = false;
 

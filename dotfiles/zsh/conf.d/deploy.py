@@ -20,6 +20,12 @@ VALID_TARGETS = ("powers", "thronos")
 ACTIONS = ("switch", "boot", "test", "build")
 SUDO_PROMPT = re.compile(r"\[sudo\] password for [^:\r\n]+:")
 ANSI_ESCAPE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
+# https://github.com/maralorn/nix-output-monitor/issues/320
+SGR = rb"(?:\x1b\[[0-9;]*m)*"
+NOM_ERROR_TEXT = b"nix-output-monitor error: "
+NOM_ERROR = re.compile(SGR + NOM_ERROR_TEXT)
+NOM_NOISE = re.compile(SGR + NOM_ERROR_TEXT + SGR + rb"ParseNixJSONMessageError[^\n]*\n")
+TRAILING_SGR = re.compile(SGR + rb"(?:\x1b(?:\[[0-9;]*)?)?\Z")
 
 
 def paint(text: str, code: str) -> str:
@@ -46,7 +52,29 @@ def sync_dotfiles(repo: Path, host: str) -> bool:
     return subprocess.run(command).returncode == 0
 
 
-def spawn_with_password(command: list[str], password: str) -> int:
+def unfinished_tail_start(buffer: bytes) -> int:
+    candidates = [len(buffer)]
+
+    errors = list(NOM_ERROR.finditer(buffer))
+    if errors and b"\n" not in buffer[errors[-1].start() :]:
+        candidates.append(errors[-1].start())
+
+    end = len(buffer)
+    for size in range(min(len(NOM_ERROR_TEXT) - 1, len(buffer)), 0, -1):
+        if buffer.endswith(NOM_ERROR_TEXT[:size]):
+            end -= size
+            break
+
+    candidates.append(TRAILING_SGR.search(buffer, 0, end).start())
+    return min(candidates)
+
+
+def strip_nom_noise(buffer: bytes) -> tuple[bytes, bytes]:
+    split = unfinished_tail_start(buffer)
+    return NOM_NOISE.sub(b"", buffer[:split]), buffer[split:]
+
+
+def run_in_terminal(command: list[str], password: str | None) -> int:
     columns, rows = shutil.get_terminal_size()
     child = pexpect.spawn(
         command[0], command[1:], timeout=None, dimensions=(rows, columns)
@@ -56,22 +84,26 @@ def spawn_with_password(command: list[str], password: str) -> int:
         lambda *_: child.setwinsize(*reversed(shutil.get_terminal_size())),
     )
     tail = ""
-    answered = False
+    held = b""
+    answered = password is None
 
-    def answer_sudo(data: bytes) -> bytes:
-        nonlocal tail, answered
+    def filter_output(data: bytes) -> bytes:
+        nonlocal tail, held, answered
         if not answered:
             tail = (tail + data.decode(errors="replace"))[-512:]
             if SUDO_PROMPT.search(ANSI_ESCAPE.sub("", tail)):
                 answered = True
                 child.send(f"{password}\r")
-        return data
+        printable, held = strip_nom_noise(held + data)
+        return printable
 
     try:
-        child.interact(escape_character=None, output_filter=answer_sudo)
+        child.interact(escape_character=None, output_filter=filter_output)
     finally:
         signal.signal(signal.SIGWINCH, previous_handler)
         child.close()
+        if held:
+            os.write(sys.stdout.fileno(), held)
 
     if child.exitstatus is None:
         return 128 + (child.signalstatus or 0)
@@ -92,9 +124,9 @@ def rebuild(
         command += ["--build-host", host]
     command += extra
 
-    if password is None:
+    if not (sys.stdin.isatty() and sys.stdout.isatty()):
         return subprocess.run(command).returncode == 0
-    return spawn_with_password(command, password) == 0
+    return run_in_terminal(command, password) == 0
 
 
 def deploy(

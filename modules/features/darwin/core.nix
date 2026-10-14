@@ -19,6 +19,8 @@
     (
       { ... }:
       {
+        # Requires /nix on a case-sensitive APFS volume.
+        determinateNix.customSettings.use-case-hack = false;
         networking.hostName = "seraphim";
         nixpkgs.hostPlatform = "aarch64-darwin";
         system.primaryUser = "bruno";
