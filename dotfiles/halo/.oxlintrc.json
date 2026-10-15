@@ -1,0 +1,20 @@
+{
+  "plugins": ["typescript", "unicorn", "oxc", "import"],
+  "categories": {
+    "correctness": "error"
+  },
+  "ignorePatterns": [],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["./*", "../*", "."],
+            "message": "Use an @/ alias import instead of a relative path."
+          }
+        ]
+      }
+    ]
+  }
+}

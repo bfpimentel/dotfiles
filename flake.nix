@@ -13,9 +13,8 @@
   };
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
+    # Nix
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,27 +23,12 @@
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
-    };
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
-    agenix = {
-      url = "github:ryantm/agenix";
-    };
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-    };
-    herdr = {
-      url = "github:ogulcancelik/herdr";
-    };
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-    };
-    multiverse = {
-      url = "github:fzakaria/nixpkgs-multiverse";
-    };
+
+    # Utils
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    multiverse.url = "github:fzakaria/nixpkgs-multiverse";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    agenix.url = "github:ryantm/agenix";
     brew-api = {
       url = "github:bfpimentel/brew-api";
       flake = false;
@@ -53,6 +37,12 @@
       url = "github:BatteredBunny/brew-nix";
       inputs.brew-api.follows = "brew-api";
     };
+
+    # Apps
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    llm-agents.url = "github:numtide/llm-agents.nix";
+    herdr.url = "github:ogulcancelik/herdr";
+    halo.url = "github:bfpimentel/halo";
   };
 
   outputs =

@@ -48,6 +48,7 @@
             "aerospace"
             "borders"
             "claude"
+            "halo"
             "herdr"
             "pi"
             "tuna"

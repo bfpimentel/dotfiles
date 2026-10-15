@@ -29,7 +29,7 @@
             ports = [ "8333:8333" ];
             environmentFiles = [ config.age.secrets.hass-env.path ];
             environment = {
-              LAYOUT_SYNC_URL = "https://hass-sync.local.jalotopimentel.com";
+              LAYOUT_SYNC_UPSTREAM = "https://hass-sync.local.jalotopimentel.com";
             };
             labels = {
               "shady.name" = "hass-lb";

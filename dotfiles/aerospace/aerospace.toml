@@ -16,15 +16,24 @@ default-root-container-orientation = 'horizontal'
 
 on-focused-monitor-changed = [ 'move-mouse monitor-lazy-center' ]
 
+# exec-on-workspace-change = [
+#   '/bin/bash',
+#   '-c',
+#   '/Users/bruno/.config/aerospace/handle-pip.sh'
+# ]
+
+# halo: run the PiP handler as before, then tell halo which workspace is focused.
+# (Absolute path to the dev build until halo is installed via Homebrew.)
 exec-on-workspace-change = [
   '/bin/bash',
   '-c',
-  '/Users/bruno/.config/aerospace/handle-pip.sh'
+  '/Users/bruno/.config/aerospace/handle-pip.sh; /Users/bruno/Coding/personal/halo/.build/debug/halo trigger aerospace.workspace focused=$AEROSPACE_FOCUSED_WORKSPACE prev=$AEROSPACE_PREV_WORKSPACE'
 ]
 
-# after-startup-command = [
-#   'exec-and-forget /etc/profiles/per-user/bruno/bin/borders'
-# ]
+# halo: refresh the bar's workspace state (e.g. which workspaces are empty) on focus changes. New block.
+on-focus-changed = [
+  'exec-and-forget /Users/bruno/Coding/personal/halo/.build/debug/halo trigger aerospace.focus'
+]
 
 persistent-workspaces = [ 'B', 'W', 'M', 'T', 'X' ]
 
@@ -49,6 +58,9 @@ cmd-alt-h = []
 cmd-m = []
 
 alt-semicolon = [ 'mode service' ]
+
+# halo: open/close the launcher from examples/launcher. New binding.
+cmd-p = 'exec-and-forget /Users/bruno/Coding/personal/halo/.build/debug/halo toggle launcher'
 
 alt-b = 'workspace B'
 alt-w = 'workspace W'

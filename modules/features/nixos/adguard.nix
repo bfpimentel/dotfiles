@@ -10,10 +10,8 @@ in
       {
         services.adguardhome = {
           enable = true;
-          host = adguardAddress;
-          port = 3000;
-
           settings = {
+            http.address = "${adguardAddress}:3000";
             dns = {
               bind_hosts = [ adguardAddress ];
               port = 53;

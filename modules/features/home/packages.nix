@@ -31,6 +31,7 @@
   ];
 
   config.bfmp.hm.hosts.seraphim.modules = [
+    inputs.halo.homeManagerModules.default
     (
       { pkgs, ... }:
       let
@@ -54,24 +55,15 @@
         };
         androidSdk = androidComposition.androidsdk;
 
-        # The cask does not bundle the MCP CLI. Match its version; Bun
-        # downloads the npm package on first use, outside the Nix build.
-        openpencil-mcp = pkgs.writeShellScriptBin "openpencil-mcp" ''
-          exec ${pkgs.bun}/bin/bun x --bun --package @open-pencil/mcp@${pkgs.brewCasks.openpencil.version} openpencil-mcp "$@"
-        '';
-
         casks = with pkgs.brewCasks; [
           bettercapture
           betterdisplay
           bruno
           ghostty
           helium-browser
-          openpencil
           openusage
-          pearcleaner
           shottr
           the-unarchiver
-          tinycast
           vial
           xcodes-app
 
@@ -111,6 +103,8 @@
         ];
       in
       {
+        services.halo.enable = true;
+
         home = {
           packages =
             with pkgs;
@@ -122,7 +116,6 @@
               nh
 
               mole-cleaner
-              openpencil-mcp
 
               tmux
               rsync
@@ -135,8 +128,9 @@
               podman
               podman-compose
 
-              cocoapods
               androidSdk
+              cocoapods
+              esbuild
               jdk
 
               nerd-fonts.symbols-only
