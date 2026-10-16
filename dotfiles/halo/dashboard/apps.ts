@@ -4,7 +4,6 @@ import type { Rule } from "@/dashboard/types";
 export interface App {
   name: string;
   path: string;
-  /// The folder it was found in, shown under the name ("Utilities", "Home Manager Apps"…).
   folder: string;
 }
 
@@ -17,7 +16,6 @@ const homeDirectory = () =>
 const expandHome = async (path: string) =>
   path.startsWith("~") ? (await homeDirectory()) + path.slice(1) : path;
 
-/// `.app` bundles under `paths`, following symlinks (Nix and Home Manager link their apps), without descending into bundles.
 export async function scanApps(
   paths: string[],
   depth: number,
@@ -62,7 +60,7 @@ function wildcard(rule: string): RegExp {
   return new RegExp(`^${escaped}$`, "i");
 }
 
-/// Bundle names (`Ghostty.app`) of running apps. Names, not paths: Nix apps run from the store, not from where we found them.
+// Bundle names, not paths: Nix apps run from the store, not from where they were found.
 export async function runningBundles(): Promise<Set<string>> {
   const { stdout } = await sh("ps -axo comm=");
   const bundles = new Set<string>();

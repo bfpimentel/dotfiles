@@ -1,4 +1,4 @@
-import { Box, Image, Text, animate, exec, hide, sh, type NativeNode } from "halo";
+import { Box, Image, Text, exec, hide, sh } from "halo";
 import { aerospace, type Workspace } from "@/dashboard/aerospace";
 import { clock } from "halo/services";
 import { computed, effect, signal } from "halo/signals";
@@ -9,7 +9,6 @@ type Options = DashboardConfig["overview"];
 
 const snappy = { stiffness: 520, damping: 30 };
 
-/// One strip shown while the search is empty: time and date on the left, AeroSpace workspaces on the right.
 export function Overview(props: { theme: Theme; options: Options }) {
   const { theme, options } = props;
   return (
@@ -30,28 +29,11 @@ export function Overview(props: { theme: Theme; options: Options }) {
 }
 
 function Clock(theme: Theme) {
-  let colon: NativeNode | undefined;
   const view = (
     <Box style={{ flexDirection: "row", align: "center", gap: 10 }}>
-      <Box style={{ flexDirection: "row", align: "center" }}>
-        <Text style={{ fontSize: 26, fontWeight: "bold", color: theme.foreground }}>
-          {clock.format("HH")}
-        </Text>
-        <Text
-          ref={(node) => (colon = node)}
-          style={{
-            fontSize: 24,
-            fontWeight: "bold",
-            color: theme.accent,
-            padding: [0, 1, 3, 1],
-          }}
-        >
-          :
-        </Text>
-        <Text style={{ fontSize: 26, fontWeight: "bold", color: theme.foreground }}>
-          {clock.format("mm")}
-        </Text>
-      </Box>
+      <Text style={{ fontSize: 26, fontWeight: "bold", color: theme.foreground }}>
+        {clock.format("HH:mm")}
+      </Text>
       <Box style={{ gap: 0 }}>
         <Text style={{ fontSize: 11, fontWeight: "semibold", color: theme.foreground }}>
           {clock.format("EEEE")}
@@ -60,12 +42,6 @@ function Clock(theme: Theme) {
       </Box>
     </Box>
   );
-  if (colon)
-    animate(
-      colon,
-      { opacity: [1, 0.25] },
-      { duration: 900, repeat: Infinity, alternate: true, curve: "ease-in-out" },
-    );
   return view;
 }
 

@@ -1,8 +1,6 @@
 import type { DashboardConfig } from "@/dashboard/types";
 
-// Edit and save: halo hot-reloads. Toggle the dashboard with `halo toggle dashboard` (alt-space in AeroSpace).
 export default {
-  // A bundle path adds just that app: Finder lives among system agents in CoreServices.
   searchPaths: [
     "/Applications",
     "/System/Applications",
@@ -17,8 +15,6 @@ export default {
     "Steam Support Center",
     "*Uninstall*",
     /^Xcode-.*Beta/,
-    // A path rule (contains `/`) hides a whole folder, e.g. every CrossOver game:
-    // "~/Applications/CrossOver/*",
   ],
 
   pinned: ["Ghostty", "Helium", "Claude"],
@@ -38,6 +34,12 @@ export default {
     enabled: true,
     workspaces: true,
     rows: 5,
+  },
+
+  clipboard: {
+    intervalMs: 1000,
+    max: 50,
+    rows: 10,
   },
 
   theme: {

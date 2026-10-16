@@ -8,6 +8,7 @@ import {
   exec,
   hide,
   sh,
+  show,
   type NativeNode,
   type ScreenInfo,
 } from "halo";
@@ -29,7 +30,7 @@ type Item = { kind: "calc"; value: number } | ({ kind: "app" } & Ranked);
 const ROW_HEIGHT = 48;
 const snappy = { stiffness: 520, damping: 30 };
 
-const alpha = (hex: string, amount: number) =>
+export const alpha = (hex: string, amount: number) =>
   hex.slice(0, 7) +
   Math.round(amount * 255)
     .toString(16)
@@ -62,8 +63,7 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
       aliases: config.aliases,
       pinned: config.pinned,
       recents: recents(),
-      limit:
-        idle() && config.overview.enabled ? config.overview.rows : config.maxResults,
+      limit: idle() && config.overview.enabled ? config.overview.rows : config.maxResults,
     }).map((entry) => ({ kind: "app", ...entry }));
     const value = result();
     return value === undefined
@@ -108,12 +108,6 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
       hide("dashboard");
       remember(item.app);
     }, 170);
-  };
-
-  const reveal = (item: Item | undefined) => {
-    if (item?.kind !== "app") return;
-    exec("open", ["-R", item.app.path]);
-    hide("dashboard");
   };
 
   const reset = () => {
@@ -339,7 +333,7 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
                     choose(item);
                     return true;
                   case "Tab":
-                    reveal(item);
+                    show("clipboard");
                     return true;
                   case "Escape":
                     if (query()) {
@@ -383,7 +377,7 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
           >
             {Hint("↑↓", "select")}
             {Hint("↵", "open")}
-            {Hint("⇥", "reveal in Finder")}
+            {Hint("⇥", "clipboard")}
             {Hint("esc", "clear / close")}
             <Box style={{ grow: 1 }} />
             <Text style={{ fontSize: 11, color: theme.muted }}>

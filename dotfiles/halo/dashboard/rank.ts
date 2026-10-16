@@ -2,7 +2,6 @@ import type { App, Usage } from "@/dashboard/apps";
 
 export interface Match {
   score: number;
-  /// Positions in the name that matched, for highlighting.
   indices: number[];
 }
 
@@ -11,7 +10,7 @@ const isBoundary = (text: string, i: number) =>
   /[\s\-_.]/.test(text[i - 1]) ||
   (text[i] !== text[i].toLowerCase() && text[i - 1] === text[i - 1].toLowerCase());
 
-/// Substring matches win (prefix, then word start); otherwise a subsequence scored by consecutive runs and word starts.
+// Substring matches win (prefix, then word start); otherwise a subsequence scored by consecutive runs and word starts.
 export function fuzzy(query: string, text: string): Match | null {
   const q = query.toLowerCase();
   const t = text.toLowerCase();
@@ -53,7 +52,7 @@ export function fuzzy(query: string, text: string): Match | null {
   return { score, indices };
 }
 
-/// Frequent and recent launches rise; a launch counts half as much after a week.
+// A launch counts half as much after a week.
 export function usageBoost(usage: Usage | undefined, now = Date.now()): number {
   if (!usage) return 0;
   const days = (now - usage.last) / 86_400_000;
@@ -107,7 +106,6 @@ export function rank(
     .slice(0, options.limit);
 }
 
-/// Splits `text` into runs of matched / unmatched characters.
 export function segments(
   text: string,
   indices: number[],
@@ -123,7 +121,6 @@ export function segments(
   return runs;
 }
 
-/// `12*3+4`, `2^10`, `(1,5+2)/3` → number; anything else → undefined.
 export function calculate(query: string): number | undefined {
   const expression = query.trim();
   if (

@@ -1,7 +1,3 @@
-// AeroSpace workspaces as signals, built only on halo's public API: `halo trigger` events from aerospace.toml
-// wake it, `aerospace list-workspaces` supplies the state. Copy it into your config and adapt it; the same
-// shape works for yabai or any WM with a CLI and change hooks.
-
 import { screens, sh, type ScreenInfo } from "halo";
 import { computed, effect, externalSignal, signal, type Accessor } from "halo/signals";
 
