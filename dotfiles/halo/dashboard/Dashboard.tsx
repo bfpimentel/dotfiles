@@ -1,19 +1,21 @@
 import {
   Box,
+  For,
   Image,
   Input,
   Surface,
   Text,
   animate,
-  exec,
   hide,
   sh,
   show,
   type NativeNode,
   type ScreenInfo,
 } from "halo";
-import { computed, signal } from "halo/signals";
+import { session } from "halo/services";
+import { computed, effect, onCleanup, signal, type Accessor } from "halo/signals";
 import {
+  appItem,
   loadRecents,
   runningBundles,
   saveRecents,
@@ -21,21 +23,36 @@ import {
   type App,
   type Usage,
 } from "@/dashboard/apps";
+import { commands } from "@/dashboard/commands";
+import { SymbolIcon, alpha, type Item, type Theme } from "@/dashboard/items";
 import { Overview } from "@/dashboard/Overview";
 import { calculate, rank, segments, type Ranked } from "@/dashboard/rank";
 import type { DashboardConfig } from "@/dashboard/types";
 
-type Item = { kind: "calc"; value: number } | ({ kind: "app" } & Ranked);
-
 const ROW_HEIGHT = 48;
 const snappy = { stiffness: 520, damping: 30 };
 
-export const alpha = (hex: string, amount: number) =>
-  hex.slice(0, 7) +
-  Math.round(amount * 255)
-    .toString(16)
-    .padStart(2, "0");
 const formatNumber = (value: number) => String(Number(value.toPrecision(12)));
+
+function calculatorItem(
+  value: number,
+  copied: Accessor<boolean>,
+  onCopy: () => void,
+  theme: Theme,
+): Item {
+  return {
+    id: "calc",
+    title: formatNumber(value),
+    subtitle: () => (copied() ? "Copied to clipboard" : "Enter to copy"),
+    icon: () => SymbolIcon("equal", theme),
+    run: () => {
+      sh(`printf %s '${formatNumber(value)}' | pbcopy`);
+      onCopy();
+      setTimeout(() => hide("dashboard"), 700);
+    },
+    searchable: false,
+  };
+}
 
 export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }) {
   const { config } = props;
@@ -47,7 +64,7 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
   const query = signal("");
   const selected = signal(0);
   const copied = signal(false);
-  const rows = new Map<number, NativeNode>();
+  const rows = new Map<string, NativeNode>();
 
   const refresh = () => {
     scanApps(config.searchPaths, config.depth, config.exclude).then(apps.set);
@@ -56,19 +73,33 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
   refresh();
   loadRecents().then(recents.set);
 
+  let lastWake: number | undefined;
+  effect(() => {
+    const wake = session.lastWake();
+    if (wake !== undefined && wake !== lastWake) refresh();
+    lastWake = wake;
+  });
+
   const idle = computed(() => !query().trim());
   const result = computed(() => (config.calculator ? calculate(query()) : undefined));
-  const items = computed<Item[]>(() => {
-    const ranked: Item[] = rank(apps(), query(), {
+  const searchable = computed(() => [
+    ...apps().map((app) => appItem(app, running, theme)),
+    ...commands(theme),
+  ]);
+  const items = computed<Ranked[]>(() => {
+    const ranked = rank(searchable(), query(), {
       aliases: config.aliases,
       pinned: config.pinned,
       recents: recents(),
       limit: idle() && config.overview.enabled ? config.overview.rows : config.maxResults,
-    }).map((entry) => ({ kind: "app", ...entry }));
+    });
     const value = result();
-    return value === undefined
-      ? ranked
-      : [{ kind: "calc", value }, ...ranked.slice(0, config.maxResults - 1)];
+    if (value === undefined) return ranked;
+    const calc = calculatorItem(value, copied, () => copied.set(true), theme);
+    return [
+      { item: calc, match: { score: 0, indices: [] } },
+      ...ranked.slice(0, config.maxResults - 1),
+    ];
   });
   const heading = computed(() =>
     result() !== undefined
@@ -83,31 +114,23 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
     if (count) selected.update((index) => (index + delta + count) % count);
   };
 
-  const remember = (app: App) => {
+  const remember = (item: Item) => {
     const next = {
       ...recents(),
-      [app.path]: { count: (recents()[app.path]?.count ?? 0) + 1, last: Date.now() },
+      [item.id]: { count: (recents()[item.id]?.count ?? 0) + 1, last: Date.now() },
     };
     saveRecents(next);
     recents.set(next);
   };
 
-  const choose = (item: Item | undefined) => {
-    if (!item) return;
-    const row = rows.get(selected());
+  const choose = (entry: Ranked | undefined) => {
+    if (!entry) return;
+    const { item } = entry;
+    const row = rows.get(item.id);
     if (row)
       animate(row, { scale: [1, 0.95, 1.02, 1] }, { duration: 280, curve: "ease-out" });
-    if (item.kind === "calc") {
-      sh(`printf %s '${formatNumber(item.value)}' | pbcopy`);
-      copied.set(true);
-      setTimeout(() => hide("dashboard"), 700);
-      return;
-    }
-    exec("open", [item.app.path]);
-    setTimeout(() => {
-      hide("dashboard");
-      remember(item.app);
-    }, 170);
+    item.run();
+    if (item.searchable !== false) setTimeout(() => remember(item), 170);
   };
 
   const reset = () => {
@@ -117,11 +140,13 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
     refresh();
   };
 
-  function Row(item: Item, index: number) {
-    const isSelected = () => selected() === index;
+  function Row(entry: Accessor<Ranked>, index: Accessor<number>) {
+    const { item } = entry();
+    const isSelected = () => selected() === index();
+    onCleanup(() => rows.delete(item.id));
     return (
       <Box
-        ref={(node) => rows.set(index, node)}
+        ref={(node) => rows.set(item.id, node)}
         style={{
           flexDirection: "row",
           align: "center",
@@ -136,16 +161,49 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
         enter={{
           from: { opacity: 0, translateY: 10 },
           duration: 200,
-          delay: index * 22,
+          delay: index() * 22,
           curve: [0.2, 0.9, 0.3, 1],
         }}
-        onHover={(hovered) => hovered && selected.set(index)}
+        onHover={(hovered) => hovered && selected.set(index())}
         onClick={() => {
-          selected.set(index);
-          choose(item);
+          selected.set(index());
+          choose(entry());
         }}
       >
-        {item.kind === "calc" ? CalculatorRow(item.value) : AppRow(item, isSelected)}
+        <Box
+          style={{
+            width: 32,
+            height: 32,
+            scale: () => (isSelected() ? 1.1 : 1),
+            transition: { scale: { curve: snappy } },
+          }}
+        >
+          {item.icon(isSelected)}
+          {item.badge?.() ?? null}
+        </Box>
+        <Box style={{ grow: 1, gap: 1 }}>
+          <Box style={{ flexDirection: "row" }}>
+            {() =>
+              segments(entry().item.title, entry().match.indices).map((part) => (
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: part.hit ? "bold" : "medium",
+                    color: part.hit ? theme.accent : theme.foreground,
+                  }}
+                >
+                  {part.text}
+                </Text>
+              ))
+            }
+          </Box>
+          <Text style={{ fontSize: 11, color: theme.muted }}>
+            {() => {
+              const { subtitle } = entry().item;
+              return typeof subtitle === "function" ? subtitle() : subtitle;
+            }}
+          </Text>
+        </Box>
         <Text
           style={{
             fontSize: 13,
@@ -160,74 +218,6 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
         </Text>
       </Box>
     );
-  }
-
-  function AppRow(item: Ranked, isSelected: () => boolean) {
-    const { app, match } = item;
-    return [
-      <Image
-        app={app.path}
-        size={32}
-        style={{
-          scale: () => (isSelected() ? 1.1 : 1),
-          transition: { scale: { curve: snappy } },
-        }}
-      />,
-      <Box style={{ grow: 1, gap: 1 }}>
-        <Box style={{ flexDirection: "row", align: "center", gap: 8 }}>
-          <Box style={{ flexDirection: "row" }}>
-            {segments(app.name, match.indices).map((part) => (
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: part.hit ? "bold" : "medium",
-                  color: part.hit ? theme.accent : theme.foreground,
-                }}
-              >
-                {part.text}
-              </Text>
-            ))}
-          </Box>
-          <Box
-            style={{
-              width: 6,
-              height: 6,
-              radius: 3,
-              background: "#a6e3a1",
-              opacity: () => (running().has(`${app.name}.app`) ? 1 : 0),
-              scale: () => (running().has(`${app.name}.app`) ? 1 : 0.2),
-              transition: { all: { curve: snappy } },
-            }}
-          />
-        </Box>
-        <Text style={{ fontSize: 11, color: theme.muted }}>{app.folder}</Text>
-      </Box>,
-    ];
-  }
-
-  function CalculatorRow(value: number) {
-    return [
-      <Box
-        style={{
-          width: 32,
-          height: 32,
-          radius: 4,
-          background: alpha(theme.accent, 0.18),
-          justify: "center",
-          align: "center",
-        }}
-      >
-        <Image symbol="equal" size={15} color={theme.accent} />
-      </Box>,
-      <Box style={{ grow: 1, gap: 1 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold", color: theme.foreground }}>
-          {formatNumber(value)}
-        </Text>
-        <Text style={{ fontSize: 11, color: () => (copied() ? "#a6e3a1" : theme.muted) }}>
-          {() => (copied() ? "Copied to clipboard" : "Enter to copy")}
-        </Text>
-      </Box>,
-    ];
   }
 
   function Empty() {
@@ -361,11 +351,10 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
             </Text>
           </Box>
           <Box style={{ gap: 2 }}>
-            {() => {
-              rows.clear();
-              const list = items();
-              return list.length ? list.map(Row) : Empty();
-            }}
+            <For each={items} key={(entry) => entry.item.id}>
+              {Row}
+            </For>
+            {() => (items().length ? null : Empty())}
           </Box>
           <Box
             style={{

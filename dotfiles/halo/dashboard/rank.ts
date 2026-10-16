@@ -1,4 +1,5 @@
-import type { App, Usage } from "@/dashboard/apps";
+import type { Usage } from "@/dashboard/apps";
+import type { Item } from "@/dashboard/items";
 
 export interface Match {
   score: number;
@@ -60,12 +61,12 @@ export function usageBoost(usage: Usage | undefined, now = Date.now()): number {
 }
 
 export interface Ranked {
-  app: App;
+  item: Item;
   match: Match;
 }
 
 export function rank(
-  apps: App[],
+  items: Item[],
   query: string,
   options: {
     aliases: Record<string, string>;
@@ -77,29 +78,29 @@ export function rank(
   const q = query.trim();
   if (!q) {
     const pinned = options.pinned
-      .map((name) => apps.find((app) => app.name === name))
-      .filter((app): app is App => !!app);
-    const recent = apps
-      .filter((app) => options.recents[app.path] && !pinned.includes(app))
-      .sort((a, b) => options.recents[b.path].last - options.recents[a.path].last);
+      .map((title) => items.find((item) => item.title === title))
+      .filter((item): item is Item => !!item);
+    const recent = items
+      .filter((item) => options.recents[item.id] && !pinned.includes(item))
+      .sort((a, b) => options.recents[b.id].last - options.recents[a.id].last);
     return [...pinned, ...recent]
       .slice(0, options.limit)
-      .map((app) => ({ app, match: { score: 0, indices: [] } }));
+      .map((item) => ({ item, match: { score: 0, indices: [] } }));
   }
 
   const aliased = new Set(
     Object.entries(options.aliases)
       .filter(([alias]) => alias.startsWith(q.toLowerCase()))
-      .map(([, name]) => name.toLowerCase()),
+      .map(([, title]) => title.toLowerCase()),
   );
-  return apps
-    .map((app) => {
-      const match = fuzzy(q, app.name);
-      const alias = aliased.has(app.name.toLowerCase());
+  return items
+    .map((item) => {
+      const match = fuzzy(q, item.title);
+      const alias = aliased.has(item.title.toLowerCase());
       if (!match && !alias) return null;
       const score =
-        (match?.score ?? 0) + (alias ? 500 : 0) + usageBoost(options.recents[app.path]);
-      return { app, match: { score, indices: match?.indices ?? [] } };
+        (match?.score ?? 0) + (alias ? 500 : 0) + usageBoost(options.recents[item.id]);
+      return { item, match: { score, indices: match?.indices ?? [] } };
     })
     .filter((ranked): ranked is Ranked => !!ranked)
     .sort((a, b) => b.match.score - a.match.score)

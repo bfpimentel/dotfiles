@@ -1,4 +1,6 @@
-import { sh } from "halo";
+import { Box, Image, exec, hide, readFile, sh, writeFile } from "halo";
+import type { Accessor } from "halo/signals";
+import type { Item, Theme } from "@/dashboard/items";
 import type { Rule } from "@/dashboard/types";
 
 export interface App {
@@ -76,19 +78,48 @@ export interface Usage {
   last: number;
 }
 
-const recentsFile = "$HOME/.cache/halo/dashboard-recents.json";
+const recentsFile = "~/.cache/halo/dashboard-recents.json";
 
 export async function loadRecents(): Promise<Record<string, Usage>> {
-  const { stdout } = await sh(`cat "${recentsFile}" 2>/dev/null`);
   try {
-    return stdout ? JSON.parse(stdout) : {};
+    return JSON.parse(await readFile(recentsFile));
   } catch {
     return {};
   }
 }
 
 export function saveRecents(recents: Record<string, Usage>): void {
-  sh(
-    `mkdir -p "$HOME/.cache/halo" && printf %s ${shellQuote(JSON.stringify(recents))} > "${recentsFile}"`,
-  );
+  writeFile(recentsFile, JSON.stringify(recents)).catch(() => {});
+}
+
+export function appItem(app: App, running: Accessor<Set<string>>, theme: Theme): Item {
+  const isRunning = () => running().has(`${app.name}.app`);
+  return {
+    id: app.path,
+    title: app.name,
+    subtitle: app.folder,
+    icon: () => <Image app={app.path} size={32} />,
+    badge: () => (
+      <Box
+        style={{
+          position: "absolute",
+          right: -2,
+          bottom: -2,
+          width: 10,
+          height: 10,
+          radius: 5,
+          borderWidth: 2,
+          borderColor: theme.background.slice(0, 7),
+          background: "#a6e3a1",
+          opacity: () => (isRunning() ? 1 : 0),
+          scale: () => (isRunning() ? 1 : 0.2),
+          transition: { opacity: 120, scale: { curve: { stiffness: 520, damping: 30 } } },
+        }}
+      />
+    ),
+    run: () => {
+      exec("open", [app.path]);
+      setTimeout(() => hide("dashboard"), 170);
+    },
+  };
 }

@@ -1,7 +1,7 @@
-import { Box, Surface, Text, hide, show, type ScreenInfo } from "halo";
-import { computed, signal } from "halo/signals";
+import { Box, For, Surface, Text, hide, show, type ScreenInfo } from "halo";
+import { computed, signal, type Accessor } from "halo/signals";
 import type { Clip, clipboardHistory } from "@/dashboard/clipHistory";
-import { alpha } from "@/dashboard/Dashboard";
+import { alpha } from "@/dashboard/items";
 import type { DashboardConfig } from "@/dashboard/types";
 
 type History = ReturnType<typeof clipboardHistory>;
@@ -35,15 +35,15 @@ export function Clipboard(props: {
     hide("clipboard");
   };
 
-  function Row(clip: Clip, index: number) {
+  function Row(clip: Accessor<Clip>, index: Accessor<number>) {
     const hovered = signal(false);
-    const active = () => selected() === index;
+    const active = () => selected() === index();
     return (
       <Box
-        onClick={() => pick(clip)}
+        onClick={() => pick(clip())}
         onHover={(value) => {
           hovered.set(value);
-          if (value) selected.set(index);
+          if (value) selected.set(index());
         }}
         style={{
           flexDirection: "row",
@@ -57,9 +57,11 @@ export function Clipboard(props: {
         }}
       >
         <Text style={{ grow: 1, shrink: 1, fontSize: 13, color: theme.foreground }}>
-          {clip.text.replace(/\s+/g, " ").trim()}
+          {clip().text.replace(/\s+/g, " ").trim()}
         </Text>
-        <Text style={{ fontSize: 11, color: theme.muted }}>{age(clip.copiedAt)}</Text>
+        <Text style={{ fontSize: 11, color: theme.muted }}>
+          {() => age(clip().copiedAt)}
+        </Text>
       </Box>
     );
   }
@@ -119,10 +121,11 @@ export function Clipboard(props: {
             }
           </Text>
         </Box>
+        <For each={shown} key={(clip) => clip.text}>
+          {Row}
+        </For>
         {() =>
-          shown().length ? (
-            shown().map(Row)
-          ) : (
+          shown().length ? null : (
             <Box style={{ padding: [16, 12] }}>
               <Text style={{ fontSize: 13, color: theme.muted }}>
                 Nothing copied yet.
