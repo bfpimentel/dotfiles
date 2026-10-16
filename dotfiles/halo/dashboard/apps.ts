@@ -1,5 +1,5 @@
 import { sh } from "halo";
-import type { Rule } from "@/launcher/types";
+import type { Rule } from "@/dashboard/types";
 
 export interface App {
   name: string;
@@ -78,7 +78,7 @@ export interface Usage {
   last: number;
 }
 
-const recentsFile = "$HOME/.cache/halo/launcher-recents.json";
+const recentsFile = "$HOME/.cache/halo/dashboard-recents.json";
 
 export async function loadRecents(): Promise<Record<string, Usage>> {
   const { stdout } = await sh(`cat "${recentsFile}" 2>/dev/null`);

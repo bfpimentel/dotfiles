@@ -1,4 +1,4 @@
-import type { App, Usage } from "@/launcher/apps";
+import type { App, Usage } from "@/dashboard/apps";
 
 export interface Match {
   score: number;

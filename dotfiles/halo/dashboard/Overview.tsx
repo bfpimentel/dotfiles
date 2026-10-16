@@ -1,16 +1,16 @@
 import { Box, Image, Text, animate, exec, hide, sh, type NativeNode } from "halo";
-import { aerospace, type Workspace } from "@/launcher/aerospace";
+import { aerospace, type Workspace } from "@/dashboard/aerospace";
 import { clock } from "halo/services";
 import { computed, effect, signal } from "halo/signals";
-import type { LauncherConfig } from "@/launcher/types";
+import type { DashboardConfig } from "@/dashboard/types";
 
-type Theme = LauncherConfig["theme"];
-type Options = LauncherConfig["dashboard"];
+type Theme = DashboardConfig["theme"];
+type Options = DashboardConfig["overview"];
 
 const snappy = { stiffness: 520, damping: 30 };
 
 /// One strip shown while the search is empty: time and date on the left, AeroSpace workspaces on the right.
-export function Dashboard(props: { theme: Theme; options: Options }) {
+export function Overview(props: { theme: Theme; options: Options }) {
   const { theme, options } = props;
   return (
     <Box
@@ -95,7 +95,7 @@ function Workspaces(theme: Theme) {
       equals: (a, b) => a.join() === b.join(),
     });
     const label = workspace.focused
-      ? "#11111b"
+      ? theme.background.slice(0, 7)
       : workspace.empty
         ? theme.muted
         : theme.foreground;
@@ -107,7 +107,7 @@ function Workspaces(theme: Theme) {
           gap: 5,
           height: 26,
           padding: [0, 8],
-          radius: 8,
+          radius: 4,
           background: () =>
             workspace.focused ? theme.accent : hovered() ? "#ffffff14" : "#ffffff08",
           scale: () => (hovered() ? 1.06 : 1),
@@ -122,7 +122,7 @@ function Workspaces(theme: Theme) {
         onHover={hovered.set}
         onClick={() => {
           exec("aerospace", ["workspace", workspace.name]);
-          hide("launcher");
+          hide("dashboard");
         }}
       >
         <Text style={{ fontSize: 12, fontWeight: "bold", color: label }}>

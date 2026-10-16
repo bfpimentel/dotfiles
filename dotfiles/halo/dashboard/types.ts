@@ -2,7 +2,7 @@
 /// `/` matches the full path instead. Regexes are tested against both the name and the path.
 export type Rule = string | RegExp;
 
-export interface LauncherConfig {
+export interface DashboardConfig {
   /// Folders to scan for `.app` bundles. `~` is your home folder. Symlinks are followed.
   searchPaths: string[];
   /// How many folder levels to descend into (1 = only the folders themselves).
@@ -18,7 +18,7 @@ export interface LauncherConfig {
   /// Evaluate math like `12*3+4` and copy the result with Enter.
   calculator: boolean;
   /// A strip with the time, date and AeroSpace workspaces above the pinned/recent list while the search is empty.
-  dashboard: {
+  overview: {
     enabled: boolean;
     /// Workspace chips with the apps open in each (click one to switch).
     workspaces: boolean;

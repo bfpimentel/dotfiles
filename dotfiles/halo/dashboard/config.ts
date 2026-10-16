@@ -1,6 +1,6 @@
-import type { LauncherConfig } from "@/launcher/types";
+import type { DashboardConfig } from "@/dashboard/types";
 
-// Edit and save: halo hot-reloads. Toggle the launcher with `halo toggle launcher` (alt-space in AeroSpace).
+// Edit and save: halo hot-reloads. Toggle the dashboard with `halo toggle dashboard` (alt-space in AeroSpace).
 export default {
   // A bundle path adds just that app: Finder lives among system agents in CoreServices.
   searchPaths: [
@@ -34,16 +34,16 @@ export default {
   maxResults: 8,
   calculator: true,
 
-  dashboard: {
+  overview: {
     enabled: true,
     workspaces: true,
     rows: 5,
   },
 
   theme: {
-    accent: "#89b4fa",
-    background: "#181825f2",
-    foreground: "#cdd6f4",
-    muted: "#7f849c",
+    accent: "#d6d6d6",
+    background: "#141414f2",
+    foreground: "#e8e8e8",
+    muted: "#6b6b6b",
   },
-} satisfies LauncherConfig;
+} satisfies DashboardConfig;

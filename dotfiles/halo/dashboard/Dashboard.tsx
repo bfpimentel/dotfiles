@@ -19,10 +19,10 @@ import {
   scanApps,
   type App,
   type Usage,
-} from "@/launcher/apps";
-import { Dashboard } from "@/launcher/Dashboard";
-import { calculate, rank, segments, type Ranked } from "@/launcher/rank";
-import type { LauncherConfig } from "@/launcher/types";
+} from "@/dashboard/apps";
+import { Overview } from "@/dashboard/Overview";
+import { calculate, rank, segments, type Ranked } from "@/dashboard/rank";
+import type { DashboardConfig } from "@/dashboard/types";
 
 type Item = { kind: "calc"; value: number } | ({ kind: "app" } & Ranked);
 
@@ -36,7 +36,7 @@ const alpha = (hex: string, amount: number) =>
     .padStart(2, "0");
 const formatNumber = (value: number) => String(Number(value.toPrecision(12)));
 
-export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) {
+export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }) {
   const { config } = props;
   const theme = config.theme;
 
@@ -63,7 +63,7 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
       pinned: config.pinned,
       recents: recents(),
       limit:
-        idle() && config.dashboard.enabled ? config.dashboard.rows : config.maxResults,
+        idle() && config.overview.enabled ? config.overview.rows : config.maxResults,
     }).map((entry) => ({ kind: "app", ...entry }));
     const value = result();
     return value === undefined
@@ -100,12 +100,12 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
     if (item.kind === "calc") {
       sh(`printf %s '${formatNumber(item.value)}' | pbcopy`);
       copied.set(true);
-      setTimeout(() => hide("launcher"), 700);
+      setTimeout(() => hide("dashboard"), 700);
       return;
     }
     exec("open", [item.app.path]);
     setTimeout(() => {
-      hide("launcher");
+      hide("dashboard");
       remember(item.app);
     }, 170);
   };
@@ -113,7 +113,7 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
   const reveal = (item: Item | undefined) => {
     if (item?.kind !== "app") return;
     exec("open", ["-R", item.app.path]);
-    hide("launcher");
+    hide("dashboard");
   };
 
   const reset = () => {
@@ -134,7 +134,7 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
           gap: 12,
           height: ROW_HEIGHT,
           padding: [0, 12],
-          radius: 12,
+          radius: 5,
           background: () =>
             isSelected() ? alpha(theme.accent, 0.16) : alpha(theme.accent, 0),
           transition: { background: 140 },
@@ -217,7 +217,7 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
         style={{
           width: 32,
           height: 32,
-          radius: 9,
+          radius: 4,
           background: alpha(theme.accent, 0.18),
           justify: "center",
           align: "center",
@@ -266,7 +266,7 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
   function Hint(keys: string, label: string) {
     return (
       <Box style={{ flexDirection: "row", align: "center", gap: 6 }}>
-        <Box style={{ padding: [2, 6], radius: 5, background: "#ffffff12" }}>
+        <Box style={{ padding: [2, 6], radius: 3, background: "#ffffff12" }}>
           <Text style={{ fontSize: 11, fontWeight: "semibold", color: theme.foreground }}>
             {keys}
           </Text>
@@ -278,7 +278,7 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
 
   return (
     <Surface
-      name="launcher"
+      name="dashboard"
       defaultHidden
       screen={props.screen}
       anchor={["top"]}
@@ -287,7 +287,7 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
       layer="overlay"
       input="keyboard"
       onFocus={reset}
-      onBlur={() => hide("launcher")}
+      onBlur={() => hide("dashboard")}
       enter={{
         from: { opacity: 0, scale: 0.95, translateY: -16 },
         curve: { stiffness: 420, damping: 30 },
@@ -303,9 +303,9 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
           style={{
             padding: [4, 8, 10, 8],
             background: theme.background,
-            radius: 20,
+            radius: 9,
             borderWidth: 1,
-            borderColor: "#ffffff16",
+            borderColor: "#ffffff12",
             transition: { layout: { duration: 240, curve: [0.2, 0.9, 0.3, 1] } },
           }}
         >
@@ -346,7 +346,7 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
                       query.set("");
                       selected.set(0);
                     } else {
-                      hide("launcher");
+                      hide("dashboard");
                     }
                     return true;
                   default:
@@ -357,8 +357,8 @@ export function Launcher(props: { screen: ScreenInfo; config: LauncherConfig }) 
           </Box>
           <Box style={{ height: 1, background: "#ffffff10" }} />
           {() =>
-            config.dashboard.enabled && idle() ? (
-              <Dashboard theme={theme} options={config.dashboard} />
+            config.overview.enabled && idle() ? (
+              <Overview theme={theme} options={config.overview} />
             ) : null
           }
           <Box style={{ padding: [10, 12, 6, 12] }}>
