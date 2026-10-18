@@ -1,6 +1,7 @@
 import { exec, hide, show } from "halo";
 import { audio } from "halo/services";
-import { SymbolIcon, type Item, type Theme } from "@/dashboard/items";
+import type { Item } from "@/dashboard/items";
+import { SymbolIcon } from "@/ui/SymbolIcon";
 
 interface Command {
   id: string;
@@ -77,12 +78,12 @@ const list: Command[] = [
   },
 ];
 
-export function commands(theme: Theme): Item[] {
+export function commands(): Item[] {
   return list.map((command) => ({
     id: `command:${command.id}`,
     title: command.title,
     subtitle: command.subtitle,
-    icon: () => SymbolIcon(command.symbol, theme),
+    icon: () => SymbolIcon(command.symbol),
     run: () => {
       if (command.id !== "clipboard") hide("dashboard");
       command.run();

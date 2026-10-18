@@ -1,7 +1,7 @@
 import { Box, For, Surface, Text, hide, show, type ScreenInfo } from "halo";
 import { computed, signal, type Accessor } from "halo/signals";
 import type { Clip, clipboardHistory } from "@/dashboard/clipHistory";
-import { alpha } from "@/dashboard/items";
+import { alpha, theme } from "@/ui/theme";
 import type { DashboardConfig } from "@/dashboard/types";
 
 type History = ReturnType<typeof clipboardHistory>;
@@ -19,7 +19,6 @@ export function Clipboard(props: {
   config: DashboardConfig;
   history: History;
 }) {
-  const { theme } = props.config;
   const { history } = props;
   const selected = signal(0);
   const shown = computed(() => history.clips().slice(0, props.config.clipboard.rows));

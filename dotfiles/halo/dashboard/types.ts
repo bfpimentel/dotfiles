@@ -20,10 +20,4 @@ export interface DashboardConfig {
     max: number;
     rows: number;
   };
-  theme: {
-    accent: string;
-    background: string;
-    foreground: string;
-    muted: string;
-  };
 }

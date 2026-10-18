@@ -41,11 +41,4 @@ export default {
     max: 50,
     rows: 10,
   },
-
-  theme: {
-    accent: "#d6d6d6",
-    background: "#141414f2",
-    foreground: "#e8e8e8",
-    muted: "#6b6b6b",
-  },
 } satisfies DashboardConfig;

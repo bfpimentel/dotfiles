@@ -3,8 +3,8 @@ import { aerospace, type Workspace } from "@/dashboard/aerospace";
 import { battery, clock, system } from "halo/services";
 import { computed, effect, signal, untrack, type Accessor } from "halo/signals";
 import type { DashboardConfig } from "@/dashboard/types";
+import { theme } from "@/ui/theme";
 
-type Theme = DashboardConfig["theme"];
 type Options = DashboardConfig["overview"];
 
 const snappy = { stiffness: 520, damping: 30 };
@@ -16,8 +16,8 @@ effect(() => {
   if (cpu !== undefined) cpuHistory.set([...untrack(cpuHistory), cpu].slice(-cpuSamples));
 });
 
-export function Overview(props: { theme: Theme; options: Options }) {
-  const { theme, options } = props;
+export function Overview(props: { options: Options }) {
+  const { options } = props;
   return (
     <Box
       style={{ flexDirection: "row", align: "center", gap: 14, padding: [10, 12, 4, 12] }}
@@ -28,18 +28,16 @@ export function Overview(props: { theme: Theme; options: Options }) {
       }}
       exit={{ to: { opacity: 0, translateY: -4 }, duration: 100, curve: "ease-in" }}
     >
-      {Clock(theme)}
-      {Cpu(theme)}
-      {() =>
-        battery.present() && battery.source() === "battery" ? Battery(theme) : null
-      }
+      {Clock()}
+      {Cpu()}
+      {() => (battery.present() && battery.source() === "battery" ? Battery() : null)}
       <Box style={{ grow: 1 }} />
-      {options.workspaces ? Workspaces(theme) : null}
+      {options.workspaces ? Workspaces() : null}
     </Box>
   );
 }
 
-function Clock(theme: Theme) {
+function Clock() {
   return (
     <Box style={{ flexDirection: "row", align: "center", gap: 10 }}>
       <Text style={{ fontSize: 26, fontWeight: "bold", color: theme.foreground }}>
@@ -55,7 +53,7 @@ function Clock(theme: Theme) {
   );
 }
 
-function Cpu(theme: Theme) {
+function Cpu() {
   return (
     <Box style={{ gap: 2 }}>
       <Box style={{ flexDirection: "row", gap: 4 }}>
@@ -80,7 +78,7 @@ function Cpu(theme: Theme) {
   );
 }
 
-function Battery(theme: Theme) {
+function Battery() {
   const level = () => (battery.percent() ?? 0) / 100;
   return (
     <Box style={{ width: 30, height: 30 }}>
@@ -121,7 +119,7 @@ interface Windows {
   bundles: string[];
 }
 
-function Workspaces(theme: Theme) {
+function Workspaces() {
   const spaces = aerospace();
   const windows = signal(new Map<string, Windows>());
   effect(() => {

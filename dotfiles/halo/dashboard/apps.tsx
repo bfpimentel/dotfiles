@@ -1,6 +1,7 @@
 import { Box, Image, exec, hide, readFile, sh, writeFile } from "halo";
 import type { Accessor } from "halo/signals";
-import type { Item, Theme } from "@/dashboard/items";
+import type { Item } from "@/dashboard/items";
+import { theme } from "@/ui/theme";
 import type { Rule } from "@/dashboard/types";
 
 export interface App {
@@ -92,7 +93,7 @@ export function saveRecents(recents: Record<string, Usage>): void {
   writeFile(recentsFile, JSON.stringify(recents)).catch(() => {});
 }
 
-export function appItem(app: App, running: Accessor<Set<string>>, theme: Theme): Item {
+export function appItem(app: App, running: Accessor<Set<string>>): Item {
   const isRunning = () => running().has(`${app.name}.app`);
   return {
     id: app.path,

@@ -24,7 +24,9 @@ import {
   type Usage,
 } from "@/dashboard/apps";
 import { commands } from "@/dashboard/commands";
-import { SymbolIcon, alpha, type Item, type Theme } from "@/dashboard/items";
+import type { Item } from "@/dashboard/items";
+import { SymbolIcon } from "@/ui/SymbolIcon";
+import { alpha, theme } from "@/ui/theme";
 import { Overview } from "@/dashboard/Overview";
 import { calculate, rank, segments, type Ranked } from "@/dashboard/rank";
 import type { DashboardConfig } from "@/dashboard/types";
@@ -38,13 +40,12 @@ function calculatorItem(
   value: number,
   copied: Accessor<boolean>,
   onCopy: () => void,
-  theme: Theme,
 ): Item {
   return {
     id: "calc",
     title: formatNumber(value),
     subtitle: () => (copied() ? "Copied to clipboard" : "Enter to copy"),
-    icon: () => SymbolIcon("equal", theme),
+    icon: () => SymbolIcon("equal"),
     run: () => {
       sh(`printf %s '${formatNumber(value)}' | pbcopy`);
       onCopy();
@@ -56,7 +57,6 @@ function calculatorItem(
 
 export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }) {
   const { config } = props;
-  const theme = config.theme;
 
   const apps = signal<App[]>([]);
   const running = signal(new Set<string>());
@@ -83,8 +83,8 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
   const idle = computed(() => !query().trim());
   const result = computed(() => (config.calculator ? calculate(query()) : undefined));
   const searchable = computed(() => [
-    ...apps().map((app) => appItem(app, running, theme)),
-    ...commands(theme),
+    ...apps().map((app) => appItem(app, running)),
+    ...commands(),
   ]);
   const items = computed<Ranked[]>(() => {
     const ranked = rank(searchable(), query(), {
@@ -95,7 +95,7 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
     });
     const value = result();
     if (value === undefined) return ranked;
-    const calc = calculatorItem(value, copied, () => copied.set(true), theme);
+    const calc = calculatorItem(value, copied, () => copied.set(true));
     return [
       { item: calc, match: { score: 0, indices: [] } },
       ...ranked.slice(0, config.maxResults - 1),
@@ -342,7 +342,7 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
           <Box style={{ height: 1, background: "#ffffff10" }} />
           {() =>
             config.overview.enabled && idle() ? (
-              <Overview theme={theme} options={config.overview} />
+              <Overview options={config.overview} />
             ) : null
           }
           <Box style={{ padding: [10, 12, 6, 12] }}>

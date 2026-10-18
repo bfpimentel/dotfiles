@@ -10,8 +10,9 @@ import {
 } from "halo";
 import { drag } from "halo/services";
 import { computed, effect, signal, type Accessor } from "halo/signals";
-import { SymbolIcon, alpha, type Theme } from "@/dashboard/items";
-import type { FileShelf as Store } from "@/dashboard/shelf";
+import { SymbolIcon } from "@/ui/SymbolIcon";
+import { alpha, theme } from "@/ui/theme";
+import type { FileShelf as Store } from "@/shelf/store";
 
 const ease = [0.2, 0.9, 0.3, 1] as [number, number, number, number];
 
@@ -19,8 +20,8 @@ const name = (path: string) => path.split("/").filter(Boolean).pop() ?? path;
 const folder = (path: string) => path.split("/").slice(-2, -1)[0] ?? "/";
 const plural = (count: number) => (count === 1 ? "1 file" : `${count} files`);
 
-export function FileShelf(props: { screen: ScreenInfo; theme: Theme; shelf: Store }) {
-  const { theme, shelf } = props;
+export function FileShelf(props: { screen: ScreenInfo; shelf: Store }) {
+  const { shelf } = props;
   const over = signal(false);
   const incoming = signal(0);
   const expanded = signal(false);
@@ -181,7 +182,7 @@ export function FileShelf(props: { screen: ScreenInfo; theme: Theme; shelf: Stor
             transition: { background: 120 },
           }}
         >
-          {SymbolIcon("tray.and.arrow.down", theme)}
+          {SymbolIcon("tray.and.arrow.down")}
           <Box style={{ gap: 1 }}>
             <Text style={{ fontSize: 13, fontWeight: "medium", color: theme.foreground }}>
               {() => (over() ? "Release to shelve" : "Drop here")}
