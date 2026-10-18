@@ -288,11 +288,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1792179980,
-        "narHash": "sha256-mCDZ+GbcHRE0sU6hhUHVfoIE1voqvrAh09wYT8ENXao=",
+        "lastModified": 1792284836,
+        "narHash": "sha256-Rk4jo7r0HAo9b1rI/EmBjWviDfvG+EnSaTuLtMa7B3s=",
         "owner": "bfpimentel",
         "repo": "halo",
-        "rev": "6d25cf6bc1d9b7c22687a5eaea1a21ae51b7add2",
+        "rev": "4dbcd1949d820fce236bdd9c5bf997af20521ff9",
         "type": "github"
       },
       "original": {
