@@ -1,20 +1,14 @@
-import { Box, For, Image, Shape, Text, exec, hide, ring, sh, sparkline } from "halo";
+import { Box, For, Image, Shape, Text, exec, hide, ring, sh } from "halo";
 import { aerospace, type Workspace } from "@/dashboard/aerospace";
-import { battery, clock, system } from "halo/services";
-import { computed, effect, signal, untrack, type Accessor } from "halo/signals";
+import { battery, clock } from "halo/services";
+import { computed, effect, signal, type Accessor } from "halo/signals";
+import { caffeinated, toggleCaffeinate } from "@/dashboard/caffeinate";
 import type { DashboardConfig } from "@/dashboard/types";
 import { theme } from "@/ui/theme";
 
 type Options = DashboardConfig["overview"];
 
 const snappy = { stiffness: 520, damping: 30 };
-const cpuSamples = 30;
-
-const cpuHistory = signal<number[]>([]);
-effect(() => {
-  const cpu = system.cpu(2000);
-  if (cpu !== undefined) cpuHistory.set([...untrack(cpuHistory), cpu].slice(-cpuSamples));
-});
 
 export function Overview(props: { options: Options }) {
   const { options } = props;
@@ -29,7 +23,7 @@ export function Overview(props: { options: Options }) {
       exit={{ to: { opacity: 0, translateY: -4 }, duration: 100, curve: "ease-in" }}
     >
       {Clock()}
-      {Cpu()}
+      {() => (caffeinated() === undefined ? null : Caffeinated())}
       {() => (battery.present() && battery.source() === "battery" ? Battery() : null)}
       <Box style={{ grow: 1 }} />
       {options.workspaces ? Workspaces() : null}
@@ -53,27 +47,44 @@ function Clock() {
   );
 }
 
-function Cpu() {
+const minute = clock.format("HH:mm");
+
+function elapsed(since: number) {
+  const minutes = Math.floor((Date.now() - since) / 60_000);
+  return minutes < 60 ? `${minutes}m` : `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
+}
+
+function Caffeinated() {
+  const hovered = signal(false);
   return (
-    <Box style={{ gap: 2 }}>
-      <Box style={{ flexDirection: "row", gap: 4 }}>
-        <Text style={{ fontSize: 10, fontWeight: "bold", color: theme.muted }}>CPU</Text>
+    <Box
+      style={{
+        flexDirection: "row",
+        align: "center",
+        gap: 8,
+        padding: [4, 8],
+        radius: 5,
+        background: () => (hovered() ? "#ffffff14" : "#ffffff08"),
+        transition: { background: 120 },
+      }}
+      enter={{ from: { opacity: 0, scale: 0.8 }, duration: 180, curve: snappy }}
+      exit={{ to: { opacity: 0, scale: 0.8 }, duration: 120, curve: "ease-in" }}
+      onHover={hovered.set}
+      onClick={toggleCaffeinate}
+    >
+      <Image symbol="cup.and.saucer.fill" size={16} color={theme.accent} />
+      <Box style={{ gap: 0 }}>
+        <Text style={{ fontSize: 10, fontWeight: "bold", color: theme.muted }}>
+          {() => (hovered() ? "TURN OFF" : "AWAKE")}
+        </Text>
         <Text style={{ fontSize: 10, fontWeight: "semibold", color: theme.foreground }}>
-          {() => `${Math.round((system.cpu(2000) ?? 0) * 100)}%`}
+          {() => {
+            minute();
+            const since = caffeinated();
+            return since === undefined ? "" : elapsed(since);
+          }}
         </Text>
       </Box>
-      <Shape
-        path={() => sparkline(cpuHistory(), { min: 0, max: 1 })}
-        fit="stretch"
-        style={{
-          width: 56,
-          height: 16,
-          fill: "transparent",
-          stroke: theme.muted,
-          strokeWidth: 1.5,
-          lineJoin: "round",
-        }}
-      />
     </Box>
   );
 }

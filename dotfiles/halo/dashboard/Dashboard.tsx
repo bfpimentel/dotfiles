@@ -12,6 +12,7 @@ import {
   type App,
   type Usage,
 } from "@/dashboard/apps";
+import { checkCaffeinate } from "@/dashboard/caffeinate";
 import { calculate, calculatorItem } from "@/dashboard/calculator";
 import { commands } from "@/dashboard/commands";
 import { Overview } from "@/dashboard/Overview";
@@ -93,6 +94,7 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
       onOpen={() => {
         copied.set(false);
         refresh();
+        checkCaffeinate();
       }}
       onRun={(item) => {
         if (item.id !== "calc") setTimeout(() => remember(item), 170);

@@ -1,12 +1,13 @@
-import { exec, show } from "halo";
+import { exec, show, type Reactive } from "halo";
 import { audio } from "halo/services";
+import { caffeinated, toggleCaffeinate } from "@/dashboard/caffeinate";
 import type { Item } from "@/ui/palette/types";
 import { SymbolIcon } from "@/ui/SymbolIcon";
 
 interface Command {
   id: string;
   title: string;
-  subtitle: string;
+  subtitle: Reactive<string>;
   symbol: string;
   run(): void;
 }
@@ -68,6 +69,13 @@ const list: Command[] = [
     subtitle: "System",
     symbol: "rectangle.portrait.and.arrow.right",
     run: loginwindow("aevtrlgo"),
+  },
+  {
+    id: "caffeinate",
+    title: "Caffeinate",
+    subtitle: () => (caffeinated() ? "On · keeping the Mac awake" : "Off"),
+    symbol: "cup.and.saucer",
+    run: toggleCaffeinate,
   },
   {
     id: "mute",
