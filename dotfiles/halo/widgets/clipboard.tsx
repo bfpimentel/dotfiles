@@ -1,7 +1,7 @@
 import { defineWidget } from "halo";
 import { getOwner, runWithOwner } from "halo/signals";
-import { Clipboard } from "@/dashboard/Clipboard";
-import { clipboardHistory, type ClipboardHistory } from "@/dashboard/clipHistory";
+import { Clipboard } from "@/clipboard/Clipboard";
+import { clipboardHistory, type ClipboardHistory } from "@/clipboard/history";
 
 // One history shared by every screen, owned by the module so it outlives display changes.
 const owner = getOwner();

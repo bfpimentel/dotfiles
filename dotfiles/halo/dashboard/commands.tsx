@@ -1,6 +1,6 @@
-import { exec, hide, show } from "halo";
+import { exec, show } from "halo";
 import { audio } from "halo/services";
-import type { Item } from "@/dashboard/items";
+import type { Item } from "@/ui/palette/types";
 import { SymbolIcon } from "@/ui/SymbolIcon";
 
 interface Command {
@@ -84,9 +84,7 @@ export function commands(): Item[] {
     title: command.title,
     subtitle: command.subtitle,
     icon: () => SymbolIcon(command.symbol),
-    run: () => {
-      if (command.id !== "clipboard") hide("dashboard");
-      command.run();
-    },
+    run: command.run,
+    closeAfter: 0,
   }));
 }

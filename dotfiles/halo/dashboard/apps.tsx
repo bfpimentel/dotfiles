@@ -1,6 +1,6 @@
-import { Box, Image, exec, hide, readFile, sh, writeFile } from "halo";
+import { Box, Image, exec, readFile, sh, writeFile } from "halo";
 import type { Accessor } from "halo/signals";
-import type { Item } from "@/dashboard/items";
+import type { Item } from "@/ui/palette/types";
 import { theme } from "@/ui/theme";
 import type { Rule } from "@/dashboard/types";
 
@@ -93,6 +93,27 @@ export function saveRecents(recents: Record<string, Usage>): void {
   writeFile(recentsFile, JSON.stringify(recents)).catch(() => {});
 }
 
+// A launch counts half as much after a week.
+export function usageBoost(usage: Usage | undefined, now = Date.now()): number {
+  if (!usage) return 0;
+  const days = (now - usage.last) / 86_400_000;
+  return Math.min(120, usage.count * 12) * Math.pow(0.5, days / 7);
+}
+
+export function pinnedAndRecent(
+  items: Item[],
+  pinned: string[],
+  recents: Record<string, Usage>,
+): Item[] {
+  const pins = pinned
+    .map((title) => items.find((item) => item.title === title))
+    .filter((item): item is Item => !!item);
+  const recent = items
+    .filter((item) => recents[item.id] && !pins.includes(item))
+    .sort((a, b) => recents[b.id].last - recents[a.id].last);
+  return [...pins, ...recent];
+}
+
 export function appItem(app: App, running: Accessor<Set<string>>): Item {
   const isRunning = () => running().has(`${app.name}.app`);
   return {
@@ -118,9 +139,6 @@ export function appItem(app: App, running: Accessor<Set<string>>): Item {
         }}
       />
     ),
-    run: () => {
-      exec("open", [app.path]);
-      setTimeout(() => hide("dashboard"), 170);
-    },
+    run: () => exec("open", [app.path]),
   };
 }
