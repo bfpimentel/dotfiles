@@ -77,3 +77,5 @@ export function clipboardHistory(options: { intervalMs: number; max: number }) {
     },
   };
 }
+
+export type ClipboardHistory = ReturnType<typeof clipboardHistory>;

@@ -45,3 +45,5 @@ export function fileShelf() {
 }
 
 export type FileShelf = ReturnType<typeof fileShelf>;
+
+export const shelf = fileShelf();

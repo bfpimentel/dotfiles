@@ -15,9 +15,4 @@ export interface DashboardConfig {
     workspaces: boolean;
     rows: number;
   };
-  clipboard: {
-    intervalMs: number;
-    max: number;
-    rows: number;
-  };
 }

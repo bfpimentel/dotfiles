@@ -93,6 +93,16 @@
             };
           }))
 
+          (docker-desktop.overrideAttrs {
+            # brew-nix ignores the cask's binary stanzas and only wraps the
+            # backend. Expose the bundled CLI tools instead.
+            postFixup = ''
+              rm -rf $out/bin
+              mkdir -p $out/bin
+              ln -s $out/Applications/Docker.app/Contents/Resources/bin/* $out/bin/
+            '';
+          })
+
           (claude.overrideAttrs {
             # brew-nix adds a bin/claude wrapper that launches the desktop app,
             # which shadows Claude Code from llm-agents. Keep only the bundle.
@@ -124,9 +134,6 @@
               (python3.withPackages (pythonPackages: [
                 pythonPackages.pexpect
               ]))
-
-              podman
-              podman-compose
 
               androidSdk
               cocoapods
@@ -175,9 +182,6 @@
           peazip
           ungoogled-chromium
           vial
-
-          podman
-          podman-compose
 
           kdePackages.dolphin
 
