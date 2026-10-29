@@ -1,5 +1,6 @@
-import { Box, For, Image, Shape, Text, exec, hide, ring, sh } from "halo";
-import { aerospace, type Workspace } from "@/dashboard/aerospace";
+import { Box, For, Image, Shape, Text, exec, ring, sh } from "halo";
+import type { AeroSpace, Workspace } from "@/dashboard/aerospace";
+import { closeDashboard } from "@/island/state";
 import { battery, clock } from "halo/services";
 import { computed, effect, signal, type Accessor } from "halo/signals";
 import { caffeinated, toggleCaffeinate } from "@/dashboard/caffeinate";
@@ -10,7 +11,7 @@ type Options = DashboardConfig["overview"];
 
 const snappy = { stiffness: 520, damping: 30 };
 
-export function Overview(props: { options: Options }) {
+export function Overview(props: { options: Options; spaces: AeroSpace }) {
   const { options } = props;
   return (
     <Box
@@ -26,7 +27,7 @@ export function Overview(props: { options: Options }) {
       {() => (caffeinated() === undefined ? null : Caffeinated())}
       {() => (battery.present() && battery.source() === "battery" ? Battery() : null)}
       <Box style={{ grow: 1 }} />
-      {options.workspaces ? Workspaces() : null}
+      {options.workspaces ? Workspaces(props.spaces) : null}
     </Box>
   );
 }
@@ -130,8 +131,7 @@ interface Windows {
   bundles: string[];
 }
 
-function Workspaces() {
-  const spaces = aerospace();
+function Workspaces(spaces: AeroSpace) {
   const windows = signal(new Map<string, Windows>());
   effect(() => {
     spaces.workspaces();
@@ -185,7 +185,7 @@ function Workspaces() {
         onHover={hovered.set}
         onClick={() => {
           exec("aerospace", ["workspace", name]);
-          hide("dashboard");
+          closeDashboard();
         }}
       >
         <Text style={{ fontSize: 12, fontWeight: "bold", color: label }}>{name}</Text>

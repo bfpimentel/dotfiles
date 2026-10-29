@@ -57,7 +57,10 @@ alt-semicolon = [ 'mode service' ]
 # cmd-p = 'exec-and-forget /etc/profiles/per-user/bruno/bin/halo toggle dashboard'
 
 # halo: same, with the Nix halo found through [exec.env-vars] PATH.
-cmd-p = 'exec-and-forget halo toggle dashboard'
+# cmd-p = 'exec-and-forget halo toggle dashboard'
+
+# halo: the dashboard now morphs out of the island, toggled through its external signal.
+cmd-p = 'exec-and-forget halo trigger island action=toggle'
 
 alt-b = 'workspace B'
 alt-w = 'workspace W'

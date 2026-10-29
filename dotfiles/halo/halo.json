@@ -1,7 +1,5 @@
 {
   "widgets": {
-    "clipboard": { "widget": "clipboard", "screens": "main" },
-    "dashboard": { "widget": "dashboard", "screens": "main" },
-    "shelf": { "widget": "shelf", "screens": "main" }
+    "island": { "widget": "island", "screens": "main" }
   }
 }

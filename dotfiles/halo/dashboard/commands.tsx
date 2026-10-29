@@ -1,7 +1,8 @@
-import { exec, show, type Reactive } from "halo";
+import { exec, type Reactive } from "halo";
 import { audio } from "halo/services";
 import { caffeinated, toggleCaffeinate } from "@/dashboard/caffeinate";
-import type { Item } from "@/ui/palette/types";
+import { tab } from "@/island/state";
+import type { Feedback, Item } from "@/ui/palette/types";
 import { SymbolIcon } from "@/ui/SymbolIcon";
 
 interface Command {
@@ -10,6 +11,9 @@ interface Command {
   subtitle: Reactive<string>;
   symbol: string;
   run(): void;
+  /** Keeps the dashboard open instead of closing into a notice. */
+  stays?: boolean;
+  feedback?(): Feedback;
 }
 
 const loginwindow = (event: string) => () =>
@@ -26,7 +30,8 @@ const list: Command[] = [
     title: "Clipboard History",
     subtitle: "Dashboard",
     symbol: "doc.on.clipboard",
-    run: () => show("clipboard"),
+    run: () => tab.set("clipboard"),
+    stays: true,
   },
   {
     id: "lock",
@@ -76,6 +81,18 @@ const list: Command[] = [
     subtitle: () => (caffeinated() ? "On · keeping the Mac awake" : "Off"),
     symbol: "cup.and.saucer",
     run: toggleCaffeinate,
+    feedback: () =>
+      caffeinated() === undefined
+        ? {
+            title: "Caffeinate on",
+            subtitle: "Keeping the Mac awake",
+            symbol: "cup.and.saucer.fill",
+          }
+        : {
+            title: "Caffeinate off",
+            subtitle: "Sleep is allowed again",
+            symbol: "cup.and.saucer",
+          },
   },
   {
     id: "mute",
@@ -83,6 +100,10 @@ const list: Command[] = [
     subtitle: "Audio",
     symbol: "speaker.slash",
     run: () => audio.toggleMuted(),
+    feedback: () =>
+      audio.muted()
+        ? { title: "Sound on", subtitle: "Audio", symbol: "speaker.wave.2.fill" }
+        : { title: "Muted", subtitle: "Audio", symbol: "speaker.slash.fill" },
   },
 ];
 
@@ -93,6 +114,7 @@ export function commands(): Item[] {
     subtitle: command.subtitle,
     icon: () => SymbolIcon(command.symbol),
     run: command.run,
-    closeAfter: 0,
+    closeAfter: command.stays ? false : 0,
+    feedback: command.feedback,
   }));
 }

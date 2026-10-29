@@ -1,5 +1,4 @@
 import { sh } from "halo";
-import type { Accessor } from "halo/signals";
 import type { Item } from "@/ui/palette/types";
 import { SymbolIcon } from "@/ui/SymbolIcon";
 
@@ -23,20 +22,19 @@ export function calculate(query: string): number | undefined {
   }
 }
 
-export function calculatorItem(
-  value: number,
-  copied: Accessor<boolean>,
-  onCopy: () => void,
-): Item {
+export function calculatorItem(value: number): Item {
+  const text = formatNumber(value);
   return {
     id: "calc",
-    title: formatNumber(value),
-    subtitle: () => (copied() ? "Copied to clipboard" : "Enter to copy"),
+    title: text,
+    subtitle: "Enter to copy",
     icon: () => SymbolIcon("equal"),
-    run: () => {
-      sh(`printf %s '${formatNumber(value)}' | pbcopy`);
-      onCopy();
-    },
-    closeAfter: 700,
+    run: () => sh(`printf %s '${text}' | pbcopy`),
+    closeAfter: 0,
+    feedback: () => ({
+      title: `Copied ${text}`,
+      subtitle: "Calculator",
+      symbol: "equal",
+    }),
   };
 }

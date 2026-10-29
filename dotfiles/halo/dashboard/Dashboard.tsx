@@ -1,4 +1,4 @@
-import { show, type ScreenInfo } from "halo";
+import { Box } from "halo";
 import { session } from "halo/services";
 import { computed, effect, signal } from "halo/signals";
 import {
@@ -12,21 +12,21 @@ import {
   type App,
   type Usage,
 } from "@/dashboard/apps";
+import type { AeroSpace } from "@/dashboard/aerospace";
 import { checkCaffeinate } from "@/dashboard/caffeinate";
 import { calculate, calculatorItem } from "@/dashboard/calculator";
 import { commands } from "@/dashboard/commands";
 import { Overview } from "@/dashboard/Overview";
 import type { DashboardConfig } from "@/dashboard/types";
-import { Palette } from "@/ui/palette/Palette";
+import { ShelfStrip } from "@/shelf/ShelfStrip";
+import { shelf } from "@/shelf/store";
+import type { PaletteConfig } from "@/ui/palette/Palette";
 import type { Item } from "@/ui/palette/types";
 
-export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }) {
-  const { config } = props;
-
+export function launcher(config: DashboardConfig, spaces: AeroSpace): PaletteConfig {
   const apps = signal<App[]>([]);
   const running = signal(new Set<string>());
   const recents = signal<Record<string, Usage>>({});
-  const copied = signal(false);
 
   const refresh = () => {
     scanApps(config.searchPaths, config.depth, config.exclude).then(apps.set);
@@ -56,49 +56,42 @@ export function Dashboard(props: { screen: ScreenInfo; config: DashboardConfig }
     recents.set(next);
   };
 
-  return (
-    <Palette
-      name="dashboard"
-      screen={props.screen}
-      width={680}
-      height={600}
-      placeholder="Search apps, or type math…"
-      items={items}
-      search={{
-        limit: config.maxResults,
-        idleLimit: config.overview.enabled ? config.overview.rows : config.maxResults,
-        aliases: config.aliases,
-        boost: (item) => usageBoost(recents()[item.id]),
-        idle: (all) => pinnedAndRecent(all, config.pinned, recents()),
-        extras: (query) => {
-          const value = config.calculator ? calculate(query) : undefined;
-          return value === undefined
-            ? []
-            : [calculatorItem(value, copied, () => copied.set(true))];
-        },
-      }}
-      heading={(ctx) =>
-        ctx.results()[0]?.item.id === "calc"
-          ? "CALCULATOR"
-          : ctx.idle()
-            ? "PINNED & RECENT"
-            : `${ctx.results().length} OF ${apps().length}`
-      }
-      middle={(ctx) =>
-        config.overview.enabled && ctx.idle() ? (
-          <Overview options={config.overview} />
-        ) : null
-      }
-      keys={[{ key: "Tab", label: "⇥", hint: "clipboard", run: () => show("clipboard") }]}
-      status={() => `${apps().length} apps`}
-      onOpen={() => {
-        copied.set(false);
-        refresh();
-        checkCaffeinate();
-      }}
-      onRun={(item) => {
-        if (item.id !== "calc") setTimeout(() => remember(item), 170);
-      }}
-    />
-  );
+  return {
+    placeholder: "Search apps, or type math…",
+    items,
+    search: {
+      limit: config.maxResults,
+      idleLimit: config.overview.enabled ? config.overview.rows : config.maxResults,
+      aliases: config.aliases,
+      boost: (item) => usageBoost(recents()[item.id]),
+      idle: (all) => pinnedAndRecent(all, config.pinned, recents()),
+      extras: (query) => {
+        const value = config.calculator ? calculate(query) : undefined;
+        return value === undefined ? [] : [calculatorItem(value)];
+      },
+    },
+    heading: (ctx) =>
+      ctx.results()[0]?.item.id === "calc"
+        ? "CALCULATOR"
+        : ctx.idle()
+          ? "PINNED & RECENT"
+          : `${ctx.results().length} OF ${apps().length}`,
+    middle: (ctx) =>
+      ctx.idle() ? (
+        <Box>
+          {config.overview.enabled ? (
+            <Overview options={config.overview} spaces={spaces} />
+          ) : null}
+          {() => (shelf.files().length ? <ShelfStrip /> : null)}
+        </Box>
+      ) : null,
+    status: () => `${apps().length} apps`,
+    onOpen: () => {
+      refresh();
+      checkCaffeinate();
+    },
+    onRun: (item) => {
+      if (item.id !== "calc") setTimeout(() => remember(item), 170);
+    },
+  };
 }

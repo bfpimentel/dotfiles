@@ -1,7 +1,6 @@
-import { show, type ScreenInfo } from "halo";
 import { computed } from "halo/signals";
 import type { Clip, ClipboardHistory } from "@/clipboard/history";
-import { Palette } from "@/ui/palette/Palette";
+import type { PaletteConfig } from "@/ui/palette/Palette";
 import type { Item } from "@/ui/palette/types";
 
 const searchLength = 300;
@@ -25,6 +24,11 @@ function clipItem(clip: Clip, history: ClipboardHistory): Item {
     accessory: () => age(clip.copiedAt),
     run: () => history.copy(clip.text),
     closeAfter: 0,
+    feedback: () => ({
+      title: "Copied",
+      subtitle: clip.text.replace(/\s+/g, " ").trim().slice(0, 80),
+      symbol: "doc.on.clipboard",
+    }),
     actions: [
       {
         key: "Backspace",
@@ -37,33 +41,21 @@ function clipItem(clip: Clip, history: ClipboardHistory): Item {
   };
 }
 
-export function Clipboard(props: {
-  screen: ScreenInfo;
-  rows: number;
-  history: ClipboardHistory;
-}) {
-  const { history } = props;
+export function clipboardPalette(history: ClipboardHistory, rows: number): PaletteConfig {
   const items = computed(() => history.clips().map((clip) => clipItem(clip, history)));
   const copiedAt = computed(
     () => new Map(history.clips().map((clip) => [clip.text, clip.copiedAt])),
   );
 
-  return (
-    <Palette
-      name="clipboard"
-      screen={props.screen}
-      width={560}
-      placeholder="Search clipboard…"
-      items={items}
-      compact
-      enterHint="copy"
-      search={{ limit: props.rows, boost: (item) => recency(copiedAt().get(item.id)) }}
-      heading={(ctx) =>
-        ctx.idle() ? "CLIPBOARD" : `${ctx.results().length} OF ${history.clips().length}`
-      }
-      keys={[{ key: "Tab", label: "⇥", hint: "dashboard", run: () => show("dashboard") }]}
-      status={() => `${history.clips().length} items`}
-      empty={(query) => (query ? `Nothing matches “${query}”` : "Nothing copied yet.")}
-    />
-  );
+  return {
+    placeholder: "Search clipboard…",
+    items,
+    compact: true,
+    enterHint: "copy",
+    search: { limit: rows, boost: (item) => recency(copiedAt().get(item.id)) },
+    heading: (ctx) =>
+      ctx.idle() ? "CLIPBOARD" : `${ctx.results().length} OF ${history.clips().length}`,
+    status: () => `${history.clips().length} items`,
+    empty: (query) => (query ? `Nothing matches “${query}”` : "Nothing copied yet."),
+  };
 }

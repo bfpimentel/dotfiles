@@ -1,6 +1,14 @@
 import type { Element, KeyEvent, Reactive } from "halo";
 import type { Accessor } from "halo/signals";
 
+/** What happened after an item ran, for whoever shows it. */
+export interface Feedback {
+  title: string;
+  subtitle?: string;
+  symbol?: string;
+  app?: string;
+}
+
 export interface Item {
   id: string;
   title: string;
@@ -12,6 +20,8 @@ export interface Item {
   /** Milliseconds before the palette closes after `run`, or `false` to keep it open. Default 170. */
   closeAfter?: number | false;
   actions?: Binding[];
+  /** Read just before `run`. */
+  feedback?(): Feedback | undefined;
 }
 
 export interface Binding {

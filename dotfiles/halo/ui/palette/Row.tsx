@@ -58,20 +58,31 @@ export function Row(props: {
       ) : null}
       <Box style={{ grow: 1, shrink: 1, gap: 1 }}>
         <Box style={{ flexDirection: "row" }}>
-          {() =>
-            segments(entry().item.title, entry().match.indices).map((part) => (
+          {() => {
+            const title = entry().item.title.slice(0, compact ? 76 : 60);
+            const parts = segments(
+              title,
+              entry().match.indices.filter((index) => index < title.length),
+            );
+            const fontSize = compact ? 13 : 14;
+            // Text drops whitespace at its edges, so spaces between highlighted runs become gaps.
+            const gap = (spaces: number) =>
+              spaces ? <Box style={{ width: spaces * fontSize * 0.28 }} /> : null;
+            return parts.map((part, index) => [
+              gap(part.text.length - part.text.trimStart().length),
               <Text
                 style={{
-                  shrink: 1,
-                  fontSize: compact ? 13 : 14,
+                  shrink: index === parts.length - 1 ? 1 : 0,
+                  fontSize,
                   fontWeight: part.hit ? "bold" : "medium",
                   color: part.hit ? theme.accent : theme.foreground,
                 }}
               >
-                {part.text}
-              </Text>
-            ))
-          }
+                {part.text.trim()}
+              </Text>,
+              gap(part.text.length - part.text.trimEnd().length),
+            ]);
+          }}
         </Box>
         {item.subtitle === undefined ? null : (
           <Text style={{ fontSize: 11, color: theme.muted }}>

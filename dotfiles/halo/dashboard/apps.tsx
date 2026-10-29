@@ -140,5 +140,10 @@ export function appItem(app: App, running: Accessor<Set<string>>): Item {
       />
     ),
     run: () => exec("open", [app.path]),
+    feedback: () => ({
+      title: `Opening ${app.name}`,
+      subtitle: app.folder,
+      app: app.path,
+    }),
   };
 }

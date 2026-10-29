@@ -3,15 +3,12 @@ import {
   For,
   Image,
   Input,
-  Surface,
   Text,
   animate,
-  hide,
   type Element,
   type KeyEvent,
   type NativeNode,
   type Reactive,
-  type ScreenInfo,
 } from "halo";
 import {
   computed,
@@ -23,14 +20,10 @@ import {
 } from "halo/signals";
 import { Row } from "@/ui/palette/Row";
 import { rank, type SearchOptions } from "@/ui/palette/search";
-import type { Binding, Item, PaletteContext, Ranked } from "@/ui/palette/types";
+import type { Binding, Feedback, Item, PaletteContext, Ranked } from "@/ui/palette/types";
 import { theme } from "@/ui/theme";
 
-export interface PaletteProps {
-  name: string;
-  screen: ScreenInfo;
-  width: number;
-  height?: number;
+export interface PaletteConfig {
   placeholder: string;
   items: Accessor<Item[]>;
   search: SearchOptions;
@@ -45,6 +38,12 @@ export interface PaletteProps {
   empty?: (query: string) => string;
   onOpen?: () => void;
   onRun?: (item: Item) => void;
+}
+
+export interface PaletteProps extends PaletteConfig {
+  /** Rendered at the right of the search field. */
+  accessory?: Element;
+  onClose: (feedback?: Feedback) => void;
 }
 
 const matches = (binding: Binding, event: KeyEvent) =>
@@ -75,8 +74,9 @@ export function Palette(props: PaletteProps) {
   const idle = computed(() => !query().trim());
   const results = computed<Ranked[]>(() => rank(props.items(), query(), props.search));
   const selected = computed(() => results()[selectedIndex()]?.item);
-  const close = () => hide(props.name);
+  const close = () => props.onClose();
   const ctx: PaletteContext = { query, idle, results, selected, close };
+  props.onOpen?.();
 
   effect(() => {
     const count = results().length;
@@ -88,16 +88,31 @@ export function Palette(props: PaletteProps) {
     if (count) selectedIndex.update((index) => (index + delta + count) % count);
   };
 
+  // Unmounted before its close fired (e.g. the launched app took focus): finish now, never on a later palette.
+  let closing: { timer: ReturnType<typeof setTimeout>; finish: () => void } | undefined;
+  onCleanup(() => {
+    if (!closing) return;
+    clearTimeout(closing.timer);
+    queueMicrotask(closing.finish);
+  });
+
   const choose = (entry: Ranked | undefined) => {
     if (!entry) return;
     const { item } = entry;
     const row = rows.get(item.id);
     if (row)
       animate(row, { scale: [1, 0.95, 1.02, 1] }, { duration: 280, curve: "ease-out" });
+    const feedback = item.feedback?.();
     item.run();
     props.onRun?.(item);
     const delay = item.closeAfter ?? 170;
-    if (delay !== false) setTimeout(close, delay);
+    if (delay === false) return;
+    clearTimeout(closing?.timer);
+    const finish = () => {
+      closing = undefined;
+      props.onClose(feedback);
+    };
+    closing = { timer: setTimeout(finish, delay), finish };
   };
 
   const onKeyDown = (event: KeyEvent) => {
@@ -149,116 +164,78 @@ export function Palette(props: PaletteProps) {
   }
 
   return (
-    <Surface
-      name={props.name}
-      defaultHidden
-      screen={props.screen}
-      anchor={["top"]}
-      margins={[Math.round(props.screen.frame.height * 0.18), 0, 0, 0]}
-      size={{ width: props.width, height: props.height ?? "auto" }}
-      layer="overlay"
-      input="keyboard"
-      onFocus={() => {
-        query.set("");
-        selectedIndex.set(0);
-        props.onOpen?.();
-      }}
-      onBlur={close}
-      enter={{
-        from: { opacity: 0, scale: 0.95, translateY: -16 },
-        curve: { stiffness: 420, damping: 30 },
-      }}
-      exit={{
-        to: { opacity: 0, scale: 0.97, translateY: -8 },
-        duration: 120,
-        curve: "ease-in",
-      }}
-    >
-      <Box style={{ origin: [0.5, 0] }}>
-        <Box
-          style={{
-            padding: [4, 8, 10, 8],
-            background: theme.background,
-            radius: 9,
-            borderWidth: 1,
-            borderColor: "#ffffff12",
-            transition: { layout: { duration: 240, curve: [0.2, 0.9, 0.3, 1] } },
+    <Box style={{ width: "100%", padding: [0, 8, 10, 8] }}>
+      <Box style={{ flexDirection: "row", align: "center", gap: 12, padding: [12, 12] }}>
+        <Image
+          symbol="magnifyingglass"
+          size={20}
+          color={() => (query() ? theme.accent : theme.muted)}
+        />
+        <Input
+          autofocus
+          value={query}
+          placeholder={props.placeholder}
+          style={{ grow: 1, shrink: 1, width: 40, fontSize: 22, color: theme.foreground }}
+          onInput={(value) => {
+            query.set(value);
+            selectedIndex.set(0);
           }}
-        >
-          <Box
-            style={{ flexDirection: "row", align: "center", gap: 12, padding: [14, 12] }}
-          >
-            <Image
-              symbol="magnifyingglass"
-              size={20}
-              color={() => (query() ? theme.accent : theme.muted)}
-            />
-            <Input
-              autofocus
-              value={query}
-              placeholder={props.placeholder}
-              style={{ grow: 1, fontSize: 22, color: theme.foreground }}
-              onInput={(value) => {
-                query.set(value);
-                selectedIndex.set(0);
-              }}
-              onKeyDown={onKeyDown}
-            />
-          </Box>
-          <Box style={{ height: 1, background: "#ffffff10" }} />
-          {() => props.middle?.(ctx) ?? null}
-          {props.heading ? (
-            <Box style={{ padding: [10, 12, 6, 12] }}>
-              <Text style={{ fontSize: 10, fontWeight: "bold", color: theme.muted }}>
-                {() => props.heading!(ctx)}
-              </Text>
-            </Box>
-          ) : null}
-          <Box style={{ gap: 2 }}>
-            <For each={results} key={(entry) => entry.item.id}>
-              {(entry, index) => {
-                const id = entry().item.id;
-                onCleanup(() => rows.delete(id));
-                return (
-                  <Row
-                    entry={entry}
-                    index={index}
-                    selected={() => selectedIndex() === index()}
-                    compact={!!props.compact}
-                    ref={(node) => rows.set(id, node)}
-                    onHover={() => selectedIndex.set(index())}
-                    onClick={() => {
-                      selectedIndex.set(index());
-                      choose(entry());
-                    }}
-                  />
-                );
-              }}
-            </For>
-            {() => (results().length ? null : Empty())}
-          </Box>
-          <Box
-            style={{
-              flexDirection: "row",
-              align: "center",
-              gap: 14,
-              padding: [12, 12, 2, 12],
-            }}
-          >
-            {Hint("↑↓", "select")}
-            {Hint("↵", props.enterHint ?? "open")}
-            {() =>
-              (selected()?.actions ?? []).map((action) => Hint(action.label, action.hint))
-            }
-            {(props.keys ?? []).map((binding) => Hint(binding.label, binding.hint))}
-            {Hint("esc", "clear / close")}
-            <Box style={{ grow: 1 }} />
-            {props.status === undefined ? null : (
-              <Text style={{ fontSize: 11, color: theme.muted }}>{props.status}</Text>
-            )}
-          </Box>
-        </Box>
+          onKeyDown={onKeyDown}
+        />
+        {props.accessory ?? null}
       </Box>
-    </Surface>
+      <Box style={{ height: 1, background: "#ffffff10" }} />
+      {() => props.middle?.(ctx) ?? null}
+      {props.heading ? (
+        <Box style={{ padding: [10, 12, 6, 12] }}>
+          <Text style={{ fontSize: 10, fontWeight: "bold", color: theme.muted }}>
+            {() => props.heading!(ctx)}
+          </Text>
+        </Box>
+      ) : null}
+      <Box style={{ gap: 2 }}>
+        <For each={results} key={(entry) => entry.item.id}>
+          {(entry, index) => {
+            const id = entry().item.id;
+            onCleanup(() => rows.delete(id));
+            return (
+              <Row
+                entry={entry}
+                index={index}
+                selected={() => selectedIndex() === index()}
+                compact={!!props.compact}
+                ref={(node) => rows.set(id, node)}
+                onHover={() => selectedIndex.set(index())}
+                onClick={() => {
+                  selectedIndex.set(index());
+                  choose(entry());
+                }}
+              />
+            );
+          }}
+        </For>
+        {() => (results().length ? null : Empty())}
+      </Box>
+      <Box
+        style={{
+          flexDirection: "row",
+          align: "center",
+          gap: 14,
+          padding: [12, 12, 2, 12],
+        }}
+      >
+        {Hint("↑↓", "select")}
+        {Hint("↵", props.enterHint ?? "open")}
+        {() =>
+          (selected()?.actions ?? []).map((action) => Hint(action.label, action.hint))
+        }
+        {(props.keys ?? []).map((binding) => Hint(binding.label, binding.hint))}
+        {Hint("esc", "clear / close")}
+        <Box style={{ grow: 1 }} />
+        {props.status === undefined ? null : (
+          <Text style={{ fontSize: 11, color: theme.muted }}>{props.status}</Text>
+        )}
+      </Box>
+    </Box>
   );
 }
