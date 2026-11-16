@@ -61,6 +61,8 @@
           bruno
           ghostty
           helium-browser
+          motrix
+          notproton
           openusage
           shottr
           the-unarchiver
@@ -86,12 +88,13 @@
             };
           }))
 
-          (boosteroid.overrideAttrs (oldAttrs: {
-            src = pkgs.fetchurl {
-              url = builtins.head oldAttrs.src.urls;
-              hash = "sha256-1fVvcAuK1Ww88TwNcaBurDDXh26zNw9CROFpwFVAn7Y=";
-            };
-          }))
+          (claude.overrideAttrs {
+            # brew-nix adds a bin/claude wrapper that launches the desktop app,
+            # which shadows Claude Code from llm-agents. Keep only the bundle.
+            postFixup = ''
+              rm -rf $out/bin
+            '';
+          })
 
           (docker-desktop.overrideAttrs {
             # brew-nix ignores the cask's binary stanzas and only wraps the
@@ -100,14 +103,6 @@
               rm -rf $out/bin
               mkdir -p $out/bin
               ln -s $out/Applications/Docker.app/Contents/Resources/bin/* $out/bin/
-            '';
-          })
-
-          (claude.overrideAttrs {
-            # brew-nix adds a bin/claude wrapper that launches the desktop app,
-            # which shadows Claude Code from llm-agents. Keep only the bundle.
-            postFixup = ''
-              rm -rf $out/bin
             '';
           })
         ];
@@ -119,8 +114,9 @@
           packages =
             with pkgs;
             [
-              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
+              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.kimi-code
+              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
               inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.herdr
 
               nh

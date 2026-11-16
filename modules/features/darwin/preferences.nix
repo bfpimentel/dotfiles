@@ -47,6 +47,8 @@
             wvous-tr-corner = 1;
             wvous-bl-corner = 1;
             wvous-br-corner = 1;
+
+            minimize-to-application = true;
           };
 
           finder = {

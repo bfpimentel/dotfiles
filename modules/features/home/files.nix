@@ -51,6 +51,7 @@
             "halo"
             "herdr"
             "pi"
+            "rex"
             "tuna"
           ];
       }

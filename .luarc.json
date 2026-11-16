@@ -2,5 +2,8 @@
   "diagnostics.disable": [],
   "workspace.ignoreDir": [
     "tmux/plugins"
-  ]
+  ],
+    "diagnostics.globals": [
+        "rex"
+    ]
 }

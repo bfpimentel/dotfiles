@@ -19,9 +19,6 @@
     "nixos": {
       "command": "uvx",
       "args": ["mcp-nixos"]
-    },
-    "open-pencil": {
-      "command": "openpencil-mcp"
     }
   }
 }

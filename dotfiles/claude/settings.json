@@ -4,5 +4,9 @@
   },
   "theme": "custom:gruvbox-material-soft",
   "editorMode": "vim",
-  "agentPushNotifEnabled": true
+  "switchModelsOnFlag": false,
+  "agentPushNotifEnabled": true,
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_CODE_MODE": "1"
+  }
 }
